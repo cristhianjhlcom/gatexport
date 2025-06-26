@@ -1,0 +1,32 @@
+<?php
+
+namespace Database\Factories;
+
+use App\Enums\ProductStatusEnum;
+use App\Models\Subcategory;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
+ */
+class ProductFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition(): array
+    {
+        $subcategory = Subcategory::all();
+
+        return [
+            'id' => fake()->uuid(),
+            'name' => $name = fake()->sentence(3),
+            'slug' => str()->slug($name),
+            'status' => fake()->randomElement(array_values(ProductStatusEnum::cases())),
+            'subcategory_id' => $subcategory->random()->id,
+            'description' => fake()->paragraph(),
+        ];
+    }
+}
