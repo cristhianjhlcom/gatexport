@@ -1,14 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
-use App\Models\Category;
 use App\Models\Subcategory;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
-class SubcategorySeeder extends Seeder
+final class SubcategorySeeder extends Seeder
 {
     /**
      * Run the database seeds.

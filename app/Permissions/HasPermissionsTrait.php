@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Permissions;
 
 use App\Models\Permission;
@@ -39,31 +41,10 @@ trait HasPermissionsTrait
         return $this->givePermissionTo($permissions);
     }
 
-    protected function hasPermission($permission)
-    {
-        return (bool) $this->permissions->where('name', $permission->name)->count();
-    }
-
     public function hasPermissionTo($permission): bool
     {
         // has permissions throught roles.
         return $this->hasPermissionThroughRole($permission) || $this->hasPermission($permission);
-    }
-
-    protected function getAllPermissions(array $permissions)
-    {
-        return Permission::whereIn('name', $permissions);
-    }
-
-    protected function hasPermissionThroughRole($permission): bool
-    {
-        foreach ($permission->roles as $role) {
-            if ($this->roles()->where('name', $role->name)->exists()) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     public function hasRole(...$roles)
@@ -85,5 +66,26 @@ trait HasPermissionsTrait
     public function permissions(): BelongsToMany
     {
         return $this->belongsToMany(Permission::class, 'users_permissions');
+    }
+
+    protected function hasPermission($permission)
+    {
+        return (bool) $this->permissions->where('name', $permission->name)->count();
+    }
+
+    protected function getAllPermissions(array $permissions)
+    {
+        return Permission::whereIn('name', $permissions);
+    }
+
+    protected function hasPermissionThroughRole($permission): bool
+    {
+        foreach ($permission->roles as $role) {
+            if ($this->roles()->where('name', $role->name)->exists()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

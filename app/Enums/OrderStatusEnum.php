@@ -13,6 +13,11 @@ enum OrderStatusEnum: string
     case CANCELLED = 'cancelled';
     case COMPLETED = 'completed';
 
+    public static function values(): array
+    {
+        return array_column(self::cases(), 'value');
+    }
+
     public function label(): string
     {
         return match ($this) {
@@ -23,11 +28,6 @@ enum OrderStatusEnum: string
             self::CANCELLED => __('Cancelled'), // NOTE: Cancelada por el manager.
             self::COMPLETED => __('Completed'), // NOTE: Finalizada con éxito.
         };
-    }
-
-    public static function values(): array
-    {
-        return array_column(self::cases(), 'value');
     }
 
     public function color(): string

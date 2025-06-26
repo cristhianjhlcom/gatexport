@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Auth;
 
 use Illuminate\Contracts\View\View;
@@ -8,7 +10,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
 
 #[Layout('layouts.guest')]
-class ForgotPassword extends Component
+final class ForgotPassword extends Component
 {
     public string $email = '';
 
@@ -28,7 +30,7 @@ class ForgotPassword extends Component
             $this->only('email')
         );
 
-        if ($status != Password::RESET_LINK_SENT) {
+        if ($status !== Password::RESET_LINK_SENT) {
             $this->addError('email', __($status));
 
             return;
