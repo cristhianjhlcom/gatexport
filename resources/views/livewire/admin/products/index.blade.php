@@ -24,14 +24,14 @@
       <flux:table.rows>
         @foreach ($products as $product)
           <flux:table.row key="{{ $product->id }}">
-            <flux:table.cell class="flex items-center gap-3">
+            <flux:table.cell class="flex items-center gap-3 text-wrap">
               <flux:avatar name="{{ $product->name }}" />
-              {{ str()->words($product->name, 2) }}
+              {{ str()->words($product->name, 3) }}
             </flux:table.cell>
             <flux:table.cell class="text-center">
               {{ $product->specifications_count }}
             </flux:table.cell>
-            <flux:table.cell>
+            <flux:table.cell class="text-wrap">
               {{ str()->limit($product->description, 100) }}
             </flux:table.cell>
             <flux:table.cell>

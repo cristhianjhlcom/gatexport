@@ -45,25 +45,25 @@
     <flux:navlist variant="outline">
       <flux:navlist.item href="{{ route('home.index') }}" icon="home">{{ __('Home') }}</flux:navlist.item>
       <flux:navlist.item
-        badge="{{ $usersCount }}"
-        href="{{ route('admin.users.index') }}"
-        icon="user"
-      >
-        {{ __('Users') }}
-      </flux:navlist.item>
-      <flux:navlist.item
         badge="0"
         href="{{ route('admin.orders.index') }}"
-        icon="user"
+        icon="wallet"
       >
         {{ __('Orders') }}
       </flux:navlist.item>
       <flux:navlist.item
         badge="0"
         href="{{ route('admin.products.index') }}"
-        icon="user"
+        icon="cube"
       >
         {{ __('Products') }}
+      </flux:navlist.item>
+      <flux:navlist.item
+        badge="{{ $usersCount }}"
+        href="{{ route('admin.users.index') }}"
+        icon="user"
+      >
+        {{ __('Users') }}
       </flux:navlist.item>
     </flux:navlist>
     <flux:spacer />
