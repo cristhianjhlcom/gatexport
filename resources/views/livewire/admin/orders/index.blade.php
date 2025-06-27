@@ -1,34 +1,18 @@
 <div class="space-y-4">
-    <flux:heading>{{ __('Users Management') }}</flux:heading>
-    <flux:text class="mt-2">{{ __('Manage users of the system.') }}</flux:text>
+    <flux:heading>{{ __('Orders Management') }}</flux:heading>
+    <flux:text class="mt-2">{{ __('Manage order of the system.') }}</flux:text>
     <flux:separator />
 
     <div class="flex flex-col space-y-4">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            {{--
-            <!-- NOTE: Barra de búsqueda -->
-            <div class="flex-1 max-w-md">
-                <flux:input wire:model.live.debounce.300ms="search" icon="magnifying-glass" placeholder="{{ __('Search') }}..." />
-            </div>
-            --}}
             <flux:button.group>
-                {{--
-                <!-- NOTE: Botón de filtros -->
-                <flux:button wire:click="$toggle('showFilters')" icon="funnel">
-                    {{ __('Filters') }}
-                </flux:button>
-                <!-- NOTE: Botón para mostrar/ocultar eliminados -->
-                <flux:button wire:click="toggleTrashed" icon="eye">
-                    {{ __('Show/Hide Trashed') }}
-                </flux:button>
-                --}}
-                <flux:button href="{{ route('admin.users.create') }}" icon="plus">
-                    {{ __('Add User') }}
+                <div></div>
+                <flux:button href="{{ route('admin.orders.create') }}" icon="plus">
+                    {{ __('Add Product') }}
                 </flux:button>
             </flux:button.group>
         </div>
 
-    {{-- NOTE: Table to list all users. --}}
     <flux:table :paginate="$users">
         <flux:table.columns>
             <flux:table.column>{{ __('Customer') }}</flux:table.column>

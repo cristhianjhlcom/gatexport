@@ -33,6 +33,11 @@ final class Product extends Model
         ];
     }
 
+    public function createdAtHuman(): string
+    {
+        return $this->created_at->locale('es')->diffForHumans();
+    }
+
     public function subcategory(): BelongsTo
     {
         return $this->belongsTo(Subcategory::class);
