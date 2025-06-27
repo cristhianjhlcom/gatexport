@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Admin\Products;
 
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
 #[Layout('layouts.admin')]
-class ProductShowManagement extends Component
+final class ProductShowManagement extends Component
 {
     public function render()
     {

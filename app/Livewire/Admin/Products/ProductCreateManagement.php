@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Admin\Products;
 
 use App\Enums\ProductStatusEnum;
@@ -10,7 +12,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Component;
 
 #[Layout('layouts.admin')]
-class ProductCreateManagement extends Component
+final class ProductCreateManagement extends Component
 {
     public ProductManagementForm $form;
 
@@ -22,7 +24,7 @@ class ProductCreateManagement extends Component
     public function updatedFormSelectedCategoryId(string $categoryId)
     {
         $this->form->subcategories = Subcategory::where('category_id', $categoryId)->get();
-        $this->form->selectedSubcategoryId = NULL;
+        $this->form->selectedSubcategoryId = null;
     }
 
     public function render()

@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Admin\Orders;
 
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
 #[Layout('layouts.admin')]
-class OrderEditManagement extends Component
+final class OrderEditManagement extends Component
 {
     public function render()
     {
