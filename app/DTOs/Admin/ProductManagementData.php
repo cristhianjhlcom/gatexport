@@ -6,7 +6,7 @@ namespace App\DTOs\Admin;
 
 use App\Enums\ProductStatusEnum;
 
-readonly class ProductManagementData
+final readonly class ProductManagementData
 {
     public function __construct(
         public string $name,

@@ -7,7 +7,6 @@ namespace App\Livewire\Forms\Admin;
 use App\Enums\ProductStatusEnum;
 use App\Models\Category;
 use App\Models\Product;
-use Illuminate\Support\Collection;
 use Livewire\Form;
 
 // NOTE: https://www.youtube.com/watch?v=pfSjRcudZVA
@@ -93,7 +92,9 @@ final class ProductManagementForm extends Form
 
     public function addSpecification()
     {
-        if (count($this->specifications) >= 5) return;
+        if (count($this->specifications) >= 5) {
+            return;
+        }
 
         $this->specifications[] = [
             'id' => count($this->specifications) + 1,

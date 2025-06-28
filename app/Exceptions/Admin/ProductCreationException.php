@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Exceptions\Admin;
 
 use Exception;
 
-class ProductCreationException extends Exception
+final class ProductCreationException extends Exception
 {
     //
 }
