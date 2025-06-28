@@ -16,10 +16,14 @@ final class Product extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id',
         'name',
         'slug',
         'description',
+        'seo_title',
+        'seo_description',
         'status',
+        'category_id',
         'subcategory_id',
     ];
 

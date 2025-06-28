@@ -45,7 +45,7 @@
           />
         </flux:card>
 
-        <flux:card>
+        <flux:card class="space-y-4">
           <flux:field>
             <flux:label>{{ __('Media') }}</flux:label>
             <flux:description>
@@ -59,6 +59,21 @@
             />
             <flux:errorname="form.image" />
           </flux:field>
+
+          @if ($form->images)
+            <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
+              @foreach ($form->images as $image)
+                <div>
+                  <img class="h-[100px] w-[100px] rounded-lg object-contain" src="{{ $image->temporaryUrl() }}">
+                  <flux:button
+                    icon="x-mark"
+                    variant="subtle"class="absolute right-2 top-2"
+                    wire:click="removeImage({{ $loop->index }})"
+                  />
+                </div>
+              @endforeach
+            </div>
+          @endif
         </flux:card>
 
         <flux:card class="space-y-4">
@@ -81,7 +96,20 @@
                       {{ __('Fill the form below to add a new specification.') }}
                     </flux:text>
                   </div>
-                  Specifications
+                  <flux:input
+                    autocomplete="off"
+                    id="specification-key"
+                    placeholder="{{ __('Weight') }}"
+                    type="text"
+                    wire:model.lazy="form.specificationKey"
+                  />
+                  <flux:input
+                    autocomplete="off"
+                    id="specification-value"
+                    placeholder="{{ __('10 KG') }}"
+                    type="text"
+                    wire:model.lazy="form.specificationValue"
+                  />
                   <div class="flex">
                     <flux:spacer />
                     <flux:button
@@ -104,16 +132,19 @@
             </flux:table.columns>
 
             <flux:table.rows>
-              <flux:table.row>
-                @forelse ($form->specifications as $key => $value)
-                  <flux:table.cell>{{ $key }}</flux:table.cell>
-                  <flux:table.cell>{{ $value }}</flux:table.cell>
-                @empty
+              @forelse ($form->specifications as $spec)
+                <flux:table.row key="{{ $spec['id'] }}">
+                  <flux:table.cell>#{{ $spec['id'] }}</flux:table.cell>
+                  <flux:table.cell>{{ $spec['key'] }}</flux:table.cell>
+                  <flux:table.cell>{{ $spec['value'] }}</flux:table.cell>
+                </flux:table.row>
+              @empty
+                <flux:table.row>
                   <flux:table.cell colspan="3">
                     {{ __('No specifications') }}
                   </flux:table.cell>
-                @endforelse
-              </flux:table.row>
+                </flux:table.row>
+              @endforelse
             </flux:table.rows>
           </flux:table>
 
