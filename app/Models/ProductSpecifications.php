@@ -10,9 +10,20 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 final class ProductSpecifications extends Model
 {
     protected $fillable = [
+        'product_id',
         'key',
         'value',
     ];
+
+    public function casts(): array
+    {
+        return [
+            'key' => 'string',
+            'value' => 'string',
+            'created_at' => 'datetime',
+            'updated_at' => 'datetime',
+        ];
+    }
 
     public function product(): BelongsTo
     {

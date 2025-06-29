@@ -23,7 +23,6 @@ final class ProductFactory extends Factory
         $subcategory = Subcategory::all();
 
         return [
-            'id' => fake()->uuid(),
             'name' => $name = fake()->sentence(3),
             'slug' => str()->slug($name),
             'status' => fake()->randomElement(array_values(ProductStatusEnum::cases())),

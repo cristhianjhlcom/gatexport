@@ -12,26 +12,24 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 final class Product extends Model
 {
-    /** @use HasFactory<\Database\Factories\ProductFactory> */
     use HasFactory;
 
     protected $fillable = [
-        'id',
         'name',
         'slug',
         'description',
         'seo_title',
         'seo_description',
         'status',
-        'category_id',
         'subcategory_id',
     ];
 
     public function casts(): array
     {
         return [
-            'id' => 'string',
             'status' => ProductStatusEnum::class,
+            'images' => ProductImages::class,
+            'specifications' => ProductSpecifications::class,
             'created_at' => 'datetime',
             'updated_at' => 'datetime',
         ];

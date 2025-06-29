@@ -14,6 +14,7 @@ final class ProductIndexManagement extends Component
     public function render()
     {
         $products = Product::with(['images', 'subcategory', 'specifications'])
+            ->latest()
             ->withCount('specifications')
             ->paginate(10);
 

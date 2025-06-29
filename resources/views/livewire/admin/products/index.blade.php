@@ -32,7 +32,7 @@
               {{ $product->specifications_count }}
             </flux:table.cell>
             <flux:table.cell class="text-wrap">
-              {{ str()->limit($product->description, 100) }}
+              {!! str()->limit($product->description, 100) !!}
             </flux:table.cell>
             <flux:table.cell>
               <flux:badge color="{{ $product->status->color() }}">

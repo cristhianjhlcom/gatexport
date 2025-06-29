@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Admin\ImageUploadAction;
 use App\Livewire\Admin\Orders\OrderCreateManagement;
 use App\Livewire\Admin\Orders\OrderEditManagement;
 use App\Livewire\Admin\Orders\OrderIndexManagement;
@@ -34,4 +35,6 @@ Route::group(['middleware' => 'role:super_admin|manager'], function () {
     Route::get('products/create', ProductCreateManagement::class)->name('products.create');
     Route::get('products/{user}', ProductShowManagement::class)->name('products.show');
     Route::get('products/{user}/edit', ProductEditManagement::class)->name('products.edit');
+
+    Route::post('images/upload', ImageUploadAction::class)->name('images.upload');
 });

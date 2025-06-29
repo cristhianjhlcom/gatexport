@@ -11,31 +11,37 @@
     </div>
   </div>
 
-  <form class="space-y-4" wire:submit.prevent="save">
+  <form
+    class="space-y-4"
+    enctype="multipart/form-data"
+    wire:submit.prevent="save"
+  >
     <div class="flex flex-col gap-x-4 md:flex-row md:items-start md:justify-between">
       <div class="w-full space-y-4 md:w-2/3">
         {{-- Product Content --}}
         <flux:card class="space-y-4">
-          {{ $form->name }}
           <flux:field>
             <flux:input
               autocomplete="off"
               id="name"
               placeholder="{{ __('Product Name') }}"
               type="text"
-              wire:model.live='form.name'
+              wire:model.blur='form.name'
             />
             <flux:error name="form.name" />
           </flux:field>
-          <flux:input.group>
-            <flux:input.group.prefix>{{ env('APP_URL') }}/products/</flux:input.group.prefix>
-            <flux:input
-              id="slug"
-              placeholder="{{ __('gold-ring') }}"
-              readonly
-              wire:model.defer='form.slug'
-            />
-          </flux:input.group>
+          <flux:field>
+            <flux:input.group>
+              <flux:input.group.prefix>{{ env('APP_URL') }}</flux:input.group.prefix>
+              <flux:input
+                id="slug"
+                placeholder="{{ __('gold-ring') }}"
+                readonly
+                wire:model='form.slug'
+              />
+            </flux:input.group>
+            <flux:error name="form.slug" />
+          </flux:field>
           <flux:editor
             badge="Optional"
             description:trailing="Short description about the product, must be at most 500 characters."
@@ -45,35 +51,21 @@
           />
         </flux:card>
 
+        {{-- <livewire:shared.dropzone /> --}}
+
         <flux:card class="space-y-4">
           <flux:field>
-            <flux:label>{{ __('Media') }}</flux:label>
+            <flux:label>{{ __('Images') }}</flux:label>
             <flux:description>
               {{ __('Formats: PNG, JPG, WebP - Max dimensions: 1000x1000 (1:1) - Max size: 4.5 MB') }}
             </flux:description>
-            <flux:input
-              accept="image/*"
-              multiple
-              type="file"
-              wire:model.lazy="form.images"
-            />
-            <flux:errorname="form.image" />
-          </flux:field>
 
-          @if ($form->images)
-            <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
-              @foreach ($form->images as $image)
-                <div>
-                  <img class="h-[100px] w-[100px] rounded-lg object-contain" src="{{ $image->temporaryUrl() }}">
-                  <flux:button
-                    icon="x-mark"
-                    variant="subtle"class="absolute right-2 top-2"
-                    wire:click="removeImage({{ $loop->index }})"
-                  />
-                </div>
-              @endforeach
+            {{-- Dropzone como div, no como form --}}
+            <div class="dropzone w-full rounded border-2 border-dashed bg-gray-400" id="product-dropzone">
             </div>
-          @endif
+
+            <flux:error name="form.uploadedImages" />
+          </flux:field>
         </flux:card>
 
         <flux:card class="space-y-4">
@@ -137,6 +129,13 @@
                   <flux:table.cell>#{{ $spec['id'] }}</flux:table.cell>
                   <flux:table.cell>{{ $spec['key'] }}</flux:table.cell>
                   <flux:table.cell>{{ $spec['value'] }}</flux:table.cell>
+                  <flux:table.cell>
+                    <flux:button
+                      icon="x-mark"
+                      variant="subtle"
+                      wire:click="removeSpecification({{ $spec['id'] }})"
+                    />
+                  </flux:table.cell>
                 </flux:table.row>
               @empty
                 <flux:table.row>
@@ -147,8 +146,20 @@
               @endforelse
             </flux:table.rows>
           </flux:table>
-
+          @error('form.specifications')
+            <small class="text-red-500">{{ $message }}</small>
+          @enderror
+          @for ($idx = 0; $idx < $form->specificationsCount; $idx++)
+            @php($spec = $form->specifications[$idx])
+            @error('form.specifications.' . $idx . '.key')
+              <small class="text-red-500">{{ $message }}</small>
+            @enderror
+            @error('form.specifications.' . $idx . '.value')
+              <small class="text-red-500">{{ $message }}</small>
+            @enderror
+          @endfor
         </flux:card>
+
         <div>
           <flux:button type="submit" variant="primary">
             {{ __('Save') }}
@@ -192,20 +203,34 @@
         </flux:card>
 
         <flux:card class="space-y-4">
-          <flux:input
-            label="{{ __('Seo Title') }}"
-            name="form.seo_title"
-            placeholder="Pretty Title 📦"
-            type="text"
-            wire:model="form.seo_title"
-          />
-          <flux:textarea
-            label="{{ __('Seo Description') }}"
-            name="form.seo_description"
-            placeholder="Descripción para los buscadores como Google, Bing, etc."
-            rows="2"
-            wire:model="form.seo_description"
-          />
+          <flux:field>
+            <flux:label>{{ __('Seo Title') }}</flux:label>
+            <flux:input
+              autocomplete="off"
+              id="seo_title"
+              placeholder="{{ __('Pretty Title 📦') }}"
+              type="text"
+              wire:model.lazy="form.seo_title"
+            />
+            <flux:description>
+              {{ __('Max characters 60 ') }}
+            </flux:description>
+            <flux:error name="form.seo_title" />
+          </flux:field>
+          <flux:field>
+            <flux:label>{{ __('Seo Description') }}</flux:label>
+            <flux:textarea
+              autocomplete="off"
+              id="seo_description"
+              placeholder="{{ __('Descripción para los buscadores como Google, Bing, etc.') }}"
+              rows="2"
+              wire:model.lazy="form.seo_description"
+            />
+            <flux:description>
+              {{ __('Max characters 160 ') }}
+            </flux:description>
+            <flux:error name="form.seo_description" />
+          </flux:field>
         </flux:card>
       </div>
     </div>

@@ -4,6 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="{{ csrf_token() }}" name="csrf-token">
 
   <title>{{ $title ?? __('Adminitration') }}</title>
 
@@ -108,6 +109,7 @@
     {{ $slot }}
   </flux:main>
   <flux:toast />
+
   @fluxScripts
 </body>
 

@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace App\Livewire\Admin\Products;
 
-use App\DTOs\Admin\ProductManagementData;
 use App\Enums\ProductStatusEnum;
 use App\Exceptions\Admin\ProductCreationException;
 use App\Livewire\Forms\Admin\ProductManagementForm;
 use App\Models\Category;
 use App\Models\ProductSpecifications;
 use App\Models\Subcategory;
-use App\Services\Admin\ProductManagementServices;
 use Flux\Flux;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -24,38 +22,46 @@ final class ProductCreateManagement extends Component
 
     public ProductManagementForm $form;
 
-    private ProductManagementServices $services;
+    // private ProductManagementServices $services;
 
     public function mount()
     {
-        $this->services = app(ProductManagementServices::class);
+        // $this->services = app(ProductManagementServices::class);
+        $this->form->loadCategories();
     }
 
     public function save()
     {
         // $this->authorize('create', Product::class);
-        $this->form->validate();
+
         try {
             /*
             $productData = ProductManagementData::fromForm($this->form);
             $this->services->create($productData);
             */
-            $this->form->create();
+            $this->form->store();
             $this->form->reset();
+
             Flux::toast(
                 heading: __('Product Created'),
                 text: __('Product has been created successfully.'),
                 variant: 'success',
             );
+
             $this->redirect(route('admin.products.index'), navigate: true);
         } catch (ProductCreationException $exception) {
             report($exception);
             Flux::toast(
                 heading: __('Something went wrong'),
-                text: __('Error while saving product: ').$exception->getMessage(),
+                text: __('Error while saving product: ') . $exception->getMessage(),
                 variant: 'error',
             );
         }
+    }
+
+    public function updatedFormName(string $name)
+    {
+        $this->form->slug = str()->slug($name);
     }
 
     public function updatedFormSelectedCategoryId(string $categoryId)

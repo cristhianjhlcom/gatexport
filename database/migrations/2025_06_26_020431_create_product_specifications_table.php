@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('key');
             $table->string('value');
-            $table->foreignUuid('product_id')
+            $table->foreignId('product_id')
                 ->constrained()
                 ->cascadeOnDelete();
             $table->timestamps();

@@ -1,5 +1,6 @@
-@import 'tailwindcss';
-@import '../../vendor/livewire/flux/dist/flux.css';
+@import "tailwindcss";
+@import "../../vendor/livewire/flux/dist/flux.css";
+@import "./dropzone.min.css";
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -8,4 +9,10 @@
 
 @theme {
     --font-sans: Inter, sans-serif;
+}
+
+.dropzone {
+    min-height: 150px;
+    border: 1px dashed #bbbbbb;
+    /* background-color: #f1f1f1; */
 }
