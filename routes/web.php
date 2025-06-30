@@ -7,9 +7,13 @@ use App\Livewire\Admin\Users\Edit as AdminEditUser;
 use App\Livewire\Admin\Users\Index as AdminIndexUser;
 use App\Livewire\Admin\Users\Show as AdminShowUser;
 use App\Livewire\Public\Catalog\Index as PublicIndexCatalog;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', PublicIndexCatalog::class)->name('home.index');
+Route::get('/logs', function () {
+    Log::info('Test');
+});
 
 Route::group(['middleware' => 'role:super_admin|manager'], function () {
     // NOTE: Users Management.

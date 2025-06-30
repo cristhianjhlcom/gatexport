@@ -10,6 +10,7 @@ use App\Models\Product;
 use App\Models\ProductImages;
 use App\Models\ProductSpecifications;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
@@ -46,7 +47,7 @@ final class ProductManagementForm extends Form
 
     public $subcategories;
 
-    public array $uploadedImages = [];
+    public array $images = [];
 
     public array $specifications = [];
 
@@ -57,18 +58,6 @@ final class ProductManagementForm extends Form
     public string $specificationValue = '';
 
     public int $specificationsCount = 0;
-
-    public function imageUploaded($imageData)
-    {
-        $this->uploadedImages[] = $imageData;
-    }
-
-    public function imageRemoved($filename)
-    {
-        $this->uploadedImages = array_filter($this->uploadedImages, function ($img) use ($filename) {
-            return $img['filename'] !== $filename;
-        });
-    }
 
     public function rules(): array
     {
@@ -81,9 +70,9 @@ final class ProductManagementForm extends Form
             'status' => 'required',
             'selectedCategoryId' => 'required|exists:categories,id',
             'selectedSubcategoryId' => 'required|exists:subcategories,id',
+            /*
             'uploadedImages' => 'array|min:1|max:4',
             'uploadedImages.*' => 'image|max:4500|dimensions:min_width=1000,min_height=1000,max_width=1000,max_height=1000',
-            /*
             'specifications' => 'array|max:5',
             'specifications.*.key' => 'required|string|max:50',
             'specifications.*.value' => 'required|string|max:255',
@@ -98,9 +87,9 @@ final class ProductManagementForm extends Form
             'selectedCategoryId.exists' => __('Category does not exist'),
             'selectedSubcategoryId.required' => __('Should select a subcategory'),
             'selectedSubcategoryId.exists' => __('Subcategory does not exist'),
+            /*
             'uploadedImages.*.max' => __('Each image must not exceed 4.5MB'),
             'uploadedImages.*.dimensions' => __('Images must be 1000x1000 pixels'),
-            /*
             'specifications.*.key.required' => __('Specification key is required'),
             'specifications.*.value.required' => __('Specification value is required'),
             */
@@ -108,7 +97,7 @@ final class ProductManagementForm extends Form
     }
 
     /*
-    public function fillData(Product $product): void
+    public function setProduct(Product $product): void
     {
         $this->name = $product->name;
         $this->slug = $product->slug;
@@ -154,7 +143,6 @@ final class ProductManagementForm extends Form
 
     public function store()
     {
-        dd($this->uploadedImages);
         $this->validate();
 
         DB::transaction(function () {
@@ -170,7 +158,7 @@ final class ProductManagementForm extends Form
             ]);
 
             // NOTE: Add images to the product.
-            foreach ($this->uploadedImages as $image) {
+            foreach ($this->images as $image) {
                 ProductImages::create([
                     'product_id' => $product->id,
                     'filename' => $image['filename'],

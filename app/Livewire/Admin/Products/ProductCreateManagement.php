@@ -11,6 +11,7 @@ use App\Models\Category;
 use App\Models\ProductSpecifications;
 use App\Models\Subcategory;
 use Flux\Flux;
+use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -28,6 +29,23 @@ final class ProductCreateManagement extends Component
     {
         // $this->services = app(ProductManagementServices::class);
         $this->form->loadCategories();
+    }
+
+    // NOTE: Se debe usar los events en el componente y no en el forms.
+    #[\Livewire\Attributes\On('imageUploaded')]
+    public function imageUploaded($image)
+    {
+        Log::info('image uploaded', $image);
+        $this->form->images[] = $image;
+        Log::info('current images', $this->form->images);
+    }
+
+    #[\Livewire\Attributes\On('imageRemoved')]
+    public function imageRemoved($filename)
+    {
+        $this->form->images = array_filter($this->form->images, function ($img) use ($filename) {
+            return $img['filename'] !== $filename;
+        });
     }
 
     public function save()

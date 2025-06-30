@@ -55,7 +55,7 @@
 
         <flux:card class="space-y-4">
           <flux:field>
-            <flux:label>{{ __('Images') }}</flux:label>
+            <flux:label>{{ __('Images') }} ({{ count($form->images) }})</flux:label>
             <flux:description>
               {{ __('Formats: PNG, JPG, WebP - Max dimensions: 1000x1000 (1:1) - Max size: 4.5 MB') }}
             </flux:description>
