@@ -25,7 +25,11 @@
         @foreach ($products as $product)
           <flux:table.row key="{{ $product->id }}">
             <flux:table.cell class="flex items-center gap-3 text-wrap">
-              <flux:avatar name="{{ $product->name }}" />
+              <flux:avatar
+                name="{{ $product->name }}"
+                size="sm"
+                src="{{ $product->getFirstImageAttribute()?->path }}"
+              />
               {{ str()->words($product->name, 3) }}
             </flux:table.cell>
             <flux:table.cell class="text-center">

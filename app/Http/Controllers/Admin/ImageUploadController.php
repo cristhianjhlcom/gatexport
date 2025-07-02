@@ -4,15 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Format;
-use Intervention\Image\Laravel\Facades\Image;
+use Illuminate\Support\Facades\Log;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
-use Intervention\Image\Drivers\Gd\Encoders\WebpEncoder;
 // use Intervention\Image\EncodedImage;
 
-class ImageUploadAction extends Controller
+class ImageUploadController extends Controller
 {
     /**
      * Handle the incoming request.
@@ -30,17 +27,25 @@ class ImageUploadAction extends Controller
         });
 
         // Generar nombre único
-        // $path = public_path('uploads/tmp/' . $filename);
         $path = storage_path("app/public/uploads/tmp/{$filename}");
 
         // Guardar como WebP
         $image->toWebp(80)->save($path); // 80 = calidad
 
+        Log::info('Filed Uploaded', [
+            'filename' => $filename,
+        ]);
 
         return response()->json([
-            'image' => $filename,
+            'filename' => $filename,
+            'original_name' => $file->getClientOriginalName(),
+            'path' => $path,
+            'width' => 1000,
+            'height' => 1000,
             'size' => $file->getSize(),
-            'type' => $file->getMimeType(),
+            'mime_type' => $file->getMimeType(),
+            'order' => $request->input('order'),
+            'order' => 0,
             'extension' => $file->extension(),
         ]);
     }

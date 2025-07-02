@@ -2,7 +2,11 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\Admin\ImageUploadAction;
+use App\Http\Controllers\Admin\ImageDeleteController;
+use App\Http\Controllers\Admin\ImageUploadController;
+use App\Livewire\Admin\Categories\CategoryIndexManagement;
+use App\Livewire\Admin\Categories\Create as CategoryCreateManagement;
+use App\Livewire\Admin\Categories\CategoryEditManagement;
 use App\Livewire\Admin\Orders\OrderCreateManagement;
 use App\Livewire\Admin\Orders\OrderEditManagement;
 use App\Livewire\Admin\Orders\OrderIndexManagement;
@@ -36,5 +40,15 @@ Route::group(['middleware' => 'role:super_admin|manager'], function () {
     Route::get('products/{user}', ProductShowManagement::class)->name('products.show');
     Route::get('products/{user}/edit', ProductEditManagement::class)->name('products.edit');
 
-    Route::post('images/upload', ImageUploadAction::class)->name('images.upload');
+    // NOTE: Categories Management.
+    Route::get('categories', CategoryIndexManagement::class)->name('categories.index');
+    // Route::get('categories/create', CategoryCreateManagement::class)->name('categories.create');
+    Route::get('categories/create', CategoryCreateManagement::class)->name('categories.create');
+    Route::get('categories/{category}/edit', CategoryEditManagement::class)->name('categories.edit');
+
+    /*
+    Route::post('images/upload', ImageUploadController::class)->name('images.upload');
+    // TODO: Agregar ruta para eliminar imagen temporal
+    Route::delete('images/delete/{filename}', ImageDeleteController::class)->name('images.delete');
+    */
 });

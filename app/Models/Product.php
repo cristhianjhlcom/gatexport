@@ -28,8 +28,6 @@ final class Product extends Model
     {
         return [
             'status' => ProductStatusEnum::class,
-            'images' => ProductImages::class,
-            'specifications' => ProductSpecifications::class,
             'created_at' => 'datetime',
             'updated_at' => 'datetime',
         ];
@@ -53,5 +51,14 @@ final class Product extends Model
     public function specifications(): HasMany
     {
         return $this->hasMany(ProductSpecifications::class);
+    }
+
+    public function getFirstImageAttribute()
+    {
+        if ($this->images->isEmpty()) {
+            return null;
+        }
+
+        return $this->images->first();
     }
 }

@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImages;
 use App\Models\ProductSpecifications;
+use Illuminate\Container\Attributes\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Validate;
@@ -146,7 +147,6 @@ final class ProductManagementForm extends Form
         $this->validate();
 
         DB::transaction(function () {
-            // TODO: Averiguar por que no funciona esto.
             $product = Product::create([
                 'name' => $this->name,
                 'slug' => $this->slug,
@@ -158,18 +158,25 @@ final class ProductManagementForm extends Form
             ]);
 
             // NOTE: Add images to the product.
-            foreach ($this->images as $image) {
+            foreach ($this->images as $idx => $image) {
+                $id = $idx + 1;
+
+                // TODO: Move images to storage/app/public/uploads/products.
+                /*
+                Storage::disk('public')
+                    ->put($image['filename'], file_get_contents(storage_path('app/public/uploads/products/' . $image['filename'])));
+                */
+
                 ProductImages::create([
                     'product_id' => $product->id,
                     'filename' => $image['filename'],
-                    'original_name' => $image['originalName'],
+                    'original_name' => $image['original_name'],
                     'path' => $image['path'],
-                    'mime_type' => $image['mimeType'],
+                    'mime_type' => $image['mime_type'],
                     'size' => $image['size'],
                     'width' => $image['width'],
                     'height' => $image['height'],
-                    'order' => $image['order'],
-                    'alt_text' => $image['altText'],
+                    'order' => $id,
                 ]);
             }
 
@@ -183,6 +190,10 @@ final class ProductManagementForm extends Form
             }
 
             $product->fresh(['images', 'specifications']);
+
+            Log::info('Product created successfully', [
+                'product' => $product,
+            ]);
         });
     }
 

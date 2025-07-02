@@ -35,9 +35,8 @@ final class ProductCreateManagement extends Component
     #[\Livewire\Attributes\On('imageUploaded')]
     public function imageUploaded($image)
     {
-        Log::info('image uploaded', $image);
         $this->form->images[] = $image;
-        Log::info('current images', $this->form->images);
+        Log::info('Product current images', $this->form->images);
     }
 
     #[\Livewire\Attributes\On('imageRemoved')]

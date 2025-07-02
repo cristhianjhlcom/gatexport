@@ -21,7 +21,6 @@ final class ProductImages extends Model
         'width',
         'height',
         'order',
-        'alt_text'
     ];
 
     public function product(): BelongsTo
