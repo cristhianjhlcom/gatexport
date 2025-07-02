@@ -41,10 +41,9 @@ final class CategoryManagementForm extends Form
     public function messages(): array
     {
         return [
-            /*
             'image.max' => __('Each image must not exceed 4.5MB'),
             'image.dimensions' => __('Images must be 1000x1000 pixels'),
-            */];
+        ];
     }
 
     public function setCategory(Category $category): void
@@ -54,17 +53,12 @@ final class CategoryManagementForm extends Form
         $this->image = $category->image;
     }
 
-    public function updatedImage()
-    {
-        $this->image = $this->image->store('uploads/categories');
-    }
-
     public function updatedName(): void
     {
         $this->slug = str()->slug($this->name);
     }
 
-    public function store(): Category
+    public function store()
     {
         $this->validate();
 
@@ -74,13 +68,9 @@ final class CategoryManagementForm extends Form
             'image' => $this->image,
         ];
 
-        Log::info('Storing Category', [
-            'data' => $data,
-        ]);
-
         return DB::transaction(function () use ($data) {
             // $finalPath = $this->moveImageToStorage($data);
-            $path = $this->image->store('uploads/categories');
+            $path = $this->image->store('public/uploads/categories');
 
             $catetegory = Category::create([
                 'name' => str()->title($data['name']),
@@ -99,6 +89,7 @@ final class CategoryManagementForm extends Form
         });
     }
 
+    /*
     public function update(): Category
     {
         $this->validate();
@@ -132,6 +123,7 @@ final class CategoryManagementForm extends Form
             return $category->fresh();
         });
     }
+        */
 
     private function moveImageToStorage(array $data): string
     {

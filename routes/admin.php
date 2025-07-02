@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 use App\Http\Controllers\Admin\ImageDeleteController;
 use App\Http\Controllers\Admin\ImageUploadController;
+use App\Livewire\Admin\Categories\CategoryCreateManagement;
 use App\Livewire\Admin\Categories\CategoryIndexManagement;
-use App\Livewire\Admin\Categories\Create as CategoryCreateManagement;
 use App\Livewire\Admin\Categories\CategoryEditManagement;
 use App\Livewire\Admin\Orders\OrderCreateManagement;
 use App\Livewire\Admin\Orders\OrderEditManagement;

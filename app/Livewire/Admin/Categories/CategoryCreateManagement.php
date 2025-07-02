@@ -14,7 +14,7 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 
 #[Layout('layouts.admin')]
-final class Create extends Component
+final class CategoryCreateManagement extends Component
 {
     use WithFileUploads;
 
@@ -33,7 +33,7 @@ final class Create extends Component
 
             $this->form->reset();
 
-            $this->redirect(route('admin.categories.index'), navigate: true);
+            // $this->redirect(route('admin.categories.index'), navigate: true);
         } catch (CategoryCreationException $exception) {
             report($exception);
 
