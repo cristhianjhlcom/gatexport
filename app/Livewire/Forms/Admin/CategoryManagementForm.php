@@ -31,20 +31,20 @@ final class CategoryManagementForm extends Form
 
     protected function rules(): array
     {
-        Log::debug('Category validation', [
-            'category_id' => $this->category?->id,
-            'slug' => $this->slug
-        ]);
-
-        return [
+        $rules = [
             'name' => 'required|string|min:3|max:90',
             'slug' => [
                 'required',
                 'string',
                 Rule::unique('categories', 'slug')->ignore($this->category?->id),
             ],
-            'image' => 'nullable|image|max:4500|dimensions:min_width=1000,min_height=1000,max_width=1000,max_height=1000',
         ];
+
+        if (!is_string($this->image)) {
+            $rules['image'] = 'nullable|image|max:4500|dimensions:min_width=1000,min_height=1000,max_width=1000,max_height=1000';
+        }
+
+        return $rules;
     }
 
     public function messages(): array

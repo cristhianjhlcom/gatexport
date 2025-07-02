@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Storage;
 
 final class Subcategory extends Model
 {
@@ -18,6 +19,7 @@ final class Subcategory extends Model
         'name',
         'slug',
         'image',
+        'category_id',
     ];
 
     public function category(): BelongsTo
@@ -28,5 +30,24 @@ final class Subcategory extends Model
     public function products(): HasMany
     {
         return $this->hasMany(Product::class);
+    }
+
+    public function getImagePathAttribute(): string
+    {
+        if ($this->image) {
+            return Storage::disk('public')->url($this->image);
+        }
+
+        return '';
+    }
+
+    public function createdAtHuman(): string
+    {
+        return $this->created_at->locale('es')->diffForHumans();
+    }
+
+    public function formattedCreatedAt(): string
+    {
+        return $this->created_at->locale('es')->format('d/m/Y, H:i A');
     }
 }

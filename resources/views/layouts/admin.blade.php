@@ -67,6 +67,13 @@
         {{ __('Categories') }}
       </flux:navlist.item>
       <flux:navlist.item
+        badge="0"
+        href="{{ route('admin.subcategories.index') }}"
+        icon="folder"
+      >
+        {{ __('Sub Categories') }}
+      </flux:navlist.item>
+      <flux:navlist.item
         badge="{{ $usersCount }}"
         href="{{ route('admin.users.index') }}"
         icon="user"
