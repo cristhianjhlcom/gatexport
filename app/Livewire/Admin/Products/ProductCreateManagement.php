@@ -70,7 +70,7 @@ final class ProductCreateManagement extends Component
             report($exception);
             Flux::toast(
                 heading: __('Something went wrong'),
-                text: __('Error while saving product: ') . $exception->getMessage(),
+                text: __('Error while saving product: ').$exception->getMessage(),
                 variant: 'error',
             );
         }

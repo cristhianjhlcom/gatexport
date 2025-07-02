@@ -4,18 +4,17 @@ declare(strict_types=1);
 
 namespace App\Livewire\Forms\Admin;
 
-use Livewire\Attributes\Validate;
-use Livewire\Form;
-use App\Models\Category;
 use App\Models\Subcategory;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
+use Livewire\Attributes\Validate;
+use Livewire\Form;
 
 final class SubcategoryManagementForm extends Form
 {
-    public ?Subcategory $subcategory = NULL;
+    public ?Subcategory $subcategory = null;
 
     #[Validate]
     public string $name = '';
@@ -24,29 +23,10 @@ final class SubcategoryManagementForm extends Form
     public string $slug = '';
 
     #[Validate]
-    public $image = NULL;
+    public $image = null;
 
     #[Validate]
-    public $category_id = NULL;
-
-    protected function rules(): array
-    {
-        $rules = [
-            'name' => 'required|string|min:3|max:90',
-            'slug' => [
-                'required',
-                'string',
-                Rule::unique('subcategories', 'slug')->ignore($this->subcategory?->id),
-            ],
-            'category_id' => 'required|exists:categories,id',
-        ];
-
-        if (!is_string($this->image)) {
-            $rules['image'] = 'nullable|image|max:4500|dimensions:min_width=1000,min_height=1000,max_width=1000,max_height=1000';
-        }
-
-        return $rules;
-    }
+    public $category_id = null;
 
     public function messages(): array
     {
@@ -146,5 +126,24 @@ final class SubcategoryManagementForm extends Form
 
             return $this->subcategory->fresh();
         });
+    }
+
+    protected function rules(): array
+    {
+        $rules = [
+            'name' => 'required|string|min:3|max:90',
+            'slug' => [
+                'required',
+                'string',
+                Rule::unique('subcategories', 'slug')->ignore($this->subcategory?->id),
+            ],
+            'category_id' => 'required|exists:categories,id',
+        ];
+
+        if (! is_string($this->image)) {
+            $rules['image'] = 'nullable|image|max:4500|dimensions:min_width=1000,min_height=1000,max_width=1000,max_height=1000';
+        }
+
+        return $rules;
     }
 }

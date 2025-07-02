@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Shared;
 
 use Livewire\Component;
 
-class Dropzone extends Component
+final class Dropzone extends Component
 {
     public function render()
     {

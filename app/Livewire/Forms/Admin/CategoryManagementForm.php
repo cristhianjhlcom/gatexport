@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace App\Livewire\Forms\Admin;
 
-use Livewire\Attributes\Validate;
-use Livewire\Form;
 use App\Models\Category;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
-use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\Exceptions\DriverException;
+use Intervention\Image\ImageManager;
+use Livewire\Attributes\Validate;
+use Livewire\Form;
 
 final class CategoryManagementForm extends Form
 {
-    public ?Category $category = NULL;
+    public ?Category $category = null;
 
     #[Validate]
     public string $name = '';
@@ -27,25 +27,7 @@ final class CategoryManagementForm extends Form
     public string $slug = '';
 
     #[Validate]
-    public $image = NULL;
-
-    protected function rules(): array
-    {
-        $rules = [
-            'name' => 'required|string|min:3|max:90',
-            'slug' => [
-                'required',
-                'string',
-                Rule::unique('categories', 'slug')->ignore($this->category?->id),
-            ],
-        ];
-
-        if (!is_string($this->image)) {
-            $rules['image'] = 'nullable|image|max:4500|dimensions:min_width=1000,min_height=1000,max_width=1000,max_height=1000';
-        }
-
-        return $rules;
-    }
+    public $image = null;
 
     public function messages(): array
     {
@@ -144,13 +126,31 @@ final class CategoryManagementForm extends Form
         });
     }
 
+    protected function rules(): array
+    {
+        $rules = [
+            'name' => 'required|string|min:3|max:90',
+            'slug' => [
+                'required',
+                'string',
+                Rule::unique('categories', 'slug')->ignore($this->category?->id),
+            ],
+        ];
+
+        if (! is_string($this->image)) {
+            $rules['image'] = 'nullable|image|max:4500|dimensions:min_width=1000,min_height=1000,max_width=1000,max_height=1000';
+        }
+
+        return $rules;
+    }
+
     protected function uploadImage()
     {
         try {
             $manager = new ImageManager(new Driver());
 
             $file = $this->image;
-            $filename = str()->uuid()->toString() . '.' . $file->extension();
+            $filename = str()->uuid()->toString().'.'.$file->extension();
             $image = $manager->read($file->getPathname());
             $image->resize(1000, 1000, function ($constraint) {
                 $constraint->aspectRatio();
@@ -168,7 +168,7 @@ final class CategoryManagementForm extends Form
             ]);
 
             return $path;
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             Log::error('General Exception Uploading Category Image', [
                 'exception' => $exception,
             ]);

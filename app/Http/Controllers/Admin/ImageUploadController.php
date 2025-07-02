@@ -1,15 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
+
 // use Intervention\Image\EncodedImage;
 
-class ImageUploadController extends Controller
+final class ImageUploadController extends Controller
 {
     /**
      * Handle the incoming request.
@@ -19,7 +22,7 @@ class ImageUploadController extends Controller
         $manager = new ImageManager(new Driver());
 
         $file = $request->file('file');
-        $filename = str()->uuid()->toString() . '.' . $file->extension();
+        $filename = str()->uuid()->toString().'.'.$file->extension();
         $image = $manager->read($file->getPathname());
         $image->resize(1000, 1000, function ($constraint) {
             $constraint->aspectRatio();

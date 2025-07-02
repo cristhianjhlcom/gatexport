@@ -46,7 +46,7 @@ final class SubcategoryEditManagement extends Component
 
             Flux::toast(
                 heading: __('Something went wrong'),
-                text: __('Error while updating sub category: ') . $exception->getMessage(),
+                text: __('Error while updating sub category: ').$exception->getMessage(),
                 variant: 'error',
             );
         }

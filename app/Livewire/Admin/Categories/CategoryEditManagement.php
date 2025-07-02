@@ -8,7 +8,6 @@ use App\Exceptions\Admin\CategoryCreationException;
 use App\Livewire\Forms\Admin\CategoryManagementForm;
 use App\Models\Category;
 use Flux\Flux;
-use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -46,7 +45,7 @@ final class CategoryEditManagement extends Component
 
             Flux::toast(
                 heading: __('Something went wrong'),
-                text: __('Error while updating category: ') . $exception->getMessage(),
+                text: __('Error while updating category: ').$exception->getMessage(),
                 variant: 'error',
             );
         }

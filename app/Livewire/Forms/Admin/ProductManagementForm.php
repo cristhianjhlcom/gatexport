@@ -18,8 +18,6 @@ use Livewire\Form;
 // NOTE: https://www.youtube.com/watch?v=pfSjRcudZVA
 final class ProductManagementForm extends Form
 {
-    protected $listeners = ['imageUploaded', 'imageRemoved'];
-
     #[Validate]
     public string $name = '';
 
@@ -59,6 +57,8 @@ final class ProductManagementForm extends Form
     public string $specificationValue = '';
 
     public int $specificationsCount = 0;
+
+    protected $listeners = ['imageUploaded', 'imageRemoved'];
 
     public function rules(): array
     {
@@ -121,8 +121,8 @@ final class ProductManagementForm extends Form
 
         $this->specifications[] = [
             'id' => count($this->specifications) + 1,
-            'key' => str(trim($this->specificationKey ?? ''))->title(),
-            'value' => str(trim($this->specificationValue ?? ''))->title(),
+            'key' => str(mb_trim($this->specificationKey ?? ''))->title(),
+            'value' => str(mb_trim($this->specificationValue ?? ''))->title(),
         ];
 
         $this->specificationKey = '';
