@@ -41,22 +41,9 @@
               <flux:dropdown align="end" position="bottom">
                 <flux:button icon="ellipsis-horizontal" variant="ghost"></flux:button>
                 <flux:menu>
-                  {{-- <flux:menu.item href="{{ route('admin.products.show', $product) }}" icon="eye">
-                    {{ __('View') }}
-                  </flux:menu.item>
-                  --}}
                   <flux:menu.item href="{{ route('admin.categories.edit', $category) }}" icon="pencil">
                     {{ __('Edit') }}
                   </flux:menu.item>
-                  {{--
-                  <flux:menu.item
-                    icon="trash"
-                    variant="danger"
-                    wire:click="delete({{ $product }})"
-                    wire:confirm.prevent="{{ __('Are you sure you want to delete this product?') }}"
-                  >
-                    {{ __('Archive') }}
-                  </flux:menu.item> --}}
                 </flux:menu>
               </flux:dropdown>
             </flux:table.cell>

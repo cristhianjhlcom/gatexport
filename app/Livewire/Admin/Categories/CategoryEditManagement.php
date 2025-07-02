@@ -20,15 +20,11 @@ final class CategoryEditManagement extends Component
 {
     use WithFileUploads;
 
-    public ?Category $category = NULL;
-
     public CategoryManagementForm $form;
 
-    public function mount()
+    public function mount(Category $category)
     {
-        if ($this->category) {
-            $this->form->setCategory($this->category);
-        }
+        $this->form->setCategory($category);
     }
 
     public function save()
@@ -54,22 +50,6 @@ final class CategoryEditManagement extends Component
                 variant: 'error',
             );
         }
-    }
-
-    #[\Livewire\Attributes\On('imageUploaded')]
-    public function imageUploaded($image)
-    {
-        $this->form->image = $image;
-    }
-
-    #[\Livewire\Attributes\On('imageRemoved')]
-    public function imageRemoved($image)
-    {
-        Log::info('form state after image removed', [
-            'name' => $this->form->name,
-            'slug' => $this->form->slug,
-            'image' => $this->form->image,
-        ]);
     }
 
     public function render()

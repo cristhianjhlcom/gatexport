@@ -26,6 +26,7 @@
             <flux:input.group>
               <flux:input.group.prefix>{{ env('APP_URL') }}/categories/</flux:input.group.prefix>
               <flux:input
+                disabled
                 id="slug"
                 placeholder="{{ __('gold-ring') }}"
                 readonly
@@ -46,13 +47,18 @@
             </flux:description>
             {{-- <div class="dropzone w-full rounded border-2 border-dashed bg-gray-400" id="category-dropzone"></div> --}}
             <flux:input type="file" wire:model="form.image" />
-            @if ($form->image)
-              <img
-                alt="Image Preview"
-                class="h-10 w-10 rounded-lg object-contain"
-                src="{{ $form->image->temporaryUrl() }}"
-              />
-            @endif
+            <div class="mt-4 grid grid-cols-2 gap-x-2 md:grid-cols-4">
+              @if ($form->image)
+                <img
+                  alt="Image Preview"
+                  class="h-auto w-[200px] rounded-lg object-contain"
+                  src="{{ $form->image->temporaryUrl() }}"
+                />
+              @endif
+            </div>
+            <div wire:loading wire:target="form.image">
+              <flux:icon.loading />
+            </div>
             <flux:error name="form.image" />
           </flux:field>
         </flux:card>

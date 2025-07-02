@@ -7,9 +7,7 @@ namespace App\Livewire\Admin\Categories;
 use App\Exceptions\Admin\CategoryCreationException;
 use App\Livewire\Forms\Admin\CategoryManagementForm;
 use Flux\Flux;
-use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Layout;
-use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -33,7 +31,7 @@ final class CategoryCreateManagement extends Component
 
             $this->form->reset();
 
-            // $this->redirect(route('admin.categories.index'), navigate: true);
+            $this->redirect(route('admin.categories.index'), navigate: true);
         } catch (CategoryCreationException $exception) {
             report($exception);
 
@@ -44,24 +42,6 @@ final class CategoryCreateManagement extends Component
             );
         }
     }
-
-    /*
-    #[\Livewire\Attributes\On('imageUploaded')]
-    public function imageUploaded($image)
-    {
-        $this->form->image = $image;
-    }
-
-    #[\Livewire\Attributes\On('imageRemoved')]
-    public function imageRemoved($image)
-    {
-        Log::info('form state after image removed', [
-            'name' => $this->form->name,
-            'slug' => $this->form->slug,
-            'image' => $this->form->image,
-        ]);
-    }
-    */
 
     public function updatedFormName(string $name)
     {

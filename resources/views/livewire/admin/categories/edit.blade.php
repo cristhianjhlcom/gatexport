@@ -30,6 +30,7 @@
             <flux:input.group>
               <flux:input.group.prefix>{{ env('APP_URL') }}/categories/</flux:input.group.prefix>
               <flux:input
+                disabled
                 id="slug"
                 placeholder="{{ __('gold-ring') }}"
                 readonly
@@ -41,12 +42,41 @@
         </flux:card>
 
         {{-- Category Image Dropzone --}}
-        @livewire('admin.categories.image-upload', ['form' => $form])
+        <flux:card class="space-y-4">
+          <flux:field>
+            <flux:label>{{ __('Image') }}</flux:label>
+            <flux:description>
+              {{ __('Formats: PNG, JPG, WebP - Max dimensions: 1000x1000 (1:1) - Max size: 4.5 MB') }}
+            </flux:description>
+            <flux:input type="file" wire:model="form.image" />
+            <div class="mt-4 grid grid-cols-2 gap-x-2 md:grid-cols-4">
+              @if ($form->image)
+                @if (is_string($form->image))
+                  <img
+                    alt="Image Preview"
+                    class="h-auto w-[200px] rounded-lg object-contain"
+                    src="{{ Storage::disk('public')->url($form->image) }}"
+                  />
+                @else
+                  <img
+                    alt="Image Preview"
+                    class="h-auto w-[200px] rounded-lg object-contain"
+                    src="{{ $form->image->temporaryUrl() }}"
+                  />
+                @endif
+              @endif
+            </div>
+            <div wire:loading wire:target="form.image">
+              <flux:icon.loading />
+            </div>
+            <flux:error name="form.image" />
+          </flux:field>
+        </flux:card>
 
         {{-- Category Submit Button --}}
         <div>
           <flux:button type="submit" variant="primary">
-            @if ($form->category?->id)
+            @if ($form->category)
               {{ __('Update') }}
             @else
               {{ __('Save') }}
