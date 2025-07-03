@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 final class Order extends Model
 {
@@ -44,5 +45,19 @@ final class Order extends Model
     public function items(): HasMany
     {
         return $this->hasMany(OrderItems::class);
+    }
+
+    public function customerFullName(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->customer_firstname . ' ' . $this->customer_lastname,
+        );
+    }
+
+    public function formattedCreatedAt(string $format = 'd/m/Y, H:i A', string $locale = 'es'): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->created_at->locale($locale)->format($format),
+        );
     }
 }

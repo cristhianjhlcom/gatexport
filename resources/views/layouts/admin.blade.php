@@ -37,12 +37,15 @@
       logo="https://fluxui.dev/img/demo/dark-mode-logo.png"
       name="Acme Inc."
     />
+    {{--
     <flux:input
       as="button"
       icon="magnifying-glass"
       placeholder="{{ __('Search') }}..."
       variant="filled"
     />
+    --}}
+    <flux:separator />
     <flux:navlist variant="outline">
       <flux:navlist.item href="{{ route('home.index') }}" icon="home">{{ __('Home') }}</flux:navlist.item>
       <flux:navlist.item
