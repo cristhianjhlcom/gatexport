@@ -57,7 +57,6 @@ final class ProductCreateManagement extends Component
             $this->services->create($productData);
             */
             $this->form->store();
-            $this->form->reset();
 
             Flux::toast(
                 heading: __('Product Created'),
@@ -65,12 +64,14 @@ final class ProductCreateManagement extends Component
                 variant: 'success',
             );
 
+            $this->form->reset();
+
             $this->redirect(route('admin.products.index'), navigate: true);
         } catch (ProductCreationException $exception) {
             report($exception);
             Flux::toast(
                 heading: __('Something went wrong'),
-                text: __('Error while saving product: ').$exception->getMessage(),
+                text: __('Error while saving product: ') . $exception->getMessage(),
                 variant: 'error',
             );
         }

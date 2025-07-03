@@ -40,8 +40,8 @@ Route::group(['middleware' => 'role:super_admin|manager'], function () {
     // NOTE: Products Management.
     Route::get('products', ProductIndexManagement::class)->name('products.index');
     Route::get('products/create', ProductCreateManagement::class)->name('products.create');
-    Route::get('products/{user}', ProductShowManagement::class)->name('products.show');
-    Route::get('products/{user}/edit', ProductEditManagement::class)->name('products.edit');
+    Route::get('products/{product}', ProductShowManagement::class)->name('products.show');
+    Route::get('products/{product}/edit', ProductEditManagement::class)->name('products.edit');
 
     // NOTE: Categories Management.
     Route::get('categories', CategoryIndexManagement::class)->name('categories.index');

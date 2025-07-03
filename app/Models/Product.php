@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Storage;
 
 final class Product extends Model
 {
@@ -53,12 +54,12 @@ final class Product extends Model
         return $this->hasMany(ProductSpecifications::class);
     }
 
-    public function getFirstImageAttribute()
+    public function getFirstImageAttribute(): string
     {
-        if ($this->images->isEmpty()) {
-            return null;
+        if ($this->images->count() > 0) {
+            return $this->images->first()->getUrlAttribute();
         }
 
-        return $this->images->first();
+        return '';
     }
 }

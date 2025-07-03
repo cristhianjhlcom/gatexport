@@ -24,13 +24,19 @@
       <flux:table.rows>
         @foreach ($products as $product)
           <flux:table.row key="{{ $product->id }}">
-            <flux:table.cell class="flex items-center gap-3 text-wrap">
-              <flux:avatar
-                name="{{ $product->name }}"
-                size="sm"
-                src="{{ $product->getFirstImageAttribute()?->path }}"
-              />
-              {{ str()->words($product->name, 3) }}
+            <flux:table.cell>
+              <div class="flex items-center gap-3 text-wrap">
+                @if ($product->getFirstImageAttribute())
+                  <img
+                    alt="{{ $product->name }}"
+                    class="h-10 w-10 rounded-lg object-contain"
+                    src="{{ $product->getFirstImageAttribute() }}"
+                  />
+                @else
+                  <flux:avatar name="{{ $product->name }}" />
+                @endif
+                {{ str()->words($product->name, 3) }}
+              </div>
             </flux:table.cell>
             <flux:table.cell class="text-center">
               {{ $product->specifications_count }}

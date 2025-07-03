@@ -31,7 +31,7 @@ final class ProductImages extends Model
     // Accessor para URL completa
     public function getUrlAttribute()
     {
-        return Storage::url($this->path);
+        return Storage::disk('public')->url($this->path);
     }
 
     // Accessor para tamaño legible

@@ -9,15 +9,19 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImages;
 use App\Models\ProductSpecifications;
-use Illuminate\Container\Attributes\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
-// NOTE: https://www.youtube.com/watch?v=pfSjRcudZVA
 final class ProductManagementForm extends Form
 {
+    public ?Product $product = NULL;
+
+    public bool $isEditing = false;
+
     #[Validate]
     public string $name = '';
 
@@ -42,11 +46,8 @@ final class ProductManagementForm extends Form
     #[Validate]
     public ?int $selectedSubcategoryId = null;
 
-    public $categories;
-
-    public $subcategories;
-
-    public array $images = [];
+    #[Validate]
+    public $images = NULL;
 
     public array $specifications = [];
 
@@ -56,29 +57,37 @@ final class ProductManagementForm extends Form
     #[Validate]
     public string $specificationValue = '';
 
-    public int $specificationsCount = 0;
+    public $categories;
 
-    protected $listeners = ['imageUploaded', 'imageRemoved'];
+    public $subcategories;
+
+    public int $specificationsCount = 0;
 
     public function rules(): array
     {
-        return [
+        $rules = [
             'name' => 'required|string|min:3|max:255',
-            'slug' => 'required|string|unique:products,slug',
+            'slug' => [
+                'required',
+                'string',
+                Rule::unique('products', 'slug')->ignore($this->product?->id),
+            ],
             'description' => 'nullable|string|max:1000',
             'seo_title' => 'nullable|string|max:60',
             'seo_description' => 'nullable|string|max:160',
             'status' => 'required',
             'selectedCategoryId' => 'required|exists:categories,id',
             'selectedSubcategoryId' => 'required|exists:subcategories,id',
+            'images' => 'array|min:1|max:4',
+            'images.*' => 'image|max:4500|dimensions:min_width=1000,min_height=1000,max_width=1000,max_height=1000',
             /*
-            'uploadedImages' => 'array|min:1|max:4',
-            'uploadedImages.*' => 'image|max:4500|dimensions:min_width=1000,min_height=1000,max_width=1000,max_height=1000',
             'specifications' => 'array|max:5',
             'specifications.*.key' => 'required|string|max:50',
             'specifications.*.value' => 'required|string|max:255',
             */
         ];
+
+        return $rules;
     }
 
     public function messages(): array
@@ -88,16 +97,15 @@ final class ProductManagementForm extends Form
             'selectedCategoryId.exists' => __('Category does not exist'),
             'selectedSubcategoryId.required' => __('Should select a subcategory'),
             'selectedSubcategoryId.exists' => __('Subcategory does not exist'),
+            'images.*.max' => __('Each image must not exceed 4.5MB'),
+            'images.*.dimensions' => __('Images must be 1000x1000 pixels'),
             /*
-            'uploadedImages.*.max' => __('Each image must not exceed 4.5MB'),
-            'uploadedImages.*.dimensions' => __('Images must be 1000x1000 pixels'),
             'specifications.*.key.required' => __('Specification key is required'),
             'specifications.*.value.required' => __('Specification value is required'),
             */
         ];
     }
 
-    /*
     public function setProduct(Product $product): void
     {
         $this->name = $product->name;
@@ -106,12 +114,13 @@ final class ProductManagementForm extends Form
         $this->seo_title = $product->seo_title;
         $this->seo_description = $product->seo_description;
         $this->status = $product->status;
-        $this->selectedCategoryId = $product->category_id;
+        $this->selectedCategoryId = $product->subcategory->category->id;
         $this->selectedSubcategoryId = $product->subcategory_id;
+        $this->images = $product->images;
         $this->specifications = $product->specifications->toArray();
         $this->specificationsCount = count($this->specifications);
+        $this->product = $product;
     }
-    */
 
     public function addSpecification()
     {
@@ -142,11 +151,11 @@ final class ProductManagementForm extends Form
         $this->slug = str()->slug($this->name);
     }
 
-    public function store()
+    public function store(): Product
     {
         $this->validate();
 
-        DB::transaction(function () {
+        return DB::transaction(function () {
             $product = Product::create([
                 'name' => $this->name,
                 'slug' => $this->slug,
@@ -159,24 +168,26 @@ final class ProductManagementForm extends Form
 
             // NOTE: Add images to the product.
             foreach ($this->images as $idx => $image) {
-                $id = $idx + 1;
+                $filename = str()->uuid()->toString() . '.' . $image->extension();
+                $uploadedImage = $image->storeAs(path: 'uploads/products', name: $filename);
 
-                // TODO: Move images to storage/app/public/uploads/products.
-                /*
-                Storage::disk('public')
-                    ->put($image['filename'], file_get_contents(storage_path('app/public/uploads/products/' . $image['filename'])));
-                */
+                Log::info('Creating Product Image', [
+                    'index' => $idx,
+                    'image' => $image,
+                    'uploaded_image' => $uploadedImage,
+                    'filename' => $filename,
+                ]);
 
                 ProductImages::create([
                     'product_id' => $product->id,
-                    'filename' => $image['filename'],
-                    'original_name' => $image['original_name'],
-                    'path' => $image['path'],
-                    'mime_type' => $image['mime_type'],
-                    'size' => $image['size'],
-                    'width' => $image['width'],
-                    'height' => $image['height'],
-                    'order' => $id,
+                    'filename' => $filename,
+                    'original_name' => $image->getClientOriginalName(),
+                    'path' => $uploadedImage,
+                    'mime_type' => Storage::disk('public')->mimeType($uploadedImage),
+                    'size' => Storage::disk('public')->size($uploadedImage),
+                    'width' => 1000,
+                    'height' => 1000,
+                    'order' => $idx + 1,
                 ]);
             }
 
@@ -189,19 +200,92 @@ final class ProductManagementForm extends Form
                 ]);
             }
 
-            $product->fresh(['images', 'specifications']);
-
             Log::info('Product created successfully', [
                 'product' => $product,
             ]);
+
+            return $product->fresh(['images', 'specifications']);
+        });
+    }
+
+    public function update(): Product
+    {
+        $this->validate();
+
+        return DB::transaction(function () {
+            if ($this->product->images->count() > 0) {
+                foreach ($this->product->images as $image) {
+                    Storage::disk('public')->delete($image->path);
+
+                    $image->delete();
+
+                    Log::info('Product Image Deleted', [
+                        'image_path' => $image->path,
+                    ]);
+                }
+            }
+
+            foreach ($this->images as $idx => $image) {
+                $filename = str()->uuid()->toString() . '.' . $image->extension();
+                $uploadedImage = $image->storeAs(path: 'uploads/products', name: $filename);
+
+                Log::info('Creating Product Image', [
+                    'index' => $idx,
+                    'image' => $image,
+                    'uploaded_image' => $uploadedImage,
+                    'filename' => $filename,
+                ]);
+
+                ProductImages::create([
+                    'product_id' => $this->product->id,
+                    'filename' => $filename,
+                    'original_name' => $image->getClientOriginalName(),
+                    'path' => $uploadedImage,
+                    'mime_type' => Storage::disk('public')->mimeType($uploadedImage),
+                    'size' => Storage::disk('public')->size($uploadedImage),
+                    'width' => 1000,
+                    'height' => 1000,
+                    'order' => $idx + 1,
+                ]);
+            }
+
+            $this->product->update([
+                'name' => str()->title($this->name),
+                'slug' => $this->slug,
+                'description' => $this->description,
+                'seo_title' => $this->seo_title,
+                'seo_description' => $this->seo_description,
+                'status' => $this->status,
+                'subcategory_id' => $this->selectedSubcategoryId,
+            ]);
+
+            // NOTE: Add specifications to the product.
+            foreach ($this->specifications as $specification) {
+                ProductSpecifications::create([
+                    'product_id' => $this->product->id,
+                    'key' => (string) $specification['key'],
+                    'value' => (string) $specification['value'],
+                ]);
+            }
+
+            return $this->product->fresh();
         });
     }
 
     public function loadCategories(): void
     {
+        // TODO: Mejorar la logica de carga ya que no esta cargando ^
+        // correctamente al momento de editar un producto.
+        // Solo se deberia agregar categorias que tengan subcategorias al listado.
         $this->categories = Category::with('subcategories')->orderBy('name')->get();
         $this->subcategories = $this->categories->first()->subcategories;
-        $this->selectedCategoryId = $this->categories->first()->id;
-        $this->selectedSubcategoryId = null;
+
+        if ($this->isEditing) {
+            $this->selectedSubcategoryId = $this->product->subcategory_id;
+            $this->selectedCategoryId = $this->product->subcategory->category->id;
+        } else {
+            $this->selectedCategoryId = $this->categories->first()->id;
+            $this->selectedSubcategoryId = null;
+        }
     }
 }

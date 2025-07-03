@@ -2,13 +2,8 @@
   <div class="flex items-center justify-between">
     <div>
       <flux:heading>{{ __('Create Product') }}</flux:heading>
-      <flux:text class="mt-2">{{ __('Change this product details') }}</flux:text>
     </div>
-    <div>
-      <flux:button icon:trailing="arrow-top-right-on-square">
-        {{ __('View this product') }}
-      </flux:button>
-    </div>
+    <div></div>
   </div>
 
   <form
@@ -20,28 +15,31 @@
       <div class="w-full space-y-4 md:w-2/3">
         {{-- Product Content --}}
         <flux:card class="space-y-4">
+
           <flux:field>
             <flux:input
               autocomplete="off"
               id="name"
-              placeholder="{{ __('Product Name') }}"
+              placeholder="{{ __('Product') }}"
               type="text"
               wire:model.blur='form.name'
             />
             <flux:error name="form.name" />
           </flux:field>
+
           <flux:field>
             <flux:input.group>
               <flux:input.group.prefix>{{ env('APP_URL') }}</flux:input.group.prefix>
               <flux:input
                 id="slug"
-                placeholder="{{ __('gold-ring') }}"
+                placeholder="{{ __('product-slug') }}"
                 readonly
                 wire:model='form.slug'
               />
             </flux:input.group>
             <flux:error name="form.slug" />
           </flux:field>
+
           <flux:editor
             badge="Optional"
             description:trailing="Short description about the product, must be at most 500 characters."
@@ -49,25 +47,41 @@
             name="description"
             wire:model="form.description"
           />
+
         </flux:card>
 
         {{-- <livewire:shared.dropzone /> --}}
-
         <flux:card class="space-y-4">
           <flux:field>
-            <flux:label>{{ __('Images') }} ({{ count($form->images) }})</flux:label>
+            <flux:label>{{ __('Image') }}</flux:label>
             <flux:description>
               {{ __('Formats: PNG, JPG, WebP - Max dimensions: 1000x1000 (1:1) - Max size: 4.5 MB') }}
             </flux:description>
-
-            {{-- Dropzone como div, no como form --}}
-            <div class="dropzone w-full rounded border-2 border-dashed bg-gray-400" id="product-dropzone">
+            {{-- <div class="dropzone w-full rounded border-2 border-dashed bg-gray-400" id="category-dropzone"></div> --}}
+            <flux:input
+              multiple
+              type="file"
+              wire:model="form.images"
+            />
+            <div class="mt-4 grid grid-cols-2 gap-x-2 md:grid-cols-4">
+              @if ($form->images)
+                @foreach ($form->images as $image)
+                  <img
+                    alt="Image Preview"
+                    class="h-auto w-[200px] rounded-lg object-contain"
+                    src="{{ $image->temporaryUrl() }}"
+                  />
+                @endforeach
+              @endif
             </div>
-
-            <flux:error name="form.uploadedImages" />
+            <div wire:loading wire:target="form.images">
+              <flux:icon.loading />
+            </div>
+            <flux:error name="form.images.*" />
           </flux:field>
         </flux:card>
 
+        {{-- Product Specifications --}}
         <flux:card class="space-y-4">
           <div class="flex items-center justify-between gap-x-4">
             <div class="space-y-2">
@@ -116,6 +130,7 @@
               </flux:modal>
             </div>
           </div>
+
           <flux:table>
             <flux:table.columns>
               <flux:table.column>#</flux:table.column>
