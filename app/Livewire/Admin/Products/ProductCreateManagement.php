@@ -11,40 +11,22 @@ use App\Models\Category;
 use App\Models\ProductSpecifications;
 use App\Models\Subcategory;
 use Flux\Flux;
-use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-#[Layout('layouts.admin')]
+#[Layout('components.layouts.admin')]
+#[Title('Create Product')]
 final class ProductCreateManagement extends Component
 {
     use WithFileUploads;
 
     public ProductManagementForm $form;
 
-    // private ProductManagementServices $services;
-
     public function mount()
     {
-        // $this->services = app(ProductManagementServices::class);
         $this->form->loadCategories();
-    }
-
-    // NOTE: Se debe usar los events en el componente y no en el forms.
-    #[\Livewire\Attributes\On('imageUploaded')]
-    public function imageUploaded($image)
-    {
-        $this->form->images[] = $image;
-        Log::info('Product current images', $this->form->images);
-    }
-
-    #[\Livewire\Attributes\On('imageRemoved')]
-    public function imageRemoved($filename)
-    {
-        $this->form->images = array_filter($this->form->images, function ($img) use ($filename) {
-            return $img['filename'] !== $filename;
-        });
     }
 
     public function save()
@@ -52,10 +34,6 @@ final class ProductCreateManagement extends Component
         // $this->authorize('create', Product::class);
 
         try {
-            /*
-            $productData = ProductManagementData::fromForm($this->form);
-            $this->services->create($productData);
-            */
             $this->form->store();
 
             Flux::toast(

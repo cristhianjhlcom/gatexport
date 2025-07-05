@@ -6,10 +6,12 @@ namespace App\Livewire\Admin\Categories;
 
 use App\Models\Category;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-#[Layout('layouts.admin')]
+#[Layout('components.layouts.admin')]
+#[Title('List of Categories')]
 final class CategoryIndexManagement extends Component
 {
     use WithPagination;

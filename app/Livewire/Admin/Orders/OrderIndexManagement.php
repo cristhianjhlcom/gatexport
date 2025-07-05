@@ -6,9 +6,11 @@ namespace App\Livewire\Admin\Orders;
 
 use App\Models\Order;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 
-#[Layout('layouts.admin')]
+#[Layout('components.layouts.admin')]
+#[Title('List of Order')]
 final class OrderIndexManagement extends Component
 {
     public function render()

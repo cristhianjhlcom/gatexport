@@ -17,7 +17,7 @@ use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-#[Layout('layouts.admin')]
+#[Layout('components.layouts.admin')]
 #[Title('Edit Product')]
 final class ProductEditManagement extends Component
 {
@@ -28,6 +28,7 @@ final class ProductEditManagement extends Component
     public function mount(Product $product)
     {
         $this->form->setProduct($product);
+        $this->form->isEditing = true;
         $this->form->loadCategories();
     }
 

@@ -13,7 +13,7 @@ use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-#[Layout('layouts.admin')]
+#[Layout('components.layouts.admin')]
 #[Title('Edit Category')]
 final class CategoryEditManagement extends Component
 {
@@ -45,7 +45,7 @@ final class CategoryEditManagement extends Component
 
             Flux::toast(
                 heading: __('Something went wrong'),
-                text: __('Error while updating category: ').$exception->getMessage(),
+                text: __('Error while updating category: ') . $exception->getMessage(),
                 variant: 'error',
             );
         }

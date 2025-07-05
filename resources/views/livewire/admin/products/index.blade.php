@@ -14,9 +14,9 @@
     <flux:table :paginate="$products">
       <flux:table.columns>
         <flux:table.column>{{ __('Name') }}</flux:table.column>
+        <flux:table.column>{{ __('Status') }}</flux:table.column>
         <flux:table.column>{{ __('Specifications') }}</flux:table.column>
         <flux:table.column>{{ __('Descriptions') }}</flux:table.column>
-        <flux:table.column>{{ __('Status') }}</flux:table.column>
         <flux:table.column>{{ __('Subcategory') }}</flux:table.column>
         <flux:table.column>{{ __('Date') }}</flux:table.column>
       </flux:table.columns>
@@ -38,16 +38,18 @@
                 {{ str()->words($product->name, 3) }}
               </div>
             </flux:table.cell>
-            <flux:table.cell class="text-center">
-              {{ $product->specifications_count }}
-            </flux:table.cell>
-            <flux:table.cell class="text-wrap">
-              {!! str()->limit($product->description, 100) !!}
-            </flux:table.cell>
             <flux:table.cell>
-              <flux:badge color="{{ $product->status->color() }}">
+              <flux:badge class="flex w-full items-center justify-center text-center"
+                color="{{ $product->status->color() }}"
+              >
                 {{ $product->status->label() }}
               </flux:badge>
+              <flux:table.cell class="text-center">
+                {{ $product->specifications_count }}
+              </flux:table.cell>
+              <flux:table.cell class="max-w-3xs text-wrap">
+                {!! str()->limit($product->description, 100) !!}
+              </flux:table.cell>
             </flux:table.cell>
             <flux:table.cell>
               {{ $product->subcategory->name }}

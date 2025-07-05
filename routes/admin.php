@@ -18,18 +18,18 @@ use App\Livewire\Admin\Products\ProductShowManagement;
 use App\Livewire\Admin\Subcategories\SubcategoryCreateManagement;
 use App\Livewire\Admin\Subcategories\SubcategoryEditManagement;
 use App\Livewire\Admin\Subcategories\SubcategoryIndexManagement;
-use App\Livewire\Admin\Users\Create as AdminCreateUser;
-use App\Livewire\Admin\Users\Edit as AdminEditUser;
-use App\Livewire\Admin\Users\Index as AdminIndexUser;
-use App\Livewire\Admin\Users\Show as AdminShowUser;
+use App\Livewire\Admin\Users\UserCreateManagement;
+use App\Livewire\Admin\Users\UserEditManagement;
+use App\Livewire\Admin\Users\UserIndexManagement;
+use App\Livewire\Admin\Users\UserShowManagement;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'role:super_admin|manager'], function () {
     // NOTE: Users Management.
-    Route::get('users', AdminIndexUser::class)->name('users.index');
-    Route::get('users/create', AdminCreateUser::class)->name('users.create');
-    Route::get('users/{user}', AdminShowUser::class)->name('users.show');
-    Route::get('users/{user}/edit', AdminEditUser::class)->name('users.edit');
+    Route::get('users', UserIndexManagement::class)->name('users.index');
+    Route::get('users/create', UserCreateManagement::class)->name('users.create');
+    Route::get('users/{user}', UserShowManagement::class)->name('users.show');
+    Route::get('users/{user}/edit', UserEditManagement::class)->name('users.edit');
 
     // NOTE: Orders Management.
     Route::get('orders', OrderIndexManagement::class)->name('orders.index');

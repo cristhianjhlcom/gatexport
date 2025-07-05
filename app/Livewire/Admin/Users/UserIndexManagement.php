@@ -8,11 +8,13 @@ use App\Enums\PermissionsEnum;
 use App\Models\User;
 use Flux\Flux;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-#[Layout('layouts.admin')]
-final class Index extends Component
+#[Layout('components.layouts.admin')]
+#[Title('List of Users')]
+final class UserIndexManagement extends Component
 {
     use WithPagination;
 
@@ -52,7 +54,7 @@ final class Index extends Component
     public function users()
     {
         return User::with('profile')
-            ->tap(fn ($query) => $this->sortBy ? $query->orderBy($this->sortBy, $this->sortDirection) : $query)
+            ->tap(fn($query) => $this->sortBy ? $query->orderBy($this->sortBy, $this->sortDirection) : $query)
             ->latest()
             ->paginate(10);
     }

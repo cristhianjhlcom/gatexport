@@ -47,7 +47,9 @@
     --}}
     <flux:separator />
     <flux:navlist variant="outline">
-      <flux:navlist.item href="{{ route('home.index') }}" icon="home">{{ __('Home') }}</flux:navlist.item>
+      <flux:navlist.item href="{{ route('home.index') }}" icon="home">
+        {{ __('Home') }}
+      </flux:navlist.item>
       <flux:navlist.item
         badge="0"
         href="{{ route('admin.orders.index') }}"
@@ -94,12 +96,18 @@
         <flux:profile name="{{ auth()->user()->profile->full_name }}" />
 
         <flux:menu>
-          <flux:menu.item href="#" icon="cog-6-tooth">{{ __('Settings') }}</flux:menu.item>
-          <flux:menu.item href="#" icon="information-circle">{{ __('Help') }}</flux:menu.item>
+          <flux:menu.item href="#" icon="cog-6-tooth">
+            {{ __('Settings') }}
+          </flux:menu.item>
+          <flux:menu.item href="#" icon="information-circle">
+            {{ __('Help') }}
+          </flux:menu.item>
           <flux:menu.separator />
           <form action="{{ route('logout') }}" method="POST">
             @csrf
-            <flux:menu.item icon="arrow-right-start-on-rectangle" type="submit">{{ __('Logout') }}</flux:menu.item>
+            <flux:menu.item icon="arrow-right-start-on-rectangle" type="submit">
+              {{ __('Logout') }}
+            </flux:menu.item>
           </form>
         </flux:menu>
       </flux:dropdown>
@@ -115,10 +123,16 @@
     <flux:dropdown alignt="start" position="top">
       <flux:profile avatar:name="{{ auth()->user()->profile->full_name }}" />
       <flux:menu>
-        <flux:menu.item href="#" icon="cog-6-tooth">{{ __('Settings') }}</flux:menu.item>
-        <flux:menu.item href="#" icon="information-circle">{{ __('Help') }}</flux:menu.item>
+        <flux:menu.item href="#" icon="cog-6-tooth">
+          {{ __('Settings') }}
+        </flux:menu.item>
+        <flux:menu.item href="#" icon="information-circle">
+          {{ __('Help') }}
+        </flux:menu.item>
         <flux:menu.separator />
-        <flux:menu.item icon="arrow-right-start-on-rectangle">{{ __('Logout') }}</flux:menu.item>
+        <flux:menu.item icon="arrow-right-start-on-rectangle">
+          {{ __('Logout') }}
+        </flux:menu.item>
       </flux:menu>
     </flux:dropdown>
   </flux:header>

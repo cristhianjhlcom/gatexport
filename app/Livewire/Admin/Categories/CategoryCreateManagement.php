@@ -8,10 +8,12 @@ use App\Exceptions\Admin\CategoryCreationException;
 use App\Livewire\Forms\Admin\CategoryManagementForm;
 use Flux\Flux;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-#[Layout('layouts.admin')]
+#[Layout('components.layouts.admin')]
+#[Title('Create Category')]
 final class CategoryCreateManagement extends Component
 {
     use WithFileUploads;
@@ -37,7 +39,7 @@ final class CategoryCreateManagement extends Component
 
             Flux::toast(
                 heading: __('Something went wrong'),
-                text: __('Error while saving category: ').$exception->getMessage(),
+                text: __('Error while saving category: ') . $exception->getMessage(),
                 variant: 'error',
             );
         }

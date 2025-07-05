@@ -12,6 +12,6 @@ final class Index extends Component
 {
     public function render()
     {
-        return view('livewire.public.catalog.index');
+        return view('pages.homepage.index');
     }
 }

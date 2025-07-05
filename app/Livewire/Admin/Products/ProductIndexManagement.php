@@ -6,10 +6,12 @@ namespace App\Livewire\Admin\Products;
 
 use App\Models\Product;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-#[Layout('layouts.admin')]
+#[Layout('components.layouts.admin')]
+#[Title('List of Products')]
 final class ProductIndexManagement extends Component
 {
     use WithPagination;
