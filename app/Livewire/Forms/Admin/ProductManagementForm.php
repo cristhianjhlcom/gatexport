@@ -18,7 +18,7 @@ use Livewire\Form;
 
 final class ProductManagementForm extends Form
 {
-    public ?Product $product = NULL;
+    public ?Product $product = null;
 
     public bool $isEditing = false;
 
@@ -47,7 +47,7 @@ final class ProductManagementForm extends Form
     public ?int $selectedSubcategoryId = null;
 
     #[Validate]
-    public $images = NULL;
+    public $images = null;
 
     public array $specifications = [];
 
@@ -168,7 +168,7 @@ final class ProductManagementForm extends Form
 
             // NOTE: Add images to the product.
             foreach ($this->images as $idx => $image) {
-                $filename = str()->uuid()->toString() . '.' . $image->extension();
+                $filename = str()->uuid()->toString().'.'.$image->extension();
                 $uploadedImage = $image->storeAs(path: 'uploads/products', name: $filename);
 
                 Log::info('Creating Product Image', [
@@ -226,7 +226,7 @@ final class ProductManagementForm extends Form
             }
 
             foreach ($this->images as $idx => $image) {
-                $filename = str()->uuid()->toString() . '.' . $image->extension();
+                $filename = str()->uuid()->toString().'.'.$image->extension();
                 $uploadedImage = $image->storeAs(path: 'uploads/products', name: $filename);
 
                 Log::info('Creating Product Image', [

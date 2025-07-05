@@ -40,7 +40,7 @@ final class SubcategoryCreateManagement extends Component
 
             Flux::toast(
                 heading: __('Something went wrong'),
-                text: __('Error while saving sub category: ') . $exception->getMessage(),
+                text: __('Error while saving sub category: ').$exception->getMessage(),
                 variant: 'error',
             );
         }

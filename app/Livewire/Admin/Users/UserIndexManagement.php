@@ -54,7 +54,7 @@ final class UserIndexManagement extends Component
     public function users()
     {
         return User::with('profile')
-            ->tap(fn($query) => $this->sortBy ? $query->orderBy($this->sortBy, $this->sortDirection) : $query)
+            ->tap(fn ($query) => $this->sortBy ? $query->orderBy($this->sortBy, $this->sortDirection) : $query)
             ->latest()
             ->paginate(10);
     }
