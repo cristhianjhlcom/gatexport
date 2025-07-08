@@ -148,9 +148,7 @@
       <flux:navlist.item href="#" icon="information-circle">Help</flux:navlist.item>
     </flux:navlist>
   </flux:sidebar>
-  <flux:main container>
-    {{ $slot }}
-  </flux:main>
+  {{ $slot }}
   @fluxScripts
 </body>
 
