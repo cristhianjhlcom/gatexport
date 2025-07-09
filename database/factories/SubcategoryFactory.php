@@ -18,10 +18,16 @@ final class SubcategoryFactory extends Factory
      */
     public function definition(): array
     {
+        $filename = str()->uuid()->toString() . '.jpg';
+        $path = storage_path("app/public/uploads/subcategories/{$filename}");
+
+        $imageUrl = "https://placehold.net/600x600.png";
+        file_put_contents($path, file_get_contents($imageUrl));
+
         return [
             'name' => $name = fake()->word(),
             'slug' => str()->slug($name),
-            'image' => null,
+            'image' => "uploads/subcategories/{$filename}",
         ];
     }
 }

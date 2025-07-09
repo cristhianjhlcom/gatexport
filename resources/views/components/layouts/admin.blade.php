@@ -29,13 +29,13 @@
       class="px-2 dark:hidden"
       href="#"
       logo="https://fluxui.dev/img/demo/logo.png"
-      name="Acme Inc."
+      name="Gate Export"
     />
     <flux:brand
       class="hidden px-2 dark:flex"
       href="#"
       logo="https://fluxui.dev/img/demo/dark-mode-logo.png"
-      name="Acme Inc."
+      name="Gate Export"
     />
     {{--
     <flux:input
@@ -99,9 +99,6 @@
           <flux:menu.item href="#" icon="cog-6-tooth">
             {{ __('Settings') }}
           </flux:menu.item>
-          <flux:menu.item href="#" icon="information-circle">
-            {{ __('Help') }}
-          </flux:menu.item>
           <flux:menu.separator />
           <form action="{{ route('logout') }}" method="POST">
             @csrf
@@ -125,9 +122,6 @@
       <flux:menu>
         <flux:menu.item href="#" icon="cog-6-tooth">
           {{ __('Settings') }}
-        </flux:menu.item>
-        <flux:menu.item href="#" icon="information-circle">
-          {{ __('Help') }}
         </flux:menu.item>
         <flux:menu.separator />
         <flux:menu.item icon="arrow-right-start-on-rectangle">

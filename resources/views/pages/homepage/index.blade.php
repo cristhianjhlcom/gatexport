@@ -31,12 +31,12 @@
           <div class="flex items-center justify-center gap-x-4 md:w-1/2">
             <img
               alt="Nuestra Historia"
-              class="mt-20 h-[450px] w-[300px] rounded-lg shadow-xl"
+              class="mt-20 h-[450px] w-[300px] rounded-lg"
               src="https://picsum.photos/300/450"
             >
             <img
               alt="Nuestra Historia"
-              class="h-[450px] w-[300px] rounded-lg shadow-xl"
+              class="h-[450px] w-[300px] rounded-lg"
               src="https://picsum.photos/300/450"
             >
           </div>
@@ -76,12 +76,12 @@
           <div class="flex items-center justify-center gap-x-4 md:w-1/2">
             <img
               alt="Nuestra Historia"
-              class="h-[450px] w-[300px] rounded-lg shadow-xl"
+              class="h-[450px] w-[300px] rounded-lg"
               src="https://picsum.photos/300/450"
             >
             <img
               alt="Nuestra Historia"
-              class="mt-20 h-[450px] w-[300px] rounded-lg shadow-xl"
+              class="mt-20 h-[450px] w-[300px] rounded-lg"
               src="https://picsum.photos/300/450"
             >
           </div>
@@ -118,7 +118,7 @@
         <h2 class="mb-12 text-center text-4xl font-bold">Nuestros Productos</h2>
         <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           @foreach ($categories as $idx => $category)
-            <div class="relative h-[450px] w-auto overflow-hidden rounded-none bg-white shadow-lg">
+            <div class="relative h-[450px] w-auto overflow-hidden rounded-none bg-white">
               <div class="absolute inset-0 bg-[url('https://picsum.photos/450/450')] bg-cover bg-center"></div>
               <div class="absolute inset-0 bg-black/50"></div>
               <div class="relative z-10 p-6">
@@ -157,42 +157,22 @@
     </article>
     #END Process --}}
 
+    {{-- #Services
     <article class="bg-gray-50 py-20">
       <div class="container">
         <h2 class="mb-12 text-center text-4xl font-bold">Nuestros Servicios</h2>
         <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-          {{-- @foreach ($services as $service) --}}
+          @foreach ($services as $service)
           <div class="rounded-lg bg-white p-6 shadow-lg">
             <div class="bg-primary/10 mb-4 flex h-16 w-16 items-center justify-center rounded-full">
-              {{-- <x-icon :name="$service['icon']" class="w-8 h-8 text-primary"/> --}}
             </div>
             <h3 class="mb-3 text-xl font-bold">title</h3>
             <p class="text-gray-600">description</p>
           </div>
-          {{-- @endforeach --}}
+          @endforeach
         </div>
       </div>
     </article>
-
-    <article class="container">
-      <div class="">
-        <h2 class="mb-12 text-center text-4xl font-bold">Certificaciones</h2>
-        <div class="flex flex-wrap justify-center gap-8">
-          {{-- @foreach ($certifications as $cert) --}}
-          <div class="text-center">
-            {{-- <img
-                alt="{{ $cert['name'] }}"
-                class="mx-auto mb-4 h-32 w-32 object-contain grayscale transition-all hover:grayscale-0"
-                src="{{ $cert['image'] }}"
-              > --}}
-            <h3 class="font-bold">Title</h3>
-            <p class="text-sm text-gray-600">Description</p>
-          </div>
-          {{-- @endforeach --}}
-        </div>
-      </div>
-    </article>
-
-    {{-- Countries --}}
+    #END Services --}}
   </main>
 </x-layouts.public>

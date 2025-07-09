@@ -13,10 +13,19 @@ final class SubcategoryIndexController extends Controller
 {
     public function __invoke(Request $request, Category $category, Subcategory $subcategory)
     {
+        $category = $category->load('subcategories');
+        $subcategory = $subcategory->load([
+            'products.subcategory',
+            'products.images',
+            'products.specifications',
+            'products.subcategory.category'
+        ]);
         $products = $subcategory->products;
 
         return view('pages.subcategories.index')->with([
             'products' => $products,
+            'subcategory' => $subcategory,
+            'category' => $category,
         ]);
     }
 }

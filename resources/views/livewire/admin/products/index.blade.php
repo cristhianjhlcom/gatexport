@@ -1,6 +1,5 @@
 <div class="space-y-4">
   <flux:heading>{{ __('Products Management') }}</flux:heading>
-  <flux:text class="mt-2">{{ __('Manage products of the system.') }}</flux:text>
   <flux:separator />
 
   <div class="flex flex-col space-y-4">

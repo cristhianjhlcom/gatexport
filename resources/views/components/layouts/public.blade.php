@@ -26,36 +26,23 @@
     />
     <flux:brand
       class="max-lg:hidden dark:hidden"
-      href="#"
+      href="{{ route('home.index') }}"
       logo="https://fluxui.dev/img/demo/logo.png"
-      name="Acme Inc."
+      name="Gate Export"
     />
     <flux:brand
       class="max-lg:hidden! hidden dark:flex"
-      href="#"
+      href="{{ route('home.index') }}"
       logo="https://fluxui.dev/img/demo/dark-mode-logo.png"
-      name="Acme Inc."
+      name="Gate Export"
     />
     <flux:navbar class="-mb-px max-lg:hidden">
-      <flux:navbar.item
-        current
-        href="{{ route('home.index') }}"
-        icon="home"
-      >
+      <flux:navbar.item current href="{{ route('home.index') }}">
         {{ __('Home') }}
       </flux:navbar.item>
-      <flux:navbar.item
-        badge="12"
-        href="{{ route('categories.index') }}"
-        icon="inbox"
-      >
+      <flux:navbar.item href="#">
         {{ __('Categories') }}
       </flux:navbar.item>
-      <flux:separator
-        class="my-2"
-        variant="subtle"
-        vertical
-      />
     </flux:navbar>
     <flux:spacer />
     <flux:navbar class="me-4">
@@ -64,42 +51,20 @@
         icon="magnifying-glass"
         label="Search"
       />
-      <flux:navbar.item
-        class="max-lg:hidden"
-        href="#"
-        icon="cog-6-tooth"
-        label="Settings"
-      />
-      <flux:navbar.item
-        class="max-lg:hidden"
-        href="#"
-        icon="information-circle"
-        label="Help"
-      />
     </flux:navbar>
-    @auth
-      <flux:dropdown align="start" position="top">
-        <flux:profile avatar="https://fluxui.dev/img/demo/user.png" />
-        <flux:menu>
-          <flux:menu.radio.group>
-            <flux:menu.radio checked>Olivia Martin</flux:menu.radio>
-            <flux:menu.radio>Truly Delta</flux:menu.radio>
-          </flux:menu.radio.group>
-          <flux:menu.separator />
-          <form action="{{ route('logout') }}" method="POST">
-            @csrf
-            <flux:menu.item icon="arrow-right-start-on-rectangle" type="submit">Logout</flux:menu.item>
-          </form>
-        </flux:menu>
-      </flux:dropdown>
-    @else
-      <a class="flex items-center gap-2" href="{{ route('login') }}">
-        {{ __('Login') }}
-      </a>
-      <a class="flex items-center gap-2" href="{{ route('register') }}">
-        {{ __('Register') }}
-      </a>
-    @endauth
+    <flux:dropdown align="start" position="top">
+      <flux:profile name="Spanish" />
+      <flux:menu>
+        <flux:menu.radio.group>
+          <flux:menu.radio checked>
+            {{ __('Spanish') }}
+          </flux:menu.radio>
+          <flux:menu.radio>
+            {{ __('English') }}
+          </flux:menu.radio>
+        </flux:menu.radio.group>
+      </flux:menu>
+    </flux:dropdown>
   </flux:header>
   <flux:sidebar
     class="border border-zinc-200 bg-zinc-50 lg:hidden rtl:border-l rtl:border-r-0 dark:border-zinc-700 dark:bg-zinc-900"
@@ -109,44 +74,25 @@
     <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
     <flux:brand
       class="px-2 dark:hidden"
-      href="#"
+      href="{{ route('home.index') }}"
       logo="https://fluxui.dev/img/demo/logo.png"
-      name="Acme Inc."
+      name="Gate Export"
     />
     <flux:brand
       class="hidden px-2 dark:flex"
-      href="#"
+      href="{{ route('home.index') }}"
       logo="https://fluxui.dev/img/demo/dark-mode-logo.png"
-      name="Acme Inc."
+      name="Gate Export"
     />
     <flux:navlist variant="outline">
-      <flux:navlist.item
-        current
-        href="#"
-        icon="home"
-      >Home</flux:navlist.item>
-      <flux:navlist.item
-        badge="12"
-        href="#"
-        icon="inbox"
-      >Inbox</flux:navlist.item>
-      <flux:navlist.item href="#" icon="document-text">Documents</flux:navlist.item>
-      <flux:navlist.item href="#" icon="calendar">Calendar</flux:navlist.item>
-      <flux:navlist.group
-        class="max-lg:hidden"
-        expandable
-        heading="Favorites"
-      >
-        <flux:navlist.item href="#">Marketing site</flux:navlist.item>
-        <flux:navlist.item href="#">Android app</flux:navlist.item>
-        <flux:navlist.item href="#">Brand guidelines</flux:navlist.item>
-      </flux:navlist.group>
+      <flux:navlist.item current href="{{ route('home.index') }}">
+        {{ __('Home') }}
+      </flux:navlist.item>
+      <flux:navlist.item href="#">
+        {{ __('Categories') }}
+      </flux:navlist.item>
     </flux:navlist>
     <flux:spacer />
-    <flux:navlist variant="outline">
-      <flux:navlist.item href="#" icon="cog-6-tooth">Settings</flux:navlist.item>
-      <flux:navlist.item href="#" icon="information-circle">Help</flux:navlist.item>
-    </flux:navlist>
   </flux:sidebar>
   {{ $slot }}
   @fluxScripts

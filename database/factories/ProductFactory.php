@@ -27,7 +27,7 @@ final class ProductFactory extends Factory
             'slug' => str()->slug($name),
             'status' => fake()->randomElement(array_values(ProductStatusEnum::cases())),
             'subcategory_id' => $subcategory->random()->id,
-            'description' => fake()->paragraph(),
+            'description' => fake()->paragraphs(3, true),
         ];
     }
 }

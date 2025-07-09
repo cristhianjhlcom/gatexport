@@ -1,6 +1,5 @@
 <div class="space-y-4">
   <flux:heading>{{ __('Users Management') }}</flux:heading>
-  <flux:text class="mt-2">{{ __('Fill the form below to create a new user.') }}</flux:text>
   <flux:separator />
   <form class="w-[95%] max-w-xl space-y-4" wire:submit.prevent="save">
     <flux:input

@@ -1,6 +1,5 @@
 <div class="space-y-4">
   <flux:heading>{{ __('Users Management') }}</flux:heading>
-  <flux:text class="mt-2">{{ __('Manage users of the system.') }}</flux:text>
   <flux:separator />
 
   <div class="flex flex-col space-y-4">
@@ -15,12 +14,7 @@
     <flux:table :paginate="$users">
       <flux:table.columns>
         <flux:table.column>{{ __('Customer') }}</flux:table.column>
-        <flux:table.column
-          :direction="$sortDirection"
-          :sorted="$sortBy === 'role'"
-          sortable
-          wire:click="sort('role')"
-        >{{ __('Role') }}</flux:table.column>
+        <flux:table.column>{{ __('Role') }}</flux:table.column>
         <flux:table.column>{{ __('Email') }}</flux:table.column>
         <flux:table.column>{{ __('Document') }}</flux:table.column>
         <flux:table.column>{{ __('Phone') }}</flux:table.column>

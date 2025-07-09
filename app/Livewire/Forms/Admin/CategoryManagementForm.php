@@ -61,7 +61,11 @@ final class CategoryManagementForm extends Form
         ];
 
         return DB::transaction(function () use ($data) {
-            $path = $this->image->store(path: 'uploads/categories');
+            $path = $this->image->store('uploads/categories', 'public');
+
+            Log::info('Category Image Path', [
+                'path' => $path,
+            ]);
 
             $catetegory = Category::create([
                 'name' => str()->title($data['name']),
@@ -150,7 +154,7 @@ final class CategoryManagementForm extends Form
             $manager = new ImageManager(new Driver());
 
             $file = $this->image;
-            $filename = str()->uuid()->toString().'.'.$file->extension();
+            $filename = str()->uuid()->toString() . '.' . $file->extension();
             $image = $manager->read($file->getPathname());
             $image->resize(1000, 1000, function ($constraint) {
                 $constraint->aspectRatio();

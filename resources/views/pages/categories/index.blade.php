@@ -1,38 +1,58 @@
 <x-layouts.public>
-  <main class="space-y-4">
-    <flux:heading>{{ __('Categories') }}</flux:heading>
-    <flux:text class="mt-2">{{ __('List of categories.') }}</flux:text>
-    <flux:separator />
+  <main class="container space-y-4 py-4">
 
-    <div class="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
+    {{-- BREADCRUMBS --}}
+    <flux:breadcrumbs>
+      <flux:breadcrumbs.item href="{{ route('home.index') }}" separator="slash">
+        {{ __('Home') }}
+      </flux:breadcrumbs.item>
+      <flux:breadcrumbs.item separator="slash">
+        {{ __('Categories') }}
+      </flux:breadcrumbs.item>
+    </flux:breadcrumbs>
+    {{-- END BREADCRUMBS --}}
+
+    {{-- GRID OF PRODUCTS --}}
+    <section class="flex flex-col space-y-8 divide-y divide-gray-200">
       @foreach ($categories as $category)
-        @if ($category->subcategories_count > 0)
-          <flux:card class="rounded-md">
-            <header class="flex items-center justify-start gap-x-4">
-              <flux:avatar name="{{ $category->name }}" />
-              <flux:heading>{{ $category->name }} ({{ count($category->subcategories) }})</flux:heading>
-            </header>
-            <main>
-              <ul>
-
-                @foreach ($category->subcategories as $subcategory)
-                  <li>
-                    <a href="{{ route('subcategories.index', [
-                        'category' => $category,
-                        'subcategory' => $subcategory,
-                    ]) }}"
-                      wire:navigate
-                    >
-                      {{ $subcategory->name }}
-                    </a>
-                  </li>
-                @endforeach
-
-              </ul>
-            </main>
-          </flux:card>
-        @endif
+        <div class="space-y-4 pb-8">
+          <header class="flex w-full items-center justify-between">
+            <h2 class="text-xl font-semibold">{{ $category->name }}</h2>
+            <flux:button
+              href="{{ route('categories.show', [
+                  'category' => $category,
+              ]) }}"
+              icon:trailing="arrow-right"
+              inset
+              size="sm"
+              variant="ghost"
+              wire:navigate
+            >
+              {{ __('View All') }}
+            </flux:button>
+          </header>
+          <div class="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-4">
+            @foreach ($category->subcategories as $subcategory)
+              <a href="{{ route('subcategories.index', [
+                  'category' => $category,
+                  'subcategory' => $subcategory,
+              ]) }}"
+                wire:navigate
+              >
+                <article class="flex flex-col items-center justify-center">
+                  <img
+                    alt="{{ $subcategory->name }}"
+                    class="aspect-square h-auto w-full object-contain"
+                    src="{{ $subcategory->getImagePathAttribute() }}"
+                  >
+                </article>
+              </a>
+            @endforeach
+          </div>
+        </div>
       @endforeach
-    </div>
+    </section>
+    {{-- END GRID OF PRODUCTS --}}
+
   </main>
 </x-layouts.public>

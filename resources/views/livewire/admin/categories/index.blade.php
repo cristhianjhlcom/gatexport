@@ -1,6 +1,5 @@
 <div class="space-y-4">
   <flux:heading>{{ __('Categories Management') }}</flux:heading>
-  <flux:text class="mt-2">{{ __('Manage categories of the system.') }}</flux:text>
   <flux:separator />
 
   <div class="flex flex-col space-y-4">

@@ -4,7 +4,18 @@ declare(strict_types=1);
 
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Public\CategoryIndexController;
+use App\Http\Controllers\Public\CategoryShowController;
+use App\Http\Controllers\Public\HomeIndexController;
+use App\Http\Controllers\Public\ProductShowController;
+use App\Http\Controllers\Public\SubcategoryIndexController;
 
 Route::get('/logs', function () {
     Log::info('Test');
 });
+
+Route::get('/', HomeIndexController::class)->name('home.index');
+Route::get('/categories', CategoryIndexController::class)->name('categories.index');
+Route::get('/{category:slug}', CategoryShowController::class)->name('categories.show');
+Route::get('/{category:slug}/{subcategory:slug}', SubcategoryIndexController::class)->name('subcategories.index');
+Route::get('/{category:slug}/{subcategory:slug}/{product:slug}', ProductShowController::class)->name('products.show');

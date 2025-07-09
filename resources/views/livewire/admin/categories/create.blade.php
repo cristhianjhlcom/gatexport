@@ -2,7 +2,6 @@
   <div class="flex items-center justify-between">
     <div>
       <flux:heading>{{ __('Create Product') }}</flux:heading>
-      <flux:text class="mt-2">{{ __('Change this product details') }}</flux:text>
     </div>
   </div>
 
