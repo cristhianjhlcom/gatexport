@@ -3,7 +3,7 @@
 
     {{-- #Hero --}}
     <article class="relative flex min-h-[700px] items-center">
-      <div class="absolute inset-0 bg-[url('https://picsum.photos/1920/1080')] bg-cover bg-center"></div>
+      <div class="absolute inset-0 bg-[url('https://placehold.net/8-800x600.png')] bg-cover bg-center"></div>
       <div class="absolute inset-0 bg-black/50"></div>
       <div class="container relative z-10">
         <div class="justify-space-between flex items-center">
@@ -31,13 +31,13 @@
           <div class="flex items-center justify-center gap-x-4 md:w-1/2">
             <img
               alt="Nuestra Historia"
-              class="mt-20 h-[450px] w-[300px] rounded-lg"
-              src="https://picsum.photos/300/450"
+              class="mt-20 aspect-auto h-[400px] w-[600px] rounded-lg"
+              src="https://placehold.net/400x600.png"
             >
             <img
               alt="Nuestra Historia"
-              class="h-[450px] w-[300px] rounded-lg"
-              src="https://picsum.photos/300/450"
+              class="aspect-auto h-[400px] w-[600px] rounded-lg"
+              src="https://placehold.net/400x600.png"
             >
           </div>
           <div class="space-y-6 md:w-1/2">
@@ -76,13 +76,8 @@
           <div class="flex items-center justify-center gap-x-4 md:w-1/2">
             <img
               alt="Nuestra Historia"
-              class="h-[450px] w-[300px] rounded-lg"
-              src="https://picsum.photos/300/450"
-            >
-            <img
-              alt="Nuestra Historia"
-              class="mt-20 h-[450px] w-[300px] rounded-lg"
-              src="https://picsum.photos/300/450"
+              class="aspect-video h-[400px] w-[600px] rounded-lg"
+              src="https://placehold.net/5.png"
             >
           </div>
         </div>
@@ -118,15 +113,19 @@
         <h2 class="mb-12 text-center text-4xl font-bold">Nuestros Productos</h2>
         <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           @foreach ($categories as $idx => $category)
-            <div class="relative h-[450px] w-auto overflow-hidden rounded-none bg-white">
-              <div class="absolute inset-0 bg-[url('https://picsum.photos/450/450')] bg-cover bg-center"></div>
-              <div class="absolute inset-0 bg-black/50"></div>
-              <div class="relative z-10 p-6">
-                <h3 class="mb-2 text-wrap text-3xl font-bold text-white">
-                  {{ $category['name'] }}
-                </h3>
-              </div>
-            </div>
+            <a class="relative w-auto overflow-hidden rounded-sm bg-white"
+              href="{{ route('categories.show', $category->slug) }}"
+            >
+              <div class="absolute inset-0 overflow-hidden bg-gray-800/70"></div>
+              <img
+                alt="{{ $category->name }}"
+                class="aspect-auto w-full rounded-lg"
+                src="{{ $category->imagePath }}"
+              />
+              <h3 class="absolute left-4 top-4 text-wrap text-xl font-bold text-white">
+                {{ $category->name }}
+              </h3>
+            </a>
           @endforeach
         </div>
       </div>

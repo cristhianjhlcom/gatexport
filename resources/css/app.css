@@ -13,6 +13,44 @@
 
 /* Re-assign Flux's gray of choice... */
 @theme {
+    /* Color principal (medio) */
+    --color-primary-50: #fdf4ef;
+    --color-primary-100: #fce8de;
+    --color-primary-200: #f9d0bc;
+    --color-primary-300: #f5b191;
+    --color-primary-400: #f19366;
+    --color-primary-500: #ed7d31; /* Tu color #ed7d31 */
+    --color-primary-600: #ca5d2a; /* Tu color #ca5d2a */
+    --color-primary-700: #a64a22;
+    --color-primary-800: #833a1b;
+    --color-primary-900: #4a250e; /* Tu color #4a250e */
+    --color-primary-950: #2a1508;
+
+    /* Escala de grises cálidos */
+    --color-neutral-50: #faf9f8;
+    --color-neutral-100: #f5f3f2;
+    --color-neutral-200: #e9e5e3;
+    --color-neutral-300: #dad4d1;
+    --color-neutral-400: #b8afa9;
+    --color-neutral-500: #968c85;
+    --color-neutral-600: #776f69;
+    --color-neutral-700: #5d5652;
+    --color-neutral-800: #403b38;
+    --color-neutral-900: #2b2724;
+    --color-neutral-950: #1a1614;
+
+    --color-gray-50: var(--color-neutral-50);
+    --color-gray-100: var(--color-neutral-100);
+    --color-gray-200: var(--color-neutral-200);
+    --color-gray-300: var(--color-neutral-300);
+    --color-gray-400: var(--color-neutral-400);
+    --color-gray-500: var(--color-neutral-500);
+    --color-gray-600: var(--color-neutral-600);
+    --color-gray-700: var(--color-neutral-700);
+    --color-gray-800: var(--color-neutral-800);
+    --color-gray-900: var(--color-neutral-900);
+    --color-gray-950: var(--color-neutral-950);
+    /*
     --color-zinc-50: var(--color-stone-50);
     --color-zinc-100: var(--color-stone-100);
     --color-zinc-200: var(--color-stone-200);
@@ -24,19 +62,43 @@
     --color-zinc-800: var(--color-stone-800);
     --color-zinc-900: var(--color-stone-900);
     --color-zinc-950: var(--color-stone-950);
+    */
 }
 
 @theme {
+    /*
     --color-accent: var(--color-orange-500);
     --color-accent-content: var(--color-orange-600);
     --color-accent-foreground: var(--color-white);
+    */
+
+    /* Variables de uso común */
+    --color-accent: var(--color-primary-500);
+    --color-accent-content: var(--color-primary-600);
+    --color-accent-foreground: var(--color-white);
+
+    /* Colores de texto */
+    --color-text-primary: var(--color-primary-900);
+    --color-text-secondary: var(--color-primary-700);
+    --color-text-muted: var(--color-primary-500);
 }
 
 @layer theme {
     .dark {
+        /*
         --color-accent: var(--color-orange-400);
         --color-accent-content: var(--color-orange-400);
         --color-accent-foreground: var(--color-orange-950);
+        */
+
+        --color-accent: var(--color-primary-400);
+        --color-accent-content: var(--color-primary-300);
+        --color-accent-foreground: var(--color-primary-950);
+
+        /* Colores de texto en modo oscuro */
+        --color-text-primary: var(--color-primary-100);
+        --color-text-secondary: var(--color-primary-300);
+        --color-text-muted: var(--color-primary-400);
     }
 }
 
