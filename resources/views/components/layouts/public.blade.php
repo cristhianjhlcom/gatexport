@@ -40,9 +40,71 @@
       <flux:navbar.item current href="{{ route('home.index') }}">
         {{ __('Home') }}
       </flux:navbar.item>
-      <flux:navbar.item href="#">
-        {{ __('Categories') }}
-      </flux:navbar.item>
+
+      <flux:dropdown>
+        <flux:navbar.item icon:trailing="chevron-down">
+          {{ __('Products') }}
+        </flux:navbar.item>
+        <flux:navmenu>
+          <div class="z-100 flex flex-col space-y-2">
+            @foreach ($navigationCategories as $category)
+              <flux:dropdown
+                align="end"
+                hover
+                position="right"
+              >
+                <flux:button
+                  class="flex w-full items-center !justify-between rounded-sm"
+                  icon:trailing="chevron-right"
+                  type="button"
+                  variant="ghost"
+                >
+                  <flux:heading>{{ $category['name'] }}</flux:heading>
+                </flux:button>
+
+                <flux:popover class="max-w-[800px] p-0">
+                  <div class="grid grid-cols-5 grid-rows-2 gap-2 p-2">
+                    <!-- Imagen principal de categoría -->
+                    <a class="relative col-span-3 row-span-1 h-[200px] overflow-hidden rounded-sm"
+                      href="{{ route('categories.show', $category['slug']) }}"
+                    >
+                      <img
+                        alt="{{ $category['name'] }}"
+                        class="h-full w-full object-cover"
+                        src="{{ $category['image'] }}"
+                      />
+                      <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                      <h6 class="absolute bottom-3 left-3 text-lg font-bold text-white">
+                        {{ $category['name'] }}
+                      </h6>
+                    </a>
+
+                    <!-- Subcategorías -->
+                    @foreach ($category['subcategories'] as $index => $subcategory)
+                      <a
+                        class="{{ $index < 2 ? 'col-start-' . ($index + 4) : '' }} relative overflow-hidden rounded-sm"
+                        href="{{ route('subcategories.index', [$category['slug'], $subcategory['slug']]) }}"
+                        title="{{ $subcategory['name'] }}"
+                      >
+                        <img
+                          alt="{{ $subcategory['name'] }}"
+                          class="h-full w-full object-cover"
+                          src="{{ $subcategory['image'] }}"
+                        />
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <h6 class="absolute bottom-2 left-2 text-xs font-semibold text-white">
+                          {{ $subcategory['name'] }}
+                        </h6>
+                      </a>
+                    @endforeach
+                  </div>
+                </flux:popover>
+              </flux:dropdown>
+            @endforeach
+          </div>
+        </flux:navmenu>
+      </flux:dropdown>
+
     </flux:navbar>
     <flux:spacer />
     <flux:navbar class="me-4">
@@ -88,9 +150,21 @@
       <flux:navlist.item current href="{{ route('home.index') }}">
         {{ __('Home') }}
       </flux:navlist.item>
-      <flux:navlist.item href="#">
-        {{ __('Categories') }}
-      </flux:navlist.item>
+
+      @foreach ($navigationCategories as $category)
+        <flux:navlist.group
+          :expanded="false"
+          expandable
+          heading="{{ $category['name'] }}"
+        >
+          @foreach ($category['subcategories'] as $subcategory)
+            <flux:navlist.item href="{{ route('categories.show', $subcategory['slug']) }}">
+              {{ $subcategory['name'] }}
+            </flux:navlist.item>
+          @endforeach
+        </flux:navlist.group>
+      @endforeach
+
     </flux:navlist>
     <flux:spacer />
   </flux:sidebar>
