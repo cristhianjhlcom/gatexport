@@ -87,6 +87,12 @@
       </flux:navlist.item>
     </flux:navlist>
     <flux:spacer />
+
+    <flux:navlist variant="outline">
+      <flux:navlist.item href="{{ route('admin.settings.index') }}" icon="cog-6-tooth">
+        {{ __('Settings') }}
+      </flux:navlist.item>
+    </flux:navlist>
     @auth
       <flux:dropdown
         align="start"

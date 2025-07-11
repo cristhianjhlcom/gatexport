@@ -15,6 +15,7 @@ use App\Livewire\Admin\Products\ProductCreateManagement;
 use App\Livewire\Admin\Products\ProductEditManagement;
 use App\Livewire\Admin\Products\ProductIndexManagement;
 use App\Livewire\Admin\Products\ProductShowManagement;
+use App\Livewire\Admin\Settings\SettingGeneralManagement;
 use App\Livewire\Admin\Subcategories\SubcategoryCreateManagement;
 use App\Livewire\Admin\Subcategories\SubcategoryEditManagement;
 use App\Livewire\Admin\Subcategories\SubcategoryIndexManagement;
@@ -53,9 +54,6 @@ Route::group(['middleware' => 'role:super_admin|manager'], function () {
     Route::get('subcategories/create', SubcategoryCreateManagement::class)->name('subcategories.create');
     Route::get('subcategories/{subcategory}/edit', SubcategoryEditManagement::class)->name('subcategories.edit');
 
-    /*
-    Route::post('images/upload', ImageUploadController::class)->name('images.upload');
-    // TODO: Agregar ruta para eliminar imagen temporal
-    Route::delete('images/delete/{filename}', ImageDeleteController::class)->name('images.delete');
-    */
+    // NOTE: Settings Management.
+    Route::get('settings', SettingGeneralManagement::class)->name('settings.index');
 });

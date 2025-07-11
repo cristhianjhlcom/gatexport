@@ -22,7 +22,7 @@ final class Setting extends Model implements Auditable
 
     protected $casts = [
         'is_public' => 'boolean',
-        'value' => 'json',
+        'value' => 'array',
     ];
 
     /**
