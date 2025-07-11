@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Public\CategoryIndexController;
 use App\Http\Controllers\Public\CategoryShowController;
 use App\Http\Controllers\Public\HomeIndexController;
 use App\Http\Controllers\Public\ProductShowController;
 use App\Http\Controllers\Public\SubcategoryIndexController;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/logs', function () {
     Log::info('Test');

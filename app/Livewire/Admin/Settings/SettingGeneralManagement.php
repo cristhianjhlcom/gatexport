@@ -6,7 +6,6 @@ namespace App\Livewire\Admin\Settings;
 
 use App\Models\Setting;
 use Flux\Flux;
-use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
@@ -68,32 +67,44 @@ final class SettingGeneralManagement extends Component
     // NOTE: Properties for temporary storage.
     #[Validate]
     public $newLargeLogo;
+
     #[Validate]
     public $newSmallLogo;
+
     #[Validate]
     public $newFavicon;
+
     #[Validate]
     public $newAboutImage;
 
     // NOTE: Properties for other settings.
     #[Validate]
     public $generalInfo;
+
     #[Validate]
     public $aboutUs;
+
     #[Validate]
     public $exportCountries;
+
     #[Validate]
     public $contactInfo;
+
     #[Validate]
     public array $addresses = [];
+
     #[Validate]
     public array $phones = [];
+
     #[Validate]
     public array $emails = [];
+
     #[Validate]
     public array $banners = [];
+
     #[Validate]
     public array $providers = [];
+
     #[Validate]
     public array $socialMedias = [];
 
@@ -207,7 +218,7 @@ final class SettingGeneralManagement extends Component
     public function addSocialMedia()
     {
         $this->socialMedias[] = [
-            'icon' => NULL,
+            'icon' => null,
             'link' => '',
             'name' => '',
         ];
@@ -248,42 +259,42 @@ final class SettingGeneralManagement extends Component
                 'value' => $this->generalInfo,
                 'group' => 'general',
                 'type' => 'json',
-                'is_public' => true
+                'is_public' => true,
             ],
             [
                 'key' => 'banners',
                 'value' => $this->banners,
                 'group' => 'home',
                 'type' => 'json',
-                'is_public' => true
+                'is_public' => true,
             ],
             [
                 'key' => 'providers',
                 'value' => $this->providers,
                 'group' => 'home',
                 'type' => 'json',
-                'is_public' => true
+                'is_public' => true,
             ],
             [
                 'key' => 'about_us',
                 'value' => $this->aboutUs,
                 'group' => 'about',
                 'type' => 'json',
-                'is_public' => true
+                'is_public' => true,
             ],
             [
                 'key' => 'export_countries',
                 'value' => $this->exportCountries,
                 'group' => 'exports',
                 'type' => 'json',
-                'is_public' => true
+                'is_public' => true,
             ],
             [
                 'key' => 'contact_info',
                 'value' => $this->contactInfo,
                 'group' => 'contact',
                 'type' => 'json',
-                'is_public' => true
+                'is_public' => true,
             ],
         ];
 
@@ -313,6 +324,7 @@ final class SettingGeneralManagement extends Component
         if ($file) {
             return $file->store($path, 'public');
         }
+
         return null;
     }
 

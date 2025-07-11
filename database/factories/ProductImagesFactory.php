@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use finfo;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,13 +19,13 @@ final class ProductImagesFactory extends Factory
      */
     public function definition(): array
     {
-        $filename = str()->uuid()->toString() . '.jpg';
+        $filename = str()->uuid()->toString().'.jpg';
         $path = storage_path("app/public/uploads/products/{$filename}");
 
-        $imageUrl = "https://placehold.net/600x600.png";
+        $imageUrl = 'https://placehold.net/600x600.png';
         file_put_contents($path, file_get_contents($imageUrl));
 
-        $fileinfo = new \finfo(FILEINFO_MIME_TYPE);
+        $fileinfo = new finfo(FILEINFO_MIME_TYPE);
         $mime_type = $fileinfo->file($path);
         $filesize = filesize($path);
 
@@ -34,7 +35,7 @@ final class ProductImagesFactory extends Factory
 
         return [
             'filename' => $filename,
-            'original_name' => fake()->sentence(3) . '.' . '.jpg',
+            'original_name' => fake()->sentence(3).'.'.'.jpg',
             'path' => "uploads/products/{$filename}",
             'mime_type' => $mime_type,
             'size' => $filesize,

@@ -18,7 +18,7 @@ final class SubcategoryIndexController extends Controller
             'products.subcategory',
             'products.images',
             'products.specifications',
-            'products.subcategory.category'
+            'products.subcategory.category',
         ]);
         $products = $subcategory->products;
 

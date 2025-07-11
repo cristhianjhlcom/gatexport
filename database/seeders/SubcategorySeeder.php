@@ -24,24 +24,24 @@ final class SubcategorySeeder extends Seeder
                 'Palo Santo',
                 'Resinas',
                 'Sangre de Drago',
-                'Uña de Gato'
+                'Uña de Gato',
             ],
             'Inciensos' => [
                 'Copal',
                 'Mirra',
-                'Porta Inciensos'
+                'Porta Inciensos',
             ],
             'Piedras' => [
                 'Pulidas',
                 'En Bruto',
-                'En Formas'
+                'En Formas',
             ],
             'Cuidado Personal' => [
                 'Esencias',
                 'Jabones',
                 'Lociones',
-                'Gel Antibacterial'
-            ]
+                'Gel Antibacterial',
+            ],
         ];
 
         foreach ($categories as $name => $subcategories) {

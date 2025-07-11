@@ -154,7 +154,7 @@ final class CategoryManagementForm extends Form
             $manager = new ImageManager(new Driver());
 
             $file = $this->image;
-            $filename = str()->uuid()->toString() . '.' . $file->extension();
+            $filename = str()->uuid()->toString().'.'.$file->extension();
             $image = $manager->read($file->getPathname());
             $image->resize(1000, 1000, function ($constraint) {
                 $constraint->aspectRatio();
