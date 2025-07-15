@@ -171,6 +171,7 @@
   {{ $slot }}
   <flux:toast />
   @fluxScripts
+  @stack('scripts')
 </body>
 
 </html>

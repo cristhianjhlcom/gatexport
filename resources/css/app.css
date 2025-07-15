@@ -1,18 +1,17 @@
 @import "tailwindcss";
 @import "../../vendor/livewire/flux/dist/flux.css";
 @import "./dropzone.min.css";
+@import "jsvectormap/dist/jsvectormap.min.css";
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 @source '../**/*.blade.php';
 @source '../**/*.js';
 
-@theme {
-    --font-sans: Inter, sans-serif;
-}
-
 /* Re-assign Flux's gray of choice... */
 @theme {
+    --font-sans: Inter, sans-serif;
+
     /* Color principal (medio) */
     --color-primary-50: #fdf4ef;
     --color-primary-100: #fce8de;

@@ -131,5 +131,7 @@
         </div>
       </div>
     </article>
+
+    <x-homepage.maps />
   </main>
 </x-layouts.public>
