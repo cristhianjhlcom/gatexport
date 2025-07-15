@@ -169,6 +169,7 @@
     <flux:spacer />
   </flux:sidebar>
   {{ $slot }}
+  <flux:toast />
   @fluxScripts
 </body>
 

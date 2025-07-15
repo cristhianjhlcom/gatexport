@@ -24,7 +24,6 @@ final class OrderFactory extends Factory
         $superAdminUser = User::role(RolesEnum::SUPER_ADMIN)->first();
 
         return [
-            'id' => "ORD-{$this->faker->unique()->numberBetween(1000, 9999)}",
             'customer_firstname' => fake()->firstName(),
             'customer_lastname' => fake()->lastName(),
             'customer_email' => fake()->unique()->safeEmail(),

@@ -69,19 +69,8 @@
         </div>
 
         <!-- Call To Action -->
-        <div
-          class="border-t-1 fixed bottom-0 left-0 right-0 m-0 flex w-full items-center justify-center border-gray-200 bg-white/75 px-8 py-4"
-        >
-          <flux:button
-            class="w-full"
-            type="button"
-            variant="primary"
-          >
-            {{ __('Request') }}
-          </flux:button>
-        </div>
-
         <flux:separator />
+        <livewire:public.products.call-to-action :$product />
 
       </div>
     </section>

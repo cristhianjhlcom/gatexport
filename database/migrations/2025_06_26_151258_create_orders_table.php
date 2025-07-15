@@ -15,11 +15,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('customer_firstname');
-            $table->string('customer_lastname');
-            $table->string('customer_email');
-            $table->string('customer_phone');
+            $table->id('id');
+            $table->string('customer_firstname')->nullable();
+            $table->string('customer_lastname')->nullable();
+            $table->string('customer_email')->nullable();
+            $table->string('customer_phone')->nullable();
             $table->text('notes')->nullable();
             /*
             $table->string('customer_address');

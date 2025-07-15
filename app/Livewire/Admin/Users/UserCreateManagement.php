@@ -104,7 +104,7 @@ final class UserCreateManagement extends Component
             DB::rollBack();
             Flux::toast(
                 heading: __('Something went wrong'),
-                text: __('Error while updating user: ').$e->getMessage(),
+                text: __('Error while updating user: ') . $e->getMessage(),
                 variant: 'error',
             );
         }
