@@ -8,13 +8,11 @@ use App\Models\Setting;
 use App\Services\SettingManagementServices;
 use Flux\Flux;
 use Livewire\Attributes\Layout;
-use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
 #[Layout('components.layouts.admin')]
-#[Title('Create Sub Category')]
 final class SettingGeneralManagement extends Component
 {
     use WithFileUploads;
@@ -126,6 +124,6 @@ final class SettingGeneralManagement extends Component
             ->with([
                 'settings' => Setting::get('general_info'),
             ])
-            ->title('General Information | Management');
+            ->title('General Information | Settings | Management');
     }
 }

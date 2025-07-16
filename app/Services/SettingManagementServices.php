@@ -10,7 +10,33 @@ use Illuminate\Support\Facades\DB;
 
 final class SettingManagementServices
 {
-    protected array $available_locales = ['es', 'en'];
+    private array $available_locales = ['es', 'en'];
+
+    public function loadBanners(): array
+    {
+        $banners = [
+            'es' => [],
+            'en' => [],
+        ];
+
+        foreach ($this->available_locales as $locale) {
+            $setting_banners = Setting::getByLocale('banners', $locale);
+
+            if (is_array($setting_banners)) {
+                foreach ($setting_banners as $banner) {
+                    $banners[$locale][] = [
+                        'title' => $banner['title'] ?? '',
+                        'short_description' => $banner['short_description'] ?? '',
+                        'link_text' => $banner['link_text'] ?? '',
+                        'link_url' => $banner['link_url'] ?? '',
+                        'image' => $banner['image'] ?? '', // La imagen existente se guarda como string (path)
+                    ];
+                }
+            }
+        }
+
+        return $banners;
+    }
 
     public function loadGeneralInformation(): array
     {
@@ -38,13 +64,43 @@ final class SettingManagementServices
         return $general_info;
     }
 
-    public function handleFileUpload(?UploadedFile $file, string $path): ?string
+    public function saveBanners(array $data)
     {
-        if ($file) {
-            return $file->store($path, 'public');
-        }
+        DB::transaction(function () use ($data) {
+            foreach ($this->available_locales as $locale) {
+                $listOfBanners = [];
 
-        return null;
+                foreach ($data['banners'][$locale] as $banner) {
+                    $image_value = $banner['image'];
+
+                    // Si es un nuevo archivo, lo procesamos
+                    if (is_object($banner['image']) && method_exists($banner['image'], 'store')) {
+                        $image_value = $this->handleFileUpload($banner['image'], 'uploads/settings/banners');
+                    }
+
+                    $listOfBanners[] = [
+                        'title' => $banner['title'],
+                        'short_description' => $banner['short_description'],
+                        'link_text' => $banner['link_text'] ?? '',
+                        'link_url' => $banner['link_url'] ?? '',
+                        'image' => $image_value,
+                    ];
+                }
+
+                Setting::updateOrCreate(
+                    [
+                        'key' => 'banners',
+                        'locale' => $locale,
+                        'group' => 'home',
+                    ],
+                    [
+                        'value' => $listOfBanners,
+                        'type' => 'json',
+                        'is_public' => true,
+                    ]
+                );
+            }
+        });
     }
 
     public function saveGeneralInformation(array $data)
@@ -77,5 +133,14 @@ final class SettingManagementServices
                 );
             }
         });
+    }
+
+    private function handleFileUpload(?UploadedFile $file, string $path): ?string
+    {
+        if ($file) {
+            return $file->store($path, 'public');
+        }
+
+        return null;
     }
 }
