@@ -83,7 +83,7 @@ final class Setting extends Model implements Auditable
     {
         $locale = $locale ?? app()->getLocale();
 
-        return static::where('key', $key)
+        return self::where('key', $key)
             ->where('locale', $locale)
             ->value('value');
     }

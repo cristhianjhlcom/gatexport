@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Public\Products;
 
 use App\Actions\Product\Store\RequestOrderAction;
@@ -9,7 +11,7 @@ use Flux\Flux;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
-class CallToAction extends Component
+final class CallToAction extends Component
 {
     public Product $product;
 
@@ -29,7 +31,7 @@ class CallToAction extends Component
     public string $phone = '';
 
     #[Validate]
-    public ?string $notes = NULL;
+    public ?string $notes = null;
 
     public function createOrder(RequestOrderAction $create)
     {

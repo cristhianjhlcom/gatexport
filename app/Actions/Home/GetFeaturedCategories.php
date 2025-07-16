@@ -12,7 +12,7 @@ final class GetFeaturedCategories
 {
     public function execute(): Collection
     {
-        $result =  DB::transaction(function () {
+        $result = DB::transaction(function () {
             return Category::with('subcategories')
                 ->orderBy('name')
                 ->limit(4)

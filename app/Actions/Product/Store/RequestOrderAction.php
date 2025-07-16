@@ -12,7 +12,7 @@ use App\Models\Product;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
-class RequestOrderAction
+final class RequestOrderAction
 {
     public function __invoke(Product $product, array $data): Order
     {
@@ -20,7 +20,7 @@ class RequestOrderAction
             // TODO: Cambiar a role admin.
             $admin = User::role(RolesEnum::SUPER_ADMIN)->first();
 
-            if ($admin === NULL) {
+            if ($admin === null) {
                 throw OrderCreationException::cannotCreateOrder();
             }
 

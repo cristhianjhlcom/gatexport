@@ -20,6 +20,7 @@ final class SettingGeneralManagement extends Component
     use WithFileUploads;
 
     public string $currentLocale = 'en';
+
     public array $availableLocales = ['en', 'es'];
 
     public $exportCountriesList = [
@@ -132,13 +133,13 @@ final class SettingGeneralManagement extends Component
     #[Validate]
     public $banners = [
         'en' => [],
-        'es' => []
+        'es' => [],
     ];
 
     #[Validate]
     public $providers = [
         'en' => [],
-        'es' => []
+        'es' => [],
     ];
 
     #[Validate]
@@ -403,7 +404,6 @@ final class SettingGeneralManagement extends Component
                     $this->generalInfo['favicon'] = $generalInfo['favicon'] ?? '';
                 }
             }
-
 
             // NOTE: Load Banners.
             $this->banners[$locale] = Setting::getByLocale('banners', $locale) ?? [];

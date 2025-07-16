@@ -8,9 +8,8 @@ use App\Models\Setting;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 
-class SettingManagementServices
+final class SettingManagementServices
 {
-    protected string $current_locale = 'es';
     protected array $available_locales = ['es', 'en'];
 
     public function loadGeneralInformation(): array

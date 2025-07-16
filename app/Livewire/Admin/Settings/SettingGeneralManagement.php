@@ -19,8 +19,6 @@ final class SettingGeneralManagement extends Component
 {
     use WithFileUploads;
 
-    protected SettingManagementServices $services;
-
     // NOTE: Properties for temporary storage.
     #[Validate]
     public $new_large_logo;
@@ -44,6 +42,8 @@ final class SettingGeneralManagement extends Component
         'large_logo' => '',
         'small_logo' => '',
     ];
+
+    protected SettingManagementServices $services;
 
     protected $rules = [
         'general_info.es.company_name' => 'required|string|max:255',
@@ -77,6 +77,22 @@ final class SettingGeneralManagement extends Component
         */
     ];
 
+    protected $messages = [
+        /*
+        'new_favicon.dimensions' => 'El favicon debe ser entre 16x16px y 256x256px. Se recomienda 32x32px o 64x64px.',
+        'new_favicon.max' => 'El favicon no debe pesar más de 512KB.',
+        'new_favicon.mimes' => 'El favicon debe ser en formato ICO o PNG.',
+        */
+
+        'new_small_logo.dimensions' => 'El logo pequeño debe ser entre 32x32px y 200x200px. Se recomienda 64x64px.',
+        'new_small_logo.max' => 'El logo pequeño no debe pesar más de 1MB.',
+        'new_small_logo.mimes' => 'El logo debe ser en formato PNG, JPG o SVG.',
+
+        'new_large_logo.dimensions' => 'El logo con texto debe ser entre 200x50px y 800x200px. Se recomienda 400x100px.',
+        'new_large_logo.max' => 'El logo con texto no debe pesar más de 2MB.',
+        'new_large_logo.mimes' => 'El logo debe ser en formato PNG, JPG o SVG.',
+    ];
+
     public function boot()
     {
         $this->services = app(SettingManagementServices::class);
@@ -90,7 +106,6 @@ final class SettingGeneralManagement extends Component
     public function save()
     {
         $this->validate();
-
 
         $this->services->saveGeneralInformation([
             'general_info' => $this->general_info,
@@ -113,20 +128,4 @@ final class SettingGeneralManagement extends Component
             ])
             ->title('General Information | Management');
     }
-
-    protected $messages = [
-        /*
-        'new_favicon.dimensions' => 'El favicon debe ser entre 16x16px y 256x256px. Se recomienda 32x32px o 64x64px.',
-        'new_favicon.max' => 'El favicon no debe pesar más de 512KB.',
-        'new_favicon.mimes' => 'El favicon debe ser en formato ICO o PNG.',
-        */
-
-        'new_small_logo.dimensions' => 'El logo pequeño debe ser entre 32x32px y 200x200px. Se recomienda 64x64px.',
-        'new_small_logo.max' => 'El logo pequeño no debe pesar más de 1MB.',
-        'new_small_logo.mimes' => 'El logo debe ser en formato PNG, JPG o SVG.',
-
-        'new_large_logo.dimensions' => 'El logo con texto debe ser entre 200x50px y 800x200px. Se recomienda 400x100px.',
-        'new_large_logo.max' => 'El logo con texto no debe pesar más de 2MB.',
-        'new_large_logo.mimes' => 'El logo debe ser en formato PNG, JPG o SVG.',
-    ];
 }
