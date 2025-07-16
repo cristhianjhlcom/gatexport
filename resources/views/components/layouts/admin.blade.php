@@ -25,54 +25,45 @@
     sticky
   >
     <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
-    <flux:brand
-      class="px-2 dark:hidden"
-      href="#"
-      logo="https://fluxui.dev/img/demo/logo.png"
-      name="Gate Export"
-    />
-    <flux:brand
-      class="hidden px-2 dark:flex"
-      href="#"
-      logo="https://fluxui.dev/img/demo/dark-mode-logo.png"
-      name="Gate Export"
-    />
-    {{--
-    <flux:input
-      as="button"
-      icon="magnifying-glass"
-      placeholder="{{ __('Search') }}..."
-      variant="filled"
-    />
-    --}}
+
+    <flux:brand href="{{ route('home.index') }}" name="Gate Export">
+      <x-slot name="logo">
+        <img
+          alt="Gate Export"
+          class="h-9 w-auto"
+          src="{{ $companyLogos['small_logo'] }}"
+        />
+      </x-slot>
+    </flux:brand>
+
     <flux:separator />
     <flux:navlist variant="outline">
       <flux:navlist.item href="{{ route('home.index') }}" icon="home">
         {{ __('Home') }}
       </flux:navlist.item>
       <flux:navlist.item
-        badge="0"
+        badge="{{ $ordersCount }}"
         href="{{ route('admin.orders.index') }}"
         icon="wallet"
       >
         {{ __('Orders') }}
       </flux:navlist.item>
       <flux:navlist.item
-        badge="0"
+        badge="{{ $productsCount }}"
         href="{{ route('admin.products.index') }}"
         icon="cube"
       >
         {{ __('Products') }}
       </flux:navlist.item>
       <flux:navlist.item
-        badge="0"
+        badge="{{ $categoriesCount }}"
         href="{{ route('admin.categories.index') }}"
         icon="folder"
       >
         {{ __('Categories') }}
       </flux:navlist.item>
       <flux:navlist.item
-        badge="0"
+        badge="{{ $subcategoriesCount }}"
         href="{{ route('admin.subcategories.index') }}"
         icon="folder"
       >
@@ -88,11 +79,21 @@
     </flux:navlist>
     <flux:spacer />
 
-    <flux:navlist variant="outline">
-      <flux:navlist.item href="{{ route('admin.settings.index') }}" icon="cog-6-tooth">
-        {{ __('Settings') }}
+    <flux:navlist.group expandable heading="{{ __('Settings') }}">
+      <flux:navlist.item href="{{ route('admin.settings.general') }}">
+        {{ __('General') }}
       </flux:navlist.item>
-    </flux:navlist>
+      <flux:navlist.item href="{{ route('admin.settings.banners') }}">
+        {{ __('Banners') }}
+      </flux:navlist.item>
+      <flux:navlist.item href="{{ route('admin.settings.providers') }}">
+        {{ __('Providers') }}
+      </flux:navlist.item>
+      <flux:navlist.item href="{{ route('admin.settings.about') }}">
+        {{ __('About') }}
+      </flux:navlist.item>
+    </flux:navlist.group>
+
     @auth
       <flux:dropdown
         align="start"

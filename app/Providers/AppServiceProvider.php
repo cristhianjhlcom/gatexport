@@ -26,9 +26,5 @@ final class AppServiceProvider extends ServiceProvider
     {
         Model::shouldBeStrict(! app()->isProduction());
         DB::prohibitDestructiveCommands(app()->isProduction());
-
-        View::share([
-            'usersCount' => 0,
-        ]);
     }
 }

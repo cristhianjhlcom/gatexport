@@ -4,7 +4,12 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Actions\Setting\GetCompanyLogos;
 use App\Models\Category;
+use App\Models\Order;
+use App\Models\Product;
+use App\Models\Subcategory;
+use App\Models\User;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -27,18 +32,32 @@ final class ViewServiceProvider extends ServiceProvider
             $categories = Category::with('subcategories')
                 ->orderBy('name')
                 ->get()
-                ->map(fn ($category) => [
+                ->map(fn($category) => [
                     'name' => $category->name,
                     'slug' => $category->slug,
                     'image' => $category->getImagePathAttribute(),
-                    'subcategories' => $category->subcategories->map(fn ($subcategory) => [
+                    'subcategories' => $category->subcategories->map(fn($subcategory) => [
                         'name' => $subcategory->name,
                         'slug' => $subcategory->slug,
                         'image' => $subcategory->getImagePathAttribute(),
                     ]),
                 ]);
 
-            $view->with('navigationCategories', $categories);
+            $view->with([
+                'navigationCategories' => $categories,
+                'companyLogos' => (new GetCompanyLogos)->execute(),
+            ]);
+        });
+
+        View::composer('components.layouts.admin', function ($view) {
+            $view->with([
+                'usersCount' => User::count(),
+                'subcategoriesCount' => Subcategory::count(),
+                'categoriesCount' => Category::count(),
+                'productsCount' => Product::count(),
+                'ordersCount' => Order::count(),
+                'companyLogos' => (new GetCompanyLogos)->execute(),
+            ]);
         });
     }
 }

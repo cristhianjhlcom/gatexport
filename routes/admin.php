@@ -55,5 +55,8 @@ Route::group(['middleware' => 'role:super_admin|manager'], function () {
     Route::get('subcategories/{subcategory}/edit', SubcategoryEditManagement::class)->name('subcategories.edit');
 
     // NOTE: Settings Management.
-    Route::get('settings', SettingGeneralManagement::class)->name('settings.index');
+    Route::get('settings/general', SettingGeneralManagement::class)->name('settings.general');
+    Route::get('settings/banners', SettingGeneralManagement::class)->name('settings.banners');
+    Route::get('settings/providers', SettingGeneralManagement::class)->name('settings.providers');
+    Route::get('settings/about', SettingGeneralManagement::class)->name('settings.about');
 });

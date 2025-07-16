@@ -8,9 +8,9 @@ use App\Models\Category;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 
-final class GetFeaturedCategoriesQuery
+final class GetFeaturedCategories
 {
-    public function handle(): Collection
+    public function execute(): Collection
     {
         $result =  DB::transaction(function () {
             return Category::with('subcategories')

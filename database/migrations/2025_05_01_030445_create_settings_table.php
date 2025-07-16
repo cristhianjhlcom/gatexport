@@ -15,12 +15,14 @@ return new class extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->string('key')->unique();
+            $table->string('key');
             $table->json('value')->nullable();
             $table->string('group')->default('general');
             $table->string('type')->default('string');
             $table->boolean('is_public')->default(false);
+            $table->string('locale')->default('es');
             $table->timestamps();
+            $table->unique(['key', 'locale', 'group']);
         });
     }
 

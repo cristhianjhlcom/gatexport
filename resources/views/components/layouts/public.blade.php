@@ -7,8 +7,20 @@
 
   <title>{{ $title ?? __('Public') }}</title>
 
+  <!-- Paragraphs Fonts -->
   <link href="https://fonts.bunny.net" rel="preconnect">
   <link href="https://fonts.bunny.net/css?family=inter:400,500,600&display=swap" rel="stylesheet" />
+
+  <!-- Headings Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link
+    crossorigin
+    href="https://fonts.gstatic.com"
+    rel="preconnect"
+  >
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+    rel="stylesheet"
+  >
 
   @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
     @vite(['resources/css/app.css', 'resources/js/app.js'])

@@ -17,6 +17,7 @@ final class Setting extends Model implements Auditable
         'value',
         'group',
         'type',
+        'locale',
         'is_public',
     ];
 
@@ -76,5 +77,14 @@ final class Setting extends Model implements Auditable
     public static function getAllGrouped()
     {
         return self::all()->groupBy('group');
+    }
+
+    public static function getByLocale($key, $locale = null)
+    {
+        $locale = $locale ?? app()->getLocale();
+
+        return static::where('key', $key)
+            ->where('locale', $locale)
+            ->value('value');
     }
 }

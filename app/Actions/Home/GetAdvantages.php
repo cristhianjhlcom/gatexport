@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 final class GetAdvantages
 {
-    public function handle(): array
+    public function execute(): array
     {
         return DB::transaction(function () {
             return [
