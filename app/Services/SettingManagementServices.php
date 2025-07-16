@@ -12,6 +12,29 @@ final class SettingManagementServices
 {
     private array $available_locales = ['es', 'en'];
 
+    public function loadCompanyServices(): array
+    {
+        $company_services = [
+            'es' => [],
+            'en' => [],
+        ];
+
+        foreach ($this->available_locales as $locale) {
+            $setting_company_services = Setting::getByLocale('company_services', $locale);
+
+            if (is_array($setting_company_services)) {
+                foreach ($setting_company_services as $company_service) {
+                    $company_services[$locale][] = [
+                        'title' => $company_service['title'] ?? '',
+                        'description' => $company_service['description'] ?? '',
+                    ];
+                }
+            }
+        }
+
+        return $company_services;
+    }
+
     public function loadBanners(): array
     {
         $banners = [
@@ -62,6 +85,35 @@ final class SettingManagementServices
         }
 
         return $general_info;
+    }
+
+    public function saveCompanyServices(array $data)
+    {
+        DB::transaction(function () use ($data) {
+            foreach ($this->available_locales as $locale) {
+                $listOfCompanyServices = [];
+
+                foreach ($data['company_services'][$locale] as $company_service) {
+                    $listOfCompanyServices[] = [
+                        'title' => $company_service['title'],
+                        'description' => $company_service['description'],
+                    ];
+                }
+
+                Setting::updateOrCreate(
+                    [
+                        'key' => 'company_services',
+                        'locale' => $locale,
+                        'group' => 'home',
+                    ],
+                    [
+                        'value' => $listOfCompanyServices,
+                        'type' => 'json',
+                        'is_public' => true,
+                    ]
+                );
+            }
+        });
     }
 
     public function saveBanners(array $data)

@@ -8,10 +8,10 @@
 <form class="space-y-6" wire:submit.prevent="save">
   <header>
     <flux:heading level="2" size="lg">
-      {{ __('Banners') }}
+      {{ __('Promotional Banners') }}
     </flux:heading>
     <flux:description size="xs">
-      {{ __('Manage your banners.') }}
+      {{ __('Manage your promotional banners.') }}
     </flux:description>
   </header>
 

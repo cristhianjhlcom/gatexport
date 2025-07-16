@@ -33,6 +33,7 @@
      <flux:button
        class="absolute right-0 top-0 z-10"
        icon:trailing="x-mark"
+       size="sm"
        variant="danger"
        wire:click="remove('{{ $locale }}', {{ $index }})"
        wire:confirm="{{ __('Are you sure you want to delete this banner?') }}"

@@ -49,11 +49,6 @@ final class SettingBannersManagement extends Component
 
     public function updatedTmpImages($value, $key)
     {
-        Log::info('updatedTmpImages', [
-            'value' => $value,
-            'key' => $key,
-        ]);
-
         $parts = explode('.', $key);
 
         if (count($parts) >= 3) {
