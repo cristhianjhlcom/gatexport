@@ -13,7 +13,7 @@
         <flux:tab.panel name="es">
           <div class="space-y-4">
             <flux:input
-              label="Nombre"
+              label="Nombre de la Empresa"
               placeholder="Gate Export"
               wire:model="general_info.es.company_name"
             />
@@ -53,42 +53,6 @@
     </flux:card>
 
     <flux:card class="space-y-4 divide-y divide-gray-200">
-
-      <flux:field>
-        <div class="flex items-center justify-start gap-x-4">
-          <div class="h-full w-[150px] rounded-sm bg-gray-100 p-4">
-            @if (is_string($settings['favicon']) || !method_exists($new_favicon, 'temporaryUrl'))
-              <img
-                alt="Image Preview"
-                class="object-contain"
-                src="{{ Storage::disk('public')->url($settings['favicon']) }}"
-              />
-            @else
-              <img
-                alt="Image Preview"
-                class="object-contain"
-                src="{{ $new_favicon->temporaryUrl() }}"
-              />
-            @endif
-          </div>
-
-          <div class="space-y-4">
-            <flux:label>{{ __('Favicon') }}</flux:label>
-            <flux:description size="xs">
-              Recomendado: 32x32px o 64x64px. Formatos: ICO, PNG. Máximo: 512KB.
-            </flux:description>
-            <flux:input
-              size="sm"
-              type="file"
-              wire:model="new_favicon"
-            />
-            <div wire:loading wire:target="new_favicon">
-              <flux:icon.loading />
-            </div>
-            <flux:error name="new_favicon" />
-          </div>
-        </div>
-      </flux:field>
 
       <flux:field>
         <div class="flex items-center justify-start gap-x-4">

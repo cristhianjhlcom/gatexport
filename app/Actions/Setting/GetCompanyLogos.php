@@ -21,14 +21,12 @@ final class GetCompanyLogos
                 return [
                     'large_logo' => Storage::disk('public')->url($setting->value['large_logo']),
                     'small_logo' => Storage::disk('public')->url($setting->value['small_logo']),
-                    'favicon' => Storage::disk('public')->url($setting->value['favicon']),
                 ];
             }
 
             return [
                 'large_logo' => '',
                 'small_logo' => '',
-                'favicon' => '',
             ];
         });
     }
