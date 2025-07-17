@@ -13,16 +13,21 @@
         <flux:tab.panel name="es">
           <div class="space-y-4">
             <flux:input
+              badge="{{ __('Required') }}"
               label="Nombre de la Empresa"
               placeholder="Gate Export"
               wire:model="general_info.es.company_name"
             />
+
             <flux:textarea
+              badge="{{ __('Required') }}"
               label="Descripción Corta"
               placeholder="Lorem Ipsum..."
               wire:model="general_info.es.company_short_description"
             />
+
             <flux:editor
+              badge="{{ __('Required') }}"
               label="Descripción Completa"
               placeholder="Lorem Ipsum..."
               wire:model="general_info.es.company_description"
@@ -32,16 +37,21 @@
         <flux:tab.panel name="en">
           <div class="space-y-4">
             <flux:input
+              badge="{{ __('Required') }}"
               label="Company Name"
               placeholder="Gate Export"
               wire:model="general_info.en.company_name"
             />
+
             <flux:textarea
+              badge="{{ __('Required') }}"
               label="Short Description"
               placeholder="Lorem Ipsum..."
               wire:model="general_info.en.company_short_description"
             />
+
             <flux:editor
+              badge="{{ __('Required') }}"
               label="Full Description"
               placeholder="Lorem Ipsum..."
               wire:model="general_info.en.company_description"

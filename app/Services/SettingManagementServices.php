@@ -12,6 +12,27 @@ final class SettingManagementServices
 {
     private array $available_locales = ['es', 'en'];
 
+    public function loadAbout(): array
+    {
+        $about = [];
+
+        foreach ($this->available_locales as $locale) {
+            $about[$locale] = [
+                'history' => '',
+                'mission' => '',
+                'vision' => '',
+            ];
+
+            $setting_about = Setting::getByLocale('about', $locale);
+
+            if ($setting_about) {
+                $about[$locale] = $setting_about['translations'] ?? $about[$locale];
+            }
+        }
+
+        return $about;
+    }
+
     public function loadCompetitiveAdvantages(): array
     {
         $competitive_advantages = [
@@ -109,6 +130,28 @@ final class SettingManagementServices
         }
 
         return $general_info;
+    }
+
+    public function saveAbout(array $data)
+    {
+        DB::transaction(function () use ($data) {
+            foreach ($this->available_locales as $locale) {
+                Setting::updateOrCreate(
+                    [
+                        'key' => 'about',
+                        'locale' => $locale,
+                        'group' => 'about',
+                    ],
+                    [
+                        'value' => [
+                            'translations' => $data['about'][$locale],
+                        ],
+                        'type' => 'json',
+                        'is_public' => true,
+                    ]
+                );
+            }
+        });
     }
 
     public function saveCompetitiveAdvantages(array $data)

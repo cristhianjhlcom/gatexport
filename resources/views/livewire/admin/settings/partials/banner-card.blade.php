@@ -1,12 +1,14 @@
  <flux:card class="space-y-4">
 
    <flux:input
+     badge="{{ __('Required') }}"
      label="Título"
      placeholder="Título del Banner"
      wire:model="banners.{{ $locale }}.{{ $index }}.title"
    />
 
    <flux:textarea
+     badge="{{ __('Required') }}"
      label="Descripción"
      placeholder="Descripción del Banner"
      wire:model="banners.{{ $locale }}.{{ $index }}.short_description"
@@ -14,12 +16,14 @@
 
    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
      <flux:input
+       badge="{{ __('Required') }}"
        label="Texto del Enlace"
        placeholder="Comprar Ahora"
        wire:model="banners.{{ $locale }}.{{ $index }}.link_text"
      />
 
      <flux:input
+       badge="{{ __('Required') }}"
        label="URL"
        placeholder="/catetories"
        wire:model="banners.{{ $locale }}.{{ $index }}.link_url"

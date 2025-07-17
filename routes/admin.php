@@ -15,6 +15,7 @@ use App\Livewire\Admin\Products\ProductCreateManagement;
 use App\Livewire\Admin\Products\ProductEditManagement;
 use App\Livewire\Admin\Products\ProductIndexManagement;
 use App\Livewire\Admin\Products\ProductShowManagement;
+use App\Livewire\Admin\Settings\SettingAboutManagement;
 use App\Livewire\Admin\Settings\SettingBannersManagement;
 use App\Livewire\Admin\Settings\SettingCompetitiveAdvantagesManagement;
 use App\Livewire\Admin\Settings\SettingGeneralManagement;
@@ -62,5 +63,5 @@ Route::group(['middleware' => 'role:super_admin|manager'], function () {
     Route::get('settings/banners', SettingBannersManagement::class)->name('settings.banners');
     Route::get('settings/services', SettingServicesManagement::class)->name('settings.services');
     Route::get('settings/advantages', SettingCompetitiveAdvantagesManagement::class)->name('settings.advantages');
-    Route::get('settings/about', SettingGeneralManagement::class)->name('settings.about');
+    Route::get('settings/about', SettingAboutManagement::class)->name('settings.about');
 });

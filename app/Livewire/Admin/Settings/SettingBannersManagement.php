@@ -105,11 +105,11 @@ final class SettingBannersManagement extends Component
     protected function rules(): array
     {
         return [
-            'banners.*.*.title' => 'required|string|max:255',
-            'banners.*.*.short_description' => 'required|string|max:500',
+            'banners.*.*.title' => 'required|string|max:90',
+            'banners.*.*.short_description' => 'required|string|max:1000',
             'banners.*.*.image' => 'required',
-            'banners.*.*.link_text' => 'nullable|string|max:50',
-            'banners.*.*.link_url' => 'nullable|string|max:255',
+            'banners.*.*.link_text' => 'requied|string|max:50',
+            'banners.*.*.link_url' => 'required|string|max:255',
             'tmp_images.*.*' => [
                 'nullable',
                 'image',

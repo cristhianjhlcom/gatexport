@@ -98,7 +98,7 @@ final class SettingCompetitiveAdvantagesManagement extends Component
     {
         return [
             'competitiveAdvantages.*.*.title' => 'required|string|max:100',
-            'competitiveAdvantages.*.*.description' => 'required|string|max:500',
+            'competitiveAdvantages.*.*.description' => 'required|string|max:1000',
             'competitiveAdvantages.*.*.image' => 'nullable',
 
             'tmp_images.*.*' => [

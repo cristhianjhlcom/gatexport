@@ -31,6 +31,7 @@
         >
           {{ __('Add Service') }}
         </flux:button>
+
         <span class="text-sm text-gray-500">
           {{ count($companyServices[$locale]) }} {{ __('Services') }}
         </span>
@@ -39,11 +40,15 @@
             @foreach ($companyServices[$locale] as $index => $service)
               <flux:card class="space-y-4">
                 <flux:input
+                  badge="{{ __('Required') }}"
                   label="{{ __('Title') }}"
                   placeholder="Lorem Ipsum.."
                   wire:model="companyServices.{{ $locale }}.{{ $index }}.title"
                 />
-                <flux:editor label="{{ __('Description') }}"
+
+                <flux:editor
+                  badge="{{ __('Required') }}"
+                  label="{{ __('Description') }}"
                   wire:model="companyServices.{{ $locale }}.{{ $index }}.description"
                 />
 

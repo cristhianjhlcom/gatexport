@@ -39,17 +39,21 @@
             @foreach ($competitiveAdvantages[$locale] as $index => $advantage)
               <flux:card class="space-y-4">
                 <flux:input
+                  badge="{{ __('Required') }}"
                   label="{{ __('Title') }}"
                   placeholder="Lorem Ipsum.."
                   wire:model="competitiveAdvantages.{{ $locale }}.{{ $index }}.title"
                 />
-                <flux:editor label="{{ __('Description') }}"
+
+                <flux:editor
+                  badge="{{ __('Required') }}"
+                  label="{{ __('Description') }}"
                   wire:model="competitiveAdvantages.{{ $locale }}.{{ $index }}.description"
                 />
 
                 <flux:field>
                   <div class="space-y-4">
-                    <flux:label>{{ __('Image') }}</flux:label>
+                    <flux:label badge="{{ __('Required') }}">{{ __('Image') }}</flux:label>
 
                     @if (!empty($advantage['image']) && is_string($advantage['image']))
                       <img

@@ -76,9 +76,9 @@ final class SettingServicesManagement extends Component
     {
         return [
             'companyServices.es.*.title' => 'required|string|max:100',
-            'companyServices.es.*.description' => 'required|string|max:500',
+            'companyServices.es.*.description' => 'required|string|max:1000',
             'companyServices.en.*.title' => 'required|string|max:100',
-            'companyServices.en.*.description' => 'required|string|max:500',
+            'companyServices.en.*.description' => 'required|string|max:1000',
         ];
     }
 }
