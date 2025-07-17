@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Public;
 
 use App\Actions\Home\GetAdvantages;
 use App\Actions\Home\GetFeaturedCategories;
+use App\Actions\Home\GetPromotionalBanners;
 use App\Actions\Home\GetSteps;
 use Illuminate\Routing\Controller;
 
@@ -17,6 +18,7 @@ final class HomeIndexController extends Controller
             'process' => (new GetSteps)->execute(),
             'advantages' => (new GetAdvantages)->execute(),
             'categories' => (new GetFeaturedCategories)->execute(),
+            'promotional_banners' => (new GetPromotionalBanners)->execute(),
         ]);
     }
 }

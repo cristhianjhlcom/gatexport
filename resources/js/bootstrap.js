@@ -1,11 +1,11 @@
 import axios from "axios";
-import Dropzone from "dropzone";
 import jsVectorMap from "jsvectormap";
-// import "jsvectormap/dist/jsvectormap.min.css";
+import Swiper from "swiper/bundle";
+
 import "jsvectormap/dist/maps/world";
 
-window.Dropzone = Dropzone;
 window.axios = axios;
 window.jsVectorMap = jsVectorMap;
+window.Swiper = Swiper;
 
 window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
