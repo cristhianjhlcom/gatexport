@@ -12,6 +12,30 @@ final class SettingManagementServices
 {
     private array $available_locales = ['es', 'en'];
 
+    public function loadCompetitiveAdvantages(): array
+    {
+        $competitive_advantages = [
+            'es' => [],
+            'en' => [],
+        ];
+
+        foreach ($this->available_locales as $locale) {
+            $setting_competitive_advantages = Setting::getByLocale('competitive_advantages', $locale);
+
+            if (is_array($setting_competitive_advantages)) {
+                foreach ($setting_competitive_advantages as $competitive_advantage) {
+                    $competitive_advantages[$locale][] = [
+                        'title' => $competitive_advantage['title'] ?? '',
+                        'description' => $competitive_advantage['description'] ?? '',
+                        'image' => $competitive_advantage['image'] ?? '', // La imagen existente se guarda como string (path)
+                    ];
+                }
+            }
+        }
+
+        return $competitive_advantages;
+    }
+
     public function loadCompanyServices(): array
     {
         $company_services = [
@@ -85,6 +109,43 @@ final class SettingManagementServices
         }
 
         return $general_info;
+    }
+
+    public function saveCompetitiveAdvantages(array $data)
+    {
+        DB::transaction(function () use ($data) {
+            foreach ($this->available_locales as $locale) {
+                $listOfCompetitiveAdvantages = [];
+
+                foreach ($data['competitive_advantages'][$locale] as $competitive_advantage) {
+                    $image_value = $competitive_advantage['image'];
+
+                    // Si es un nuevo archivo, lo procesamos
+                    if (is_object($competitive_advantage['image']) && method_exists($competitive_advantage['image'], 'store')) {
+                        $image_value = $this->handleFileUpload($competitive_advantage['image'], 'uploads/settings/competitive_advantages');
+                    }
+
+                    $listOfCompetitiveAdvantages[] = [
+                        'title' => $competitive_advantage['title'],
+                        'description' => $competitive_advantage['description'],
+                        'image' => $image_value,
+                    ];
+                }
+
+                Setting::updateOrCreate(
+                    [
+                        'key' => 'competitive_advantages',
+                        'locale' => $locale,
+                        'group' => 'home',
+                    ],
+                    [
+                        'value' => $listOfCompetitiveAdvantages,
+                        'type' => 'json',
+                        'is_public' => true,
+                    ]
+                );
+            }
+        });
     }
 
     public function saveCompanyServices(array $data)

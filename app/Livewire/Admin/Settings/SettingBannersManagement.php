@@ -6,7 +6,6 @@ namespace App\Livewire\Admin\Settings;
 
 use App\Services\SettingManagementServices;
 use Flux\Flux;
-use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Validate;
 use Livewire\Component;

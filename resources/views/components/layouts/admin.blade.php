@@ -89,6 +89,9 @@
       <flux:navlist.item href="{{ route('admin.settings.services') }}">
         {{ __('Services') }}
       </flux:navlist.item>
+      <flux:navlist.item href="{{ route('admin.settings.advantages') }}">
+        {{ __('Advantages') }}
+      </flux:navlist.item>
       <flux:navlist.item href="{{ route('admin.settings.about') }}">
         {{ __('About') }}
       </flux:navlist.item>
