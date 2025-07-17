@@ -1,6 +1,6 @@
 @props(['categories'])
 
-<article class="bg-gray-50 py-10 md:py-16 lg:py-20">
+<article class="bg-primary-50 py-10 md:py-16 lg:py-20">
   <div class="container">
     <h2 class="mb-8 text-center text-3xl font-bold md:mb-12 md:text-4xl">Nuestros Productos</h2>
     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

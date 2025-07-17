@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Public;
 
 use App\Actions\Home\GetAbout;
-use App\Actions\Home\GetAdvantages;
+use App\Actions\Home\GetCompanyServices;
+use App\Actions\Home\GetCompetitiveAdvantages;
 use App\Actions\Home\GetFeaturedCategories;
 use App\Actions\Home\GetGeneralInformation;
 use App\Actions\Home\GetPromotionalBanners;
@@ -18,11 +19,12 @@ final class HomeIndexController extends Controller
     {
         return view('pages.homepage.index')->with([
             'process' => (new GetSteps)->execute(),
-            'advantages' => (new GetAdvantages)->execute(),
+            'competitive_advantages' => (new GetCompetitiveAdvantages)->execute(),
             'categories' => (new GetFeaturedCategories)->execute(),
             'promotional_banners' => (new GetPromotionalBanners)->execute(),
             'general_information' => (new GetGeneralInformation)->execute(),
             'about' => (new GetAbout)->execute(),
+            'company_services' => (new GetCompanyServices)->execute(),
         ]);
     }
 }
