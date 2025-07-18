@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Actions\Home\GetGeneralInformation;
 use App\Actions\Setting\GetCompanyLogos;
 use App\Models\Category;
 use App\Models\Order;
@@ -28,15 +29,22 @@ final class ViewServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        View::composer('components.footer.index', function ($view) {
+            $view->with([
+                'company_logos' => (new GetCompanyLogos)->execute(),
+                'general_information' => (new GetGeneralInformation)->execute(),
+            ]);
+        });
+
         View::composer('components.layouts.public', function ($view) {
             $categories = Category::with('subcategories')
                 ->orderBy('name')
                 ->get()
-                ->map(fn ($category) => [
+                ->map(fn($category) => [
                     'name' => $category->name,
                     'slug' => $category->slug,
                     'image' => $category->getImagePathAttribute(),
-                    'subcategories' => $category->subcategories->map(fn ($subcategory) => [
+                    'subcategories' => $category->subcategories->map(fn($subcategory) => [
                         'name' => $subcategory->name,
                         'slug' => $subcategory->slug,
                         'image' => $subcategory->getImagePathAttribute(),

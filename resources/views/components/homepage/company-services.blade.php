@@ -2,7 +2,7 @@
     'company_services' => [],
 ])
 
-<section class="py-10 md:py-16 lg:py-20">
+<section class="py-10 md:py-16 lg:py-20" id="services">
   <div class="mx-auto w-full max-w-[800px] px-8 md:px-8">
     <h2 class="mb-8 text-center text-3xl font-bold md:mb-12 md:text-4xl">
       {{ __('Company Services') }}

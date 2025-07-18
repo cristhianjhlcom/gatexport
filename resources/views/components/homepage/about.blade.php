@@ -3,7 +3,7 @@
     'general_information' => [],
 ])
 
-<article class="bg-primary-50 py-10 md:py-16 lg:py-20">
+<article class="bg-primary-50 py-10 md:py-16 lg:py-20" id="about-us">
   <div class="container space-y-8 md:space-y-12">
     <div class="flex flex-col-reverse items-center gap-8 md:flex-row md:gap-12">
       <div class="flex w-full flex-col items-center justify-center gap-4 md:w-1/2 md:flex-row">

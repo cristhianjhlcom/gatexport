@@ -36,18 +36,9 @@
       icon="bars-2"
       inset="left"
     />
-    <flux:brand
-      class="max-lg:hidden dark:hidden"
-      href="{{ route('home.index') }}"
-      logo="https://fluxui.dev/img/demo/logo.png"
-      name="Gate Export"
-    />
-    <flux:brand
-      class="max-lg:hidden! hidden dark:flex"
-      href="{{ route('home.index') }}"
-      logo="https://fluxui.dev/img/demo/dark-mode-logo.png"
-      name="Gate Export"
-    />
+
+    <flux:avatar class="mr-4" src="{{ $companyLogos['small_logo'] }}" />
+
     <flux:navbar class="-mb-px max-lg:hidden">
       <flux:navbar.item current href="{{ route('home.index') }}">
         {{ __('Home') }}
@@ -117,6 +108,14 @@
         </flux:navmenu>
       </flux:dropdown>
 
+      <flux:navbar.item href="{{ route('home.index') }}/#services">
+        {{ __('Services') }}
+      </flux:navbar.item>
+
+      <flux:navbar.item href="{{ route('home.index') }}/#about-us">
+        {{ __('About Us') }}
+      </flux:navbar.item>
+
     </flux:navbar>
     <flux:spacer />
     <flux:navbar class="me-4">
@@ -146,18 +145,15 @@
     sticky
   >
     <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
-    <flux:brand
-      class="px-2 dark:hidden"
-      href="{{ route('home.index') }}"
-      logo="https://fluxui.dev/img/demo/logo.png"
-      name="Gate Export"
-    />
-    <flux:brand
-      class="hidden px-2 dark:flex"
-      href="{{ route('home.index') }}"
-      logo="https://fluxui.dev/img/demo/dark-mode-logo.png"
-      name="Gate Export"
-    />
+    <flux:brand href="{{ route('home.index') }}" name="Gate Export">
+      <x-slot name="logo">
+        <img
+          alt="Gate Export"
+          class="h-9 w-auto"
+          src="{{ $companyLogos['small_logo'] }}"
+        />
+      </x-slot>
+    </flux:brand>
     <flux:navlist variant="outline">
       <flux:navlist.item current href="{{ route('home.index') }}">
         {{ __('Home') }}
@@ -181,6 +177,7 @@
     <flux:spacer />
   </flux:sidebar>
   {{ $slot }}
+  <x-footer />
   <flux:toast />
   @fluxScripts
   @stack('scripts')
