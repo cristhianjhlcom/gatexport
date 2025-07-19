@@ -11,6 +11,7 @@
 /* Re-assign Flux's gray of choice... */
 @theme {
     --font-sans: Inter, sans-serif;
+    --font-display: Playfair Display, serif;
 
     /* Color principal (medio) */
     --color-primary-50: #fdf4ef;
@@ -65,14 +66,8 @@
 }
 
 @theme {
-    /*
-    --color-accent: var(--color-orange-500);
-    --color-accent-content: var(--color-orange-600);
-    --color-accent-foreground: var(--color-white);
-    */
-
     /* Variables de uso común */
-    --color-accent: var(--color-primary-500);
+    --color-accent: var(--color-primary-900);
     --color-accent-content: var(--color-primary-600);
     --color-accent-foreground: var(--color-white);
 
@@ -103,16 +98,4 @@
 
 .container {
     @apply mx-auto w-full max-w-[1280px] px-8 md:px-8;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-family: "Playfair Display", serif;
-    font-optical-sizing: auto;
-    font-weight: 800;
-    font-style: normal;
 }

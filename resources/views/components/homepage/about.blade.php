@@ -14,16 +14,18 @@
         >
         <img
           alt="Nuestra Historia"
-          class="mt-4 h-[300px] w-full rounded-lg object-cover md:mt-20 md:h-[400px] md:w-1/2"
+          class="mt-4 hidden h-[300px] w-full rounded-lg object-cover sm:block md:mt-20 md:h-[400px] md:w-1/2"
           src="https://placehold.net/400x600.png"
         >
       </div>
       <div class="w-full space-y-2 md:w-1/2 md:space-y-4">
-        <flux:heading
-          class="text-primary-700"
+        <x-heading
           level="2"
           size="xl"
-        >Nuestra Historia</flux:heading>
+          weight="black"
+        >
+          Nuestra Historia
+        </x-heading>
         <flux:text>
           {{ $general_information['translations']['company_short_description'] }}
         </flux:text>
@@ -50,22 +52,26 @@
     <div class="flex flex-col items-center gap-8 md:flex-row md:gap-12">
       <div class="w-full space-y-4 md:w-1/2 md:space-y-6">
         <div class="space-y-2">
-          <flux:heading
-            class="text-primary-700"
-            level="2"
-            size="xl"
-          >Nuestra Misión</flux:heading>
+          <x-heading
+            level="3"
+            size="lg"
+            weight="black"
+          >
+            Nuestra Misión
+          </x-heading>
           <flux:text>
             {!! $about['translations']['mission'] !!}
           </flux:text>
         </div>
 
         <div class="space-y-2">
-          <flux:heading
-            class="text-primary-700"
-            level="2"
-            size="xl"
-          >Nuestra Visión</flux:heading>
+          <x-heading
+            level="3"
+            size="lg"
+            weight="black"
+          >
+            Nuestra Visión
+          </x-heading>
           <flux:text>
             {!! $about['translations']['vision'] !!}
           </flux:text>
@@ -74,7 +80,7 @@
       <div class="w-full md:w-1/2">
         <img
           alt="Nuestra Historia"
-          class="h-[300px] w-full rounded-lg object-cover md:h-[400px]"
+          class="hidden h-[300px] w-full rounded-lg object-cover sm:block md:h-[400px]"
           src="https://placehold.net/5.png"
         >
       </div>

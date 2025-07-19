@@ -108,7 +108,7 @@ final class SettingBannersManagement extends Component
             'banners.*.*.title' => 'required|string|max:90',
             'banners.*.*.short_description' => 'required|string|max:1000',
             'banners.*.*.image' => 'required',
-            'banners.*.*.link_text' => 'requied|string|max:50',
+            'banners.*.*.link_text' => 'required|string|max:50',
             'banners.*.*.link_url' => 'required|string|max:255',
             'tmp_images.*.*' => [
                 'nullable',

@@ -1,9 +1,18 @@
 <article class="py-10 md:py-16 lg:py-20">
-  <div class="container">
-    <h2 class="mb-8 text-center text-3xl font-bold md:mb-12 md:text-4xl">
-      Nuestros Países y Regiones de Exportación
-    </h2>
-    <div id="map" style="height: 750px; width: 100%;"></div>
+  <div class="container space-y-6">
+    <x-heading
+      class="text-center"
+      level="2"
+      size="xl"
+      weight="black"
+    >
+      Nuestros Países de Exportación
+    </x-heading>
+    <div
+      class="md:!h-[750px]"
+      id="map"
+      style="height: 170px; width: 100%;"
+    ></div>
   </div>
 </article>
 
@@ -17,6 +26,11 @@
         backgroundColor: '#ffffff',
         zoomOnScroll: false,
         zoomOnScrollSpeed: 0.5,
+        regionLabelStyle: {
+          initial: {
+            fill: '#faa41a', // accent color for labels
+          },
+        },
         regionStyle: {
           initial: {
             fill: '#e4e4e4',

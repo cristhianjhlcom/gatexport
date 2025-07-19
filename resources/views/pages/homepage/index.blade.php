@@ -1,4 +1,4 @@
-<x-layouts.public>
+<x-layouts.public :title="$title ?? 'Gate Export SAC'">
   <main>
     <x-homepage.hero :$promotional_banners />
     <x-homepage.about :$about :$general_information />

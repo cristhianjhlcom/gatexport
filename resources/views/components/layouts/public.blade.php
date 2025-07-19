@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>{{ $title ?? __('Public') }}</title>
+  <title>{{ $title ?? 'Gate Export SAC' }}</title>
 
   <!-- Paragraphs Fonts -->
   <link href="https://fonts.bunny.net" rel="preconnect">
