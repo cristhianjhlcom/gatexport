@@ -1,3 +1,4 @@
+import "@justinribeiro/lite-youtube";
 import axios from "axios";
 import jsVectorMap from "jsvectormap";
 import Swiper from "swiper/bundle";

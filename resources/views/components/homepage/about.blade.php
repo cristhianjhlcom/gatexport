@@ -9,13 +9,13 @@
       <div class="flex w-full flex-col items-center justify-center gap-4 md:w-1/2 md:flex-row">
         <img
           alt="Nuestra Historia"
-          class="h-[300px] w-full rounded-lg object-cover md:h-[400px] md:w-1/2"
-          src="https://placehold.net/400x600.png"
+          class="mt-0 aspect-square h-auto w-full rounded-sm object-cover md:mt-20 md:h-[500px] md:w-1/2"
+          src="{{ Storage::disk('public')->url($about['first_image']) }}"
         >
         <img
           alt="Nuestra Historia"
-          class="mt-4 hidden h-[300px] w-full rounded-lg object-cover sm:block md:mt-20 md:h-[400px] md:w-1/2"
-          src="https://placehold.net/400x600.png"
+          class="hidden aspect-square h-[500px] w-full rounded-sm object-cover md:block md:h-[500px] md:w-1/2"
+          src="{{ Storage::disk('public')->url($about['second_image']) }}"
         >
       </div>
       <div class="w-full space-y-2 md:w-1/2 md:space-y-4">
@@ -77,13 +77,11 @@
           </flux:text>
         </div>
       </div>
-      <div class="w-full md:w-1/2">
-        <img
-          alt="Nuestra Historia"
-          class="hidden h-[300px] w-full rounded-lg object-cover sm:block md:h-[400px]"
-          src="https://placehold.net/5.png"
-        >
-      </div>
+      @if ($about['youtube_video_id'])
+        <div class="w-full md:w-1/2">
+          <lite-youtube videoid="{{ $about['youtube_video_id'] }}"></lite-youtube>
+        </div>
+      @endif
     </div>
   </div>
 </article>

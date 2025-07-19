@@ -27,6 +27,9 @@ final class SettingManagementServices
 
             if ($setting_about) {
                 $about[$locale] = $setting_about['translations'] ?? $about[$locale];
+                $about['first_image'] = $setting_about['first_image'] ?? '';
+                $about['second_image'] = $setting_about['second_image'] ?? '';
+                $about['youtube_video_id'] = $setting_about['youtube_video_id'] ?? '';
             }
         }
 
@@ -149,6 +152,14 @@ final class SettingManagementServices
     public function saveAbout(array $data)
     {
         DB::transaction(function () use ($data) {
+            if ($data['new_first_image']) {
+                $data['about']['first_image'] = $this->handleFileUpload($data['new_first_image'], 'uploads/about');
+            }
+
+            if ($data['new_second_image']) {
+                $data['about']['second_image'] = $this->handleFileUpload($data['new_second_image'], 'uploads/about');
+            }
+
             foreach ($this->available_locales as $locale) {
                 Setting::updateOrCreate(
                     [
@@ -159,6 +170,9 @@ final class SettingManagementServices
                     [
                         'value' => [
                             'translations' => $data['about'][$locale],
+                            'first_image' => $data['about']['first_image'],
+                            'second_image' => $data['about']['second_image'],
+                            'youtube_video_id' => $data['about']['youtube_video_id'],
                         ],
                         'type' => 'json',
                         'is_public' => true,

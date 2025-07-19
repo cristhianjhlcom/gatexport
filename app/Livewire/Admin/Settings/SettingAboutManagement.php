@@ -18,6 +18,12 @@ final class SettingAboutManagement extends Component
     use WithFileUploads;
 
     #[Validate]
+    public $new_first_image;
+
+    #[Validate]
+    public $new_second_image;
+
+    #[Validate]
     public $about = [
         'es' => [
             'history' => '',
@@ -29,6 +35,10 @@ final class SettingAboutManagement extends Component
             'mission' => '',
             'vision' => '',
         ],
+
+        'first_image' => '',
+        'second_image' => '',
+        'youtube_video_id' => '',
     ];
 
     protected SettingManagementServices $services;
@@ -40,6 +50,22 @@ final class SettingAboutManagement extends Component
         'about.en.history' => 'required|string|max:2000',
         'about.en.mission' => 'required|string|max:2000',
         'about.en.vision' => 'required|string|max:2000',
+        'about.youtube_video_id' => 'nullable|url',
+
+        'new_first_image' => [
+            'nullable',
+            'image',
+            'mimes:png,jpg,jpeg,webp',
+            'max:2048', // 2MB max
+            'dimensions:min_width=500,min_height=500,max_width=1000,max_height=1000',
+        ],
+        'new_second_image' => [
+            'nullable',
+            'image',
+            'mimes:png,jpg,jpeg,webp',
+            'max:2048', // 2MB max
+            'dimensions:min_width=500,min_height=500,max_width=1000,max_height=1000',
+        ],
     ];
 
     public function boot()
@@ -58,6 +84,8 @@ final class SettingAboutManagement extends Component
 
         $this->services->saveAbout([
             'about' => $this->about,
+            'new_first_image' => $this->new_first_image,
+            'new_second_image' => $this->new_second_image,
         ]);
 
         Flux::toast(
