@@ -12,6 +12,11 @@ final class SettingManagementServices
 {
     private array $available_locales = ['es', 'en'];
 
+    public function loadProviders(): array
+    {
+        return Setting::get('providers', []);
+    }
+
     public function loadAbout(): array
     {
         $about = [];
@@ -245,6 +250,41 @@ final class SettingManagementServices
                     ]
                 );
             }
+        });
+    }
+
+    public function saveProviders(array $data)
+    {
+        DB::transaction(function () use ($data) {
+            $listOfProviders = [];
+
+            foreach ($data['providers'] as $provider) {
+                $image_value = $provider['image'];
+
+                // Si es un nuevo archivo, lo procesamos
+                if (is_object($provider['image']) && method_exists($provider['image'], 'store')) {
+                    $image_value = $this->handleFileUpload($provider['image'], 'uploads/settings/providers');
+                }
+
+                $listOfProviders[] = [
+                    'name' => $provider['name'],
+                    'image' => $image_value,
+                ];
+            }
+
+
+            Setting::updateOrCreate(
+                [
+                    'key' => 'providers',
+                    'locale' => 'es',
+                    'group' => 'home',
+                ],
+                [
+                    'value' => $listOfProviders,
+                    'type' => 'json',
+                    'is_public' => true,
+                ]
+            );
         });
     }
 
