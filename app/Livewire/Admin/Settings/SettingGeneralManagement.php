@@ -37,6 +37,18 @@ final class SettingGeneralManagement extends Component
             'company_short_description' => '',
             'company_description' => '',
         ],
+        'social_media' => [
+            'facebook' => '',
+            'youtube' => '',
+            'linkedin' => '',
+        ],
+        'contact_information' => [
+            'address' => '',
+            'phone' => '',
+            'second_phone' => '',
+            'whatsapp_link' => '',
+            'email' => '',
+        ],
         'large_logo' => '',
         'small_logo' => '',
     ];
@@ -50,6 +62,15 @@ final class SettingGeneralManagement extends Component
         'general_info.en.company_name' => 'required|string|max:255',
         'general_info.en.company_short_description' => 'required|string|max:500',
         'general_info.en.company_description' => 'required|string',
+        'general_info.social_media.facebook' => 'required|url',
+        'general_info.social_media.youtube' => 'required|url',
+        'general_info.social_media.linkedin' => 'required|url',
+        'general_info.contact_information.address' => 'required|string|max:255',
+        'general_info.contact_information.phone' => 'required|string|max:255',
+        'general_info.contact_information.second_phone' => 'required|string|max:255',
+        'general_info.contact_information.whatsapp_link' => 'required|url|max:255',
+        'general_info.contact_information.email' => 'required|string|email|max:255',
+
         'new_large_logo' => [
             'nullable',
             'image',

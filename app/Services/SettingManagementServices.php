@@ -111,6 +111,18 @@ final class SettingManagementServices
         $general_info = [
             'large_logo' => '',
             'small_logo' => '',
+            'social_media' => [
+                'facebook' => '',
+                'youtube' => '',
+                'linkedin' => '',
+            ],
+            'contact_information' => [
+                'address' => '',
+                'phone' => '',
+                'second_phone' => '',
+                'whatsapp_link' => '',
+                'email' => '',
+            ],
         ];
 
         foreach ($this->available_locales as $locale) {
@@ -126,6 +138,8 @@ final class SettingManagementServices
                 $general_info[$locale] = $settings['translations'] ?? $general_info[$locale];
                 $general_info['large_logo'] = $settings['large_logo'] ?? '';
                 $general_info['small_logo'] = $settings['small_logo'] ?? '';
+                $general_info['social_media'] = $settings['social_media'] ?? $general_info['social_media'];
+                $general_info['contact_information'] = $settings['contact_information'] ?? $general_info['contact_information'];
             }
         }
 
@@ -282,6 +296,8 @@ final class SettingManagementServices
                             'translations' => $data['general_info'][$locale],
                             'large_logo' => $data['general_info']['large_logo'],
                             'small_logo' => $data['general_info']['small_logo'],
+                            'social_media' => $data['general_info']['social_media'],
+                            'contact_information' => $data['general_info']['contact_information'],
                         ],
                         'type' => 'json',
                         'is_public' => true,
