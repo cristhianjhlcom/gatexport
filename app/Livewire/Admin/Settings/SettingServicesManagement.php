@@ -17,11 +17,14 @@ final class SettingServicesManagement extends Component
 {
     use WithFileUploads;
 
-    #[Session('admin.companyServices')]
+    #[Validate]
+    public $newMainImage;
+
     #[Validate]
     public $companyServices = [
         'es' => [],
         'en' => [],
+        'main_image' => '',
     ];
 
     protected SettingManagementServices $services;
@@ -57,6 +60,7 @@ final class SettingServicesManagement extends Component
 
         $this->services->saveCompanyServices([
             'company_services' => $this->companyServices,
+            'new_main_image' => $this->newMainImage,
         ]);
 
         Flux::toast(
@@ -79,6 +83,13 @@ final class SettingServicesManagement extends Component
             'companyServices.es.*.description' => 'required|string|max:1000',
             'companyServices.en.*.title' => 'required|string|max:100',
             'companyServices.en.*.description' => 'required|string|max:1000',
+
+            'newMainImage' => [
+                'nullable',
+                'image',
+                'mimes:png,jpg,jpeg,webp',
+                'max:2048', // 2MB max
+            ],
         ];
     }
 }

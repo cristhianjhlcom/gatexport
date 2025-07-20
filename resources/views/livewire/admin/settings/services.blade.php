@@ -15,6 +15,49 @@
     </flux:description>
   </header>
 
+  {{-- Input of the main image --}}
+  <flux:field>
+    <div class="space-y-4">
+      <flux:label>{{ __('Main Image') }}</flux:label>
+
+
+      @if (!is_null($companyServices['main_image']) && is_string($companyServices['main_image']))
+        <img
+          alt="Current Image"
+          class="aspect-auto"
+          src="{{ Storage::disk('public')->url($companyServices['main_image']) }}"
+        />
+      @endif
+
+      <flux:description size="xs">
+        Imagene recomendada entre 500x500px - 1000x1000px. Formatos: JPG, PNG, WebP. Máximo: 2MB.
+      </flux:description>
+
+      <flux:input
+        size="sm"
+        type="file"
+        wire:model="newMainImage"
+      />
+
+      <div wire:loading wire:target="newMainImage">
+        <flux:icon.loading />
+      </div>
+
+      @if (isset($newMainImage) && method_exists($newMainImage, 'temporaryUrl'))
+        <small>Preview</small>
+        <img
+          alt="Image Preview"
+          class="aspect-auto"
+          src="{{ $newMainImage->temporaryUrl() }}"
+        />
+      @endif
+
+      <flux:error name="newMainImage" />
+    </div>
+  </flux:field>
+  <flux:separator />
+  {{-- #End Input of the main image --}}
+
   <flux:tab.group>
     <flux:tabs variant="segmented">
       @foreach ($locales as $locale => $name)

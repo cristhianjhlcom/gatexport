@@ -79,18 +79,23 @@ final class SettingManagementServices
         $company_services = [
             'es' => [],
             'en' => [],
+            'main_image' => '',
         ];
 
         foreach ($this->available_locales as $locale) {
             $setting_company_services = Setting::getByLocale('company_services', $locale);
 
             if (is_array($setting_company_services)) {
+                $company_services[$locale] = $setting_company_services['services'] ?? [];
+                $company_services['main_image'] = $setting_company_services['main_image'] ?? '';
+                /*
                 foreach ($setting_company_services as $company_service) {
                     $company_services[$locale][] = [
                         'title' => $company_service['title'] ?? '',
                         'description' => $company_service['description'] ?? '',
                     ];
                 }
+                */
             }
         }
 
@@ -236,6 +241,12 @@ final class SettingManagementServices
     public function saveCompanyServices(array $data)
     {
         DB::transaction(function () use ($data) {
+            $image_value = $data['new_main_image'];
+
+            if (is_object($data['new_main_image']) && method_exists($data['new_main_image'], 'store')) {
+                $image_value = $this->handleFileUpload($data['new_main_image'], 'uploads/settings/services');
+            }
+
             foreach ($this->available_locales as $locale) {
                 $listOfCompanyServices = [];
 
@@ -253,7 +264,10 @@ final class SettingManagementServices
                         'group' => 'home',
                     ],
                     [
-                        'value' => $listOfCompanyServices,
+                        'value' => [
+                            'services' => $listOfCompanyServices,
+                            'main_image' => $image_value,
+                        ],
                         'type' => 'json',
                         'is_public' => true,
                     ]

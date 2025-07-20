@@ -9,7 +9,7 @@
         <img
           alt="Nuestra Historia"
           class="aspect-square w-full object-contain"
-          src="https://placehold.co/500x500.png"
+          src="{{ Storage::disk('public')->url($company_services['main_image']) }}"
         >
       </div>
       <div class="flex-1 justify-start space-y-4 md:space-y-6">
@@ -23,7 +23,7 @@
         </x-heading>
         <flux:separator />
         <flux:accordion class="w-full">
-          @foreach ($company_services as $service)
+          @foreach ($company_services['services'] as $service)
             <flux:accordion.item :key="$service['title']">
               <flux:accordion.heading>{{ $service['title'] }}</flux:accordion.heading>
 
