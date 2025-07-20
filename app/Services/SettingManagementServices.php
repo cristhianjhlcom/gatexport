@@ -14,7 +14,16 @@ final class SettingManagementServices
 
     public function loadProviders(): array
     {
-        return Setting::get('providers', []);
+        $settings = Setting::get('providers', []);
+
+        if (is_array($settings)) {
+            foreach ($settings as $index => $provider) {
+                $settings[$index]['name'] = $provider['name'] ?? '';
+                $settings[$index]['image'] = $provider['image'] ?? '';
+            }
+        }
+
+        return $settings;
     }
 
     public function loadAbout(): array

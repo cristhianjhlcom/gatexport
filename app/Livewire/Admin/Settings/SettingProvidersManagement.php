@@ -44,12 +44,12 @@ final class SettingProvidersManagement extends Component
     {
         $parts = explode('.', $key);
 
-        if (count($parts) >= 3) {
-            $index = $parts[0];
+        if (count($parts) >= 2) {
+            $idx = $parts[0];
 
             if (isset($value)) {
-                $this->tmp_images[$index] = $value;
-                $this->providers[$index]['image'] = $value;
+                $this->tmp_images[$idx] = $value;
+                $this->providers[$idx]['image'] = $value;
             }
         }
     }

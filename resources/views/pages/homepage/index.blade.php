@@ -1,6 +1,7 @@
 <x-layouts.public :title="$title ?? 'Gate Export SAC'">
   <main>
     <x-homepage.hero :$promotional_banners />
+    <x-homepage.providers :$company_providers />
     <x-homepage.about :$about :$general_information />
     <x-homepage.advantages :$competitive_advantages />
     <x-homepage.products :$categories />
