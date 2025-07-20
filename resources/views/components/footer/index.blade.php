@@ -94,7 +94,9 @@
             <h3 class="mb-4 text-lg font-semibold">
               {{ __('Address') }}
             </h3>
-            <address class="not-italic text-gray-400">
+
+            <address class="flex items-center gap-x-2 not-italic text-gray-400">
+              <flux:icon name="map-pin" />
               <p>{{ $general_information['contact_information']['address'] }}</p>
             </address>
           </div>
@@ -105,19 +107,22 @@
           <h3 class="mb-4 text-lg font-semibold">
             {{ __('Contact Information') }}
           </h3>
-          <div class="text-gray-400">
+          <div class="space-y-4 text-gray-400">
             @if (!empty($general_information['contact_information']['phone']))
-              <p>
-                {{ $general_information['contact_information']['phone'] }}
+              <p class="flex items-center gap-x-2">
+                <flux:icon name="device-phone-mobile" />
+                <span>{{ $general_information['contact_information']['phone'] }}</span>
               </p>
             @endif
             @if (!empty($general_information['contact_information']['second_phone']))
-              <p>
+              <p class="flex items-center gap-x-2">
+                <flux:icon name="device-phone-mobile" />
                 {{ $general_information['contact_information']['second_phone'] }}
               </p>
             @endif
             @if (!empty($general_information['contact_information']['email']))
-              <p>
+              <p class="flex items-center gap-x-2">
+                <flux:icon name="envelope" />
                 {{ $general_information['contact_information']['email'] ?? 'email@example.com' }}
               </p>
             @endif

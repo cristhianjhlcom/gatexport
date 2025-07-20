@@ -40,7 +40,7 @@
     <flux:avatar class="mr-4" src="{{ $companyLogos['small_logo'] }}" />
 
     <flux:navbar class="-mb-px max-lg:hidden">
-      <flux:navbar.item current href="{{ route('home.index') }}">
+      <flux:navbar.item href="{{ route('home.index') }}">
         {{ __('Home') }}
       </flux:navbar.item>
 
@@ -112,7 +112,7 @@
         {{ __('Services') }}
       </flux:navbar.item>
 
-      <flux:navbar.item href="{{ route('home.index') }}/#about-us">
+      <flux:navbar.item href="{{ route('about-us.index') }}">
         {{ __('About Us') }}
       </flux:navbar.item>
 
@@ -155,8 +155,12 @@
       </x-slot>
     </flux:brand>
     <flux:navlist variant="outline">
-      <flux:navlist.item current href="{{ route('home.index') }}">
+      <flux:navlist.item href="{{ route('home.index') }}">
         {{ __('Home') }}
+      </flux:navlist.item>
+
+      <flux:navlist.item href="{{ route('about-us.index') }}">
+        {{ __('About Us') }}
       </flux:navlist.item>
 
       @foreach ($navigationCategories as $category)
@@ -179,6 +183,7 @@
   {{ $slot }}
   <x-footer />
   <flux:toast />
+
   @fluxScripts
   @stack('scripts')
 </body>

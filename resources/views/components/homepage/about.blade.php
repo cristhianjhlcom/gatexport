@@ -33,17 +33,11 @@
         <div class="flex flex-col gap-4 sm:flex-row">
           <flux:button
             class="w-full sm:w-auto"
+            href="{{ route('about-us.index') }}"
             type="button"
             variant="primary"
           >
-            Contáctanos
-          </flux:button>
-          <flux:button
-            class="w-full sm:w-auto"
-            type="button"
-            variant="ghost"
-          >
-            Productos
+            Ver Historia Completa
           </flux:button>
         </div>
       </div>
