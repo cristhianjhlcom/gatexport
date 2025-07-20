@@ -4,8 +4,8 @@
   </header>
   <section class="grid grid-cols-1 gap-4 sm:grid-cols-2">
     <div class="space-y-6">
+      {{-- General Information --}}
       <flux:card class="space-y-4">
-
         <flux:tab.group>
           <flux:tabs variant="segmented">
             <flux:tab name="es">Spanish</flux:tab>
@@ -60,13 +60,13 @@
             </div>
           </flux:tab.panel>
         </flux:tab.group>
-
       </flux:card>
+      {{-- #End General Information --}}
     </div>
 
     <div class="space-y-6">
+      {{-- Company Logos --}}
       <flux:card class="space-y-4 divide-y divide-gray-200">
-
         <flux:field>
           <div class="flex items-center justify-start gap-x-4">
             <div class="h-full w-[150px] rounded-sm bg-gray-100 p-4">
@@ -138,9 +138,49 @@
             </div>
           </div>
         </flux:field>
-
       </flux:card>
+      {{-- #End Company Logos --}}
 
+      {{-- Catalog Document --}}
+      <flux:card class="space-y-4">
+        <header class="space-y-2">
+          <flux:heading level="3" size="lg">
+            {{ __('Upload Document') }}
+          </flux:heading>
+          <flux:description size="xs">
+            Carga un documento PDF.
+          </flux:description>
+          <flux:separator />
+        </header>
+
+        <div class="space-y-4">
+          <flux:label>{{ __('Document') }}</flux:label>
+          <flux:input
+            size="sm"
+            type="file"
+            wire:model="new_catalog_document"
+          />
+          <div wire:loading wire:target="new_catalog_document">
+            <flux:icon.loading />
+          </div>
+          <flux:error name="new_catalog_document" />
+
+          @if (isset($settings['catalog_document']))
+            <div>
+              <a
+                class="text-blue-500"
+                download
+                href="{{ Storage::url($settings['catalog_document']) }}"
+              >
+                {{ __('Download Current Document') }}
+              </a>
+            </div>
+          @endif
+        </div>
+      </flux:card>
+      {{-- #End Catalog Document --}}
+
+      {{-- Social Media Updates --}}
       <flux:card class="space-y-4">
         <header class="space-y-2">
           <flux:heading level="3" size="lg">
@@ -175,7 +215,9 @@
           wire:model="general_info.social_media.linkedin"
         />
       </flux:card>
+      {{-- #End Social Media Updates --}}
 
+      {{-- Contact Information --}}
       <flux:card class="space-y-4">
         <header class="space-y-2">
           <flux:heading level="3" size="lg">
@@ -223,6 +265,7 @@
           wire:model="general_info.contact_information.email"
         />
       </flux:card>
+      {{-- #End Contact Information --}}
     </div>
   </section>
 

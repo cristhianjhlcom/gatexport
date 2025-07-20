@@ -24,6 +24,9 @@ final class SettingGeneralManagement extends Component
     #[Validate]
     public $new_small_logo;
 
+    #[Validate]
+    public $new_catalog_document;
+
     // NOTE: Properties for other settings.
     #[Validate]
     public $general_info = [
@@ -51,6 +54,7 @@ final class SettingGeneralManagement extends Component
         ],
         'large_logo' => '',
         'small_logo' => '',
+        'catalog_document' => '',
     ];
 
     protected SettingManagementServices $services;
@@ -70,6 +74,13 @@ final class SettingGeneralManagement extends Component
         'general_info.contact_information.second_phone' => 'required|string|max:255',
         'general_info.contact_information.whatsapp_link' => 'required|url|max:255',
         'general_info.contact_information.email' => 'required|string|email|max:255',
+
+        'new_catalog_document' => [
+            'nullable',
+            'file',
+            'mimes:pdf',
+            'max:2048', // 1MB max
+        ],
 
         'new_large_logo' => [
             'nullable',
@@ -130,6 +141,7 @@ final class SettingGeneralManagement extends Component
             'general_info' => $this->general_info,
             'new_large_logo' => $this->new_large_logo,
             'new_small_logo' => $this->new_small_logo,
+            'new_catalog_document' => $this->new_catalog_document,
         ]);
 
         Flux::toast(

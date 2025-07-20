@@ -347,6 +347,10 @@ final class SettingManagementServices
                 $data['general_info']['small_logo'] = $this->handleFileUpload($data['new_small_logo'], 'uploads/settings/logos');
             }
 
+            if ($data['new_catalog_document']) {
+                $data['general_info']['catalog_document'] = $this->handleFileUpload($data['new_catalog_document'], 'uploads/docs');
+            }
+
             foreach ($this->available_locales as $locale) {
                 Setting::updateOrCreate(
                     [
@@ -359,6 +363,7 @@ final class SettingManagementServices
                             'translations' => $data['general_info'][$locale],
                             'large_logo' => $data['general_info']['large_logo'],
                             'small_logo' => $data['general_info']['small_logo'],
+                            'catalog_document' => $data['general_info']['catalog_document'],
                             'social_media' => $data['general_info']['social_media'],
                             'contact_information' => $data['general_info']['contact_information'],
                         ],
