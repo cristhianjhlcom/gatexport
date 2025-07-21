@@ -10,6 +10,6 @@ final class OrderCreationException extends Exception
 {
     public static function cannotCreateOrder(): self
     {
-        return new self('Cannot create the order, try again later.', 500);
+        return new self(__('messages.public.product.error.message'), 500);
     }
 }

@@ -14,5 +14,16 @@ return [
                 'message' => 'We could not send your message. Please try again later.',
             ],
         ],
+
+        'product' => [
+            'success' => [
+                'title' => 'Order created successfully',
+                'message' => 'Order created successfully. Someone will contact you soon.',
+            ],
+            'error' => [
+                'title' => 'Oops! Something went wrong.',
+                'message' => 'Cannot create the order, try again later.',
+            ],
+        ],
     ],
 ];

@@ -19,19 +19,19 @@ final class CallToAction extends Component
     public int $quantity = 1;
 
     #[Validate]
-    public string $firstName = '';
+    public string $firstName;
 
     #[Validate]
-    public string $lastName = '';
+    public string $lastName;
 
     #[Validate]
-    public string $email = '';
+    public string $email;
 
     #[Validate]
-    public string $phone = '';
+    public string $phone;
 
     #[Validate]
-    public ?string $notes = null;
+    public string $notes;
 
     public function createOrder(RequestOrderAction $create)
     {
@@ -42,19 +42,23 @@ final class CallToAction extends Component
 
             $this->reset(['quantity', 'firstName', 'lastName', 'email', 'phone', 'notes']);
 
-            Flux::modal('call-to-action')->close();
             Flux::toast(
-                heading: __('Order created successfully'),
-                text: __('Someone will contact you soon.'),
+                heading: __('messages.public.product.success.title'),
+                text: __('messages.public.product.success.message'),
                 variant: 'success',
             );
+
+            Flux::modal('call-to-action')->close();
         } catch (OrderCreationException $e) {
             report($e);
+
             Flux::toast(
-                heading: __('Oops! Something went wrong'),
+                heading: __('messages.public.product.error.title'),
                 text: $e->getMessage(),
                 variant: 'danger',
             );
+
+            $this->reset(['quantity', 'firstName', 'lastName', 'email', 'phone', 'notes']);
         }
     }
 
@@ -66,39 +70,23 @@ final class CallToAction extends Component
     protected function rules(): array
     {
         return [
-            'firstName' => 'required|string|min:3|max:90',
-            'lastName' => 'required|string|min:3|max:90',
+            'firstName' => 'required|string|max:90',
+            'lastName' => 'required|string|max:90',
             'email' => 'required|string|email|max:90',
-            'phone' => 'required|string|max:255',
-            'notes' => 'nullable|string|min:3|max:255',
+            'phone' => 'required|string|between:6,12',
+            'notes' => 'required|string|between:3,2000',
             'quantity' => 'required|integer|min:1|max:10',
-        ];
-    }
-
-    protected function messages()
-    {
-        return [
-            'firstName.required' => 'The :attribute is required.',
-            'firstName.min' => 'The :attribute must be at least :min characters.',
-            'firstName.max' => 'The :attribute must be at most :max characters.',
-            'lastName.required' => 'The :attribute is required.',
-            'lastName.min' => 'The :attribute must be at least :min characters.',
-            'lastName.max' => 'The :attribute must be at most :max characters.',
-            'email.required' => 'The :attribute is required.',
-            'email.email' => 'The :attribute must be a valid email address.',
-            'email.max' => 'The :attribute must be at most :max characters.',
-            'phone.required' => 'The :attribute is required.',
-            'phone.max' => 'The :attribute must be at most :max characters.',
         ];
     }
 
     protected function validationAttributes()
     {
         return [
-            'firstName' => __('First Name'),
-            'lastName' => __('Last Name'),
-            'email' => __('Email'),
-            'phone' => __('Phone Number'),
+            'firstName' => strtolower(__('pages.product.first_name')),
+            'lastName' => strtolower(__('pages.product.last_name')),
+            'email' => strtolower(__('pages.product.email')),
+            'phone' => strtolower(__('pages.product.phone')),
+            'notes' => strtolower(__('pages.product.notes')),
         ];
     }
 }

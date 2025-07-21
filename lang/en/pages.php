@@ -44,4 +44,21 @@ return [
         'contact_us' => 'Contact Us',
         'required' => 'Required',
     ],
+    'product' => [
+        'title' => 'Product',
+        'description' => 'Description',
+        'specifications' => 'Specifications',
+        'related_products' => 'Related Products',
+        'request_product' => 'Request Product',
+        'request_title' => 'Request Product',
+        'request_description' => 'We need your information to contact you.',
+
+        'first_name' => 'First Name',
+        'last_name' => 'Last Name',
+        'email' => 'Email',
+        'phone' => 'Phone Number',
+        'notes' => 'Notes',
+        'observation' => 'If you have any observations, please let us know.',
+        'required' => 'Required',
+    ],
 ];

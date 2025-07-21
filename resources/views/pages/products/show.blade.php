@@ -4,7 +4,7 @@
     {{-- BREADCRUMBS --}}
     <flux:breadcrumbs>
       <flux:breadcrumbs.item href="{{ route('home.index') }}" separator="slash">
-        {{ __('Home') }}
+        {{ __('layouts.navigation.home') }}
       </flux:breadcrumbs.item>
       <flux:breadcrumbs.item
         href="{{ route('categories.show', [
@@ -54,7 +54,7 @@
 
       <!-- Información del Producto -->
       <div class="space-y-6">
-        <div class="space-y-2">
+        <div class="space-y-4">
           <flux:breadcrumbs>
             <flux:breadcrumbs.item separator="slash">
               {{ $subcategory->category->name }}
@@ -63,9 +63,21 @@
               {{ $subcategory->name }}
             </flux:breadcrumbs.item>
           </flux:breadcrumbs>
+
           <!-- Título y estado -->
-          <flux:heading level="1" size="xl">{{ $product->name }}</flux:heading>
+          <x-heading level="1" size="xl">
+            {{ $product->name }}
+          </x-heading>
           <flux:text>{{ $product->seo_description }}</flux:text>
+
+          <dl class="divide-y divide-gray-200">
+            @foreach ($product->specifications as $specification)
+              <div class="grid grid-cols-2 gap-4 bg-gray-50 p-4">
+                <dt class="text-sm font-medium text-gray-500">{{ $specification->key }}</dt>
+                <dd class="text-sm text-gray-900">{{ $specification->value }}</dd>
+              </div>
+            @endforeach
+          </dl>
         </div>
 
         <!-- Call To Action -->
@@ -77,8 +89,12 @@
 
     <flux:tab.group>
       <flux:tabs>
-        <flux:tab icon="user" name="description">{{ __('Description') }}</flux:tab>
-        <flux:tab icon="cog-6-tooth" name="specifications">{{ __('Specifications') }}</flux:tab>
+        <flux:tab icon="user" name="description">
+          {{ __('pages.product.description') }}
+        </flux:tab>
+        <flux:tab icon="cog-6-tooth" name="specifications">
+          {{ __('pages.product.specifications') }}
+        </flux:tab>
       </flux:tabs>
       <flux:tab.panel name="description">
         <div class="prose prose-sm md:prose-md md:text-md text-sm text-gray-500">
@@ -97,33 +113,12 @@
       </flux:tab.panel>
     </flux:tab.group>
 
-    <flux:separator text="{{ __('Related Products') }}" />
+    <flux:separator text="{{ __('pages.product.related_products') }}" />
 
     {{-- Related Products --}}
     <section class="grid grid-cols-2 gap-4 md:grid-cols-4 lg:grid-cols-5">
       @foreach ($subcategory->products as $product)
-        <flux:link
-          class="overflow-hidden"
-          href="{{ route('products.show', [
-              'category' => $product->subcategory->category,
-              'subcategory' => $product->subcategory,
-              'product' => $product,
-          ]) }}"
-          wire:navigate
-        >
-          <article class="flex flex-col items-center justify-center">
-            <img
-              alt="{{ $product->name }}"
-              class="aspect-square h-auto w-full rounded-sm object-contain"
-              src="{{ $product->getFirstImageAttribute() }}"
-            >
-            <main class="bg-white p-4">
-              <h6 class="text-xs font-normal text-gray-800">
-                {{ $product->name }}
-              </h6>
-            </main>
-          </article>
-        </flux:link>
+        <x-common.product-card :$product />
       @endforeach
     </section>
 
