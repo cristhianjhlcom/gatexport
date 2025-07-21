@@ -1,6 +1,6 @@
 @props(['categories'])
 
-<article class="bg-primary-50 py-10 md:py-16 lg:py-20">
+<article class="bg-primary-50 py-10 md:py-14">
   <div class="container space-y-6 overflow-hidden">
     <x-heading
       class="text-center"
@@ -8,15 +8,15 @@
       size="xl"
       weight="black"
     >
-      Nuestros Productos
+      {{ __('pages.home.products.title') }}
     </x-heading>
     <div class="swiper__featured-products">
       <div class="swiper-wrapper">
         @foreach ($categories as $idx => $category)
-          <a class="swiper-slide group relative overflow-hidden rounded-lg transition-transform hover:scale-105"
+          <a class="swiper-slide group relative overflow-hidden rounded-sm"
             href="{{ route('categories.show', $category->slug) }}"
           >
-            <div class="absolute inset-0 bg-gray-800/70 transition-opacity group-hover:bg-gray-800/50"></div>
+            <div class="absolute inset-0 bg-gray-800/50 transition-opacity group-hover:bg-gray-800/50"></div>
             <img
               alt="{{ $category->name }}"
               class="aspect-square w-full object-cover"

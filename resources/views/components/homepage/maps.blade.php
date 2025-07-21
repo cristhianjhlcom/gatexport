@@ -6,7 +6,7 @@
       size="xl"
       weight="black"
     >
-      Nuestros Países de Exportación
+      {{ __('pages.home.countries_exports.title') }}
     </x-heading>
     <div
       class="md:!h-[750px]"

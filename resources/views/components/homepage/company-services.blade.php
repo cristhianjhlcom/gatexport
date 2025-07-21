@@ -7,7 +7,7 @@
     <div class="flex items-start justify-start gap-4 md:flex-row md:gap-12">
       <div class="hidden overflow-hidden rounded-sm sm:block">
         <img
-          alt="Nuestra Historia"
+          alt="{{ __('pages.home.services.title') }}"
           class="aspect-square w-full object-contain"
           src="{{ Storage::disk('public')->url($company_services['main_image']) }}"
         >
@@ -19,7 +19,7 @@
           size="lg"
           weight="black"
         >
-          {{ __('Company Services') }}
+          {{ __('pages.home.services.title') }}
         </x-heading>
         <flux:separator />
         <flux:accordion class="w-full">

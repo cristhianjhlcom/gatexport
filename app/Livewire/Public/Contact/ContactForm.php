@@ -18,26 +18,19 @@ class ContactForm extends Component
     protected string $companyEmail = '';
 
     protected $rules = [
-        'name' => 'required|string|max:255',
-        'email' => 'required|email|max:255',
+        'name' => 'required|string|between:3,100',
+        'email' => 'required|email|between:3,100',
         'message' => 'required|string|max:1000',
     ];
 
-    protected $messages = [
-        'name.required' => 'The :attribute is required.',
-        'name.max' => 'The :attribute must be at most :max characters.',
-        'email.required' => 'The :attribute is required.',
-        'email.email' => 'The :attribute must be a valid email address.',
-        'email.max' => 'The :attribute must be at most :max characters.',
-        'message.required' => 'The :attribute is required.',
-        'message.max' => 'The :attribute must be at most :max characters.',
-    ];
-
-    protected $validationAttributes = [
-        'name' => 'Name',
-        'email' => 'Email',
-        'message' => 'Message',
-    ];
+    protected function getValidationAttributes()
+    {
+        return [
+            'name' => strtolower(__('pages.contact.name')),
+            'email' => strtolower(__('pages.contact.email')),
+            'message' => strtolower(__('pages.contact.message')),
+        ];
+    }
 
     public function mount()
     {
@@ -50,7 +43,6 @@ class ContactForm extends Component
     {
         $this->validate();
 
-        // Example email sending logic
         Mail::send([], [], function ($message) {
             $message->to($this->companyEmail)
                 ->subject('Contact Form Submission')
@@ -60,8 +52,8 @@ class ContactForm extends Component
         $this->reset();
 
         Flux::toast(
-            heading: __('Message Sent'),
-            text: __('Your message has been sent successfully.'),
+            heading: __('messages.public.contact.success.title'),
+            text: __('messages.public.contact.success.message'),
             variant: 'success',
         );
     }

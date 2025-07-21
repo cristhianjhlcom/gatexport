@@ -5,7 +5,7 @@
       <div class="flex flex-col items-start justify-start gap-8 py-10 md:flex-row md:gap-12">
         <div class="max-w-[500px]">
           <img
-            alt="Nuestra Historia"
+            alt="{{ __('pages.about.title') }}"
             class="aspect-square h-[500px] w-full rounded-sm object-cover"
             src="{{ Storage::disk('public')->url($about['first_image']) }}"
           />
@@ -34,7 +34,7 @@
             icon:trailing="document-arrow-down"
             variant="primary"
           >
-            {{ __('Download Catalog Document') }}
+            {{ __('pages.about.download_catalog_document') }}
           </flux:button>
         </article>
       </div>
@@ -94,7 +94,7 @@
             size="lg"
             weight="black"
           >
-            {{ __('Mission') }}
+            {{ __('pages.about.mission') }}
           </x-heading>
           <flux:text>
             {!! $about['translations']['mission'] !!}
@@ -105,7 +105,7 @@
             size="lg"
             weight="black"
           >
-            {{ __('Vission') }}
+            {{ __('pages.about.vision') }}
           </x-heading>
           <flux:text>
             {!! $about['translations']['vision'] !!}
@@ -131,7 +131,7 @@
             size="lg"
             weight="black"
           >
-            {{ __('Contact Information') }}
+            {{ __('pages.contact.contact_information') }}
           </x-heading>
           <flux:text class="flex items-center gap-x-2">
             <flux:icon name="map-pin" />
@@ -158,7 +158,7 @@
             size="lg"
             weight="black"
           >
-            {{ __('Contact Form') }}
+            {{ __('pages.contact.contact_us') }}
           </x-heading>
           <livewire:public.contact.contact-form />
         </article>

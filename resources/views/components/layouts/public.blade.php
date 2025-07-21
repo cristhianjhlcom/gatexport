@@ -41,12 +41,12 @@
 
     <flux:navbar class="-mb-px max-lg:hidden">
       <flux:navbar.item href="{{ route('home.index') }}">
-        {{ __('Home') }}
+        {{ __('layouts.navigation.home') }}
       </flux:navbar.item>
 
       <flux:dropdown>
         <flux:navbar.item icon:trailing="chevron-down">
-          {{ __('Products') }}
+          {{ __('layouts.navigation.products') }}
         </flux:navbar.item>
         <flux:navmenu>
           <div class="z-100 flex flex-col space-y-2">
@@ -109,11 +109,11 @@
       </flux:dropdown>
 
       <flux:navbar.item href="{{ route('home.index') }}/#services">
-        {{ __('Services') }}
+        {{ __('layouts.navigation.services') }}
       </flux:navbar.item>
 
       <flux:navbar.item href="{{ route('about-us.index') }}">
-        {{ __('About Us') }}
+        {{ __('layouts.navigation.about_us') }}
       </flux:navbar.item>
 
     </flux:navbar>
@@ -122,22 +122,24 @@
       <flux:navbar.item
         href="#"
         icon="magnifying-glass"
-        label="Search"
+        label="{{ __('layouts.navigation.search') }}"
       />
     </flux:navbar>
+
     <flux:dropdown align="start" position="top">
-      <flux:profile name="Spanish" />
-      <flux:menu>
-        <flux:menu.radio.group>
-          <flux:menu.radio checked>
-            {{ __('Spanish') }}
-          </flux:menu.radio>
-          <flux:menu.radio>
-            {{ __('English') }}
-          </flux:menu.radio>
-        </flux:menu.radio.group>
-      </flux:menu>
+      <flux:profile
+        name="{{ app()->getLocale() === 'es' ? __('layouts.navigation.es') : __('layouts.navigation.en') }}"
+      />
+
+      <flux:navmenu>
+        @foreach (config('localization.locales') as $locale)
+          <flux:navmenu.item href="{{ route('localization.update', $locale) }}" icon="building-storefront">
+            {{ __("layouts.navigation.{$locale}") }}
+          </flux:navmenu.item>
+        @endforeach
+      </flux:navmenu>
     </flux:dropdown>
+
   </flux:header>
   <flux:sidebar
     class="border border-zinc-200 bg-zinc-50 lg:hidden rtl:border-l rtl:border-r-0 dark:border-zinc-700 dark:bg-zinc-900"
@@ -156,11 +158,15 @@
     </flux:brand>
     <flux:navlist variant="outline">
       <flux:navlist.item href="{{ route('home.index') }}">
-        {{ __('Home') }}
+        {{ __('layouts.navigation.home') }}
       </flux:navlist.item>
 
       <flux:navlist.item href="{{ route('about-us.index') }}">
-        {{ __('About Us') }}
+        {{ __('layouts.navigation.services') }}
+      </flux:navlist.item>
+
+      <flux:navlist.item href="{{ route('about-us.index') }}">
+        {{ __('layouts.navigation.about_us') }}
       </flux:navlist.item>
 
       @foreach ($navigationCategories as $category)

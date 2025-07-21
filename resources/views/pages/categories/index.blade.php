@@ -4,10 +4,10 @@
     {{-- BREADCRUMBS --}}
     <flux:breadcrumbs>
       <flux:breadcrumbs.item href="{{ route('home.index') }}" separator="slash">
-        {{ __('Home') }}
+        {{ __('layouts.navigation.home') }}
       </flux:breadcrumbs.item>
       <flux:breadcrumbs.item separator="slash">
-        {{ __('Categories') }}
+        {{ __('layouts.navigation.categories') }}
       </flux:breadcrumbs.item>
     </flux:breadcrumbs>
     {{-- END BREADCRUMBS --}}
@@ -28,7 +28,7 @@
               variant="ghost"
               wire:navigate
             >
-              {{ __('View All') }}
+              {{ __('pages.categories.view_all') }}
             </flux:button>
           </header>
           <div class="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-4">

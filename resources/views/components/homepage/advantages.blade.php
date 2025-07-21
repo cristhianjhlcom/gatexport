@@ -2,7 +2,7 @@
     'competitive_advantages' => [],
 ])
 
-<section class="py-10 md:py-16 lg:py-20">
+<section class="py-10 md:py-14">
   <div class="container space-y-6 overflow-hidden">
     <x-heading
       class="text-center"
@@ -10,13 +10,13 @@
       size="xl"
       weight="black"
     >
-      Nuestras Ventajas
+      {{ __('pages.home.advantages.title') }}
     </x-heading>
     <div class="swiper__advantages">
       <div class="swiper-wrapper">
         @foreach ($competitive_advantages as $advantage)
           <article
-            class="swiper-slide border-primary-100 hover:bg-primary-100 bg-primary-50 flex min-h-40 flex-col space-y-4 rounded-sm border p-6 transition-colors"
+            class="swiper-slide border-primary-100 hover:bg-primary-100 bg-primary-50 flex min-h-48 flex-col space-y-4 rounded-sm border p-6 transition-colors"
           >
             <header class="flex items-center justify-start gap-4">
               <img

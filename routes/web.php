@@ -11,7 +11,7 @@ Route::middleware(['web', 'auth'])
     ->group(base_path('routes/admin.php'));
 
 // NOTE: Rutas públicas
-Route::middleware('web')
+Route::middleware(['web', 'locale'])
     ->group(base_path('routes/public.php'));
 
 // NOTE: Auth routes.

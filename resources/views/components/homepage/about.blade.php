@@ -3,17 +3,17 @@
     'general_information' => [],
 ])
 
-<article class="bg-primary-50 py-10 md:py-16 lg:py-20" id="about-us">
+<article class="bg-primary-50 pb-10 pt-0 md:pb-16 lg:pb-20" id="about-us">
   <div class="container space-y-8 md:space-y-12">
     <div class="flex flex-col-reverse items-center gap-8 md:flex-row md:gap-12">
       <div class="flex w-full flex-col items-center justify-center gap-4 md:w-1/2 md:flex-row">
         <img
-          alt="Nuestra Historia"
+          alt="{{ __('pages.home.about.title') }}"
           class="mt-0 aspect-square h-auto w-full rounded-sm object-cover md:mt-20 md:h-[500px] md:w-1/2"
           src="{{ Storage::disk('public')->url($about['first_image']) }}"
         >
         <img
-          alt="Nuestra Historia"
+          alt="{{ __('pages.home.about.title') }}"
           class="hidden aspect-square h-[500px] w-full rounded-sm object-cover md:block md:h-[500px] md:w-1/2"
           src="{{ Storage::disk('public')->url($about['second_image']) }}"
         >
@@ -24,7 +24,7 @@
           size="xl"
           weight="black"
         >
-          Nuestra Historia
+          {{ __('pages.home.about.title') }}
         </x-heading>
         <flux:text>
           {{ $general_information['translations']['company_short_description'] }}
@@ -37,7 +37,7 @@
             type="button"
             variant="primary"
           >
-            Ver Historia Completa
+            {{ __('pages.home.about.full_history') }}
           </flux:button>
         </div>
       </div>
@@ -51,7 +51,7 @@
             size="lg"
             weight="black"
           >
-            Nuestra Misión
+            {{ __('pages.home.about.mission') }}
           </x-heading>
           <flux:text>
             {!! $about['translations']['mission'] !!}
@@ -64,7 +64,7 @@
             size="lg"
             weight="black"
           >
-            Nuestra Visión
+            {{ __('pages.home.about.vision') }}
           </x-heading>
           <flux:text>
             {!! $about['translations']['vision'] !!}
