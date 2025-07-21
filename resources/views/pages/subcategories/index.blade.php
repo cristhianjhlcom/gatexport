@@ -4,10 +4,10 @@
     {{-- BREADCRUMBS --}}
     <flux:breadcrumbs>
       <flux:breadcrumbs.item href="{{ route('home.index') }}" separator="slash">
-        {{ __('Home') }}
+        {{ __('layouts.navigation.home') }}
       </flux:breadcrumbs.item>
       <flux:breadcrumbs.item href="{{ route('categories.index') }}" separator="slash">
-        {{ __('Categories') }}
+        {{ __('layouts.navigation.categories') }}
       </flux:breadcrumbs.item>
       <flux:breadcrumbs.item
         href="{{ route('categories.show', [
@@ -26,24 +26,7 @@
     {{-- GRID OF PRODUCTS --}}
     <div class="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5">
       @foreach ($products as $product)
-        <a href="{{ route('products.show', [
-            'category' => $product->subcategory->category,
-            'subcategory' => $product->subcategory,
-            'product' => $product,
-        ]) }}"
-          wire:navigate
-        >
-          <article class="flex flex-col items-center justify-center">
-            <img
-              alt="{{ $product->name }}"
-              class="aspect-square h-auto w-full object-contain"
-              src="{{ $product->getFirstImageAttribute() }}"
-            >
-            <main class="bg-white p-4">
-              <flux:heading>{{ $product->name }}</flux:heading>
-            </main>
-          </article>
-        </a>
+        <x-common.product-card :$product />
       @endforeach
     </div>
     {{-- END GRID OF PRODUCTS --}}
