@@ -12,7 +12,7 @@
           src="{{ Storage::disk('public')->url($company_services['main_image']) }}"
         >
       </div>
-      <div class="flex-1 justify-start space-y-4 md:space-y-6">
+      <div class="flex-1 grow justify-start space-y-4 md:space-y-6">
         <x-heading
           class="text-center sm:text-left"
           level="2"
@@ -22,15 +22,26 @@
           {{ __('pages.home.services.title') }}
         </x-heading>
         <flux:separator />
-        <flux:accordion class="w-full">
-          @foreach ($company_services['services'] as $service)
-            <flux:accordion.item :key="$service['title']">
-              <flux:accordion.heading>{{ $service['title'] }}</flux:accordion.heading>
 
-              <flux:accordion.content>
-                {!! $service['description'] !!}
-              </flux:accordion.content>
-            </flux:accordion.item>
+        <flux:accordion exclusive transition>
+          @foreach ($company_services['services'] as $service)
+            @if ($loop->first)
+              <flux:accordion.item :key="$service['title']" expanded>
+                <flux:accordion.heading>{{ $service['title'] }}</flux:accordion.heading>
+
+                <flux:accordion.content>
+                  {!! $service['description'] !!}
+                </flux:accordion.content>
+              </flux:accordion.item>
+            @else
+              <flux:accordion.item :key="$service['title']">
+                <flux:accordion.heading>{{ $service['title'] }}</flux:accordion.heading>
+
+                <flux:accordion.content>
+                  {!! $service['description'] !!}
+                </flux:accordion.content>
+              </flux:accordion.item>
+            @endif
           @endforeach
         </flux:accordion>
       </div>
