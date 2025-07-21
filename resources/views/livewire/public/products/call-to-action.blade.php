@@ -34,7 +34,7 @@
         </flux:text>
       </header>
       <flux:separator />
-      <div class="grid grid-cols-2 gap-4">
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <flux:input
           badge="{{ __('pages.product.required') }}"
           label="{{ __('pages.product.first_name') }}"
@@ -48,7 +48,7 @@
           wire:model="lastName"
         />
       </div>
-      <div class="grid grid-cols-2 gap-4">
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <flux:input
           badge="{{ __('pages.product.required') }}"
           label="{{ __('pages.product.email') }}"
@@ -65,7 +65,7 @@
       </div>
       <flux:textarea
         badge="{{ __('pages.product.required') }}"
-        description="{{ __('pages.product.observation') }}"
+        description:trailing="{{ __('pages.product.observation') }}"
         label="{{ __('pages.product.notes') }}"
         placeholder="Lorem ipsum..."
         wire:model="notes"
