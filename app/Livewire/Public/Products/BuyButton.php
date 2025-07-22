@@ -11,7 +11,7 @@ use Flux\Flux;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
-final class CallToAction extends Component
+final class BuyButton extends Component
 {
     public Product $product;
 
@@ -64,7 +64,7 @@ final class CallToAction extends Component
 
     public function render()
     {
-        return view('livewire.public.products.call-to-action');
+        return view('livewire.public.products.buy-button');
     }
 
     protected function rules(): array
@@ -82,11 +82,11 @@ final class CallToAction extends Component
     protected function validationAttributes()
     {
         return [
-            'firstName' => strtolower(__('pages.product.first_name')),
-            'lastName' => strtolower(__('pages.product.last_name')),
-            'email' => strtolower(__('pages.product.email')),
-            'phone' => strtolower(__('pages.product.phone')),
-            'notes' => strtolower(__('pages.product.notes')),
+            'firstName' => mb_strtolower(__('pages.product.first_name')),
+            'lastName' => mb_strtolower(__('pages.product.last_name')),
+            'email' => mb_strtolower(__('pages.product.email')),
+            'phone' => mb_strtolower(__('pages.product.phone')),
+            'notes' => mb_strtolower(__('pages.product.notes')),
         ];
     }
 }

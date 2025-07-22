@@ -295,7 +295,6 @@ final class SettingManagementServices
                 ];
             }
 
-
             Setting::updateOrCreate(
                 [
                     'key' => 'providers',

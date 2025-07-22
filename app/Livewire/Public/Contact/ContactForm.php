@@ -6,13 +6,15 @@ namespace App\Livewire\Public\Contact;
 
 use App\Actions\Home\GetGeneralInformation;
 use Flux\Flux;
-use Livewire\Component;
 use Illuminate\Support\Facades\Mail;
+use Livewire\Component;
 
-class ContactForm extends Component
+final class ContactForm extends Component
 {
     public string $name = '';
+
     public string $email = '';
+
     public string $message = '';
 
     protected string $companyEmail = '';
@@ -22,15 +24,6 @@ class ContactForm extends Component
         'email' => 'required|email|between:3,100',
         'message' => 'required|string|max:1000',
     ];
-
-    protected function getValidationAttributes()
-    {
-        return [
-            'name' => strtolower(__('pages.contact.name')),
-            'email' => strtolower(__('pages.contact.email')),
-            'message' => strtolower(__('pages.contact.message')),
-        ];
-    }
 
     public function mount()
     {
@@ -61,5 +54,14 @@ class ContactForm extends Component
     public function render()
     {
         return view('livewire.public.contact.contact-form');
+    }
+
+    protected function getValidationAttributes()
+    {
+        return [
+            'name' => mb_strtolower(__('pages.contact.name')),
+            'email' => mb_strtolower(__('pages.contact.email')),
+            'message' => mb_strtolower(__('pages.contact.message')),
+        ];
     }
 }

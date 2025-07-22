@@ -19,7 +19,7 @@ final class GetGeneralInformation
                 ->where('locale', $locale)
                 ->first();
 
-            if (!$setting) {
+            if (! $setting) {
                 return [];
             }
 

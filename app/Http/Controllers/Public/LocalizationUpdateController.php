@@ -10,7 +10,7 @@ final class LocalizationUpdateController extends Controller
 {
     public function __invoke(string $locale)
     {
-        if (!in_array($locale, config('localization.locales'))) {
+        if (! in_array($locale, config('localization.locales'))) {
             abort(400);
         }
 

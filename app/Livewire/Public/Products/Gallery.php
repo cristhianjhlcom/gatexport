@@ -1,20 +1,24 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Public\Products;
 
 use App\Models\ProductImages;
 use Illuminate\Support\Collection;
 use Livewire\Component;
 
-class Gallery extends Component
+final class Gallery extends Component
 {
     public Collection $images;
+
     public ProductImages $selectedImage;
 
     public function mount()
     {
-        if (!empty($this->images)) {
+        if (! empty($this->images)) {
             $this->selectedImage = $this->images[0];
+
             return;
         }
 

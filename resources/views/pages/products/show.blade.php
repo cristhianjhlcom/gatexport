@@ -63,7 +63,7 @@
 
         <!-- Call To Action -->
         <flux:separator />
-        <livewire:public.products.call-to-action :$product />
+        <livewire:public.products.buy-button :$product />
 
       </div>
     </section>

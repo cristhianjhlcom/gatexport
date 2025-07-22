@@ -19,7 +19,7 @@ final class GetPromotionalBanners
                 ->where('locale', $locale)
                 ->first();
 
-            if (!$setting) {
+            if (! $setting) {
                 return [];
             }
 
