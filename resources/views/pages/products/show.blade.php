@@ -31,26 +31,7 @@
 
     <section class="grid grid-cols-1 gap-8 md:grid-cols-2">
       <!-- Galería de Imágenes -->
-      <div class="space-y-4">
-        <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-sm bg-gray-100">
-          <img
-            alt="{{ $product->name }}"
-            class="h-full w-full object-cover object-center"
-            src="{{ Storage::disk('public')->url($product->images[0]->path) }}"
-          >
-        </div>
-        <div class="grid grid-cols-3 gap-4">
-          @for ($i = 1; $i < 4; $i++)
-            <div class="aspect-w-1 aspect-h-1 overflow-hidden rounded-sm bg-gray-100">
-              <img
-                alt="{{ $product->name }}"
-                class="h-full w-full cursor-pointer object-cover object-center hover:opacity-75"
-                src="{{ Storage::disk('public')->url($product->images[$i]->path) }}"
-              >
-            </div>
-          @endfor
-        </div>
-      </div>
+      <livewire:public.products.gallery :images="$product->images" />
 
       <!-- Información del Producto -->
       <div class="space-y-6">

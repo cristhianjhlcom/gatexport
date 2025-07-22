@@ -7,16 +7,20 @@
   <div class="container space-y-8 md:space-y-12">
     <div class="flex flex-col-reverse items-center gap-8 md:flex-row md:gap-12">
       <div class="flex w-full flex-col items-center justify-center gap-4 md:w-1/2 md:flex-row">
-        <img
-          alt="{{ __('pages.home.about.title') }}"
-          class="mt-0 aspect-square h-auto w-full rounded-sm object-cover md:mt-20 md:h-[500px] md:w-1/2"
-          src="{{ Storage::disk('public')->url($about['first_image']) }}"
-        >
-        <img
-          alt="{{ __('pages.home.about.title') }}"
-          class="hidden aspect-square h-[500px] w-full rounded-sm object-cover md:block md:h-[500px] md:w-1/2"
-          src="{{ Storage::disk('public')->url($about['second_image']) }}"
-        >
+        @if (Storage::disk('public')->exists($about['first_image']))
+          <img
+            alt="{{ __('pages.home.about.title') }}"
+            class="mt-0 aspect-square h-auto w-full rounded-sm object-cover md:mt-20 md:h-[500px] md:w-1/2"
+            src="{{ Storage::disk('public')->url($about['first_image']) }}"
+          >
+        @endif
+        @if (Storage::disk('public')->exists($about['second_image']))
+          <img
+            alt="{{ __('pages.home.about.title') }}"
+            class="hidden aspect-square h-[500px] w-full rounded-sm object-cover md:block md:h-[500px] md:w-1/2"
+            src="{{ Storage::disk('public')->url($about['second_image']) }}"
+          >
+        @endif
       </div>
       <div class="w-full space-y-2 md:w-1/2 md:space-y-4">
         <x-heading

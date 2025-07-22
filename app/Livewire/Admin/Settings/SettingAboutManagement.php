@@ -50,7 +50,7 @@ final class SettingAboutManagement extends Component
         'about.en.history' => 'required|string|max:2000',
         'about.en.mission' => 'required|string|max:2000',
         'about.en.vision' => 'required|string|max:2000',
-        'about.youtube_video_id' => 'nullable|url',
+        'about.youtube_video_id' => 'nullable|string|min:7|max:30',
 
         'new_first_image' => [
             'nullable',
