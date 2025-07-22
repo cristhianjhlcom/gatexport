@@ -168,14 +168,14 @@ final class ProductManagementForm extends Form
 
             // NOTE: Add images to the product.
             foreach ($this->images as $idx => $image) {
-                $filename = str()->uuid()->toString().'.'.$image->extension();
+                $filename = str()->uuid()->toString() . '.' . $image->extension();
                 $uploadedImage = $image->storeAs(path: 'uploads/products', name: $filename);
 
-                Log::info('Creating Product Image', [
-                    'index' => $idx,
+                Log::info('Uploaded Image', [
                     'image' => $image,
                     'uploaded_image' => $uploadedImage,
                     'filename' => $filename,
+                    'exists' => Storage::disk('public')->exists($uploadedImage),
                 ]);
 
                 ProductImages::create([
@@ -200,10 +200,6 @@ final class ProductManagementForm extends Form
                 ]);
             }
 
-            Log::info('Product created successfully', [
-                'product' => $product,
-            ]);
-
             return $product->fresh(['images', 'specifications']);
         });
     }
@@ -218,23 +214,12 @@ final class ProductManagementForm extends Form
                     Storage::disk('public')->delete($image->path);
 
                     $image->delete();
-
-                    Log::info('Product Image Deleted', [
-                        'image_path' => $image->path,
-                    ]);
                 }
             }
 
             foreach ($this->images as $idx => $image) {
-                $filename = str()->uuid()->toString().'.'.$image->extension();
-                $uploadedImage = $image->storeAs(path: 'uploads/products', name: $filename);
-
-                Log::info('Creating Product Image', [
-                    'index' => $idx,
-                    'image' => $image,
-                    'uploaded_image' => $uploadedImage,
-                    'filename' => $filename,
-                ]);
+                $filename = str()->uuid()->toString() . '.' . $image->extension();
+                $uploadedImage = $image->storeAs(path: 'uploads/products', name: $filename, options: 'public');
 
                 ProductImages::create([
                     'product_id' => $this->product->id,

@@ -4,7 +4,13 @@
       <flux:heading>{{ __('Update Product') }}</flux:heading>
     </div>
     <div>
-      <flux:button icon:trailing="arrow-top-right-on-square">
+      <flux:button
+        href="{{ route('products.show', [
+            'category' => $form->product->subcategory->category,
+            'subcategory' => $form->product->subcategory,
+            'product' => $form->product,
+        ]) }}"
+      >
         {{ __('View this product') }}
       </flux:button>
     </div>
