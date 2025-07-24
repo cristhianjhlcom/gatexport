@@ -9,8 +9,8 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImages;
 use App\Models\ProductSpecifications;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Validate;
@@ -47,21 +47,14 @@ final class ProductManagementForm extends Form
     public ?int $selectedSubcategoryId = null;
 
     #[Validate]
-    public $images = null;
-
-    public array $specifications = [];
+    public $images;
 
     #[Validate]
-    public string $specificationKey = '';
-
-    #[Validate]
-    public string $specificationValue = '';
+    public array $tmpImages = [];
 
     public $categories;
 
     public $subcategories;
-
-    public int $specificationsCount = 0;
 
     public function rules(): array
     {
@@ -78,13 +71,15 @@ final class ProductManagementForm extends Form
             'status' => 'required',
             'selectedCategoryId' => 'required|exists:categories,id',
             'selectedSubcategoryId' => 'required|exists:subcategories,id',
-            'images' => 'array|min:1|max:4',
-            'images.*' => 'image|max:4500|dimensions:min_width=1000,min_height=1000,max_width=1000,max_height=1000',
-            /*
-            'specifications' => 'array|max:5',
-            'specifications.*.key' => 'required|string|max:50',
-            'specifications.*.value' => 'required|string|max:255',
-            */
+            'images' => 'max:4',
+            'tmpImages' => 'nullable|array|max:4',
+            'tmpImages.*' => [
+                'nullable',
+                'image',
+                'max:4500',
+                'mimes:jpeg,png,jpg,webp',
+                'dimensions:min_width=1000,min_height=1000,max_width=1000,max_height=1000'
+            ],
         ];
 
         return $rules;
@@ -93,16 +88,16 @@ final class ProductManagementForm extends Form
     public function messages(): array
     {
         return [
-            'selectedCategoryId.required' => __('Should select a category'),
-            'selectedCategoryId.exists' => __('Category does not exist'),
-            'selectedSubcategoryId.required' => __('Should select a subcategory'),
-            'selectedSubcategoryId.exists' => __('Subcategory does not exist'),
-            'images.*.max' => __('Each image must not exceed 4.5MB'),
-            'images.*.dimensions' => __('Images must be 1000x1000 pixels'),
-            /*
-            'specifications.*.key.required' => __('Specification key is required'),
-            'specifications.*.value.required' => __('Specification value is required'),
-            */
+            'selectedCategoryId.required' => 'Debe seleccionar una categoría',
+            'selectedCategoryId.exists' => 'La categoría no existe',
+            'selectedSubcategoryId.required' => 'Debe seleccionar una subcategoría',
+            'selectedSubcategoryId.exists' => 'La subcategoría no existe',
+            'images.min' => 'Debe seleccionar al menos una imagen',
+            'images.max' => 'Debe seleccionar un máximo de 4 imagenes',
+            'tmpImages.max' => 'Debe seleccionar un máximo de 4 imagenes',
+            'tmpImages.*.max' => 'Cada imagen no puede exceder los 4.5MB',
+            'tmpImages.*.dimensions' => 'Las imagenes deben ser de 1000x1000 pixeles',
+            'tmpImages.*.mimes' => 'Las imagenes deben ser de formato JPEG, PNG, JPG o WEBP',
         ];
     }
 
@@ -117,33 +112,7 @@ final class ProductManagementForm extends Form
         $this->selectedCategoryId = $product->subcategory->category->id;
         $this->selectedSubcategoryId = $product->subcategory_id;
         $this->images = $product->images;
-        $this->specifications = $product->specifications->toArray();
-        $this->specificationsCount = count($this->specifications);
         $this->product = $product;
-    }
-
-    public function addSpecification()
-    {
-        if (count($this->specifications) >= 5) {
-            return;
-        }
-
-        $this->specifications[] = [
-            'id' => count($this->specifications) + 1,
-            'key' => str(mb_trim($this->specificationKey ?? ''))->title(),
-            'value' => str(mb_trim($this->specificationValue ?? ''))->title(),
-        ];
-
-        $this->specificationKey = '';
-        $this->specificationValue = '';
-    }
-
-    public function removeSpecification(int $idx): void
-    {
-        unset($this->specifications[$idx]);
-
-        $this->specifications = array_values($this->specifications);
-        $this->specificationsCount--;
     }
 
     public function updatedName(): void
@@ -167,16 +136,9 @@ final class ProductManagementForm extends Form
             ]);
 
             // NOTE: Add images to the product.
-            foreach ($this->images as $idx => $image) {
+            foreach ($this->tmpImages as $idx => $image) {
                 $filename = str()->uuid()->toString() . '.' . $image->extension();
                 $uploadedImage = $image->storeAs(path: 'uploads/products', name: $filename);
-
-                Log::info('Uploaded Image', [
-                    'image' => $image,
-                    'uploaded_image' => $uploadedImage,
-                    'filename' => $filename,
-                    'exists' => Storage::disk('public')->exists($uploadedImage),
-                ]);
 
                 ProductImages::create([
                     'product_id' => $product->id,
@@ -191,15 +153,6 @@ final class ProductManagementForm extends Form
                 ]);
             }
 
-            // NOTE: Add specifications to the product.
-            foreach ($this->specifications as $specification) {
-                ProductSpecifications::create([
-                    'product_id' => $product->id,
-                    'key' => (string) $specification['key'],
-                    'value' => (string) $specification['value'],
-                ]);
-            }
-
             return $product->fresh(['images', 'specifications']);
         });
     }
@@ -209,7 +162,7 @@ final class ProductManagementForm extends Form
         $this->validate();
 
         return DB::transaction(function () {
-            if ($this->product->images->count() > 0) {
+            if (count($this->tmpImages) > 0) {
                 foreach ($this->product->images as $image) {
                     Storage::disk('public')->delete($image->path);
 
@@ -217,7 +170,7 @@ final class ProductManagementForm extends Form
                 }
             }
 
-            foreach ($this->images as $idx => $image) {
+            foreach ($this->tmpImages as $idx => $image) {
                 $filename = str()->uuid()->toString() . '.' . $image->extension();
                 $uploadedImage = $image->storeAs(path: 'uploads/products', name: $filename, options: 'public');
 
@@ -243,15 +196,6 @@ final class ProductManagementForm extends Form
                 'status' => $this->status,
                 'subcategory_id' => $this->selectedSubcategoryId,
             ]);
-
-            // NOTE: Add specifications to the product.
-            foreach ($this->specifications as $specification) {
-                ProductSpecifications::create([
-                    'product_id' => $this->product->id,
-                    'key' => (string) $specification['key'],
-                    'value' => (string) $specification['value'],
-                ]);
-            }
 
             return $this->product->fresh();
         });

@@ -9,7 +9,6 @@ use App\Exceptions\Admin\ProductCreationException;
 use App\Livewire\Forms\Admin\ProductManagementForm;
 use App\Models\Category;
 use App\Models\Product;
-use App\Models\ProductSpecifications;
 use App\Models\Subcategory;
 use Flux\Flux;
 use Livewire\Attributes\Layout;
@@ -35,24 +34,22 @@ final class ProductEditManagement extends Component
     public function save()
     {
         // $this->authorize('create', Product::class);
-
         try {
             $this->form->update();
 
             Flux::toast(
-                heading: __('Product Updated'),
-                text: __('Product has been updated successfully.'),
+                heading: 'Producto Actualizado',
+                text: 'El producto ha sido actualizado correctamente.',
                 variant: 'success',
             );
-
-            $this->form->reset();
 
             $this->redirect(route('admin.products.index'), navigate: true);
         } catch (ProductCreationException $exception) {
             report($exception);
+
             Flux::toast(
-                heading: __('Something went wrong'),
-                text: __('Error while saving product: ').$exception->getMessage(),
+                heading: 'Ups! Algo malo paso',
+                text: $exception->getMessage(),
                 variant: 'error',
             );
         }
@@ -62,20 +59,6 @@ final class ProductEditManagement extends Component
     {
         $this->form->subcategories = Subcategory::where('category_id', $categoryId)->get();
         $this->form->selectedSubcategoryId = null;
-    }
-
-    public function addSpecification()
-    {
-        // $this->authorize('create', ProductSpecifications::class);
-        $this->form->addSpecification();
-
-        Flux::modal('add-specs')->close();
-    }
-
-    public function removeSpecification(int $idx)
-    {
-        $this->authorize('create', ProductSpecifications::class);
-        $this->form->removeSpecification($idx);
     }
 
     public function render()
