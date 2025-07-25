@@ -89,8 +89,8 @@ final class Gallery extends Component
                     'path' => $upload,
                     'mime_type' => 'webp',
                     'size' => Storage::disk('public')->size($upload),
-                    'width' => 700,
-                    'height' => 700,
+                    'width' => 1000,
+                    'height' => 1000,
                     'order' => $count++,
                 ]);
 
