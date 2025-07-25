@@ -14,7 +14,6 @@ use Flux\Flux;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
-use Livewire\WithFileUploads;
 
 #[Layout('components.layouts.admin')]
 #[Title('Edit Product')]

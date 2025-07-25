@@ -1,22 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Admin\Products;
 
 use App\Models\Product;
 use App\Models\ProductSpecifications;
+use Exception;
 use Flux\Flux;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
-class Specifications extends Component
+final class Specifications extends Component
 {
     public Product $product;
 
-    #[Validate('required|string|max:60', as: "clave")]
+    #[Validate('required|string|max:60', as: 'clave')]
     public string $key = '';
 
-    #[Validate('required|string|max:60', as: "valor")]
+    #[Validate('required|string|max:60', as: 'valor')]
     public string $value = '';
 
     public function mount(Product $product)
@@ -30,7 +33,7 @@ class Specifications extends Component
             DB::transaction(function () use ($specification) {
                 $specification->delete();
             });
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             report($e);
 
             Flux::toast(
@@ -48,7 +51,7 @@ class Specifications extends Component
         try {
             DB::transaction(function () {
                 if ($this->product->fresh()->specifications->count() >= 5) {
-                    throw new \Exception('No puede agregar más de 5 especificaciones.');
+                    throw new Exception('No puede agregar más de 5 especificaciones.');
                 }
 
                 $this->product->specifications()->create([
@@ -66,7 +69,7 @@ class Specifications extends Component
 
                 $this->reset(['key', 'value']);
             });
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             report($e);
 
             Flux::toast(

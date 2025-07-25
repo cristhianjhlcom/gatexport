@@ -1,20 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Admin\Products;
 
 use App\Models\Product;
 use App\Models\ProductImages;
+use Exception;
 use Flux\Flux;
 use Illuminate\Support\Facades\DB;
-use Intervention\Image\ImageManager;
-use Intervention\Image\Drivers\Imagick\Driver;
-// use Intervention\Image\Drivers\Gd\Driver;
 use Illuminate\Support\Facades\Storage;
+// use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\Drivers\Imagick\Driver;
+use Intervention\Image\ImageManager;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-class Gallery extends Component
+final class Gallery extends Component
 {
     use WithFileUploads;
 
@@ -45,7 +48,7 @@ class Gallery extends Component
 
                 $image->delete();
             });
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             report($e);
 
             Flux::toast(
@@ -65,13 +68,13 @@ class Gallery extends Component
                 $count = count($this->product->images);
 
                 if ($count >= 4) {
-                    throw new \Exception('No puedes agregar más de 4 imagenes.');
+                    throw new Exception('No puedes agregar más de 4 imagenes.');
                 }
 
                 $upload = $this->previewImage->store(path: 'uploads/products', options: 'public');
 
                 if (Storage::disk('public')->missing($upload)) {
-                    throw new \Exception('El archivo no existe. Intenta nuevamente.');
+                    throw new Exception('El archivo no existe. Intenta nuevamente.');
                 }
 
                 $manager = new ImageManager(new Driver());
@@ -99,7 +102,7 @@ class Gallery extends Component
 
                 $this->reset(['previewImage']);
             });
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             report($e);
 
             Flux::toast(
