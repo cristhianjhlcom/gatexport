@@ -20,8 +20,6 @@ use Livewire\WithFileUploads;
 #[Title('Edit Product')]
 final class ProductEditManagement extends Component
 {
-    use WithFileUploads;
-
     public ProductManagementForm $form;
 
     public function mount(Product $product)

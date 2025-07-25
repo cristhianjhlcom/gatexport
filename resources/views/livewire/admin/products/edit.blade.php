@@ -56,64 +56,8 @@
 
         </flux:card>
 
-        {{-- <livewire:shared.dropzone /> --}}
-        <flux:card>
-          <flux:field class="space-y-4">
-            <flux:label>Imagenes del Producto</flux:label>
-
-            @if (!empty($form->images))
-              <flux:heading level="3" size="lg">
-                Imagenes Actuales
-              </flux:heading>
-              <div class="mt-4 grid grid-cols-2 gap-x-2 md:grid-cols-4">
-                @foreach ($form->images as $image)
-                  @if (is_string($image) || !method_exists($image, 'temporaryUrl'))
-                    <img
-                      alt="Image Preview"
-                      class="h-auto w-[200px] rounded-lg object-contain"
-                      src="{{ Storage::disk('public')->url($image->path) }}"
-                    />
-                  @endif
-                @endforeach
-              </div>
-            @endif
-
-            <flux:description>
-              Formatos Recomendados: PNG, JPG, WebP. Máximo: 1000x1000 (1:1). Máximo: 4.5 MB.
-            </flux:description>
-
-            <flux:input
-              multiple
-              type="file"
-              wire:model="form.tmpImages"
-            />
-
-            @if (!empty($form->tmpImages))
-              <flux:heading level="3" size="lg">
-                Preview de las imágenes
-              </flux:heading>
-              <div class="mt-4 grid grid-cols-2 gap-x-2 md:grid-cols-4">
-                @foreach ($form->tmpImages as $image)
-                  @if (isset($image) && method_exists($image, 'temporaryUrl'))
-                    <img
-                      alt="Image Preview"
-                      class="h-auto w-[200px] rounded-lg object-contain"
-                      src="{{ $image->temporaryUrl() }}"
-                    />
-                  @endif
-                @endforeach
-              </div>
-            @endif
-
-            <div wire:loading wire:target="form.tmpImages">
-              <flux:icon.loading />
-            </div>
-
-            <flux:error name="form.tmpImages.*" />
-            <flux:error name="form.images.*" />
-
-          </flux:field>
-        </flux:card>
+        {{-- Product Gallery --}}
+        <livewire:admin.products.gallery :product="$form->product" />
 
         {{-- Product Specifications --}}
         <livewire:admin.products.specifications :product="$form->product" />

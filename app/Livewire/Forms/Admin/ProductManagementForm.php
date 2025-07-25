@@ -7,11 +7,7 @@ namespace App\Livewire\Forms\Admin;
 use App\Enums\ProductStatusEnum;
 use App\Models\Category;
 use App\Models\Product;
-use App\Models\ProductImages;
-use App\Models\ProductSpecifications;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
@@ -46,12 +42,6 @@ final class ProductManagementForm extends Form
     #[Validate]
     public ?int $selectedSubcategoryId = null;
 
-    #[Validate]
-    public $images;
-
-    #[Validate]
-    public array $tmpImages = [];
-
     public $categories;
 
     public $subcategories;
@@ -71,15 +61,6 @@ final class ProductManagementForm extends Form
             'status' => 'required',
             'selectedCategoryId' => 'required|exists:categories,id',
             'selectedSubcategoryId' => 'required|exists:subcategories,id',
-            'images' => 'max:4',
-            'tmpImages' => 'nullable|array|max:4',
-            'tmpImages.*' => [
-                'nullable',
-                'image',
-                'max:4500',
-                'mimes:jpeg,png,jpg,webp',
-                'dimensions:min_width=1000,min_height=1000,max_width=1000,max_height=1000'
-            ],
         ];
 
         return $rules;
@@ -92,12 +73,6 @@ final class ProductManagementForm extends Form
             'selectedCategoryId.exists' => 'La categoría no existe',
             'selectedSubcategoryId.required' => 'Debe seleccionar una subcategoría',
             'selectedSubcategoryId.exists' => 'La subcategoría no existe',
-            'images.min' => 'Debe seleccionar al menos una imagen',
-            'images.max' => 'Debe seleccionar un máximo de 4 imagenes',
-            'tmpImages.max' => 'Debe seleccionar un máximo de 4 imagenes',
-            'tmpImages.*.max' => 'Cada imagen no puede exceder los 4.5MB',
-            'tmpImages.*.dimensions' => 'Las imagenes deben ser de 1000x1000 pixeles',
-            'tmpImages.*.mimes' => 'Las imagenes deben ser de formato JPEG, PNG, JPG o WEBP',
         ];
     }
 
@@ -111,7 +86,6 @@ final class ProductManagementForm extends Form
         $this->status = $product->status;
         $this->selectedCategoryId = $product->subcategory->category->id;
         $this->selectedSubcategoryId = $product->subcategory_id;
-        $this->images = $product->images;
         $this->product = $product;
     }
 
@@ -135,24 +109,6 @@ final class ProductManagementForm extends Form
                 'subcategory_id' => $this->selectedSubcategoryId,
             ]);
 
-            // NOTE: Add images to the product.
-            foreach ($this->tmpImages as $idx => $image) {
-                $filename = str()->uuid()->toString() . '.' . $image->extension();
-                $uploadedImage = $image->storeAs(path: 'uploads/products', name: $filename);
-
-                ProductImages::create([
-                    'product_id' => $product->id,
-                    'filename' => $filename,
-                    'original_name' => $image->getClientOriginalName(),
-                    'path' => $uploadedImage,
-                    'mime_type' => Storage::disk('public')->mimeType($uploadedImage),
-                    'size' => Storage::disk('public')->size($uploadedImage),
-                    'width' => 1000,
-                    'height' => 1000,
-                    'order' => $idx + 1,
-                ]);
-            }
-
             return $product->fresh(['images', 'specifications']);
         });
     }
@@ -162,31 +118,6 @@ final class ProductManagementForm extends Form
         $this->validate();
 
         return DB::transaction(function () {
-            if (count($this->tmpImages) > 0) {
-                foreach ($this->product->images as $image) {
-                    Storage::disk('public')->delete($image->path);
-
-                    $image->delete();
-                }
-            }
-
-            foreach ($this->tmpImages as $idx => $image) {
-                $filename = str()->uuid()->toString() . '.' . $image->extension();
-                $uploadedImage = $image->storeAs(path: 'uploads/products', name: $filename, options: 'public');
-
-                ProductImages::create([
-                    'product_id' => $this->product->id,
-                    'filename' => $filename,
-                    'original_name' => $image->getClientOriginalName(),
-                    'path' => $uploadedImage,
-                    'mime_type' => Storage::disk('public')->mimeType($uploadedImage),
-                    'size' => Storage::disk('public')->size($uploadedImage),
-                    'width' => 1000,
-                    'height' => 1000,
-                    'order' => $idx + 1,
-                ]);
-            }
-
             $this->product->update([
                 'name' => str()->title($this->name),
                 'slug' => $this->slug,
@@ -197,7 +128,7 @@ final class ProductManagementForm extends Form
                 'subcategory_id' => $this->selectedSubcategoryId,
             ]);
 
-            return $this->product->fresh();
+            return $this->product->fresh(['images', 'specifications']);
         });
     }
 
