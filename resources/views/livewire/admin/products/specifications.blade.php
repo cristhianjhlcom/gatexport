@@ -2,7 +2,7 @@
   <div class="flex items-center justify-between gap-x-4">
     <div class="space-y-2">
       <flux:heading>Especificaciones ({{ count($specifications) }})</flux:heading>
-      <flux:text>Agrega especificaciones del producto.</flux:text>
+      <flux:text>Número máximo de especificaciones son 5</flux:text>
     </div>
     <div>
       <flux:modal.trigger name="add-specs">

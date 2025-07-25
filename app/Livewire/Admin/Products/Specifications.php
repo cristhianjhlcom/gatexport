@@ -5,6 +5,7 @@ namespace App\Livewire\Admin\Products;
 use App\Models\Product;
 use App\Models\ProductSpecifications;
 use Flux\Flux;
+use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
@@ -25,27 +26,55 @@ class Specifications extends Component
 
     public function remove(ProductSpecifications $specification)
     {
-        $specification->delete();
+        try {
+            DB::transaction(function () use ($specification) {
+                $specification->delete();
+            });
+        } catch (\Exception $e) {
+            report($e);
+
+            Flux::toast(
+                heading: 'Ups! Server Error',
+                text: $e->getMessage(),
+                variant: 'danger',
+            );
+        }
     }
 
     public function add()
     {
         $this->validate();
 
-        $this->product->specifications()->create([
-            'key' => str()->title($this->key),
-            'value' => str()->title($this->value),
-        ]);
+        try {
+            DB::transaction(function () {
+                if ($this->product->fresh()->specifications->count() >= 5) {
+                    throw new \Exception('No puede agregar más de 5 especificaciones.');
+                }
 
-        Flux::toast(
-            heading: 'Especificación agregada',
-            text: 'La especificación ha sido agregada correctamente.',
-            variant: 'success',
-        );
+                $this->product->specifications()->create([
+                    'key' => str()->title($this->key),
+                    'value' => str()->title($this->value),
+                ]);
 
-        Flux::modal('add-specs')->close();
+                Flux::toast(
+                    heading: 'Especificación agregada',
+                    text: 'La especificación ha sido agregada correctamente.',
+                    variant: 'success',
+                );
 
-        $this->reset(['key', 'value']);
+                Flux::modal('add-specs')->close();
+
+                $this->reset(['key', 'value']);
+            });
+        } catch (\Exception $e) {
+            report($e);
+
+            Flux::toast(
+                heading: 'Ups! Server Error',
+                text: $e->getMessage(),
+                variant: 'danger',
+            );
+        }
     }
 
     public function render()
