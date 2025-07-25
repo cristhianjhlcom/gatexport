@@ -50,134 +50,15 @@
 
         </flux:card>
 
-        {{-- <livewire:shared.dropzone /> --}}
-        <flux:card class="space-y-4">
-          <flux:field>
-            <flux:label>{{ __('Image') }}</flux:label>
-            <flux:description>
-              {{ __('Formats: PNG, JPG, WebP - Max dimensions: 1000x1000 (1:1) - Max size: 4.5 MB') }}
-            </flux:description>
-            {{-- <div class="dropzone w-full rounded border-2 border-dashed bg-gray-400" id="category-dropzone"></div> --}}
-            <flux:input
-              multiple
-              type="file"
-              wire:model="form.images"
-            />
-            <div class="mt-4 grid grid-cols-2 gap-x-2 md:grid-cols-4">
-              @if ($form->images)
-                @foreach ($form->images as $image)
-                  <img
-                    alt="Image Preview"
-                    class="h-auto w-[200px] rounded-lg object-contain"
-                    src="{{ $image->temporaryUrl() }}"
-                  />
-                @endforeach
-              @endif
-            </div>
-            <div wire:loading wire:target="form.images">
-              <flux:icon.loading />
-            </div>
-            <flux:error name="form.images.*" />
-          </flux:field>
-        </flux:card>
-
-        {{-- Product Specifications --}}
-        <flux:card class="space-y-4">
-          <div class="flex items-center justify-between gap-x-4">
-            <div class="space-y-2">
-              <flux:heading>{{ __('Specifications') }}</flux:heading>
-              <flux:text>{{ __('Add specifications of the product.') }}</flux:text>
-            </div>
-            <div>
-              <flux:modal.trigger name="add-specs">
-                <flux:button icon:trailing="plus">
-                  {{ __('Add Specification') }}
-                </flux:button>
-              </flux:modal.trigger>
-              <flux:modal class="md:w-[500px]" name="add-specs">
-                <div class="space-y-4">
-                  <div>
-                    <flux:heading size="lg">{{ __('Add New Specification') }}</flux:heading>
-                    <flux:text class="mt-2">
-                      {{ __('Fill the form below to add a new specification.') }}
-                    </flux:text>
-                  </div>
-                  <flux:input
-                    autocomplete="off"
-                    id="specification-key"
-                    placeholder="{{ __('Weight') }}"
-                    type="text"
-                    wire:model.lazy="form.specificationKey"
-                  />
-                  <flux:input
-                    autocomplete="off"
-                    id="specification-value"
-                    placeholder="{{ __('10 KG') }}"
-                    type="text"
-                    wire:model.lazy="form.specificationValue"
-                  />
-                  <div class="flex">
-                    <flux:spacer />
-                    <flux:button
-                      type="button"
-                      variant="primary"
-                      wire:click="addSpecification"
-                    >
-                      {{ __('Create Specification') }}
-                    </flux:button>
-                  </div>
-                </div>
-              </flux:modal>
-            </div>
-          </div>
-
-          <flux:table>
-            <flux:table.columns>
-              <flux:table.column>#</flux:table.column>
-              <flux:table.column>{{ __('Key') }}</flux:table.column>
-              <flux:table.column>{{ __('Value') }}</flux:table.column>
-            </flux:table.columns>
-
-            <flux:table.rows>
-              @forelse ($form->specifications as $spec)
-                <flux:table.row key="{{ $spec['id'] }}">
-                  <flux:table.cell>#{{ $spec['id'] }}</flux:table.cell>
-                  <flux:table.cell>{{ $spec['key'] }}</flux:table.cell>
-                  <flux:table.cell>{{ $spec['value'] }}</flux:table.cell>
-                  <flux:table.cell>
-                    <flux:button
-                      icon="x-mark"
-                      variant="subtle"
-                      wire:click="removeSpecification({{ $spec['id'] }})"
-                    />
-                  </flux:table.cell>
-                </flux:table.row>
-              @empty
-                <flux:table.row>
-                  <flux:table.cell colspan="3">
-                    {{ __('No specifications') }}
-                  </flux:table.cell>
-                </flux:table.row>
-              @endforelse
-            </flux:table.rows>
-          </flux:table>
-          @error('form.specifications')
-            <small class="text-red-500">{{ $message }}</small>
-          @enderror
-          @for ($idx = 0; $idx < $form->specificationsCount; $idx++)
-            @php($spec = $form->specifications[$idx])
-            @error('form.specifications.' . $idx . '.key')
-              <small class="text-red-500">{{ $message }}</small>
-            @enderror
-            @error('form.specifications.' . $idx . '.value')
-              <small class="text-red-500">{{ $message }}</small>
-            @enderror
-          @endfor
-        </flux:card>
+        <flux:callout
+          heading="Podras agregar imagenes y especificaciones luego de guardar el producto."
+          icon="exclamation-triangle"
+          variant="warning"
+        />
 
         <div>
           <flux:button type="submit" variant="primary">
-            {{ __('Save') }}
+            Guardar & Continuar
           </flux:button>
         </div>
       </div>
