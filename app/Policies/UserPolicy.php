@@ -46,10 +46,6 @@ final class UserPolicy
      */
     public function delete(User $user, User $model): bool
     {
-        if ($user->id === $model->id) {
-            return false;
-        }
-
         return $user->can(PermissionsEnum::DELETE_USERS->value);
     }
 
@@ -66,10 +62,6 @@ final class UserPolicy
      */
     public function forceDelete(User $user, User $model): bool
     {
-        if ($user->id === $model->id) {
-            return false;
-        }
-
         return $user->can(PermissionsEnum::FORCE_DELETE_USERS->value);
     }
 }

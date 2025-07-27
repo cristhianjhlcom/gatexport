@@ -5,25 +5,39 @@ declare(strict_types=1);
 namespace App\Livewire\Admin\Categories;
 
 use App\Models\Category;
+use Flux\Flux;
 use Livewire\Attributes\Layout;
-use Livewire\Attributes\Title;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 #[Layout('components.layouts.admin')]
-#[Title('List of Categories')]
 final class CategoryIndexManagement extends Component
 {
-    use WithPagination;
+    use WithPagination, AuthorizesRequests;
 
     public function render()
     {
-        $categories = Category::withCount(['subcategories'])
-            ->latest()
-            ->paginate(10);
+        $this->authorize('viewAny', Category::class);
 
-        return view('livewire.admin.categories.index')->with([
-            'categories' => $categories,
-        ]);
+        try {
+            $categories = Category::withCount(['subcategories'])
+                ->latest()
+                ->paginate(10);
+
+            return view('livewire.admin.categories.index')
+                ->with([
+                    'categories' => $categories,
+                ])
+                ->title('Lista de Categorías | Administración');
+        } catch (\Exception $e) {
+            report($e);
+
+            Flux::toast(
+                heading: 'Uops! Algo salió mal',
+                text: $e->getMessage(),
+                variant: 'error',
+            );
+        }
     }
 }

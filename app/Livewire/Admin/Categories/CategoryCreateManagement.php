@@ -6,14 +6,14 @@ namespace App\Livewire\Admin\Categories;
 
 use App\Exceptions\Admin\CategoryCreationException;
 use App\Livewire\Forms\Admin\CategoryManagementForm;
+use App\Models\Category;
 use Flux\Flux;
+use Illuminate\Container\Attributes\DB;
 use Livewire\Attributes\Layout;
-use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
 #[Layout('components.layouts.admin')]
-#[Title('Create Category')]
 final class CategoryCreateManagement extends Component
 {
     use WithFileUploads;
@@ -22,24 +22,28 @@ final class CategoryCreateManagement extends Component
 
     public function save()
     {
+        $this->authorize('create', Category::class);
+
         try {
-            $this->form->store();
+            DB::transaction(function () {
+                $this->form->store();
 
-            Flux::toast(
-                heading: __('Category Created'),
-                text: __('Category has been created successfully.'),
-                variant: 'success',
-            );
+                Flux::toast(
+                    heading: 'Manejo de Sistema',
+                    text: 'La categoría ha sido creada correctamente.',
+                    variant: 'success',
+                );
 
-            $this->form->reset();
+                $this->form->reset();
 
-            $this->redirect(route('admin.categories.index'), navigate: true);
+                $this->redirect(route('admin.categories.index'), navigate: true);
+            });
         } catch (CategoryCreationException $exception) {
             report($exception);
 
             Flux::toast(
-                heading: __('Something went wrong'),
-                text: __('Error while saving category: ').$exception->getMessage(),
+                heading: 'Uops! Algo salió mal',
+                text: $exception->getMessage(),
                 variant: 'error',
             );
         }
@@ -52,6 +56,7 @@ final class CategoryCreateManagement extends Component
 
     public function render()
     {
-        return view('livewire.admin.categories.create');
+        return view('livewire.admin.categories.create')
+            ->title('Crear Categoría | Administración');
     }
 }
