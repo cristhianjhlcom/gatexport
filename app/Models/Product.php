@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 final class Product extends Model
 {
@@ -60,5 +62,30 @@ final class Product extends Model
         }
 
         return '';
+    }
+
+    public function showUrl(): Attribute
+    {
+        return Attribute::make(
+            fn() => route('products.show', [
+                'category' => $this->subcategory->category,
+                'subcategory' => $this->subcategory,
+                'product' => $this,
+            ])
+        );
+    }
+
+    public function scopeSearch(Builder $query, string $search): Builder
+    {
+        return $query
+            ->when(
+                $search,
+                fn(Builder $query) =>
+                $query->whereAny(
+                    ['name', 'description'],
+                    'like',
+                    "%{$search}%"
+                )
+            );
     }
 }

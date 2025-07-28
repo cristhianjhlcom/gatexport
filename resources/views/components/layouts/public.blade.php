@@ -127,13 +127,8 @@
 
     </flux:navbar>
     <flux:spacer />
-    <flux:navbar class="me-4">
-      <flux:navbar.item
-        href="#"
-        icon="magnifying-glass"
-        label="{{ __('layouts.navigation.search') }}"
-      />
-    </flux:navbar>
+
+    <livewire:shared.search />
 
     <flux:dropdown align="start" position="top">
       <flux:profile

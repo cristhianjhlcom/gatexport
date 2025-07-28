@@ -13,6 +13,7 @@ return [
         'search' => 'Search',
         'es' => 'Spanish',
         'en' => 'English',
+        'no_results' => 'No results found',
     ],
     'footer' => [
         'follow_us' => 'Follow Us',

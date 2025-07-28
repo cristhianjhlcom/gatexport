@@ -13,6 +13,7 @@ return [
         'search' => 'Buscar',
         'es' => 'Español',
         'en' => 'Inglés',
+        'no_results' => 'No se encontraron resultados',
     ],
     'footer' => [
         'follow_us' => 'Síguenos',
