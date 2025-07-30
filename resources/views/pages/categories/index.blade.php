@@ -1,4 +1,4 @@
-<x-layouts.public>
+<x-layouts.public :title="__('layouts.navigation.categories')">
   <main class="container space-y-4 py-4">
 
     {{-- BREADCRUMBS --}}

@@ -1,4 +1,4 @@
-<x-layouts.public>
+<x-layouts.public :title="$subcategory->name">
   <main class="container space-y-4 py-4">
 
     {{-- BREADCRUMBS --}}
@@ -24,11 +24,20 @@
     {{-- END BREADCRUMBS --}}
 
     {{-- GRID OF PRODUCTS --}}
-    <div class="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5">
-      @foreach ($products as $product)
-        <x-common.product-card :$product />
-      @endforeach
-    </div>
+    @if (count($products) === 0)
+      <section class="flex items-center justify-center md:h-[500px]">
+        <h1 class="text-6xl font-bold text-gray-500">
+          {{ __('pages.product.no_products') }}
+        </h1>
+      </section>
+    @else
+      <div class="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5">
+        @foreach ($products as $product)
+          <x-common.product-card :$product />
+        @endforeach
+      </div>
+    @endif
+
     {{-- END GRID OF PRODUCTS --}}
 
   </main>

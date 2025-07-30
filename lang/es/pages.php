@@ -59,5 +59,7 @@ return [
         'notes' => 'Notas',
         'observation' => 'Si tienes alguna observación, por favor házmelo saber.',
         'required' => 'Requerido',
+
+        'no_products' => 'No Hay Productos',
     ],
 ];

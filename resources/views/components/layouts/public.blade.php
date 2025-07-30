@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>{{ $title ?? 'Gate Export SAC' }}</title>
+  <title>{{ $title ?? config('app.name') }} | {{ config('app.name') }}</title>
 
   <!-- Paragraphs Fonts -->
   <link href="https://fonts.bunny.net" rel="preconnect">
@@ -193,6 +193,8 @@
   {{ $slot }}
   <x-footer />
   <flux:toast />
+
+  <x-common.whatsapp-link />
 
   @fluxScripts
   @stack('scripts')

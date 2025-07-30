@@ -23,8 +23,7 @@ return new class extends Migration
                 ->default(ProductStatusEnum::DRAFT);
             $table->foreignId('subcategory_id')
                 ->nullable()
-                ->constrained()
-                ->onDelete('set null');
+                ->constrained();
             $table->timestamps();
         });
     }

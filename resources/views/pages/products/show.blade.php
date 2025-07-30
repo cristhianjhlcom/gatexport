@@ -1,4 +1,4 @@
-<x-layouts.public>
+<x-layouts.public :title="$product->name">
   <main class="container space-y-4 py-4">
 
     {{-- BREADCRUMBS --}}
