@@ -16,14 +16,16 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->json('name');
             $table->string('slug')->unique();
-            $table->text('description')->nullable();
+            $table->json('description')->nullable();
             $table->enum('status', ProductStatusEnum::values())
                 ->default(ProductStatusEnum::DRAFT);
             $table->foreignId('subcategory_id')
                 ->nullable()
                 ->constrained();
+            $table->json('seo_title')->nullable();
+            $table->json('seo_description')->nullable();
             $table->timestamps();
         });
     }

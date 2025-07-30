@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('product_specifications', function (Blueprint $table) {
             $table->id();
-            $table->string('key');
-            $table->string('value');
+            $table->json('key')->nullable();
+            $table->json('value')->nullable();
             $table->foreignId('product_id')
                 ->constrained()
                 ->cascadeOnDelete();

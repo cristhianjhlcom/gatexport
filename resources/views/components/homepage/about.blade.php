@@ -7,14 +7,14 @@
   <div class="container space-y-8 md:space-y-12">
     <div class="flex flex-col-reverse items-center gap-8 md:flex-row md:gap-12">
       <div class="flex w-full flex-col items-center justify-center gap-4 md:w-1/2 md:flex-row">
-        @if (Storage::disk('public')->exists($about['first_image']))
+        @if ($about && Storage::disk('public')->exists($about['first_image']))
           <img
             alt="{{ __('pages.home.about.title') }}"
             class="mt-0 aspect-square h-auto w-full rounded-sm object-cover md:mt-20 md:h-[500px] md:w-1/2"
             src="{{ Storage::disk('public')->url($about['first_image']) }}"
           >
         @endif
-        @if (Storage::disk('public')->exists($about['second_image']))
+        @if ($about && Storage::disk('public')->exists($about['second_image']))
           <img
             alt="{{ __('pages.home.about.title') }}"
             class="hidden aspect-square h-[500px] w-full rounded-sm object-cover md:block md:h-[500px] md:w-1/2"
@@ -30,9 +30,12 @@
         >
           {{ __('pages.home.about.title') }}
         </x-heading>
-        <flux:text>
-          {{ $general_information['translations']['company_short_description'] }}
-        </flux:text>
+
+        @if ($general_information)
+          <flux:text>
+            {{ $general_information['translations']['company_short_description'] }}
+          </flux:text>
+        @endif
 
         <div class="flex flex-col gap-4 sm:flex-row">
           <flux:button
@@ -57,9 +60,12 @@
           >
             {{ __('pages.home.about.mission') }}
           </x-heading>
-          <flux:text>
-            {!! $about['translations']['mission'] !!}
-          </flux:text>
+
+          @if ($about)
+            <flux:text>
+              {!! $about['translations']['mission'] !!}
+            </flux:text>
+          @endif
         </div>
 
         <div class="space-y-2">
@@ -70,16 +76,22 @@
           >
             {{ __('pages.home.about.vision') }}
           </x-heading>
-          <flux:text>
-            {!! $about['translations']['vision'] !!}
-          </flux:text>
+
+          @if ($about)
+            <flux:text>
+              {!! $about['translations']['vision'] !!}
+            </flux:text>
+          @endif
+
         </div>
       </div>
-      @if ($about['youtube_video_id'])
+
+      @if ($about && $about['youtube_video_id'])
         <div class="w-full md:w-1/2">
           <lite-youtube videoid="{{ $about['youtube_video_id'] }}"></lite-youtube>
         </div>
       @endif
+
     </div>
   </div>
 </article>

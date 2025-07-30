@@ -4,38 +4,48 @@
     <section class="container space-y-6">
       <div class="flex flex-col items-start justify-start gap-8 py-10 md:flex-row md:gap-12">
         <div class="max-w-[500px]">
-          <img
-            alt="{{ __('pages.about.title') }}"
-            class="aspect-square h-[500px] w-full rounded-sm object-cover"
-            src="{{ Storage::disk('public')->url($about['first_image']) }}"
-          />
+          @if ($about)
+            <img
+              alt="{{ __('pages.about.title') }}"
+              class="aspect-square h-[500px] w-full rounded-sm object-cover"
+              src="{{ Storage::disk('public')->url($about['first_image']) }}"
+            />
+          @endif
         </div>
         <article class="flex-1 space-y-4">
+
           <header class="space-y-4">
-            <x-heading
-              level="1"
-              size="lg"
-              weight="black"
-            >
-              {{ $general_information['translations']['company_name'] }}
-            </x-heading>
-            <flux:text class="prose lg:prose-xl">
-              {!! $general_information['translations']['company_short_description'] !!}
-            </flux:text>
+            @if ($general_information)
+              <x-heading
+                level="1"
+                size="lg"
+                weight="black"
+              >
+                {{ $general_information['translations']['company_name'] }}
+              </x-heading>
+              <flux:text class="prose lg:prose-xl">
+                {!! $general_information['translations']['company_short_description'] !!}
+              </flux:text>
+            @endif
           </header>
 
-          <flux:text class="prose lg:prose-xl space-y-2">
-            {!! $general_information['translations']['company_description'] !!}
-          </flux:text>
 
-          <flux:button
-            download
-            href="{{ Storage::disk('public')->url($general_information['catalog_document']) }}"
-            icon:trailing="document-arrow-down"
-            variant="primary"
-          >
-            {{ __('pages.about.download_catalog_document') }}
-          </flux:button>
+          @if ($general_information)
+            <flux:text class="prose lg:prose-xl space-y-2">
+              {!! $general_information['translations']['company_description'] !!}
+            </flux:text>
+          @endif
+
+          @if ($general_information)
+            <flux:button
+              download
+              href="{{ Storage::disk('public')->url($general_information['catalog_document']) }}"
+              icon:trailing="document-arrow-down"
+              variant="primary"
+            >
+              {{ __('pages.about.download_catalog_document') }}
+            </flux:button>
+          @endif
         </article>
       </div>
     </section>
@@ -44,21 +54,23 @@
     {{-- Proveedores --}}
     <section class="bg-primary-50 py-4">
       <div class="container overflow-hidden">
-        <div class="swiper__about">
-          <div class="swiper-wrapper">
-            @foreach ($providers as $provider)
-              <article class="swiper-slide">
-                <flux:tooltip content="{{ $provider['name'] }}" position="bottom">
-                  <img
-                    alt="{{ $provider['name'] }}"
-                    class="aspect-square h-40 w-40 rounded-sm object-cover"
-                    src="{{ Storage::disk('public')->url($provider['image']) }}"
-                  >
-                </flux:tooltip>
-              </article>
-            @endforeach
+        @if ($providers)
+          <div class="swiper__about">
+            <div class="swiper-wrapper">
+              @foreach ($providers as $provider)
+                <article class="swiper-slide">
+                  <flux:tooltip content="{{ $provider['name'] }}" position="bottom">
+                    <img
+                      alt="{{ $provider['name'] }}"
+                      class="aspect-square h-40 w-40 rounded-sm object-cover"
+                      src="{{ Storage::disk('public')->url($provider['image']) }}"
+                    >
+                  </flux:tooltip>
+                </article>
+              @endforeach
+            </div>
           </div>
-        </div>
+        @endif
       </div>
     </section>
 
@@ -96,9 +108,13 @@
           >
             {{ __('pages.about.mission') }}
           </x-heading>
-          <flux:text>
-            {!! $about['translations']['mission'] !!}
-          </flux:text>
+
+          @if ($about)
+            <flux:text>
+              {!! $about['translations']['mission'] !!}
+            </flux:text>
+          @endif
+
           <flux:separator />
           <x-heading
             level="2"
@@ -107,12 +123,17 @@
           >
             {{ __('pages.about.vision') }}
           </x-heading>
-          <flux:text>
-            {!! $about['translations']['vision'] !!}
-          </flux:text>
+
+          @if ($about)
+            <flux:text>
+              {!! $about['translations']['vision'] !!}
+            </flux:text>
+          @endif
+
         </article>
+
         <article class="space-y-4">
-          @if ($about['youtube_video_id'])
+          @if ($about && $about['youtube_video_id'])
             <div class="w-full">
               <lite-youtube videoid="{{ $about['youtube_video_id'] }}"></lite-youtube>
             </div>
@@ -133,23 +154,28 @@
           >
             {{ __('pages.contact.contact_information') }}
           </x-heading>
-          <flux:text class="flex items-center gap-x-2">
-            <flux:icon name="map-pin" />
-            <span>{!! $general_information['contact_information']['address'] !!}</span>
-          </flux:text>
-          <flux:text class="flex items-center gap-x-2">
-            <flux:icon name="device-phone-mobile" />
-            <span>{!! $general_information['contact_information']['phone'] !!}</span>
-          </flux:text>
-          <flux:text class="flex items-center gap-x-2">
-            <flux:icon name="device-phone-mobile" />
-            <span>{!! $general_information['contact_information']['second_phone'] !!}</span>
-          </flux:text>
-          <a class="flex items-center gap-x-2"
-            href="mailto:{{ $general_information['contact_information']['email'] }}">
-            <flux:icon name="envelope" />
-            <span>{{ $general_information['contact_information']['email'] }}</span>
-          </a>
+
+          @if ($general_information)
+            <flux:text class="flex items-center gap-x-2">
+              <flux:icon name="map-pin" />
+              <span>{!! $general_information['contact_information']['address'] !!}</span>
+            </flux:text>
+            <flux:text class="flex items-center gap-x-2">
+              <flux:icon name="device-phone-mobile" />
+              <span>{!! $general_information['contact_information']['phone'] !!}</span>
+            </flux:text>
+            <flux:text class="flex items-center gap-x-2">
+              <flux:icon name="device-phone-mobile" />
+              <span>{!! $general_information['contact_information']['second_phone'] !!}</span>
+            </flux:text>
+            <a class="flex items-center gap-x-2"
+              href="mailto:{{ $general_information['contact_information']['email'] }}"
+            >
+              <flux:icon name="envelope" />
+              <span>{{ $general_information['contact_information']['email'] }}</span>
+            </a>
+          @endif
+
         </article>
         {{-- Contact Form --}}
         <article class="space-y-4">

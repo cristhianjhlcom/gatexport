@@ -16,6 +16,7 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id('id');
+            $table->string('order_number')->unique();
             $table->string('customer_firstname')->nullable();
             $table->string('customer_lastname')->nullable();
             $table->string('customer_email')->nullable();

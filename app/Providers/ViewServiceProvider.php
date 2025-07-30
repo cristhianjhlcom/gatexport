@@ -37,8 +37,9 @@ final class ViewServiceProvider extends ServiceProvider
         });
 
         View::composer('components.common.whatsapp-link.index', function ($view) {
+            $generalInformation = (new GetGeneralInformation)->execute();
             $view->with([
-                'contactInformation' => (new GetGeneralInformation)->execute()['contact_information'],
+                'contactInformation' => $generalInformation && $generalInformation['contact_information'],
             ]);
         });
 

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('subcategories', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->json('name');
             $table->string('slug')->unique();
             $table->string('image')->nullable();
             $table->foreignId('category_id')->constrained()->cascadeOnDelete();
