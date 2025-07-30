@@ -5,8 +5,13 @@ declare(strict_types=1);
 namespace App\Livewire\Public\Contact;
 
 use App\Actions\Home\GetGeneralInformation;
+use App\Enums\RolesEnum;
+use App\Mail\ContactConfirmed;
+use App\Models\User;
+use App\Notifications\ContactRequest;
 use Flux\Flux;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 use Livewire\Component;
 
 final class ContactForm extends Component
@@ -32,15 +37,20 @@ final class ContactForm extends Component
         $this->companyEmail = $generalInformation['contact_information']['email'] ?? '';
     }
 
+    public function updatedName(string $name): void
+    {
+        $this->name = str()->title($name);
+    }
+
     public function submit()
     {
         $this->validate();
 
-        Mail::send([], [], function ($message) {
-            $message->to($this->companyEmail)
-                ->subject('Contact Form Submission')
-                ->setBody("Name: $this->name\nEmail: $this->email\nMessage: $this->message");
-        });
+        $users = User::role([RolesEnum::SUPER_ADMIN->value])->get();
+
+        Notification::send($users, new ContactRequest($this->name, $this->email, $this->message));
+
+        Mail::to($this->email)->queue(new ContactConfirmed($this->name, $this->companyEmail));
 
         $this->reset();
 

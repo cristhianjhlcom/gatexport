@@ -4,16 +4,25 @@ declare(strict_types=1);
 
 namespace App\Livewire\Public\Products;
 
+use App\Actions\Home\GetGeneralInformation;
 use App\Actions\Product\Store\RequestOrderAction;
+use App\Enums\RolesEnum;
 use App\Exceptions\Product\Store\OrderCreationException;
+use App\Mail\OrderConfirmed;
 use App\Models\Product;
+use App\Models\User;
+use App\Notifications\OrderPlaced;
 use Flux\Flux;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 
 final class BuyButton extends Component
 {
     public Product $product;
+
+    public string $companyEmail = '';
 
     #[Validate]
     public int $quantity = 1;
@@ -33,12 +42,25 @@ final class BuyButton extends Component
     #[Validate]
     public string $notes;
 
+    public function mount()
+    {
+        $generalInformation = (new GetGeneralInformation)->execute();
+
+        $this->companyEmail = $generalInformation['contact_information']['email'] ?? '';
+    }
+
     public function createOrder(RequestOrderAction $create)
     {
         $validated = $this->validate();
 
         try {
-            $create($this->product, $validated);
+            $order = $create($this->product, $validated);
+
+            $users = User::role([RolesEnum::SUPER_ADMIN->value])->get();
+
+            Notification::send($users, new OrderPlaced($order));
+
+            Mail::to($this->email)->queue(new OrderConfirmed($order, $this->companyEmail));
 
             $this->reset(['quantity', 'firstName', 'lastName', 'email', 'phone', 'notes']);
 
