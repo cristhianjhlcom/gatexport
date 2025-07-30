@@ -39,9 +39,9 @@ Route::group(['middleware' => 'role:super_admin|manager'], function () {
 
     // NOTE: Orders Management.
     Route::get('orders', OrderIndexManagement::class)->name('orders.index');
-    Route::get('orders/create', OrderCreateManagement::class)->name('orders.create');
-    Route::get('orders/{user}', OrderShowManagement::class)->name('orders.show');
-    Route::get('orders/{user}/edit', OrderEditManagement::class)->name('orders.edit');
+    // Route::get('orders/create', OrderCreateManagement::class)->name('orders.create');
+    // Route::get('orders/{user}', OrderShowManagement::class)->name('orders.show');
+    Route::get('orders/{order}/edit', OrderEditManagement::class)->name('orders.edit');
 
     // NOTE: Products Management.
     Route::get('products', ProductIndexManagement::class)->name('products.index');

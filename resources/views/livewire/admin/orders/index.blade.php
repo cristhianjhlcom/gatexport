@@ -1,25 +1,25 @@
 <div class="space-y-4">
-  <flux:heading>{{ __('Orders Management') }}</flux:heading>
+  <flux:heading>Manejo de Ordenes</flux:heading>
   <flux:separator />
 
   <div class="flex flex-col space-y-4">
     <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
       <div></div>
-      <flux:button href="{{ route('admin.orders.create') }}" icon="plus">
+      {{-- <flux:button href="{{ route('admin.orders.create') }}" icon="plus">
         {{ __('Add Order') }}
-      </flux:button>
+      </flux:button> --}}
     </div>
 
     <div class="overflow-x-auto">
       <flux:table :paginate="$orders">
         <flux:table.columns>
-          <flux:table.column>{{ __('Order') }}</flux:table.column>
-          <flux:table.column>{{ __('Customer') }}</flux:table.column>
-          <flux:table.column>{{ __('Status') }}</flux:table.column>
-          <flux:table.column>{{ __('Email') }}</flux:table.column>
-          <flux:table.column>{{ __('Phone') }}</flux:table.column>
-          <flux:table.column>{{ __('Manager') }}</flux:table.column>
-          <flux:table.column>{{ __('Created At') }}</flux:table.column>
+          <flux:table.column>Orden</flux:table.column>
+          <flux:table.column>Cliente</flux:table.column>
+          <flux:table.column>Estado</flux:table.column>
+          <flux:table.column>Correo Electrónico</flux:table.column>
+          <flux:table.column>Teléfono</flux:table.column>
+          <flux:table.column>Encargado</flux:table.column>
+          <flux:table.column>Fecha</flux:table.column>
         </flux:table.columns>
 
         <flux:table.rows>
@@ -63,17 +63,13 @@
                 <flux:dropdown align="end" position="bottom">
                   <flux:button icon="ellipsis-horizontal" variant="ghost"></flux:button>
                   <flux:menu>
-                    {{--
-                <flux:menu.item icon="eye" href="{{ route('admin.users.show', $user) }}">
-                    {{ __('View') }}
-                </flux:menu.item>
-                <flux:menu.item icon="pencil" href="{{ route('admin.users.edit', $user) }}">
-                    {{ __('Edit') }}
-                </flux:menu.item>
-                <flux:menu.item icon="trash" variant="danger" wire:confirm.prevent="{{ __('Are you sure you want to delete this user?') }}" wire:click="delete({{ $user }})">
-                    {{ __('Archive') }}
-                </flux:menu.item>
-                --}}
+                    <flux:menu.item
+                      icon="pencil"
+                      type="button"
+                      wire:click="toggleStatus({{ $order }})"
+                    >
+                      Actualizar
+                    </flux:menu.item>
                   </flux:menu>
                 </flux:dropdown>
               </flux:table.cell>

@@ -49,6 +49,16 @@ final class BuyButton extends Component
         $this->companyEmail = $generalInformation['contact_information']['email'] ?? '';
     }
 
+    public function updatedFirstName()
+    {
+        $this->firstName = str()->title($this->firstName);
+    }
+
+    public function updatedLastName()
+    {
+        $this->lastName = str()->title($this->lastName);
+    }
+
     public function createOrder(RequestOrderAction $create)
     {
         $validated = $this->validate();
