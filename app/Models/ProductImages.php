@@ -35,14 +35,14 @@ final class ProductImages extends Model
     public function url(): Attribute
     {
         return Attribute::make(
-            get: fn() => Storage::disk('public')->url($this->path),
+            get: fn () => Storage::disk('public')->url($this->path),
         );
     }
 
     public function readableSize(): Attribute
     {
         return Attribute::make(
-            get: fn() => Number::fileSize($this->size),
+            get: fn () => Number::fileSize($this->size),
         );
     }
 }

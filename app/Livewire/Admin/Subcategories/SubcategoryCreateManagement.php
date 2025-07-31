@@ -6,9 +6,11 @@ namespace App\Livewire\Admin\Subcategories;
 
 use App\Livewire\Forms\Admin\SubcategoryManagementForm;
 use App\Models\Category;
+use Exception;
 use Flux\Flux;
 use Livewire\Attributes\Layout;
-use Livewire\{Component, WithFileUploads};
+use Livewire\Component;
+use Livewire\WithFileUploads;
 
 #[Layout('components.layouts.admin')]
 final class SubcategoryCreateManagement extends Component
@@ -27,7 +29,7 @@ final class SubcategoryCreateManagement extends Component
             $this->form->reset();
 
             $this->redirect(route('admin.subcategories.index'), navigate: true);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             report($exception);
 
             Flux::toast(
@@ -55,7 +57,7 @@ final class SubcategoryCreateManagement extends Component
             $this->form->reset();
 
             $this->redirect(route('admin.subcategories.create'), navigate: true);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             report($exception);
 
             Flux::toast(

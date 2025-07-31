@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Shared;
 
 use App\Models\Product;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 
-class Search extends Component
+final class Search extends Component
 {
     #[Url(except: '')]
     public string $search = '';
@@ -17,7 +19,7 @@ class Search extends Component
             'products' => Product::with([
                 'images',
                 'subcategory',
-                'subcategory.category'
+                'subcategory.category',
             ])
                 ->search($this->search)
                 ->limit(10)

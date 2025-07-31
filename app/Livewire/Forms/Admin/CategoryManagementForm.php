@@ -7,7 +7,8 @@ namespace App\Livewire\Forms\Admin;
 use App\Models\Category;
 use Exception;
 use Flux\Flux;
-use Illuminate\Support\Facades\{DB, Storage};
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Intervention\Image\Drivers\Imagick\Driver;
 use Intervention\Image\ImageManager;
@@ -95,9 +96,13 @@ final class CategoryManagementForm extends Form
 
     protected function upload($image)
     {
-        if (!$image) throw new Exception('No se pudo subir la imagen');
+        if (! $image) {
+            throw new Exception('No se pudo subir la imagen');
+        }
 
-        if ($this->category && $image === $this->category->image) return $this->category->image;
+        if ($this->category && $image === $this->category->image) {
+            return $this->category->image;
+        }
 
         if ($this->category && Storage::disk('public')->exists($this->category->image)) {
             Storage::disk('public')->delete($this->category->image);

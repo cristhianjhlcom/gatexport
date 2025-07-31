@@ -34,7 +34,7 @@ final class ProductManagementForm extends Form
     ];
 
     #[Validate]
-    public $seo  = [
+    public $seo = [
         'title' => [
             'es' => null,
             'en' => null,

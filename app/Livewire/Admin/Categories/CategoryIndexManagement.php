@@ -5,16 +5,17 @@ declare(strict_types=1);
 namespace App\Livewire\Admin\Categories;
 
 use App\Models\Category;
+use Exception;
 use Flux\Flux;
-use Livewire\Attributes\Layout;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 #[Layout('components.layouts.admin')]
 final class CategoryIndexManagement extends Component
 {
-    use WithPagination, AuthorizesRequests;
+    use AuthorizesRequests, WithPagination;
 
     public function render()
     {
@@ -31,7 +32,7 @@ final class CategoryIndexManagement extends Component
                     'categories' => $categories,
                 ])
                 ->title('Lista de Categorías | Administración');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             report($e);
 
             Flux::toast(

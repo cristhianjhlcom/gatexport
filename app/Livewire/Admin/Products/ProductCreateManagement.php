@@ -6,10 +6,14 @@ namespace App\Livewire\Admin\Products;
 
 use App\Enums\ProductStatusEnum;
 use App\Livewire\Forms\Admin\ProductManagementForm;
-use App\Models\{Product, Category, Subcategory};
+use App\Models\Category;
+use App\Models\Product;
+use App\Models\Subcategory;
+use Exception;
 use Flux\Flux;
 use Livewire\Attributes\Layout;
-use Livewire\{Component, WithFileUploads};
+use Livewire\Component;
+use Livewire\WithFileUploads;
 
 #[Layout('components.layouts.admin')]
 final class ProductCreateManagement extends Component
@@ -35,7 +39,7 @@ final class ProductCreateManagement extends Component
             $this->form->reset();
 
             $this->redirect(route('admin.products.edit', $product), navigate: true);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             report($exception);
 
             Flux::toast(

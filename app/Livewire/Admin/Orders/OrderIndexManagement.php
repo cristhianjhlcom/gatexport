@@ -18,6 +18,7 @@ final class OrderIndexManagement extends Component
             $order->update([
                 'status' => OrderStatusEnum::DRAFT,
             ]);
+
             return;
         }
 

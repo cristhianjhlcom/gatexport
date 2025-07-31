@@ -6,6 +6,7 @@ namespace App\Livewire\Admin\Categories;
 
 use App\Livewire\Forms\Admin\CategoryManagementForm;
 use App\Models\Category;
+use Exception;
 use Flux\Flux;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -30,7 +31,7 @@ final class CategoryCreateManagement extends Component
             $this->form->reset();
 
             $this->redirect(route('admin.categories.index'), navigate: true);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             report($exception);
 
             Flux::toast(
@@ -58,7 +59,7 @@ final class CategoryCreateManagement extends Component
             $this->form->reset();
 
             $this->redirect(route('admin.categories.create'), navigate: true);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             report($exception);
 
             Flux::toast(

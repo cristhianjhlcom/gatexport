@@ -6,7 +6,10 @@ namespace App\Livewire\Admin\Products;
 
 use App\Enums\ProductStatusEnum;
 use App\Livewire\Forms\Admin\ProductManagementForm;
-use App\Models\{Product, Category, Subcategory};
+use App\Models\Category;
+use App\Models\Product;
+use App\Models\Subcategory;
+use Exception;
 use Flux\Flux;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -31,7 +34,7 @@ final class ProductEditManagement extends Component
             $this->form->update();
 
             Flux::toast('El producto ha sido actualizado correctamente.');
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             report($exception);
 
             Flux::toast(

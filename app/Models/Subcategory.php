@@ -56,7 +56,7 @@ final class Subcategory extends Model
         $locale = $locale ?? app()->getLocale();
 
         return Attribute::make(
-            get: fn() => $this->name[$locale],
+            get: fn () => $this->name[$locale],
         );
     }
 

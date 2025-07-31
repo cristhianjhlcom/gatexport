@@ -7,12 +7,13 @@ namespace App\Livewire\Forms\Admin;
 use App\Models\Subcategory;
 use Exception;
 use Flux\Flux;
-use Illuminate\Support\Facades\{DB, Storage};
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
-use Livewire\Attributes\Validate;
-use Livewire\Form;
 use Intervention\Image\Drivers\Imagick\Driver;
 use Intervention\Image\ImageManager;
+use Livewire\Attributes\Validate;
+use Livewire\Form;
 
 final class SubcategoryManagementForm extends Form
 {
@@ -101,9 +102,13 @@ final class SubcategoryManagementForm extends Form
 
     protected function upload($image)
     {
-        if (!$image) throw new Exception('No se pudo subir la imagen');
+        if (! $image) {
+            throw new Exception('No se pudo subir la imagen');
+        }
 
-        if ($this->subcategory && $image === $this->subcategory->image) return $this->subcategory->image;
+        if ($this->subcategory && $image === $this->subcategory->image) {
+            return $this->subcategory->image;
+        }
 
         if ($this->subcategory && Storage::disk('public')->exists($this->subcategory->image)) {
             Storage::disk('public')->delete($this->subcategory->image);

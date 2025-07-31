@@ -13,10 +13,10 @@ use App\Models\Product;
 use App\Models\User;
 use App\Notifications\OrderPlaced;
 use Flux\Flux;
-use Livewire\Attributes\Validate;
-use Livewire\Component;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
+use Livewire\Attributes\Validate;
+use Livewire\Component;
 
 final class BuyButton extends Component
 {
