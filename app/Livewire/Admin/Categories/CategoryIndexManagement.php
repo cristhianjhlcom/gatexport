@@ -21,7 +21,8 @@ final class CategoryIndexManagement extends Component
         $this->authorize('viewAny', Category::class);
 
         try {
-            $categories = Category::withCount(['subcategories'])
+            $categories = Category::with(['subcategories'])
+                ->withCount(['subcategories'])
                 ->latest()
                 ->paginate(10);
 

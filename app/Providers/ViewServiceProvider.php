@@ -50,11 +50,11 @@ final class ViewServiceProvider extends ServiceProvider
                 ->map(fn($category) => [
                     'name' => $category->name,
                     'slug' => $category->slug,
-                    'image' => $category->getImagePathAttribute(),
+                    'image' => $category->imageUrl,
                     'subcategories' => $category->subcategories->map(fn($subcategory) => [
                         'name' => $subcategory->name,
                         'slug' => $subcategory->slug,
-                        'image' => $subcategory->getImagePathAttribute(),
+                        'image' => $subcategory->imageUrl,
                     ]),
                 ]);
 

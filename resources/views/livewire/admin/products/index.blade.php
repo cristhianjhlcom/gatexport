@@ -16,8 +16,7 @@
       <flux:table.columns>
         <flux:table.column>Nombre</flux:table.column>
         <flux:table.column>Estado</flux:table.column>
-        <flux:table.column>Especificaciones</flux:table.column>
-        <flux:table.column>Descripción</flux:table.column>
+        <flux:table.column>Categoría</flux:table.column>
         <flux:table.column>Sub Categoría</flux:table.column>
         <flux:table.column>Fecha</flux:table.column>
       </flux:table.columns>
@@ -27,33 +26,28 @@
           <flux:table.row key="{{ $product->id }}">
             <flux:table.cell>
               <div class="flex items-center gap-3 text-wrap">
-                @if ($product->getFirstImageAttribute())
+                @if ($product->firstImage)
                   <img
-                    alt="{{ $product->name }}"
+                    alt="{{ $product->localizedName }}"
                     class="aspect-square h-10 w-10 rounded-sm object-contain"
-                    src="{{ $product->getFirstImageAttribute() }}"
+                    src="{{ $product->firstImage }}"
                   />
                 @else
-                  <flux:avatar name="{{ $product->name }}" />
+                  <flux:avatar name="{{ $product->localizedName }}" />
                 @endif
-                {{ str()->words($product->name, 3) }}
+                {{ str()->words($product->localizedName, 3) }}
               </div>
             </flux:table.cell>
             <flux:table.cell>
-              <flux:badge class="flex w-full items-center justify-center text-center"
-                color="{{ $product->status->color() }}"
-              >
+              <flux:badge color="{{ $product->status->color() }}">
                 {{ $product->status->label() }}
               </flux:badge>
-              <flux:table.cell class="text-center">
-                {{ $product->specifications_count }}
-              </flux:table.cell>
-              <flux:table.cell class="max-w-3xs text-wrap">
-                {!! str()->limit($product->description, 100) !!}
-              </flux:table.cell>
             </flux:table.cell>
             <flux:table.cell>
-              {{ $product->subcategory->name }}
+              {{ $product->localizedCategoryName }}
+            </flux:table.cell>
+            <flux:table.cell>
+              {{ $product->localizedSubcategoryName }}
             </flux:table.cell>
             <flux:table.cell>{{ $product->createdAtHuman() }}</flux:table.cell>
             <flux:table.cell>
@@ -61,11 +55,7 @@
                 <flux:button icon="ellipsis-horizontal" variant="ghost"></flux:button>
                 <flux:menu>
                   <flux:menu.item
-                    href="{{ route('products.show', [
-                        'category' => $product->subcategory->category,
-                        'subcategory' => $product->subcategory,
-                        'product' => $product,
-                    ]) }}"
+                    href="{{ $product->showUrl }}"
                     icon:trailing="arrow-trending-up"
                     target="_blank"
                   >

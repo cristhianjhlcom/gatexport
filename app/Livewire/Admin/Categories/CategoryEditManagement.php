@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace App\Livewire\Admin\Categories;
 
-use App\Exceptions\Admin\CategoryCreationException;
 use App\Livewire\Forms\Admin\CategoryManagementForm;
 use App\Models\Category;
 use Flux\Flux;
-use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -30,25 +28,42 @@ final class CategoryEditManagement extends Component
         $this->authorize('update', $this->form->category);
 
         try {
-            DB::transaction(function () {
-                $this->form->update();
+            $this->form->update();
 
-                Flux::toast(
-                    heading: 'Manejo de Sistema',
-                    text: 'La categoría ha sido actualizada correctamente.',
-                    variant: 'success',
-                );
+            Flux::toast('La categoría ha sido actualizada correctamente.');
 
-                $this->form->reset();
+            $this->form->reset();
 
-                $this->redirect(route('admin.categories.index'), navigate: true);
-            });
-        } catch (CategoryCreationException $e) {
-            report($e);
+            $this->redirect(route('admin.categories.index'), navigate: true);
+        } catch (\Exception $exception) {
+            report($exception);
 
             Flux::toast(
                 heading: 'Uops! Algo salió mal',
-                text: $e->getMessage(),
+                text: $exception->getMessage(),
+                variant: 'error',
+            );
+        }
+    }
+
+    public function createAnother()
+    {
+        $this->authorize('update', Category::class);
+
+        try {
+            $this->form->update();
+
+            Flux::toast('La categoría ha sido actualizada correctamente.');
+
+            $this->form->reset();
+
+            $this->redirect(route('admin.categories.create'), navigate: true);
+        } catch (\Exception $exception) {
+            report($exception);
+
+            Flux::toast(
+                heading: 'Uops! Algo salió mal',
+                text: $exception->getMessage(),
                 variant: 'error',
             );
         }

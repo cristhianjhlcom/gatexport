@@ -29,7 +29,7 @@
     <flux:brand href="{{ route('home.index') }}" name="Gate Export">
       <x-slot name="logo">
         <img
-          alt="Gate Export"
+          alt="Gate Export SAC"
           class="h-9 w-auto"
           src="{{ $companyLogos['small_logo'] }}"
         />
@@ -39,64 +39,64 @@
     <flux:separator />
     <flux:navlist variant="outline">
       <flux:navlist.item href="{{ route('home.index') }}" icon="home">
-        {{ __('Home') }}
+        Inicio
       </flux:navlist.item>
       <flux:navlist.item
         badge="{{ $ordersCount }}"
         href="{{ route('admin.orders.index') }}"
         icon="wallet"
       >
-        {{ __('Orders') }}
+        Ordenes
       </flux:navlist.item>
       <flux:navlist.item
         badge="{{ $productsCount }}"
         href="{{ route('admin.products.index') }}"
         icon="cube"
       >
-        {{ __('Products') }}
+        Productos
       </flux:navlist.item>
       <flux:navlist.item
         badge="{{ $categoriesCount }}"
         href="{{ route('admin.categories.index') }}"
         icon="folder"
       >
-        {{ __('Categories') }}
+        Categorías
       </flux:navlist.item>
       <flux:navlist.item
         badge="{{ $subcategoriesCount }}"
         href="{{ route('admin.subcategories.index') }}"
         icon="folder"
       >
-        {{ __('Sub Categories') }}
+        Subcategorías
       </flux:navlist.item>
       <flux:navlist.item
         badge="{{ $usersCount }}"
         href="{{ route('admin.users.index') }}"
         icon="user"
       >
-        {{ __('Users') }}
+        Usuarios
       </flux:navlist.item>
     </flux:navlist>
     <flux:spacer />
 
     <flux:navlist.group expandable heading="{{ __('Settings') }}">
       <flux:navlist.item href="{{ route('admin.settings.general') }}">
-        {{ __('General') }}
+        General
       </flux:navlist.item>
       <flux:navlist.item href="{{ route('admin.settings.about') }}">
-        {{ __('About') }}
+        Historia
       </flux:navlist.item>
       <flux:navlist.item href="{{ route('admin.settings.providers') }}">
-        {{ __('Providers') }}
+        Proveedores
       </flux:navlist.item>
       <flux:navlist.item href="{{ route('admin.settings.banners') }}">
-        {{ __('Banners') }}
+        Banners
       </flux:navlist.item>
       <flux:navlist.item href="{{ route('admin.settings.services') }}">
-        {{ __('Services') }}
+        Servicios
       </flux:navlist.item>
       <flux:navlist.item href="{{ route('admin.settings.advantages') }}">
-        {{ __('Advantages') }}
+        Ventajas
       </flux:navlist.item>
     </flux:navlist.group>
 
@@ -110,13 +110,13 @@
 
         <flux:menu>
           <flux:menu.item href="#" icon="cog-6-tooth">
-            {{ __('Settings') }}
+            Configuración
           </flux:menu.item>
           <flux:menu.separator />
           <form action="{{ route('logout') }}" method="POST">
             @csrf
             <flux:menu.item icon="arrow-right-start-on-rectangle" type="submit">
-              {{ __('Logout') }}
+              Cerrar Sesión
             </flux:menu.item>
           </form>
         </flux:menu>
@@ -134,19 +134,23 @@
       <flux:profile avatar:name="{{ auth()->user()->profile->full_name }}" />
       <flux:menu>
         <flux:menu.item href="#" icon="cog-6-tooth">
-          {{ __('Settings') }}
+          Configuración
         </flux:menu.item>
         <flux:menu.separator />
         <flux:menu.item icon="arrow-right-start-on-rectangle">
-          {{ __('Logout') }}
+          Cerrar Sesión
         </flux:menu.item>
       </flux:menu>
     </flux:dropdown>
   </flux:header>
+
   <flux:main>
     {{ $slot }}
   </flux:main>
-  <flux:toast />
+
+  @persist('toast')
+    <flux:toast />
+  @endpersist
 
   @fluxScripts
 </body>

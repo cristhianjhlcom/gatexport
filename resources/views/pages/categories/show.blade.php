@@ -1,4 +1,4 @@
-<x-layouts.public :title="$category->name">
+<x-layouts.public :title="$category->localizedName">
   <main class="container space-y-4 py-4">
 
     {{-- BREADCRUMBS --}}
@@ -10,7 +10,7 @@
         {{ __('layouts.navigation.categories') }}
       </flux:breadcrumbs.item>
       <flux:breadcrumbs.item separator="slash">
-        {{ $category->name }}
+        {{ $category->localizedName }}
       </flux:breadcrumbs.item>
     </flux:breadcrumbs>
     {{-- END BREADCRUMBS --}}
@@ -26,9 +26,9 @@
         >
           <article class="flex flex-col items-center justify-center">
             <img
-              alt="{{ $subcategory->name }}"
+              alt="{{ $subcategory->localizedName }}"
               class="aspect-square h-auto w-full object-contain"
-              src="{{ $subcategory->getImagePathAttribute() }}"
+              src="{{ $subcategory->imageUrl }}"
             >
           </article>
         </a>

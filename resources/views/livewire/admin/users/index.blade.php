@@ -30,7 +30,7 @@
             </flux:table.cell>
             <flux:table.cell>
               @foreach ($user->getRoles() as $role)
-                <flux:badge class="flex w-full items-center justify-center text-center" color="{{ $role->color() }}">
+                <flux:badge color="{{ $role->color() }}">
                   {{ $role->label() }}
                 </flux:badge>
               @endforeach

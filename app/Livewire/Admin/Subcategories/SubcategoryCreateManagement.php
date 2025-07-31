@@ -4,17 +4,13 @@ declare(strict_types=1);
 
 namespace App\Livewire\Admin\Subcategories;
 
-use App\Exceptions\Admin\SubcategoryCreationException;
 use App\Livewire\Forms\Admin\SubcategoryManagementForm;
 use App\Models\Category;
 use Flux\Flux;
 use Livewire\Attributes\Layout;
-use Livewire\Attributes\Title;
-use Livewire\Component;
-use Livewire\WithFileUploads;
+use Livewire\{Component, WithFileUploads};
 
 #[Layout('components.layouts.admin')]
-#[Title('Create Sub Category')]
 final class SubcategoryCreateManagement extends Component
 {
     use WithFileUploads;
@@ -26,35 +22,56 @@ final class SubcategoryCreateManagement extends Component
         try {
             $this->form->store();
 
-            Flux::toast(
-                heading: __('Sub Category Created'),
-                text: __('Sub Category has been created successfully.'),
-                variant: 'success',
-            );
+            Flux::toast('La subcategoría ha sido creada correctamente.');
 
             $this->form->reset();
 
             $this->redirect(route('admin.subcategories.index'), navigate: true);
-        } catch (SubcategoryCreationException $exception) {
+        } catch (\Exception $exception) {
             report($exception);
 
             Flux::toast(
-                heading: __('Something went wrong'),
-                text: __('Error while saving sub category: ').$exception->getMessage(),
+                heading: 'Ups! Algo salió mal',
+                text: $exception->getMessage(),
                 variant: 'error',
             );
         }
     }
 
-    public function updatedFormName(string $name)
+    public function updatedFormNameEs(string $name)
     {
         $this->form->slug = str()->slug($name);
     }
 
+    public function createAnother()
+    {
+        $this->authorize('create', Category::class);
+
+        try {
+            $this->form->store();
+
+            Flux::toast('La subcategoría ha sido creada correctamente.');
+
+            $this->form->reset();
+
+            $this->redirect(route('admin.subcategories.create'), navigate: true);
+        } catch (\Exception $exception) {
+            report($exception);
+
+            Flux::toast(
+                heading: 'Uops! Algo salió mal',
+                text: $exception->getMessage(),
+                variant: 'error',
+            );
+        }
+    }
+
     public function render()
     {
-        return view('livewire.admin.subcategories.create')->with([
-            'categories' => Category::orderBy('name')->get(),
-        ]);
+        return view('livewire.admin.subcategories.create')
+            ->with([
+                'categories' => Category::orderBy('name')->get(),
+            ])
+            ->title('Crear Subcategoría | Administración');
     }
 }

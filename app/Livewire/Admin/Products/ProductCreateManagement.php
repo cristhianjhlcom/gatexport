@@ -5,19 +5,13 @@ declare(strict_types=1);
 namespace App\Livewire\Admin\Products;
 
 use App\Enums\ProductStatusEnum;
-use App\Exceptions\Admin\ProductCreationException;
 use App\Livewire\Forms\Admin\ProductManagementForm;
-use App\Models\Category;
-use App\Models\ProductSpecifications;
-use App\Models\Subcategory;
+use App\Models\{Product, Category, Subcategory};
 use Flux\Flux;
 use Livewire\Attributes\Layout;
-use Livewire\Attributes\Title;
-use Livewire\Component;
-use Livewire\WithFileUploads;
+use Livewire\{Component, WithFileUploads};
 
 #[Layout('components.layouts.admin')]
-#[Title('Create Product')]
 final class ProductCreateManagement extends Component
 {
     use WithFileUploads;
@@ -31,31 +25,28 @@ final class ProductCreateManagement extends Component
 
     public function save()
     {
-        // $this->authorize('create', Product::class);
+        $this->authorize('create', Product::class);
 
         try {
-            $this->form->store();
+            $product = $this->form->store();
 
-            Flux::toast(
-                heading: __('Product Created'),
-                text: __('Product has been created successfully.'),
-                variant: 'success',
-            );
+            Flux::toast('El producto ha sido creado correctamente.');
 
             $this->form->reset();
 
-            $this->redirect(route('admin.products.index'), navigate: true);
-        } catch (ProductCreationException $exception) {
+            $this->redirect(route('admin.products.edit', $product), navigate: true);
+        } catch (\Exception $exception) {
             report($exception);
+
             Flux::toast(
-                heading: __('Something went wrong'),
-                text: __('Error while saving product: ').$exception->getMessage(),
+                heading: 'Ups! Algo salió mal',
+                text: $exception->getMessage(),
                 variant: 'error',
             );
         }
     }
 
-    public function updatedFormName(string $name)
+    public function updatedFormNameEs(string $name)
     {
         $this->form->slug = str()->slug($name);
     }
@@ -66,30 +57,16 @@ final class ProductCreateManagement extends Component
         $this->form->selectedSubcategoryId = null;
     }
 
-    public function addSpecification()
-    {
-        // $this->authorize('create', ProductSpecifications::class);
-        $this->form->addSpecification();
-
-        Flux::modal('add-specs')->close();
-    }
-
-    public function removeSpecification(int $idx)
-    {
-        $this->authorize('create', ProductSpecifications::class);
-        $this->form->removeSpecification($idx);
-    }
-
     public function render()
     {
         $status = ProductStatusEnum::cases();
         $categories = Category::with('subcategories')->orderBy('name')->get();
-        // $subcategories = Subcategory::latest()->get();
 
-        return view('livewire.admin.products.create')->with([
-            'status' => $status,
-            // 'subcategory' => $subcategory,
-            'categories' => $categories,
-        ]);
+        return view('livewire.admin.products.create')
+            ->with([
+                'status' => $status,
+                'categories' => $categories,
+            ])
+            ->title('Crear Producto | Administración');
     }
 }

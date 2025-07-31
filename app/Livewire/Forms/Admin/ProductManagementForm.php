@@ -19,19 +19,31 @@ final class ProductManagementForm extends Form
     public bool $isEditing = false;
 
     #[Validate]
-    public string $name = '';
+    public $name = [
+        'es' => '',
+        'en' => '',
+    ];
 
     #[Validate]
-    public string $slug = '';
+    public $slug = '';
 
     #[Validate]
-    public ?string $description = null;
+    public $description = [
+        'es' => null,
+        'en' => null,
+    ];
 
     #[Validate]
-    public ?string $seo_title = null;
-
-    #[Validate]
-    public ?string $seo_description = null;
+    public $seo  = [
+        'title' => [
+            'es' => null,
+            'en' => null,
+        ],
+        'description' => [
+            'es' => null,
+            'en' => null,
+        ],
+    ];
 
     #[Validate]
     public ProductStatusEnum $status = ProductStatusEnum::DRAFT;
@@ -49,15 +61,15 @@ final class ProductManagementForm extends Form
     public function rules(): array
     {
         $rules = [
-            'name' => 'required|string|min:3|max:255',
+            'name.*' => 'required|string|min:3|max:255',
             'slug' => [
                 'required',
                 'string',
                 Rule::unique('products', 'slug')->ignore($this->product?->id),
             ],
-            'description' => 'nullable|string|max:1000',
-            'seo_title' => 'nullable|string|max:60',
-            'seo_description' => 'nullable|string|max:160',
+            'description.*' => 'nullable|string|max:1000',
+            'seo.title.*' => 'nullable|string|max:60',
+            'seo.description.*' => 'nullable|string|max:160',
             'status' => 'required',
             'selectedCategoryId' => 'required|exists:categories,id',
             'selectedSubcategoryId' => 'required|exists:subcategories,id',
@@ -81,8 +93,10 @@ final class ProductManagementForm extends Form
         $this->name = $product->name;
         $this->slug = $product->slug;
         $this->description = $product->description;
-        $this->seo_title = $product->seo_title;
-        $this->seo_description = $product->seo_description;
+        $this->seo = [
+            'title' => $product->seo_title,
+            'description' => $product->seo_title,
+        ];
         $this->status = $product->status;
         $this->selectedCategoryId = $product->subcategory->category->id;
         $this->selectedSubcategoryId = $product->subcategory_id;
@@ -100,11 +114,17 @@ final class ProductManagementForm extends Form
 
         return DB::transaction(function () {
             $product = Product::create([
-                'name' => $this->name,
+                'name' => [
+                    'es' => str()->title($this->name['es']),
+                    'en' => str()->title($this->name['en']),
+                ],
                 'slug' => $this->slug,
                 'description' => $this->description,
-                'seo_title' => $this->seo_title,
-                'seo_description' => $this->seo_description,
+                'seo_title' => [
+                    'es' => str()->title($this->seo['title']['es']),
+                    'en' => str()->title($this->seo['title']['en']),
+                ],
+                'seo_description' => $this->seo['description'],
                 'status' => $this->status,
                 'subcategory_id' => $this->selectedSubcategoryId,
             ]);
@@ -119,11 +139,17 @@ final class ProductManagementForm extends Form
 
         return DB::transaction(function () {
             $this->product->update([
-                'name' => str()->title($this->name),
+                'name' => [
+                    'es' => str()->title($this->name['es']),
+                    'en' => str()->title($this->name['en']),
+                ],
                 'slug' => $this->slug,
                 'description' => $this->description,
-                'seo_title' => $this->seo_title,
-                'seo_description' => $this->seo_description,
+                'seo_title' => [
+                    'es' => str()->title($this->seo['title']['es']),
+                    'en' => str()->title($this->seo['title']['en']),
+                ],
+                'seo_description' => $this->seo['description'],
                 'status' => $this->status,
                 'subcategory_id' => $this->selectedSubcategoryId,
             ]);

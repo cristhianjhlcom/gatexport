@@ -17,7 +17,7 @@
       @foreach ($categories as $category)
         <div class="space-y-4 pb-8">
           <header class="flex w-full items-center justify-between">
-            <h2 class="text-xl font-semibold">{{ $category->name }}</h2>
+            <h2 class="text-xl font-semibold">{{ $category->localizedName }}</h2>
             <flux:button
               href="{{ route('categories.show', [
                   'category' => $category,
@@ -41,9 +41,9 @@
               >
                 <article class="flex flex-col items-center justify-center">
                   <img
-                    alt="{{ $subcategory->name }}"
+                    alt="{{ $subcategory->localizedName }}"
                     class="aspect-square h-auto w-full object-contain"
-                    src="{{ $subcategory->getImagePathAttribute() }}"
+                    src="{{ $subcategory->imageUrl }}"
                   >
                 </article>
               </a>

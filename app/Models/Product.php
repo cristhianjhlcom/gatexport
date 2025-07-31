@@ -32,6 +32,10 @@ final class Product extends Model
             'status' => ProductStatusEnum::class,
             'created_at' => 'datetime',
             'updated_at' => 'datetime',
+            'name' => 'array',
+            'description' => 'array',
+            'seo_title' => 'array',
+            'seo_description' => 'array',
         ];
     }
 
@@ -55,13 +59,71 @@ final class Product extends Model
         return $this->hasMany(ProductSpecifications::class);
     }
 
-    public function getFirstImageAttribute(): string
+    public function localizedName($locale = null): Attribute
     {
-        if ($this->images->count() > 0) {
-            return $this->images->first()->getUrlAttribute();
-        }
+        $locale = $locale ?? app()->getLocale();
 
-        return '';
+        return Attribute::make(
+            get: fn() => $this->name[$locale],
+        );
+    }
+
+    public function localizedDescription($locale = null): Attribute
+    {
+        $locale = $locale ?? app()->getLocale();
+
+        return Attribute::make(
+            get: fn() => $this->description[$locale],
+        );
+    }
+
+    public function localizedSeoTitle($locale = null): Attribute
+    {
+        $locale = $locale ?? app()->getLocale();
+
+        return Attribute::make(
+            get: fn() => $this->seo_title[$locale],
+        );
+    }
+
+    public function localizedSeoDescription($locale = null): Attribute
+    {
+        $locale = $locale ?? app()->getLocale();
+
+        return Attribute::make(
+            get: fn() => $this->seo_description[$locale],
+        );
+    }
+
+    public function localizedCategoryName($locale = null): Attribute
+    {
+        $locale = $locale ?? app()->getLocale();
+
+        return Attribute::make(
+            get: fn() => $this->subcategory->category->name[$locale],
+        );
+    }
+
+    public function localizedSubcategoryName($locale = null): Attribute
+    {
+        $locale = $locale ?? app()->getLocale();
+
+        return Attribute::make(
+            get: fn() => $this->subcategory->name[$locale],
+        );
+    }
+
+    public function firstImage(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                if ($this->images->count() > 0) {
+                    return $this->images->first()->url;
+                }
+
+                return '';
+            },
+        );
     }
 
     public function showUrl(): Attribute

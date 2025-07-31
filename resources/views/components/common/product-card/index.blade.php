@@ -3,29 +3,33 @@
 ])
 
 @if ($product)
-  <a href="{{ route('products.show', [
-      'category' => $product->subcategory->category,
-      'subcategory' => $product->subcategory,
-      'product' => $product,
-  ]) }}"
-    wire:navigate
-  >
+  <a href="{{ $product->showUrl }}" wire:navigate>
     <article>
-      <img
-        alt="{{ $product->name }}"
-        class="aspect-square h-auto w-full object-contain"
-        src="{{ $product->getFirstImageAttribute() }}"
-      >
+      @if ($product->firstImage)
+        {
+        <img
+          alt="{{ $product->localizedName }}"
+          class="aspect-square h-auto w-full object-contain"
+          src="{{ $product->firstImage }}"
+        >
+      @else
+        <div class="flex h-[230px] w-full items-center justify-center rounded-sm border border-gray-50 bg-gray-50">
+          <h4 class="flex items-center gap-x-4 text-xl font-bold text-gray-300">
+            <flux:icon class="size-8" name="photo" />
+            No Image
+          </h4>
+        </div>
+      @endif
       <div class="space-y-2 py-2">
         <flux:breadcrumbs>
           <flux:breadcrumbs.item separator="slash">
-            {{ $product->subcategory->category->name }}
+            {{ $product->localizedCategoryName }}
           </flux:breadcrumbs.item>
           <flux:breadcrumbs.item separator="slash">
-            {{ $product->subcategory->name }}
+            {{ $product->localizedSubcategoryName }}
           </flux:breadcrumbs.item>
         </flux:breadcrumbs>
-        <flux:heading size="sm">{{ $product->name }}</flux:heading>
+        <flux:heading size="sm">{{ $product->localizedName }}</flux:heading>
       </div>
     </article>
   </a>

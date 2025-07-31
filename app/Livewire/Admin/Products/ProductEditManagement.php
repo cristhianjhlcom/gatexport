@@ -5,18 +5,13 @@ declare(strict_types=1);
 namespace App\Livewire\Admin\Products;
 
 use App\Enums\ProductStatusEnum;
-use App\Exceptions\Admin\ProductCreationException;
 use App\Livewire\Forms\Admin\ProductManagementForm;
-use App\Models\Category;
-use App\Models\Product;
-use App\Models\Subcategory;
+use App\Models\{Product, Category, Subcategory};
 use Flux\Flux;
 use Livewire\Attributes\Layout;
-use Livewire\Attributes\Title;
 use Livewire\Component;
 
 #[Layout('components.layouts.admin')]
-#[Title('Edit Product')]
 final class ProductEditManagement extends Component
 {
     public ProductManagementForm $form;
@@ -30,18 +25,13 @@ final class ProductEditManagement extends Component
 
     public function save()
     {
-        // $this->authorize('create', Product::class);
+        $this->authorize('create', Product::class);
+
         try {
             $this->form->update();
 
-            Flux::toast(
-                heading: 'Producto Actualizado',
-                text: 'El producto ha sido actualizado correctamente.',
-                variant: 'success',
-            );
-
-            $this->redirect(route('admin.products.index'), navigate: true);
-        } catch (ProductCreationException $exception) {
+            Flux::toast('El producto ha sido actualizado correctamente.');
+        } catch (\Exception $exception) {
             report($exception);
 
             Flux::toast(
@@ -63,9 +53,11 @@ final class ProductEditManagement extends Component
         $status = ProductStatusEnum::cases();
         $categories = Category::with('subcategories')->orderBy('name')->get();
 
-        return view('livewire.admin.products.edit')->with([
-            'status' => $status,
-            'categories' => $categories,
-        ]);
+        return view('livewire.admin.products.edit')
+            ->with([
+                'status' => $status,
+                'categories' => $categories,
+            ])
+            ->title('Editar Producto | Administración');
     }
 }

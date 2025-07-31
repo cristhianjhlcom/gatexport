@@ -16,7 +16,7 @@ final class Gallery extends Component
 
     public function mount()
     {
-        if (! empty($this->images)) {
+        if (count($this->images) > 0) {
             $this->selectedImage = $this->images[0];
 
             return;

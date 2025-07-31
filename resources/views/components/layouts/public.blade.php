@@ -71,7 +71,7 @@
                   type="button"
                   variant="ghost"
                 >
-                  <flux:heading>{{ $category['name'] }}</flux:heading>
+                  <flux:heading>{{ $category['name'][app()->getLocale()] }}</flux:heading>
                 </flux:button>
 
                 <flux:popover class="max-w-[800px] p-0">
@@ -81,13 +81,13 @@
                       href="{{ route('categories.show', $category['slug']) }}"
                     >
                       <img
-                        alt="{{ $category['name'] }}"
+                        alt="{{ $category['name'][app()->getLocale()] }}"
                         class="h-full w-full object-cover"
                         src="{{ $category['image'] }}"
                       />
                       <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                       <h6 class="absolute bottom-3 left-3 text-lg font-bold text-white">
-                        {{ $category['name'] }}
+                        {{ $category['name'][app()->getLocale()] }}
                       </h6>
                     </a>
 
@@ -96,16 +96,16 @@
                       <a
                         class="{{ $index < 2 ? 'col-start-' . ($index + 4) : '' }} relative overflow-hidden rounded-sm"
                         href="{{ route('subcategories.index', [$category['slug'], $subcategory['slug']]) }}"
-                        title="{{ $subcategory['name'] }}"
+                        title="{{ $subcategory['name'][app()->getLocale()] }}"
                       >
                         <img
-                          alt="{{ $subcategory['name'] }}"
+                          alt="{{ $subcategory['name'][app()->getLocale()] }}"
                           class="h-full w-full object-cover"
                           src="{{ $subcategory['image'] }}"
                         />
                         <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                         <h6 class="absolute bottom-2 left-2 text-xs font-semibold text-white">
-                          {{ $subcategory['name'] }}
+                          {{ $subcategory['name'][app()->getLocale()] }}
                         </h6>
                       </a>
                     @endforeach
@@ -137,7 +137,7 @@
 
       <flux:navmenu>
         @foreach (config('localization.locales') as $locale)
-          <flux:navmenu.item href="{{ route('localization.update', $locale) }}" icon="building-storefront">
+          <flux:navmenu.item href="{{ route('localization.update', $locale) }}">
             {{ __("layouts.navigation.{$locale}") }}
           </flux:navmenu.item>
         @endforeach
@@ -177,11 +177,11 @@
         <flux:navlist.group
           :expanded="false"
           expandable
-          heading="{{ $category['name'] }}"
+          heading="{{ $category['name'][app()->getLocale()] }}"
         >
           @foreach ($category['subcategories'] as $subcategory)
             <flux:navlist.item href="{{ route('categories.show', $subcategory['slug']) }}">
-              {{ $subcategory['name'] }}
+              {{ $subcategory['name'][app()->getLocale()] }}
             </flux:navlist.item>
           @endforeach
         </flux:navlist.group>

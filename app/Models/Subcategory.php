@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -22,6 +23,11 @@ final class Subcategory extends Model
         'category_id',
     ];
 
+    protected $casts = [
+        'category_id' => 'integer',
+        'name' => 'array',
+    ];
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
@@ -32,13 +38,26 @@ final class Subcategory extends Model
         return $this->hasMany(Product::class);
     }
 
-    public function getImagePathAttribute(): string
+    public function imageUrl(): Attribute
     {
-        if ($this->image) {
-            return Storage::disk('public')->url($this->image);
-        }
+        return Attribute::make(
+            get: function () {
+                if ($this->image) {
+                    return Storage::disk('public')->url($this->image);
+                }
 
-        return '';
+                return '';
+            },
+        );
+    }
+
+    public function localizedName($locale = null): Attribute
+    {
+        $locale = $locale ?? app()->getLocale();
+
+        return Attribute::make(
+            get: fn() => $this->name[$locale],
+        );
     }
 
     public function createdAtHuman(): string

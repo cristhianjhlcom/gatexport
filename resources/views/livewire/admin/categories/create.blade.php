@@ -1,7 +1,7 @@
 <div class="space-y-4">
   <div class="flex items-center justify-between">
     <div>
-      <flux:heading>{{ __('Create Product') }}</flux:heading>
+      <flux:heading>Crear Categoría</flux:heading>
     </div>
   </div>
 
@@ -11,23 +11,32 @@
 
         {{-- Category Content --}}
         <flux:card class="space-y-4">
-          <flux:field>
+          <div class="grid grid-cols-1 gap-x-4 sm:grid-cols-2">
             <flux:input
               autocomplete="off"
-              id="name"
-              placeholder="{{ __('Product Name') }}"
-              type="text"
-              wire:model.blur='form.name'
+              badge="Requerido"
+              description:trailing="Versión en español del nombre"
+              label="Nombre de la Categoría"
+              placeholder="Lorem Ipsum"
+              wire:model.blur="form.name.es"
             />
-            <flux:error name="form.name" />
-          </flux:field>
+            <flux:input
+              autocomplete="off"
+              badge="Requerido"
+              description:trailing="English version of the name"
+              label="Category Name"
+              placeholder="Lorem Ipsum"
+              wire:model.blur="form.name.en"
+            />
+          </div>
+
           <flux:field>
             <flux:input.group>
               <flux:input.group.prefix>{{ env('APP_URL') }}/categories/</flux:input.group.prefix>
               <flux:input
                 disabled
                 id="slug"
-                placeholder="{{ __('gold-ring') }}"
+                placeholder="lorem-ipsum"
                 readonly
                 wire:model='form.slug'
               />
@@ -38,23 +47,25 @@
 
         {{-- Category Image Dropzone --}}
         {{-- @livewire('admin.categories.image-upload', ['form' => $form]) --}}
-        <flux:card class="space-y-4">
-          <flux:field>
-            <flux:label>{{ __('Image') }}</flux:label>
-            <flux:description>
-              {{ __('Formats: PNG, JPG, WebP - Max dimensions: 1000x1000 (1:1) - Max size: 4.5 MB') }}
-            </flux:description>
-            {{-- <div class="dropzone w-full rounded border-2 border-dashed bg-gray-400" id="category-dropzone"></div> --}}
-            <flux:input type="file" wire:model="form.image" />
-            <div class="mt-4 grid grid-cols-2 gap-x-2 md:grid-cols-4">
-              @if ($form->image)
-                <img
-                  alt="Image Preview"
-                  class="h-auto w-[200px] rounded-lg object-contain"
-                  src="{{ $form->image->temporaryUrl() }}"
-                />
-              @endif
+        <flux:card class="flex items-center gap-x-4 space-y-4">
+          @if ($form->image)
+            <div>
+              <img
+                alt="Image Preview"
+                class="h-auto w-[200px] rounded-lg object-contain"
+                src="{{ $form->image->temporaryUrl() }}"
+              />
             </div>
+          @endif
+
+          <flux:field>
+            <flux:label>Imagen</flux:label>
+
+            <flux:input type="file" wire:model="form.image" />
+            <flux:description>
+              Formatos: PNG, JPG, WebP - Dimensiones máximas: 1000x1000 (1:1) - Tamaño máximo: 4.5 MB
+            </flux:description>
+
             <div wire:loading wire:target="form.image">
               <flux:icon.loading />
             </div>
@@ -65,7 +76,11 @@
         {{-- Category Submit Button --}}
         <div>
           <flux:button type="submit" variant="primary">
-            {{ __('Save') }}
+            Guardar
+          </flux:button>
+
+          <flux:button type="button" wire:click="createAnother">
+            Guardar & Crear Otro
           </flux:button>
         </div>
       </div>

@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace App\Livewire\Admin\Categories;
 
-use App\Exceptions\Admin\CategoryCreationException;
 use App\Livewire\Forms\Admin\CategoryManagementForm;
 use App\Models\Category;
 use Flux\Flux;
-use Illuminate\Container\Attributes\DB;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -25,20 +23,14 @@ final class CategoryCreateManagement extends Component
         $this->authorize('create', Category::class);
 
         try {
-            DB::transaction(function () {
-                $this->form->store();
+            $this->form->store();
 
-                Flux::toast(
-                    heading: 'Manejo de Sistema',
-                    text: 'La categoría ha sido creada correctamente.',
-                    variant: 'success',
-                );
+            Flux::toast('La categoría ha sido creada correctamente.');
 
-                $this->form->reset();
+            $this->form->reset();
 
-                $this->redirect(route('admin.categories.index'), navigate: true);
-            });
-        } catch (CategoryCreationException $exception) {
+            $this->redirect(route('admin.categories.index'), navigate: true);
+        } catch (\Exception $exception) {
             report($exception);
 
             Flux::toast(
@@ -49,9 +41,32 @@ final class CategoryCreateManagement extends Component
         }
     }
 
-    public function updatedFormName(string $name)
+    public function updatedFormNameEs(string $name): void
     {
         $this->form->slug = str()->slug($name);
+    }
+
+    public function createAnother()
+    {
+        $this->authorize('create', Category::class);
+
+        try {
+            $this->form->store();
+
+            Flux::toast('La categoría ha sido creada correctamente.');
+
+            $this->form->reset();
+
+            $this->redirect(route('admin.categories.create'), navigate: true);
+        } catch (\Exception $exception) {
+            report($exception);
+
+            Flux::toast(
+                heading: 'Uops! Algo salió mal',
+                text: $exception->getMessage(),
+                variant: 'error',
+            );
+        }
     }
 
     public function render()

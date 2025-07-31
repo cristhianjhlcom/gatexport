@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Public;
 
+use App\Enums\ProductStatusEnum;
 use App\Models\Category;
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
@@ -20,7 +21,11 @@ final class SubcategoryIndexController extends Controller
             'products.specifications',
             'products.subcategory.category',
         ]);
-        $products = $subcategory->products;
+        $products = $subcategory
+            ->products()
+            ->where('status', ProductStatusEnum::PUBLISHED)
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         return view('pages.subcategories.index')->with([
             'products' => $products,

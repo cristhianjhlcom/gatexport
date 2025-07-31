@@ -34,11 +34,7 @@
               </flux:table.cell>
 
               <flux:table.cell>
-                <flux:badge
-                  class="flex w-full items-center justify-center text-center"
-                  color="{{ $order->status->color() }}"
-                  size="sm"
-                >
+                <flux:badge color="{{ $order->status->color() }}" size="sm">
                   {{ $order->status->label() }}
                 </flux:badge>
               </flux:table.cell>

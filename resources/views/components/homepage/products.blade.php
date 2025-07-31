@@ -18,12 +18,12 @@
           >
             <div class="absolute inset-0 bg-gray-800/50 transition-opacity group-hover:bg-gray-800/50"></div>
             <img
-              alt="{{ $category->name }}"
+              alt="{{ $category->localizedName }}"
               class="aspect-square w-full object-cover"
-              src="{{ $category->imagePath }}"
+              src="{{ $category->imageUrl }}"
             />
             <h3 class="absolute left-4 top-4 text-lg font-bold text-white md:text-xl">
-              {{ $category->name }}
+              {{ $category->localizedName }}
             </h3>
           </a>
         @endforeach

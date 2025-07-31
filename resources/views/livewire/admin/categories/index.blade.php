@@ -1,21 +1,19 @@
 <div class="space-y-4">
-  <flux:heading>{{ __('Categories Management') }}</flux:heading>
+  <flux:heading>Administración de Categorías</flux:heading>
   <flux:separator />
 
   <div class="flex flex-col space-y-4">
     <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
       <div></div>
       <flux:button href="{{ route('admin.categories.create') }}" icon="plus">
-        {{ __('Add Category') }}
+        Agregar Categoría
       </flux:button>
     </div>
 
     <flux:table :paginate="$categories">
       <flux:table.columns>
-        <flux:table.column>{{ __('Name') }}</flux:table.column>
-        <flux:table.column>{{ __('Slug') }}</flux:table.column>
-        <flux:table.column>{{ __('Subcategory Count') }}</flux:table.column>
-        <flux:table.column>{{ __('Date') }}</flux:table.column>
+        <flux:table.column>Nombre</flux:table.column>
+        <flux:table.column>Fecha</flux:table.column>
       </flux:table.columns>
 
       <flux:table.rows>
@@ -24,20 +22,14 @@
             <flux:table.cell class="flex items-center gap-3 text-wrap">
               @if ($category->image)
                 <img
-                  alt="{{ $category->name }}"
+                  alt="{{ $category->localizedName }}"
                   class="h-10 w-10 rounded-lg object-contain"
                   src="{{ $category->getImagePathAttribute() }}"
                 />
               @else
-                <flux:avatar name="{{ $category->name }}" />
+                <flux:avatar name="{{ $category->localizedName }}" />
               @endif
-              {{ $category->name }}
-            </flux:table.cell>
-            <flux:table.cell>
-              {{ env('APP_URL') . '/categories/' . $category->slug }}
-            </flux:table.cell>
-            <flux:table.cell class="text-center">
-              {{ $category->subcategories_count }}
+              {{ $category->localizedName }}
             </flux:table.cell>
             <flux:table.cell>{{ $category->formattedCreatedAt() }}</flux:table.cell>
             <flux:table.cell>
@@ -45,7 +37,7 @@
                 <flux:button icon="ellipsis-horizontal" variant="ghost"></flux:button>
                 <flux:menu>
                   <flux:menu.item href="{{ route('admin.categories.edit', $category) }}" icon="pencil">
-                    {{ __('Edit') }}
+                    Editar
                   </flux:menu.item>
                 </flux:menu>
               </flux:dropdown>

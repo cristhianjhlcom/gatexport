@@ -5,19 +5,24 @@ declare(strict_types=1);
 namespace App\Livewire\Forms\Admin;
 
 use App\Models\Subcategory;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
+use Exception;
+use Flux\Flux;
+use Illuminate\Support\Facades\{DB, Storage};
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
+use Intervention\Image\Drivers\Imagick\Driver;
+use Intervention\Image\ImageManager;
 
 final class SubcategoryManagementForm extends Form
 {
     public ?Subcategory $subcategory = null;
 
     #[Validate]
-    public string $name = '';
+    public $name = [
+        'en' => '',
+        'es' => '',
+    ];
 
     #[Validate]
     public string $slug = '';
@@ -28,14 +33,6 @@ final class SubcategoryManagementForm extends Form
     #[Validate]
     public $category_id = null;
 
-    public function messages(): array
-    {
-        return [
-            'image.max' => __('Each image must not exceed 4.5MB'),
-            'image.dimensions' => __('Images must be 1000x1000 pixels'),
-        ];
-    }
-
     public function setSubcategory(Subcategory $subcategory): void
     {
         $this->name = $subcategory->name;
@@ -45,38 +42,21 @@ final class SubcategoryManagementForm extends Form
         $this->subcategory = $subcategory;
     }
 
-    public function updatedName(): void
-    {
-        $this->slug = str()->slug($this->name);
-    }
-
     public function store(): Subcategory
     {
         $this->validate();
 
-        $data = [
-            'name' => $this->name,
-            'slug' => $this->slug,
-            'image' => $this->image,
-            'category_id' => $this->category_id,
-        ];
-
-        return DB::transaction(function () use ($data) {
-            $path = $this->image->store(path: 'uploads/subcategories');
+        return DB::transaction(function () {
+            $name = [
+                'es' => str()->title($this->name['es']),
+                'en' => str()->title($this->name['en']),
+            ];
 
             $subcatetegory = Subcategory::create([
-                'name' => str()->title($data['name']),
-                'slug' => $data['slug'],
-                'image' => $path,
-                'category_id' => $data['category_id'],
-            ]);
-
-            Log::info('Sub Category Created', [
-                'subcategory_id' => $subcatetegory->id,
-                'subcategory_name' => $subcatetegory->name,
-                'subcategory_slug' => $subcatetegory->slug,
-                'subcategory_image' => $subcatetegory->image,
-                'subcategory_category_id' => $subcatetegory->category_id,
+                'name' => $name,
+                'slug' => $this->slug,
+                'image' => $this->upload($this->image),
+                'category_id' => $this->category_id,
             ]);
 
             return $subcatetegory->fresh();
@@ -87,41 +67,17 @@ final class SubcategoryManagementForm extends Form
     {
         $this->validate();
 
-        $data = [
-            'name' => $this->name,
-            'slug' => $this->slug,
-            'image' => $this->image,
-            'category_id' => $this->category_id,
-        ];
-
-        return DB::transaction(function () use ($data) {
-            if ($data['image'] && $data['image'] !== $this->subcategory->image) {
-                if ($this->subcategory->image && Storage::disk('public')->exists($this->subcategory->image)) {
-                    Storage::disk('public')->delete($this->subcategory->image);
-
-                    Log::info('Sub Category Image Deleted', [
-                        'image_path' => $this->subcategory->image,
-                    ]);
-                }
-
-                $path = $data['image']->store(path: 'uploads/subcategories');
-            } else {
-                $path = $this->subcategory->image;
-            }
+        return DB::transaction(function () {
+            $name = [
+                'es' => str()->title($this->name['es']),
+                'en' => str()->title($this->name['en']),
+            ];
 
             $this->subcategory->update([
-                'name' => str()->title($data['name']),
-                'slug' => $data['slug'],
-                'image' => $path,
-                'category_id' => $data['category_id'],
-            ]);
-
-            Log::info('Sub Category Updated', [
-                'subcategory_id' => $this->subcategory->id,
-                'subcategory_name' => $this->subcategory->name,
-                'subcategory_slug' => $this->subcategory->slug,
-                'subcategory_image' => $this->subcategory->image,
-                'subcategory_category_id' => $this->subcategory->category_id,
+                'name' => $name,
+                'slug' => $this->slug,
+                'image' => $this->upload($this->image),
+                'category_id' => $this->category_id,
             ]);
 
             return $this->subcategory->fresh();
@@ -131,7 +87,7 @@ final class SubcategoryManagementForm extends Form
     protected function rules(): array
     {
         $rules = [
-            'name' => 'required|string|min:3|max:90',
+            'name.*' => 'required|string|min:3|max:90',
             'slug' => [
                 'required',
                 'string',
@@ -140,10 +96,33 @@ final class SubcategoryManagementForm extends Form
             'category_id' => 'required|exists:categories,id',
         ];
 
-        if (! is_string($this->image)) {
-            $rules['image'] = 'nullable|image|max:4500|dimensions:min_width=1000,min_height=1000,max_width=1000,max_height=1000';
+        return $rules;
+    }
+
+    protected function upload($image)
+    {
+        if (!$image) throw new Exception('No se pudo subir la imagen');
+
+        if ($this->subcategory && $image === $this->subcategory->image) return $this->subcategory->image;
+
+        if ($this->subcategory && Storage::disk('public')->exists($this->subcategory->image)) {
+            Storage::disk('public')->delete($this->subcategory->image);
         }
 
-        return $rules;
+        $upload = $image->store(path: 'uploads/subcategories', options: 'public');
+
+        if (Storage::disk('public')->missing($upload)) {
+            throw new Exception('El archivo no existe. Intenta nuevamente.');
+        }
+
+        $manager = new ImageManager(new Driver());
+        $image = $manager->read(Storage::disk('public')->get($upload));
+        $image->resize(1000, 1000);
+        $image->toWebp(60);
+        $image->save(Storage::disk('public')->path($upload));
+
+        Flux::toast('Imagen procesada correctamente.', 'success');
+
+        return $upload;
     }
 }

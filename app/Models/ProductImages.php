@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -31,15 +32,17 @@ final class ProductImages extends Model
         return $this->belongsTo(Product::class);
     }
 
-    // Accessor para URL completa
-    public function getUrlAttribute()
+    public function url(): Attribute
     {
-        return Storage::disk('public')->url($this->path);
+        return Attribute::make(
+            get: fn() => Storage::disk('public')->url($this->path),
+        );
     }
 
-    // Accessor para tamaño legible
-    public function getReadableSizeAttribute()
+    public function readableSize(): Attribute
     {
-        return Number::fileSize($this->size);
+        return Attribute::make(
+            get: fn() => Number::fileSize($this->size),
+        );
     }
 }
