@@ -26,11 +26,18 @@ final class ProductShowController extends Controller
             'images',
             'specifications',
         ]);
+        $relatedProducts = $subcategory->products()
+            ->where('id', '!=', $product->id)
+            ->where('status', ProductStatusEnum::PUBLISHED)
+            ->latest()
+            ->limit(8)
+            ->get();
 
         return view('pages.products.show')->with([
             'product' => $product,
             'subcategory' => $subcategory,
             'category' => $category,
+            'relatedProducts' => $relatedProducts,
         ]);
     }
 }

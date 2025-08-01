@@ -28,7 +28,7 @@
         zoomOnScrollSpeed: 0.5,
         regionLabelStyle: {
           initial: {
-            fill: '#faa41a', // accent color for labels
+            fill: '#ff0000', // accent color for labels
           },
         },
         regionStyle: {
@@ -42,9 +42,7 @@
           },
         },
         responsive: true,
-        onRegionClick: (region) => {
-          console.log(region);
-        },
+        onRegionClick: (region) => {},
       })
     });
   </script>

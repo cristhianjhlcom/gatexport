@@ -1,37 +1,63 @@
-@props(['categories'])
+@props([
+    'categories' => [],
+])
 
-<article class="bg-primary-50 py-10 md:py-14">
-  <div class="container space-y-6 overflow-hidden">
-    <x-heading
-      class="text-center"
-      level="2"
-      size="xl"
-      weight="black"
-    >
-      {{ __('pages.home.products.title') }}
-    </x-heading>
-    <div class="swiper__featured-products">
-      <div class="swiper-wrapper">
-        @foreach ($categories as $idx => $category)
-          <a class="swiper-slide group relative overflow-hidden rounded-sm"
-            href="{{ route('categories.show', $category->slug) }}"
-          >
-            <div class="absolute inset-0 bg-gray-800/50 transition-opacity group-hover:bg-gray-800/50"></div>
-            <img
-              alt="{{ $category->localizedName }}"
-              class="aspect-square w-full object-cover"
-              src="{{ $category->imageUrl }}"
-            />
-            <h3 class="absolute left-4 top-4 text-lg font-bold text-white md:text-xl">
+@if (count($categories) > 0)
+  <section class="bg-primary-50 py-10 md:py-14">
+    <div class="container space-y-6 overflow-hidden">
+      <x-heading
+        class="text-center"
+        level="2"
+        size="xl"
+        weight="black"
+      >
+        {{ __('pages.home.products.title') }}
+      </x-heading>
+
+      @foreach ($categories as $idx => $category)
+        <article class="space-y-4">
+          <header class="flex w-full items-center justify-between">
+            <x-heading level="2" size="lg">
               {{ $category->localizedName }}
-            </h3>
-          </a>
-        @endforeach
-      </div>
-      <div class="swiper-pagination__featured-products"></div>
+            </x-heading>
+          </header>
+          <div class="space-y-4">
+            @foreach ($category->subcategories as $subcategory)
+              <header class="flex w-full items-center justify-between">
+                <x-heading level="3" size="sm">
+                  {{ $subcategory->localizedName }}
+                </x-heading>
+                <flux:button
+                  href="{{ route('subcategories.index', [
+                      'category' => $category,
+                      'subcategory' => $subcategory,
+                  ]) }}"
+                  icon:trailing="arrow-right"
+                  inset
+                  size="sm"
+                  variant="ghost"
+                  wire:navigate
+                >
+                  {{ __('pages.categories.view_all') }}
+                </flux:button>
+              </header>
+
+              <div class="swiper__featured-products">
+                <div class="swiper-wrapper">
+                  @foreach ($subcategory->products as $product)
+                    <div class="swiper-slide">
+                      <x-common.product-card :$product />
+                    </div>
+                  @endforeach
+                </div>
+              </div>
+            @endforeach
+          </div>
+        </article>
+      @endforeach
     </div>
-  </div>
-</article>
+  </section>
+@endif
 
 @push('scripts')
   <script>
@@ -40,7 +66,7 @@
         loop: true,
         autoplay: {
           delay: 5000,
-          disableOnInteraction: false,
+          disableOnInteraction: true,
         },
         slidesPerView: 1,
         spaceBetween: 10,

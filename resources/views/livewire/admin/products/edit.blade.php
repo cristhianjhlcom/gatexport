@@ -35,6 +35,7 @@
           </flux:select>
         </flux:card>
         <flux:card class="space-y-4">
+          @dump($form->selectedCategoryId)
           <flux:select label="Categoría" wire:model.live="form.selectedCategoryId">
             @foreach ($categories as $item)
               <flux:select.option value="{{ $item->id }}">
@@ -43,6 +44,7 @@
             @endforeach
           </flux:select>
 
+          @dump($form->selectedSubcategoryId)
           <flux:select label="Subcategoría" wire:model.live="form.selectedSubcategoryId">
             @foreach ($form->subcategories as $item)
               <flux:select.option value="{{ $item->id }}">

@@ -2,54 +2,56 @@
     'company_services' => [],
 ])
 
-<section class="py-6 md:py-10 lg:py-14" id="services">
-  <div class="container">
-    <div class="flex items-start justify-start gap-4 md:flex-row md:gap-12">
-      <div class="hidden overflow-hidden rounded-sm sm:block">
-        @if ($company_services)
-          <img
-            alt="{{ __('pages.home.services.title') }}"
-            class="aspect-square w-full object-contain"
-            src="{{ Storage::disk('public')->url($company_services['main_image']) }}"
+@if (count($company_services) > 0)
+  <section class="py-6 md:py-10 lg:py-14" id="services">
+    <div class="container">
+      <div class="flex items-start justify-start gap-4 md:flex-row md:gap-12">
+        <div class="hidden overflow-hidden rounded-sm sm:block">
+          @if ($company_services)
+            <img
+              alt="{{ __('pages.home.services.title') }}"
+              class="aspect-square h-[550px] w-full object-contain"
+              src="{{ Storage::disk('public')->url($company_services['main_image']) }}"
+            >
+          @endif
+        </div>
+        <div class="flex-1 grow justify-start space-y-4 md:space-y-6">
+          <x-heading
+            class="text-center sm:text-left"
+            level="2"
+            size="lg"
+            weight="black"
           >
-        @endif
-      </div>
-      <div class="flex-1 grow justify-start space-y-4 md:space-y-6">
-        <x-heading
-          class="text-center sm:text-left"
-          level="2"
-          size="lg"
-          weight="black"
-        >
-          {{ __('pages.home.services.title') }}
-        </x-heading>
-        <flux:separator />
+            {{ __('pages.home.services.title') }}
+          </x-heading>
+          <flux:separator />
 
-        @if ($company_services)
-          <flux:accordion exclusive transition>
-            @foreach ($company_services['services'] as $service)
-              @if ($loop->first)
-                <flux:accordion.item :key="$service['title']" expanded>
-                  <flux:accordion.heading>{{ $service['title'] }}</flux:accordion.heading>
+          @if ($company_services)
+            <flux:accordion exclusive transition>
+              @foreach ($company_services['services'] as $service)
+                @if ($loop->first)
+                  <flux:accordion.item :key="$service['title']" expanded>
+                    <flux:accordion.heading>{{ $service['title'] }}</flux:accordion.heading>
 
-                  <flux:accordion.content>
-                    {!! $service['description'] !!}
-                  </flux:accordion.content>
-                </flux:accordion.item>
-              @else
-                <flux:accordion.item :key="$service['title']">
-                  <flux:accordion.heading>{{ $service['title'] }}</flux:accordion.heading>
+                    <flux:accordion.content>
+                      {!! $service['description'] !!}
+                    </flux:accordion.content>
+                  </flux:accordion.item>
+                @else
+                  <flux:accordion.item :key="$service['title']">
+                    <flux:accordion.heading>{{ $service['title'] }}</flux:accordion.heading>
 
-                  <flux:accordion.content>
-                    {!! $service['description'] !!}
-                  </flux:accordion.content>
-                </flux:accordion.item>
-              @endif
-            @endforeach
-          </flux:accordion>
-        @endif
+                    <flux:accordion.content>
+                      {!! $service['description'] !!}
+                    </flux:accordion.content>
+                  </flux:accordion.item>
+                @endif
+              @endforeach
+            </flux:accordion>
+          @endif
 
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+@endif

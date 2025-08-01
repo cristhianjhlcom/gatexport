@@ -3,7 +3,7 @@
 ])
 
 @if ($product)
-  <a href="{{ $product->showUrl }}" wire:navigate>
+  <a href="{{ $product->showUrl }}">
     <article>
       @if ($product->firstImage)
         {
@@ -29,7 +29,9 @@
             {{ $product->localizedSubcategoryName }}
           </flux:breadcrumbs.item>
         </flux:breadcrumbs>
-        <flux:heading size="sm">{{ $product->localizedName }}</flux:heading>
+        <flux:heading :title="$product->localizedName" size="sm">
+          {{ str()->words($product->localizedName, 6) }}
+        </flux:heading>
       </div>
     </article>
   </a>

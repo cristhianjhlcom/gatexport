@@ -16,22 +16,33 @@
     {{-- END BREADCRUMBS --}}
 
     {{-- GRID OF PRODUCTS --}}
-    <div class="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3">
+    <div class="space-y-6">
       @foreach ($category->subcategories as $subcategory)
-        <a href="{{ route('subcategories.index', [
-            'category' => $category,
-            'subcategory' => $subcategory,
-        ]) }}"
-          wire:navigate
-        >
-          <article class="flex flex-col items-center justify-center">
-            <img
-              alt="{{ $subcategory->localizedName }}"
-              class="aspect-square h-auto w-full object-contain"
-              src="{{ $subcategory->imageUrl }}"
+        <article class="space-y-4">
+          <header class="flex w-full items-center justify-between">
+            <x-heading level="2" size="sm">
+              {{ $subcategory->localizedName }}
+            </x-heading>
+            <flux:button
+              href="{{ route('subcategories.index', [
+                  'category' => $category,
+                  'subcategory' => $subcategory,
+              ]) }}"
+              icon:trailing="arrow-right"
+              inset
+              size="sm"
+              variant="ghost"
+              wire:navigate
             >
-          </article>
-        </a>
+              {{ __('pages.categories.view_all') }}
+            </flux:button>
+          </header>
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4">
+            @foreach ($subcategory->products as $product)
+              <x-common.product-card :$product />
+            @endforeach
+          </div>
+        </article>
       @endforeach
     </div>
     {{-- END GRID OF PRODUCTS --}}

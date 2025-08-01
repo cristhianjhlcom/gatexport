@@ -28,8 +28,8 @@
               href="{{ $product->showUrl }}"
               variant="ghost"
             >
-              <flux:avatar size="sm" src="{{ $product->getFirstImageAttribute() }}" />
-              <flux:text>{{ $product->name }}</flux:text>
+              <flux:avatar size="sm" src="{{ $product->firstImage }}" />
+              <flux:text>{{ $product->localizedName }}</flux:text>
             </flux:button>
           </li>
         @endforeach

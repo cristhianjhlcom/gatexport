@@ -35,7 +35,7 @@
                 @else
                   <flux:avatar name="{{ $product->localizedName }}" />
                 @endif
-                {{ str()->words($product->localizedName, 3) }}
+                {{ $product->localizedName }}
               </div>
             </flux:table.cell>
             <flux:table.cell>

@@ -31,11 +31,18 @@
         </h1>
       </section>
     @else
-      <div class="grid grid-cols-1 gap-2 sm:grid-cols-2 md:min-h-[500px] md:grid-cols-4 lg:grid-cols-5">
-        @foreach ($products as $product)
-          <x-common.product-card :$product />
-        @endforeach
-      </div>
+      <section class="space-y-4">
+        <header>
+          <x-heading level="2" size="lg">
+            {{ $subcategory->localizedName }}
+          </x-heading>
+        </header>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:min-h-[500px] md:grid-cols-4">
+          @foreach ($products as $product)
+            <x-common.product-card :$product />
+          @endforeach
+        </div>
+      </section>
     @endif
 
     {{-- END GRID OF PRODUCTS --}}

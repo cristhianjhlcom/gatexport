@@ -6,6 +6,7 @@
 <article class="bg-primary-50 pb-10 pt-0 md:pb-16 lg:pb-20" id="about-us">
   <div class="container space-y-8 md:space-y-12">
     <div class="flex flex-col-reverse items-center gap-8 md:flex-row md:gap-12">
+
       <div class="flex w-full flex-col items-center justify-center gap-4 md:w-1/2 md:flex-row">
         @if ($about && Storage::disk('public')->exists($about['first_image']))
           <img
@@ -22,68 +23,70 @@
           >
         @endif
       </div>
-      <div class="w-full space-y-2 md:w-1/2 md:space-y-4">
-        <x-heading
-          level="2"
-          size="xl"
-          weight="black"
-        >
-          {{ __('pages.home.about.title') }}
-        </x-heading>
 
-        @if ($general_information)
+      @if ($general_information)
+        <div class="w-full space-y-2 md:w-1/2 md:space-y-4">
+          <x-heading
+            level="2"
+            size="xl"
+            weight="black"
+          >
+            {{ __('pages.home.about.title') }}
+          </x-heading>
+
           <flux:text>
             {{ $general_information['translations']['company_short_description'] }}
           </flux:text>
-        @endif
 
-        <div class="flex flex-col gap-4 sm:flex-row">
-          <flux:button
-            class="w-full sm:w-auto"
-            href="{{ route('about-us.index') }}"
-            type="button"
-            variant="primary"
-          >
-            {{ __('pages.home.about.full_history') }}
-          </flux:button>
+          <div class="flex flex-col gap-4 sm:flex-row">
+            <flux:button
+              class="w-full sm:w-auto"
+              href="{{ route('about-us.index') }}"
+              type="button"
+              variant="primary"
+            >
+              {{ __('pages.home.about.full_history') }}
+            </flux:button>
+          </div>
         </div>
-      </div>
+      @endif
+
     </div>
 
     <div class="flex flex-col items-center gap-8 md:flex-row md:gap-12">
       <div class="w-full space-y-4 md:w-1/2 md:space-y-6">
-        <div class="space-y-2">
-          <x-heading
-            level="3"
-            size="lg"
-            weight="black"
-          >
-            {{ __('pages.home.about.mission') }}
-          </x-heading>
 
-          @if ($about)
+        @if ($about)
+          <div class="space-y-2">
+            <x-heading
+              level="3"
+              size="lg"
+              weight="black"
+            >
+              {{ __('pages.home.about.mission') }}
+            </x-heading>
+
             <flux:text>
               {!! $about['translations']['mission'] !!}
             </flux:text>
-          @endif
-        </div>
+          </div>
+        @endif
 
-        <div class="space-y-2">
-          <x-heading
-            level="3"
-            size="lg"
-            weight="black"
-          >
-            {{ __('pages.home.about.vision') }}
-          </x-heading>
-
-          @if ($about)
+        @if ($about)
+          <div class="space-y-2">
+            <x-heading
+              level="3"
+              size="lg"
+              weight="black"
+            >
+              {{ __('pages.home.about.vision') }}
+            </x-heading>
             <flux:text>
               {!! $about['translations']['vision'] !!}
             </flux:text>
-          @endif
+          </div>
+        @endif
 
-        </div>
       </div>
 
       @if ($about && $about['youtube_video_id'])

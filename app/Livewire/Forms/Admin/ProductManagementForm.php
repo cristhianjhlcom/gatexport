@@ -7,6 +7,7 @@ namespace App\Livewire\Forms\Admin;
 use App\Enums\ProductStatusEnum;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Subcategory;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Validate;
@@ -162,16 +163,18 @@ final class ProductManagementForm extends Form
     {
         // TODO: Mejorar la logica de carga ya que no esta cargando ^
         // correctamente al momento de editar un producto.
-        // Solo se deberia agregar categorias que tengan subcategorias al listado.
-        $this->categories = Category::with('subcategories')->orderBy('name')->get();
-        $this->subcategories = $this->categories->first()->subcategories;
+        // Solo se deberia agregar categorias que tengan subcategorias al listado
 
         if ($this->isEditing) {
-            $this->selectedSubcategoryId = $this->product->subcategory_id;
+            $this->categories = Category::with('subcategories')->orderBy('name')->get();
+            $this->subcategories = Subcategory::where('category_id', $this->product->subcategory->category_id)->get();
+            $this->selectedSubcategoryId = $this->product->subcategory->id;
             $this->selectedCategoryId = $this->product->subcategory->category->id;
         } else {
+            $this->categories = Category::with('subcategories')->orderBy('name')->get();
+            $this->subcategories = $this->categories->first()->subcategories;
             $this->selectedCategoryId = $this->categories->first()->id;
-            $this->selectedSubcategoryId = null;
+            $this->selectedSubcategoryId = $this->categories->first()->subcategories->first()->id;
         }
     }
 }

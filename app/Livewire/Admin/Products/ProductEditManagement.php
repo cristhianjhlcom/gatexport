@@ -48,7 +48,7 @@ final class ProductEditManagement extends Component
     public function updatedFormSelectedCategoryId(string $categoryId)
     {
         $this->form->subcategories = Subcategory::where('category_id', $categoryId)->get();
-        $this->form->selectedSubcategoryId = null;
+        $this->form->selectedSubcategoryId = $this->form->subcategories->first()->id;
     }
 
     public function render()

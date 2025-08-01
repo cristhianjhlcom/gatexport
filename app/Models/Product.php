@@ -64,7 +64,7 @@ final class Product extends Model
         $locale = $locale ?? app()->getLocale();
 
         return Attribute::make(
-            get: fn () => $this->name[$locale],
+            get: fn() => $this->name[$locale],
         );
     }
 
@@ -73,7 +73,7 @@ final class Product extends Model
         $locale = $locale ?? app()->getLocale();
 
         return Attribute::make(
-            get: fn () => $this->description[$locale],
+            get: fn() => $this->description[$locale],
         );
     }
 
@@ -82,7 +82,7 @@ final class Product extends Model
         $locale = $locale ?? app()->getLocale();
 
         return Attribute::make(
-            get: fn () => $this->seo_title[$locale],
+            get: fn() => $this->seo_title[$locale],
         );
     }
 
@@ -91,7 +91,7 @@ final class Product extends Model
         $locale = $locale ?? app()->getLocale();
 
         return Attribute::make(
-            get: fn () => $this->seo_description[$locale],
+            get: fn() => $this->seo_description[$locale],
         );
     }
 
@@ -100,7 +100,7 @@ final class Product extends Model
         $locale = $locale ?? app()->getLocale();
 
         return Attribute::make(
-            get: fn () => $this->subcategory->category->name[$locale],
+            get: fn() => $this->subcategory->category->name[$locale],
         );
     }
 
@@ -109,12 +109,14 @@ final class Product extends Model
         $locale = $locale ?? app()->getLocale();
 
         return Attribute::make(
-            get: fn () => $this->subcategory->name[$locale],
+            get: fn() => $this->subcategory->name[$locale],
         );
     }
 
     public function firstImage(): Attribute
     {
+        $this->load(['images']);
+
         return Attribute::make(
             get: function () {
                 if ($this->images->count() > 0) {
@@ -128,8 +130,10 @@ final class Product extends Model
 
     public function showUrl(): Attribute
     {
+        $this->load(['subcategory', 'subcategory.category']);
+
         return Attribute::make(
-            fn () => route('products.show', [
+            fn() => route('products.show', [
                 'category' => $this->subcategory->category,
                 'subcategory' => $this->subcategory,
                 'product' => $this,
@@ -142,7 +146,7 @@ final class Product extends Model
         return $query
             ->when(
                 $search,
-                fn (Builder $query) => $query->whereAny(
+                fn(Builder $query) => $query->whereAny(
                     ['name', 'description'],
                     'like',
                     "%{$search}%"

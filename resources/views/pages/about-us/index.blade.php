@@ -52,110 +52,113 @@
     {{-- #End History Information --}}
 
     {{-- Proveedores --}}
-    <section class="bg-primary-50 py-4">
-      <div class="container overflow-hidden">
-        @if ($providers)
-          <div class="swiper__about">
-            <div class="swiper-wrapper">
-              @foreach ($providers as $provider)
-                <article class="swiper-slide">
-                  <flux:tooltip content="{{ $provider['name'] }}" position="bottom">
-                    <img
-                      alt="{{ $provider['name'] }}"
-                      class="aspect-square h-40 w-40 rounded-sm object-cover"
-                      src="{{ Storage::disk('public')->url($provider['image']) }}"
-                    >
-                  </flux:tooltip>
-                </article>
-              @endforeach
+    @if (count($providers) > 0)
+      <section class="bg-primary-50 py-4">
+        <div class="container overflow-hidden">
+          @if ($providers)
+            <div class="swiper__about">
+              <div class="swiper-wrapper">
+                @foreach ($providers as $provider)
+                  <article class="swiper-slide">
+                    <flux:tooltip content="{{ $provider['name'] }}" position="bottom">
+                      <img
+                        alt="{{ $provider['name'] }}"
+                        class="aspect-square h-40 w-40 rounded-sm object-cover"
+                        src="{{ Storage::disk('public')->url($provider['image']) }}"
+                      >
+                    </flux:tooltip>
+                  </article>
+                @endforeach
+              </div>
             </div>
-          </div>
-        @endif
-      </div>
-    </section>
+          @endif
+        </div>
+      </section>
 
-    @push('scripts')
-      <script>
-        window.addEventListener('DOMContentLoaded', (event) => {
-          const advantagesSwiper = new Swiper('.swiper__about', {
-            loop: true,
-            autoplay: {
-              delay: 3000,
-              disableOnInteraction: false,
-            },
-            slidesPerView: 2,
-            spaceBetween: 10,
-            breakpoints: {
-              768: {
-                slidesPerView: 5,
-                spaceBetween: 5,
+      @push('scripts')
+        <script>
+          window.addEventListener('DOMContentLoaded', (event) => {
+            const advantagesSwiper = new Swiper('.swiper__about', {
+              loop: true,
+              autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
               },
-            },
+              slidesPerView: 2,
+              spaceBetween: 10,
+              breakpoints: {
+                768: {
+                  slidesPerView: 5,
+                  spaceBetween: 5,
+                },
+              },
+            });
           });
-        });
-      </script>
-    @endpush
+        </script>
+      @endpush
+    @endif
     {{-- #End Proveedores --}}
 
     {{-- Mission and Vision --}}
-    <section class="container space-y-6">
-      <div class="grid grid-cols-1 items-center gap-8 py-10 md:grid-cols-2">
-        <article class="space-y-4">
-          <x-heading
-            level="2"
-            size="lg"
-            weight="black"
-          >
-            {{ __('pages.about.mission') }}
-          </x-heading>
+    @if (count($about) > 0)
+      <section class="container space-y-6">
+        <div class="grid grid-cols-1 items-center gap-8 py-10 md:grid-cols-2">
+          <article class="space-y-4">
+            @if ($about['translations']['mission'])
+              <x-heading
+                level="2"
+                size="lg"
+                weight="black"
+              >
+                {{ __('pages.about.mission') }}
+              </x-heading>
 
-          @if ($about)
-            <flux:text>
-              {!! $about['translations']['mission'] !!}
-            </flux:text>
-          @endif
+              <flux:text>
+                {!! $about['translations']['mission'] !!}
+              </flux:text>
+              <flux:separator />
+            @endif
 
-          <flux:separator />
-          <x-heading
-            level="2"
-            size="lg"
-            weight="black"
-          >
-            {{ __('pages.about.vision') }}
-          </x-heading>
+            @if ($about['translations']['vision'])
+              <x-heading
+                level="2"
+                size="lg"
+                weight="black"
+              >
+                {{ __('pages.about.vision') }}
+              </x-heading>
 
-          @if ($about)
-            <flux:text>
-              {!! $about['translations']['vision'] !!}
-            </flux:text>
-          @endif
+              <flux:text>
+                {!! $about['translations']['vision'] !!}
+              </flux:text>
+            @endif
+          </article>
 
-        </article>
-
-        <article class="space-y-4">
-          @if ($about && $about['youtube_video_id'])
-            <div class="w-full">
-              <lite-youtube videoid="{{ $about['youtube_video_id'] }}"></lite-youtube>
-            </div>
-          @endif
-        </article>
-      </div>
-    </section>
+          <article class="space-y-4">
+            @if ($about && $about['youtube_video_id'])
+              <div class="w-full">
+                <lite-youtube videoid="{{ $about['youtube_video_id'] }}"></lite-youtube>
+              </div>
+            @endif
+          </article>
+        </div>
+      </section>
+    @endif
     {{-- #End Mission and Vision --}}
 
     {{-- Contact Information --}}
-    <section class="bg-primary-50 py-10">
-      <div class="container grid grid-cols-1 items-start gap-8 py-10 md:grid-cols-2">
-        <article class="space-y-4">
-          <x-heading
-            level="2"
-            size="lg"
-            weight="black"
-          >
-            {{ __('pages.contact.contact_information') }}
-          </x-heading>
+    @if (count($general_information) > 0)
+      <section class="bg-primary-50 py-10">
+        <div class="container grid grid-cols-1 items-start gap-8 py-10 md:grid-cols-2">
+          <article class="space-y-4">
+            <x-heading
+              level="2"
+              size="lg"
+              weight="black"
+            >
+              {{ __('pages.contact.contact_information') }}
+            </x-heading>
 
-          @if ($general_information)
             <flux:text class="flex items-center gap-x-2">
               <flux:icon name="map-pin" />
               <span>{!! $general_information['contact_information']['address'] !!}</span>
@@ -174,23 +177,23 @@
               <flux:icon name="envelope" />
               <span>{{ $general_information['contact_information']['email'] }}</span>
             </a>
-          @endif
 
-        </article>
-        {{-- Contact Form --}}
-        <article class="space-y-4">
-          <x-heading
-            level="2"
-            size="lg"
-            weight="black"
-          >
-            {{ __('pages.contact.contact_us') }}
-          </x-heading>
-          <livewire:public.contact.contact-form />
-        </article>
-        {{-- #End Contact Form --}}
-      </div>
-    </section>
+          </article>
+          {{-- Contact Form --}}
+          <article class="space-y-4">
+            <x-heading
+              level="2"
+              size="lg"
+              weight="black"
+            >
+              {{ __('pages.contact.contact_us') }}
+            </x-heading>
+            <livewire:public.contact.contact-form />
+          </article>
+          {{-- #End Contact Form --}}
+        </div>
+      </section>
+    @endif
     {{-- #Contact Information --}}
   </main>
 </x-layouts.public>

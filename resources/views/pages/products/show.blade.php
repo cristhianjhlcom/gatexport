@@ -1,4 +1,4 @@
-<x-layouts.public :title="$product->localizedSeoTitle ?? $product->localizedName">
+<x-layouts.public :title="empty($product->localizedSeoTitle) ? $product->localizedName : $product->localizedSeoTitle">
   <main class="container space-y-4 py-4">
 
     {{-- BREADCRUMBS --}}
@@ -112,14 +112,16 @@
       @endif
     </flux:tab.group>
 
-    <flux:separator text="{{ __('pages.product.related_products') }}" />
-
     {{-- Related Products --}}
-    <section class="grid grid-cols-2 gap-4 md:grid-cols-4 lg:grid-cols-5">
-      @foreach ($subcategory->products as $product)
-        <x-common.product-card :$product />
-      @endforeach
-    </section>
+    @if (count($relatedProducts) > 0)
+      <flux:separator text="{{ __('pages.product.related_products') }}" />
+
+      <section class="grid grid-cols-2 gap-4 md:grid-cols-4">
+        @foreach ($relatedProducts as $product)
+          <x-common.product-card :$product />
+        @endforeach
+      </section>
+    @endif
 
   </main>
 </x-layouts.public>
