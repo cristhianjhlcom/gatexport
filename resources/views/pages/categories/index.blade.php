@@ -15,41 +15,43 @@
     {{-- GRID OF PRODUCTS --}}
     <section class="flex flex-col space-y-8 divide-y divide-gray-200">
       @foreach ($categories as $category)
-        <div class="space-y-4 pb-8">
-          <header class="flex w-full items-center justify-between">
-            <h2 class="text-xl font-semibold">{{ $category->localizedName }}</h2>
-            <flux:button
-              href="{{ route('categories.show', [
-                  'category' => $category,
-              ]) }}"
-              icon:trailing="arrow-right"
-              inset
-              size="sm"
-              variant="ghost"
-              wire:navigate
-            >
-              {{ __('pages.categories.view_all') }}
-            </flux:button>
-          </header>
-          <div class="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-4">
-            @foreach ($category->subcategories as $subcategory)
-              <a href="{{ route('subcategories.index', [
-                  'category' => $category,
-                  'subcategory' => $subcategory,
-              ]) }}"
+        @if (count($category->subcategories) > 0)
+          <div class="space-y-4 pb-8">
+            <header class="flex w-full items-center justify-between">
+              <h2 class="text-xl font-semibold">{{ $category->localizedName }}</h2>
+              <flux:button
+                href="{{ route('categories.show', [
+                    'category' => $category,
+                ]) }}"
+                icon:trailing="arrow-right"
+                inset
+                size="sm"
+                variant="ghost"
                 wire:navigate
               >
-                <article class="flex flex-col items-center justify-center">
-                  <img
-                    alt="{{ $subcategory->localizedName }}"
-                    class="aspect-square h-auto w-full object-contain"
-                    src="{{ $subcategory->imageUrl }}"
-                  >
-                </article>
-              </a>
-            @endforeach
+                {{ __('pages.categories.view_all') }}
+              </flux:button>
+            </header>
+            <div class="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-4">
+              @foreach ($category->subcategories as $subcategory)
+                <a href="{{ route('subcategories.index', [
+                    'category' => $category,
+                    'subcategory' => $subcategory,
+                ]) }}"
+                  wire:navigate
+                >
+                  <article class="flex flex-col items-center justify-center">
+                    <img
+                      alt="{{ $subcategory->localizedName }}"
+                      class="aspect-square h-auto w-full object-contain"
+                      src="{{ $subcategory->imageUrl }}"
+                    >
+                  </article>
+                </a>
+              @endforeach
+            </div>
           </div>
-        </div>
+        @endif
       @endforeach
     </section>
     {{-- END GRID OF PRODUCTS --}}
