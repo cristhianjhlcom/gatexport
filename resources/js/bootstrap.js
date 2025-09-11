@@ -10,3 +10,5 @@ window.jsVectorMap = jsVectorMap;
 window.Swiper = Swiper;
 
 window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
+
+Flux.appearance = "light";

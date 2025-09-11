@@ -77,25 +77,6 @@
     --color-text-muted: var(--color-primary-500);
 }
 
-@layer theme {
-    .dark {
-        /*
-        --color-accent: var(--color-orange-400);
-        --color-accent-content: var(--color-orange-400);
-        --color-accent-foreground: var(--color-orange-950);
-        */
-
-        --color-accent: var(--color-primary-400);
-        --color-accent-content: var(--color-primary-300);
-        --color-accent-foreground: var(--color-primary-950);
-
-        /* Colores de texto en modo oscuro */
-        --color-text-primary: var(--color-primary-100);
-        --color-text-secondary: var(--color-primary-300);
-        --color-text-muted: var(--color-primary-400);
-    }
-}
-
 .container {
     @apply mx-auto w-full max-w-[1280px] px-8 md:px-8;
 }
