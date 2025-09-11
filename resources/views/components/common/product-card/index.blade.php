@@ -6,7 +6,6 @@
   <a href="{{ $product->showUrl }}">
     <article>
       @if ($product->firstImage)
-        {
         <img
           alt="{{ $product->localizedName }}"
           class="aspect-square h-auto w-full object-contain"
