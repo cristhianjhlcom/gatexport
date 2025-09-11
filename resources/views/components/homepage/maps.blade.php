@@ -19,10 +19,20 @@
 @push('scripts')
   <script defer>
     document.addEventListener('DOMContentLoaded', () => {
+      const selectedRegions = [
+        'US', 'CR', 'PE', 'AR', 'UY', 'BR', 'CA', 'MX', 'BZ', 'CO',
+        'GT', 'VE', 'DO', 'SV', 'CL', 'PA', 'JM', 'EG', 'ZA', 'AU',
+        'NZ', 'KR', 'ID', 'JP', 'IN', 'TW', 'HK', 'PK', 'MY', 'SG',
+        'CN', 'TR', 'VN', 'IL', 'AE', 'KZ', 'PH', 'AM', 'TH', 'JO',
+        'LB', 'NL', 'RU', 'DE', 'GB', 'CZ', 'FR', 'ES', 'SE', 'PL',
+        'LT', 'CH', 'IT', 'SI', 'EE', 'LV', 'IE', 'UA', 'GE', 'PT',
+        'BG', 'BE'
+      ];
+
       const map = new jsVectorMap({
         selector: '#map',
         map: 'world',
-        selectedRegions: ['EG', 'PE', 'VE', 'US'],
+        selectedRegions,
         backgroundColor: '#ffffff',
         zoomOnScroll: false,
         zoomOnScrollSpeed: 0.5,
