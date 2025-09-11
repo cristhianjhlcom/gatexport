@@ -24,7 +24,7 @@
                 <img
                   alt="{{ $category->localizedName }}"
                   class="h-10 w-10 rounded-lg object-contain"
-                  src="{{ $category->getImagePathAttribute() }}"
+                  src="{{ $category->imageUrl }}"
                 />
               @else
                 <flux:avatar name="{{ $category->localizedName }}" />
