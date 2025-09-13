@@ -3,7 +3,7 @@
     'general_information' => [],
 ])
 
-<article class="bg-primary-50 pb-10 pt-0 md:pb-16 lg:pb-20" id="about-us">
+<article class="bg-primary-50 pb-10 pt-0 md:pb-16 lg:pb-20 dark:bg-gray-800" id="about-us">
   <div class="container space-y-8 md:space-y-12">
     <div class="flex flex-col-reverse items-center gap-8 md:flex-row md:gap-12">
 

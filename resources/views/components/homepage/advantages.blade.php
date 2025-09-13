@@ -17,7 +17,7 @@
         <div class="swiper-wrapper">
           @foreach ($competitive_advantages as $advantage)
             <article
-              class="swiper-slide border-primary-100 hover:bg-primary-100 bg-primary-50 flex min-h-48 flex-col space-y-4 rounded-sm border p-6 transition-colors"
+              class="swiper-slide border-primary-100 hover:bg-primary-100 bg-primary-50 dark:border-primary-900 dark:bg-primary-800 dark:hover:bg-primary-900 flex min-h-48 flex-col space-y-4 rounded-sm border p-6 transition-colors"
             >
               <header class="flex items-center justify-start gap-4">
                 <img

@@ -18,12 +18,12 @@
   $variant_colors = [
       'primary' => 'text-primary-500',
       'accent' => 'text-primary-500',
-      'neutral' => 'text-gray-900',
+      'neutral' => 'text-gray-900 dark:text-gray-100',
       'info' => 'text-blue-500',
       'success' => 'text-green-500',
       'warning' => 'text-yellow-500',
       'danger' => 'text-red-500',
-      'white' => 'text-white',
+      'white' => 'text-white dark:text-gray-100',
   ];
 
   $responsive_class = $responsive_sizes[$size] ?? $responsive_sizes['md'];

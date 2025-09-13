@@ -1,13 +1,11 @@
 @props([
-    'contactInformation' => [
-        'whatsapp_link' => '',
-    ],
+    'link' => '',
 ])
 
 <a
   aria-label="Chat on WhatsApp"
   class="animation-pulse transition-background-color fixed bottom-4 right-4 z-50 animate-pulse rounded-full bg-[#25d366] p-2 text-white shadow-lg hover:bg-[#128c7e]"
-  href="{{ $contactInformation['whatsapp_link'] ?? '#' }}"
+  href="{{ $link }}"
   target="_blank"
 >
   <svg

@@ -3,7 +3,7 @@
 ])
 
 @if (count($categories) > 0)
-  <section class="bg-primary-50 py-10 md:py-14">
+  <section class="bg-primary-50 py-10 md:py-14 dark:bg-gray-800">
     <div class="container space-y-6 overflow-hidden">
       <x-heading
         class="text-center"

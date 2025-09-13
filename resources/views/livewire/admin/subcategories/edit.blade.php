@@ -11,25 +11,32 @@
 
         {{-- Category Content --}}
         <flux:card class="space-y-4">
-
-          <flux:field>
+          <div class="grid grid-cols-1 gap-x-4 sm:grid-cols-2">
             <flux:input
               autocomplete="off"
-              id="name"
-              placeholder="{{ __('Subcategory') }}"
-              type="text"
-              wire:model.blur='form.name'
+              badge="Requerido"
+              description:trailing="Versión en español del nombre"
+              label="Subcategoría"
+              placeholder="Lorem Ipsum"
+              wire:model.blur="form.name.es"
             />
-            <flux:error name="form.name" />
-          </flux:field>
+            <flux:input
+              autocomplete="off"
+              badge="Requerido"
+              description:trailing="English version of the name"
+              label="Subcategory"
+              placeholder="Lorem Ipsum"
+              wire:model.blur="form.name.en"
+            />
+          </div>
 
           <flux:field>
             <flux:input.group>
-              <flux:input.group.prefix>{{ env('APP_URL') }}/bags/</flux:input.group.prefix>
+              <flux:input.group.prefix>{{ env('APP_URL') }}/subcategories/</flux:input.group.prefix>
               <flux:input
                 disabled
                 id="slug"
-                placeholder="{{ __('subcategory-slug') }}"
+                placeholder="lorem-ipsum"
                 readonly
                 wire:model='form.slug'
               />
@@ -38,48 +45,49 @@
           </flux:field>
 
           <flux:field>
-            <flux:label>{{ __('Category') }}</flux:label>
+            <flux:label>Categoría</flux:label>
             <flux:select wire:model="form.category_id">
               <flux:select.option value="">Choose Category</flux:select.option>
               @foreach ($categories as $category)
                 <flux:select.option value="{{ $category->id }}">
-                  {{ $category->name }}
+                  {{ $category->localizedName }}
                 </flux:select.option>
               @endforeach
             </flux:select>
             <flux:error name="form.category_id" />
           </flux:field>
-
         </flux:card>
 
         {{-- Category Image Dropzone --}}
-        <flux:card class="space-y-4">
+        <flux:card class="flex items-center gap-x-4 space-y-4">
+          @if ($form->image)
+            @if (is_string($form->image))
+              <img
+                alt="Image Preview"
+                class="h-auto w-[200px] rounded-lg object-contain"
+                src="{{ Storage::disk('public')->url($form->image) }}"
+              />
+            @else
+              <img
+                alt="Image Preview"
+                class="h-auto w-[200px] rounded-lg object-contain"
+                src="{{ $form->image->temporaryUrl() }}"
+              />
+            @endif
+          @endif
+
           <flux:field>
-            <flux:label>{{ __('Image') }}</flux:label>
-            <flux:description>
-              {{ __('Formats: PNG, JPG, WebP - Max dimensions: 1000x1000 (1:1) - Max size: 4.5 MB') }}
-            </flux:description>
+            <flux:label>Image</flux:label>
+
             <flux:input type="file" wire:model="form.image" />
-            <div class="mt-4 grid grid-cols-2 gap-x-2 md:grid-cols-4">
-              @if ($form->image)
-                @if (is_string($form->image))
-                  <img
-                    alt="Image Preview"
-                    class="h-auto w-[200px] rounded-lg object-contain"
-                    src="{{ Storage::disk('public')->url($form->image) }}"
-                  />
-                @else
-                  <img
-                    alt="Image Preview"
-                    class="h-auto w-[200px] rounded-lg object-contain"
-                    src="{{ $form->image->temporaryUrl() }}"
-                  />
-                @endif
-              @endif
-            </div>
+            <flux:description>
+              Formats: PNG, JPG, WebP - Dimensions: 1000x1000 (1:1) - Size: 4.5 MB
+            </flux:description>
+
             <div wire:loading wire:target="form.image">
               <flux:icon.loading />
             </div>
+
             <flux:error name="form.image" />
           </flux:field>
         </flux:card>
@@ -88,6 +96,10 @@
         <div>
           <flux:button type="submit" variant="primary">
             {{ __('Update') }}
+          </flux:button>
+
+          <flux:button type="button" wire:click="createAnother">
+            Guardar & Crear Otro
           </flux:button>
         </div>
       </div>

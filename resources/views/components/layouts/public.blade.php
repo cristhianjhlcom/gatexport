@@ -26,6 +26,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
   @endif
 
+  @stack('styles')
   @fluxAppearance
 </head>
 
@@ -75,40 +76,60 @@
                 </flux:button>
 
                 <flux:popover class="max-w-[800px] p-0">
-                  <div class="grid grid-cols-5 grid-rows-2 gap-2 p-2">
+                  <div
+                    class="{{ count($category['subcategories']) > 3 ? 'grid-rows-2' : 'grid-rows-1' }} grid grid-cols-5 gap-2 p-2"
+                  >
                     <!-- Imagen principal de categoría -->
-                    <a class="relative col-span-3 row-span-1 h-[200px] overflow-hidden rounded-sm"
+                    <a class="bg-primary-500 relative col-span-3 row-span-1 h-[200px] w-full overflow-hidden rounded-sm"
                       href="{{ route('categories.show', $category['slug']) }}"
                     >
                       <img
                         alt="{{ $category['name'][app()->getLocale()] }}"
-                        class="h-full w-full object-cover"
+                        class="aspect-auto h-full w-full min-w-[450px] object-cover"
                         src="{{ $category['image'] }}"
                       />
-                      <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                      <h6 class="absolute bottom-3 left-3 text-lg font-bold text-white">
+                      <h6 class="text-primary-900 absolute bottom-3 left-3 text-lg font-bold">
                         {{ $category['name'][app()->getLocale()] }}
                       </h6>
                     </a>
 
-                    <!-- Subcategorías -->
-                    @foreach ($category['subcategories'] as $index => $subcategory)
-                      <a
-                        class="{{ $index < 2 ? 'col-start-' . ($index + 4) : '' }} relative overflow-hidden rounded-sm"
-                        href="{{ route('subcategories.index', [$category['slug'], $subcategory['slug']]) }}"
-                        title="{{ $subcategory['name'][app()->getLocale()] }}"
-                      >
-                        <img
-                          alt="{{ $subcategory['name'][app()->getLocale()] }}"
-                          class="h-full w-full object-cover"
-                          src="{{ $subcategory['image'] }}"
-                        />
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                        <h6 class="absolute bottom-2 left-2 text-xs font-semibold text-white">
-                          {{ $subcategory['name'][app()->getLocale()] }}
-                        </h6>
-                      </a>
-                    @endforeach
+                    @if (count($category['subcategories']) < 3)
+                      @foreach ($category['subcategories'] as $index => $subcategory)
+                        <a
+                          class="bg-primary-500 relative col-span-2 col-start-4 h-[200px] w-[150px] overflow-hidden rounded-sm"
+                          href="{{ route('subcategories.index', [$category['slug'], $subcategory['slug']]) }}"
+                          title="{{ $subcategory['name'][app()->getLocale()] }}"
+                        >
+                          <img
+                            alt="{{ $subcategory['name'][app()->getLocale()] }}"
+                            class="h-full min-h-[200px] w-full min-w-[150px] object-cover"
+                            src="{{ $subcategory['image'] }}"
+                          />
+                          <h6
+                            class="text-secondary-500 text-primary-900 absolute bottom-2 left-2 text-sm font-semibold">
+                            {{ $subcategory['name'][app()->getLocale()] }}
+                          </h6>
+                        </a>
+                      @endforeach
+                    @else
+                      <!-- Subcategorías -->
+                      @foreach ($category['subcategories'] as $index => $subcategory)
+                        <a
+                          class="{{ $index < 2 ? 'col-start-' . ($index + 4) : '' }} bg-primary-500 relative overflow-hidden rounded-sm"
+                          href="{{ route('subcategories.index', [$category['slug'], $subcategory['slug']]) }}"
+                          title="{{ $subcategory['name'][app()->getLocale()] }}"
+                        >
+                          <img
+                            alt="{{ $subcategory['name'][app()->getLocale()] }}"
+                            class="h-full w-full min-w-[150px] object-cover"
+                            src="{{ $subcategory['image'] }}"
+                          />
+                          <h6 class="text-primary-900 absolute bottom-2 left-2 text-sm font-semibold">
+                            {{ $subcategory['name'][app()->getLocale()] }}
+                          </h6>
+                        </a>
+                      @endforeach
+                    @endif
                   </div>
                 </flux:popover>
               </flux:dropdown>

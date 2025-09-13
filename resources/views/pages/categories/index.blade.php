@@ -13,12 +13,12 @@
     {{-- END BREADCRUMBS --}}
 
     {{-- GRID OF PRODUCTS --}}
-    <section class="flex flex-col space-y-8 divide-y divide-gray-200">
+    <section class="flex flex-col">
       @foreach ($categories as $category)
         @if (count($category->subcategories) > 0)
-          <div class="space-y-4 pb-8">
+          <div class="space-y-2 pb-4">
             <header class="flex w-full items-center justify-between">
-              <h2 class="text-xl font-semibold">{{ $category->localizedName }}</h2>
+              <h2 class="text-primary-700 text-xl font-semibold">{{ $category->localizedName }}</h2>
               <flux:button
                 href="{{ route('categories.show', [
                     'category' => $category,
@@ -32,7 +32,7 @@
                 {{ __('pages.categories.view_all') }}
               </flux:button>
             </header>
-            <div class="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-4">
+            <div class="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6">
               @foreach ($category->subcategories as $subcategory)
                 <a href="{{ route('subcategories.index', [
                     'category' => $category,
@@ -40,12 +40,17 @@
                 ]) }}"
                   wire:navigate
                 >
-                  <article class="flex flex-col items-center justify-center">
+                  <article class="bg-primary-100 flex flex-col items-start justify-center overflow-hidden rounded-sm">
                     <img
                       alt="{{ $subcategory->localizedName }}"
                       class="aspect-square h-auto w-full object-contain"
                       src="{{ $subcategory->imageUrl }}"
                     >
+                    <h2>
+                      <flux:heading class="text-primary-700 p-2 text-center text-sm font-semibold">
+                        {{ $subcategory->localizedName }}
+                      </flux:heading>
+                    </h2>
                   </article>
                 </a>
               @endforeach

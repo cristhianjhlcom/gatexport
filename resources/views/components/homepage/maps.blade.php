@@ -16,6 +16,14 @@
   </div>
 </article>
 
+@push('styles')
+  <style>
+    .jvm-container {
+      background-color: transparent !important;
+    }
+  </style>
+@endpush
+
 @push('scripts')
   <script defer>
     document.addEventListener('DOMContentLoaded', () => {
@@ -44,7 +52,7 @@
         regionStyle: {
           initial: {
             fill: '#e4e4e4',
-            stroke: '#fff',
+            // stroke: '#fff',
             'stroke-width': 1,
           },
           selected: {

@@ -145,6 +145,7 @@ final class SettingManagementServices
                 'whatsapp_link' => '',
                 'email' => '',
             ],
+            'catalog_document' => '',
         ];
 
         foreach ($this->available_locales as $locale) {
@@ -162,6 +163,7 @@ final class SettingManagementServices
                 $general_info['small_logo'] = $settings['small_logo'] ?? '';
                 $general_info['social_media'] = $settings['social_media'] ?? $general_info['social_media'];
                 $general_info['contact_information'] = $settings['contact_information'] ?? $general_info['contact_information'];
+                $general_info['catalog_document'] = $settings['catalog_document'] ?? '';
             }
         }
 

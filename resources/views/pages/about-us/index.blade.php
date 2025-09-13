@@ -53,7 +53,7 @@
 
     {{-- Proveedores --}}
     @if (count($providers) > 0)
-      <section class="bg-primary-50 py-4">
+      <section class="bg-primary-50 py-4 dark:bg-gray-800">
         <div class="container overflow-hidden">
           @if ($providers)
             <div class="swiper__about">
@@ -148,7 +148,7 @@
 
     {{-- Contact Information --}}
     @if (count($general_information) > 0)
-      <section class="bg-primary-50 py-10">
+      <section class="bg-primary-50 py-10 dark:bg-gray-800">
         <div class="container grid grid-cols-1 items-start gap-8 py-10 md:grid-cols-2">
           <article class="space-y-4">
             <x-heading

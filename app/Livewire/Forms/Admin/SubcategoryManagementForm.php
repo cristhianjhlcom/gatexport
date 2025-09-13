@@ -122,7 +122,7 @@ final class SubcategoryManagementForm extends Form
 
         $manager = new ImageManager(new Driver());
         $image = $manager->read(Storage::disk('public')->get($upload));
-        $image->resize(1000, 1000);
+        $image->resize(150, 200);
         $image->toWebp(60);
         $image->save(Storage::disk('public')->path($upload));
 

@@ -39,7 +39,7 @@ final class ViewServiceProvider extends ServiceProvider
         View::composer('components.common.whatsapp-link.index', function ($view) {
             $generalInformation = (new GetGeneralInformation)->execute();
             $view->with([
-                'contactInformation' => $generalInformation && $generalInformation['contact_information'],
+                'link' => $generalInformation['contact_information']['whatsapp_link'] ?? '#',
             ]);
         });
 
@@ -47,11 +47,11 @@ final class ViewServiceProvider extends ServiceProvider
             $categories = Category::with('subcategories')
                 ->orderBy('name')
                 ->get()
-                ->map(fn ($category) => [
+                ->map(fn($category) => [
                     'name' => $category->name,
                     'slug' => $category->slug,
                     'image' => $category->imageUrl,
-                    'subcategories' => $category->subcategories->map(fn ($subcategory) => [
+                    'subcategories' => $category->subcategories->map(fn($subcategory) => [
                         'name' => $subcategory->name,
                         'slug' => $subcategory->slug,
                         'image' => $subcategory->imageUrl,
