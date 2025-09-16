@@ -1,8 +1,8 @@
 <x-layouts.public :title="empty($product->localizedSeoTitle) ? $product->localizedName : $product->localizedSeoTitle">
   <main class="container space-y-4 py-4">
 
-    {{-- BREADCRUMBS --}}
-    <flux:breadcrumbs>
+    {{-- DESKTOP BREADCRUMBS --}}
+    <flux:breadcrumbs class="hidden md:flex">
       <flux:breadcrumbs.item href="{{ route('home.index') }}" separator="slash">
         {{ __('layouts.navigation.home') }}
       </flux:breadcrumbs.item>
@@ -27,7 +27,36 @@
         {{ $product->localizedName }}
       </flux:breadcrumbs.item>
     </flux:breadcrumbs>
-    {{-- END BREADCRUMBS --}}
+    {{-- END DESKTOP BREADCRUMBS --}}
+
+    {{-- MOBILE BREADCRUMBS --}}
+    <flux:breadcrumbs class="flex md:hidden">
+      <flux:breadcrumbs.item href="{{ route('home.index') }}" icon="home" />
+      <flux:breadcrumbs.item>
+        <flux:dropdown>
+          <flux:button
+            icon="ellipsis-horizontal"
+            size="sm"
+            variant="ghost"
+          />
+          <flux:navmenu>
+            <flux:navmenu.item
+              href="{{ route('categories.show', [
+                  'category' => $subcategory->category,
+              ]) }}"
+            >{{ $product->localizedCategoryName }}</flux:navmenu.item>
+            <flux:navmenu.item
+              href="{{ route('subcategories.index', [
+                  'category' => $subcategory->category,
+                  'subcategory' => $subcategory,
+              ]) }}"
+            >{{ $product->localizedSubcategoryName }}</flux:navmenu.item>
+          </flux:navmenu>
+        </flux:dropdown>
+      </flux:breadcrumbs.item>
+      <flux:breadcrumbs.item>{{ $product->localizedName }}</flux:breadcrumbs.item>
+    </flux:breadcrumbs>
+    {{-- MOBILE BREADCRUMBS --}}
 
     <section class="grid grid-cols-1 gap-8 md:grid-cols-2">
       <!-- Galería de Imágenes -->

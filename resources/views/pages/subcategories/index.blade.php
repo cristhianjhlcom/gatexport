@@ -1,8 +1,8 @@
 <x-layouts.public :title="$subcategory->localizedName">
   <main class="container space-y-4 py-4">
 
-    {{-- BREADCRUMBS --}}
-    <flux:breadcrumbs>
+    {{-- DESKTOP BREADCRUMBS --}}
+    <flux:breadcrumbs class="hidden md:flex">
       <flux:breadcrumbs.item href="{{ route('home.index') }}" separator="slash">
         {{ __('layouts.navigation.home') }}
       </flux:breadcrumbs.item>
@@ -21,7 +21,35 @@
         {{ $subcategory->localizedName }}
       </flux:breadcrumbs.item>
     </flux:breadcrumbs>
-    {{-- END BREADCRUMBS --}}
+    {{-- END DESKTOP BREADCRUMBS --}}
+
+    {{-- MOBILE BREADCRUMBS --}}
+    <flux:breadcrumbs class="flex md:hidden">
+      <flux:breadcrumbs.item href="{{ route('home.index') }}" icon="home" />
+      <flux:breadcrumbs.item>
+        <flux:dropdown>
+          <flux:button
+            icon="ellipsis-horizontal"
+            size="sm"
+            variant="ghost"
+          />
+          <flux:navmenu>
+            <flux:navmenu.item href="{{ route('categories.index') }}">
+              {{ __('layouts.navigation.categories') }}
+            </flux:navmenu.item>
+            <flux:navmenu.item
+              href="{{ route('categories.show', [
+                  'category' => $subcategory->category,
+              ]) }}"
+            >
+              {{ $subcategory->category->localizedName }}
+            </flux:navmenu.item>
+          </flux:navmenu>
+        </flux:dropdown>
+      </flux:breadcrumbs.item>
+      <flux:breadcrumbs.item>{{ $subcategory->localizedName }}</flux:breadcrumbs.item>
+    </flux:breadcrumbs>
+    {{-- MOBILE BREADCRUMBS --}}
 
     {{-- GRID OF PRODUCTS --}}
     @if (count($products) === 0)
