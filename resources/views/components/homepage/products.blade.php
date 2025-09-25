@@ -15,45 +15,53 @@
       </x-heading>
 
       @foreach ($categories as $idx => $category)
-        <article class="space-y-4">
-          <header class="flex w-full items-center justify-between">
-            <x-heading level="2" size="lg">
-              {{ $category->localizedName }}
-            </x-heading>
-          </header>
-          <div class="space-y-4">
-            @foreach ($category->subcategories as $subcategory)
-              <header class="flex w-full items-center justify-between">
-                <x-heading level="3" size="sm">
-                  {{ $subcategory->localizedName }}
-                </x-heading>
-                <flux:button
-                  href="{{ route('subcategories.index', [
-                      'category' => $category,
-                      'subcategory' => $subcategory,
-                  ]) }}"
-                  icon:trailing="arrow-right"
-                  inset
-                  size="sm"
-                  variant="ghost"
-                  wire:navigate
-                >
-                  {{ __('pages.categories.view_all') }}
-                </flux:button>
-              </header>
+        @php
+          $subcategoriesWithProducts = $category->subcategories->filter(function ($subcategory) {
+              return count($subcategory->products) > 1;
+          });
+        @endphp
 
-              <div class="swiper__featured-products">
-                <div class="swiper-wrapper">
-                  @foreach ($subcategory->products as $product)
-                    <div class="swiper-slide">
-                      <x-common.product-card :$product />
-                    </div>
-                  @endforeach
+        @if ($subcategoriesWithProducts->isNotEmpty())
+          <article class="space-y-4">
+            <header class="flex w-full items-center justify-between">
+              <x-heading level="2" size="lg">
+                {{ $category->localizedName }}
+              </x-heading>
+            </header>
+            <div class="space-y-4">
+              @foreach ($subcategoriesWithProducts as $subcategory)
+                <header class="flex w-full items-center justify-between">
+                  <x-heading level="3" size="sm">
+                    {{ $subcategory->localizedName }}
+                  </x-heading>
+                  <flux:button
+                    href="{{ route('subcategories.index', [
+                        'category' => $category,
+                        'subcategory' => $subcategory,
+                    ]) }}"
+                    icon:trailing="arrow-right"
+                    inset
+                    size="sm"
+                    variant="ghost"
+                    wire:navigate
+                  >
+                    {{ __('pages.categories.view_all') }}
+                  </flux:button>
+                </header>
+
+                <div class="swiper__featured-products">
+                  <div class="swiper-wrapper">
+                    @foreach ($subcategory->products as $product)
+                      <div class="swiper-slide">
+                        <x-common.product-card :$product />
+                      </div>
+                    @endforeach
+                  </div>
                 </div>
-              </div>
-            @endforeach
-          </div>
-        </article>
+              @endforeach
+            </div>
+          </article>
+        @endif
       @endforeach
     </div>
   </section>

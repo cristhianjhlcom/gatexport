@@ -1,10 +1,10 @@
 <flux:navbar>
   <flux:modal.trigger name="search" shortcut="cmd.k">
-    <flux:input
-      as="button"
+    <flux:button
+      flat
       icon="magnifying-glass"
-      placeholder="{{ __('layouts.navigation.search') }}..."
       size="sm"
+      variant="ghost"
     />
   </flux:modal.trigger>
 
@@ -19,9 +19,9 @@
       placeholder="{{ __('layouts.navigation.search') }}..."
       wire:model.live.debounce.500ms="search"
     />
-    <ul>
-      @if ($this->search !== '' && $products->count() > 0)
-        @foreach ($products as $product)
+    @if ($this->search !== '')
+      <ul>
+        @forelse($this->products as $product)
           <li :key="$product->id">
             <flux:button
               class="flex w-full items-center justify-start gap-x-4"
@@ -32,12 +32,12 @@
               <flux:text>{{ $product->localizedName }}</flux:text>
             </flux:button>
           </li>
-        @endforeach
-      @else
-        <li>
-          <flux:text>{{ __('layouts.navigation.no_results') }}</flux:text>
-        </li>
-      @endif
-    </ul>
+        @empty
+          <li>
+            <flux:text>{{ __('layouts.navigation.no_results') }}</flux:text>
+          </li>
+        @endforelse
+      </ul>
+    @endif
   </flux:modal>
 </flux:navbar>

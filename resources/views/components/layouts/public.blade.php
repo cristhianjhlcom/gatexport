@@ -22,6 +22,27 @@
     rel="stylesheet"
   >
 
+  @production
+    <link
+      href="/apple-touch-icon.png"
+      rel="apple-touch-icon"
+      sizes="180x180"
+    >
+    <link
+      href="/favicon-32x32.png"
+      rel="icon"
+      sizes="32x32"
+      type="image/png"
+    >
+    <link
+      href="/favicon-16x16.png"
+      rel="icon"
+      sizes="16x16"
+      type="image/png"
+    >
+    <link href="/site.webmanifest" rel="manifest">
+  @endproduction
+
   @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
     @vite(['resources/css/app.css', 'resources/js/app.js'])
   @endif
@@ -74,12 +95,13 @@
       inset="left"
     />
 
-    <flux:avatar
-      :chevron="false"
-      circle
-      class="mr-4"
-      src="{{ $companyLogos['small_logo'] }}"
-    />
+    <a href="{{ route('home.index') }}">
+      <img
+        alt="{{ config('app.name') }}"
+        class="mr-4 aspect-square h-10 w-10"
+        src="{{ $companyLogos['small_logo'] }}"
+      />
+    </a>
 
     <flux:navbar class="-mb-px max-lg:hidden">
       <flux:navbar.item href="{{ route('home.index') }}">
@@ -181,22 +203,9 @@
     </flux:navbar>
     <flux:spacer />
 
+    <x-common.locale-switch />
+
     <livewire:shared.search />
-
-    <flux:dropdown align="start" position="top">
-      <flux:profile
-        name="{{ app()->getLocale() === 'es' ? __('layouts.navigation.es') : __('layouts.navigation.en') }}"
-      />
-
-      <flux:navmenu>
-        @foreach (config('localization.locales') as $locale)
-          <flux:navmenu.item href="{{ route('localization.update', $locale) }}">
-            {{ __("layouts.navigation.{$locale}") }}
-          </flux:navmenu.item>
-        @endforeach
-      </flux:navmenu>
-    </flux:dropdown>
-
   </flux:header>
   <flux:sidebar
     class="border border-zinc-200 bg-zinc-50 lg:hidden rtl:border-l rtl:border-r-0 dark:border-zinc-700 dark:bg-zinc-900"

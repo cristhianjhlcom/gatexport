@@ -3,24 +3,28 @@
     'general_information' => [],
 ])
 
-<article class="bg-primary-50 pb-10 pt-0 md:pb-16 lg:pb-20 dark:bg-gray-800" id="about-us">
+<article class="bg-primary-50 py-10 md:py-16 lg:py-20 dark:bg-gray-800" id="about-us">
   <div class="container space-y-8 md:space-y-12">
     <div class="flex flex-col-reverse items-center gap-8 md:flex-row md:gap-12">
 
-      <div class="flex w-full flex-col items-center justify-center gap-4 md:w-1/2 md:flex-row">
+      <div class="flex w-full flex-col items-start justify-center gap-4 md:w-1/2 md:flex-row">
         @if ($about && Storage::disk('public')->exists($about['first_image']))
-          <img
-            alt="{{ __('pages.home.about.title') }}"
-            class="mt-0 aspect-square h-auto w-full rounded-sm object-cover md:mt-20 md:h-[500px] md:w-1/2"
-            src="{{ Storage::disk('public')->url($about['first_image']) }}"
-          >
+          <div class="translate-y-4 transform overflow-hidden rounded-sm md:h-[500px] md:w-1/2">
+            <img
+              alt="{{ __('pages.home.about.title') }}"
+              class="aspect-square h-full w-full object-cover"
+              src="{{ Storage::disk('public')->url($about['first_image']) }}"
+            >
+          </div>
         @endif
         @if ($about && Storage::disk('public')->exists($about['second_image']))
-          <img
-            alt="{{ __('pages.home.about.title') }}"
-            class="hidden aspect-square h-[500px] w-full rounded-sm object-cover md:block md:h-[500px] md:w-1/2"
-            src="{{ Storage::disk('public')->url($about['second_image']) }}"
-          >
+          <div class="hidden h-full overflow-hidden rounded-sm md:block md:h-[500px] md:w-1/2">
+            <img
+              alt="{{ __('pages.home.about.title') }}"
+              class="aspect-square h-full w-full object-cover"
+              src="{{ Storage::disk('public')->url($about['second_image']) }}"
+            >
+          </div>
         @endif
       </div>
 

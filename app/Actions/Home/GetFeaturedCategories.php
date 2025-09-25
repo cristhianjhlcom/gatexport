@@ -19,6 +19,9 @@ final class GetFeaturedCategories
                     $query->where('status', ProductStatusEnum::PUBLISHED)->limit(4);
                 },
             ])
+                ->whereHas('subcategories.products', function ($query) {
+                    $query->where('status', ProductStatusEnum::PUBLISHED);
+                })
                 ->orderBy('name')
                 ->limit(4)
                 ->get();

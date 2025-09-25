@@ -23,9 +23,9 @@
               >
                 {{ $general_information['translations']['company_name'] }}
               </x-heading>
-              <flux:text class="prose lg:prose-xl">
+              {{-- <flux:text class="prose lg:prose-xl">
                 {!! $general_information['translations']['company_short_description'] !!}
-              </flux:text>
+              </flux:text> --}}
             @endif
           </header>
 

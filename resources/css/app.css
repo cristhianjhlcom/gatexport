@@ -10,8 +10,8 @@
 
 /* Re-assign Flux's gray of choice... */
 @theme {
-    --font-sans: Inter, sans-serif;
-    --font-display: Playfair Display, serif;
+    /* --font-sans: Inter, sans-serif;
+    --font-display: Playfair Display, serif; */
 
     /* Color principal (medio) */
     --color-primary-50: #fdf4ef;
@@ -79,4 +79,14 @@
 
 .container {
     @apply mx-auto w-full max-w-[1280px] px-8 md:px-8;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    @apply font-semibold;
+    @apply leading-tight;
 }
