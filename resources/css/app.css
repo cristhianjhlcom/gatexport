@@ -10,17 +10,17 @@
 
 /* Re-assign Flux's gray of choice... */
 @theme {
-    /* --font-sans: Inter, sans-serif;
-    --font-display: Playfair Display, serif; */
+    --font-sans: "Montserrat", sans-serif;
+    /*--font-display: Playfair Display, serif; */
 
     /* Color principal (medio) */
-    --color-primary-50: #fdf4ef;
+    --color-primary-50: #dedad6; /* background color #dedad6 - old #fdf4ef */
     --color-primary-100: #fce8de;
     --color-primary-200: #f9d0bc;
     --color-primary-300: #f5b191;
-    --color-primary-400: #f19366;
-    --color-primary-500: #ed7d31; /* Tu color #ed7d31 */
-    --color-primary-600: #ca5d2a; /* Tu color #ca5d2a */
+    --color-primary-400: #dc801e; /* highlight color #dc801e - old color #f9a582 */
+    --color-primary-500: #923d10; /* primary color #923d10 -old color #ed7d31 */
+    --color-primary-600: #4a2613; /* secondary color #4a2613 -  Tu color #ca5d2a */
     --color-primary-700: #a64a22;
     --color-primary-800: #833a1b;
     --color-primary-900: #4a250e; /* Tu color #4a250e */
@@ -79,14 +79,4 @@
 
 .container {
     @apply mx-auto w-full max-w-[1280px] px-8 md:px-8;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    @apply font-semibold;
-    @apply leading-tight;
 }

@@ -8,11 +8,11 @@
   <title>{{ $title ?? config('app.name') }} | {{ config('app.name') }}</title>
 
   <!-- Paragraphs Fonts -->
-  <link href="https://fonts.bunny.net" rel="preconnect">
-  <link href="https://fonts.bunny.net/css?family=inter:400,500,600&display=swap" rel="stylesheet" />
+  {{-- <link href="https://fonts.bunny.net" rel="preconnect">
+  <link href="https://fonts.bunny.net/css?family=inter:400,500,600&display=swap" rel="stylesheet" /> --}}
 
   <!-- Headings Fonts -->
-  <link href="https://fonts.googleapis.com" rel="preconnect">
+  {{-- <link href="https://fonts.googleapis.com" rel="preconnect">
   <link
     crossorigin
     href="https://fonts.gstatic.com"
@@ -20,7 +20,17 @@
   >
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
     rel="stylesheet"
+  > --}}
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link
+    crossorigin
+    href="https://fonts.gstatic.com"
+    rel="preconnect"
   >
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet"
+  >
+  <!-- #End Headings Fonts -->
 
   @production
     <link
@@ -85,7 +95,7 @@
     <!-- End Google Tag Manager (noscript) -->
   @endproduction
   <flux:header
-    class="border-b border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900"
+    class="z-50 border-b border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900"
     container
     sticky
   >

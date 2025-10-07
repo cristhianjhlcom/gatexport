@@ -16,13 +16,14 @@
 
           <header class="space-y-4">
             @if ($general_information)
-              <x-heading
-                level="1"
-                size="lg"
-                weight="black"
+              <x-common.title
+                level="2"
+                size="title"
+                variant="primary"
+                weight="extrabold"
               >
                 {{ $general_information['translations']['company_name'] }}
-              </x-heading>
+              </x-common.title>
               {{-- <flux:text class="prose lg:prose-xl">
                 {!! $general_information['translations']['company_short_description'] !!}
               </flux:text> --}}
