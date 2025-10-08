@@ -51,27 +51,25 @@
           </header>
 
           @if ($company_services)
-            <flux:accordion exclusive transition>
+            <x-common.accordion>
               @foreach ($company_services['services'] as $service)
                 @if ($loop->first)
-                  <flux:accordion.item :key="$service['title']" expanded>
-                    <flux:accordion.heading>{{ $service['title'] }}</flux:accordion.heading>
-
-                    <flux:accordion.content>
-                      {!! $service['description'] !!}
-                    </flux:accordion.content>
-                  </flux:accordion.item>
+                  <x-common.accordion.item
+                    :content="$service['description']"
+                    :icon="$service['icon'] ?? '🛒'"
+                    :subtitle="$service['subtitle'] ?? 'Subtítulo Falso'"
+                    :title="$service['title']"
+                  />
                 @else
-                  <flux:accordion.item :key="$service['title']">
-                    <flux:accordion.heading>{{ $service['title'] }}</flux:accordion.heading>
-
-                    <flux:accordion.content>
-                      {!! $service['description'] !!}
-                    </flux:accordion.content>
-                  </flux:accordion.item>
+                  <x-common.accordion.item
+                    :content="$service['description']"
+                    :icon="$service['icon'] ?? '🛒'"
+                    :subtitle="$service['subtitle'] ?? 'Subtítulo Falso'"
+                    :title="$service['title']"
+                  />
                 @endif
               @endforeach
-            </flux:accordion>
+            </x-common.accordion>
           @endif
 
         </div>
