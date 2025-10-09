@@ -82,8 +82,8 @@ final class SettingCompetitiveAdvantagesManagement extends Component
         ]);
 
         Flux::toast(
-            heading: __('Settings Updated'),
-            text: __('Competitive advantages have been updated successfully.'),
+            heading: 'Configuración actualizada',
+            text: 'La configuración ha sido actualizada exitosamente.',
             variant: 'success',
         );
     }
@@ -103,8 +103,7 @@ final class SettingCompetitiveAdvantagesManagement extends Component
 
             'tmp_images.*.*' => [
                 'nullable',
-                'image',
-                'mimes:jpg,jpeg,png,webp',
+                'mimes:jpg,jpeg,png,webp,svg',
                 'max:2048',
                 'dimensions:min_width=400,min_height=400,max_width=1000,max_height=1000',
             ],

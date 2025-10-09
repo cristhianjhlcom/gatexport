@@ -1,29 +1,30 @@
  <flux:card class="space-y-4">
 
-   <flux:input
-     badge="{{ __('Required') }}"
+   <flux:textarea
+     badge="Requerido"
+     description="Sera utilizado como el alt de la imagen"
      label="Título"
-     placeholder="Título del Banner"
+     placeholder="Ej: Sahumerios, Inciensos y Velas"
      wire:model="banners.{{ $locale }}.{{ $index }}.title"
    />
 
-   <flux:textarea
+   {{-- <flux:textarea
      badge="{{ __('Required') }}"
      label="Descripción"
      placeholder="Descripción del Banner"
      wire:model="banners.{{ $locale }}.{{ $index }}.short_description"
-   />
+   /> --}}
 
-   <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-     <flux:input
-       badge="{{ __('Required') }}"
+   {{-- <div class="grid grid-cols-1 gap-4 md:grid-cols-2"> --}}
+   <div>
+     {{-- <flux:input
        label="Texto del Enlace"
        placeholder="Comprar Ahora"
        wire:model="banners.{{ $locale }}.{{ $index }}.link_text"
-     />
+     /> --}}
 
      <flux:input
-       badge="{{ __('Required') }}"
+       badge="Requerido"
        label="URL"
        placeholder="/catetories"
        wire:model="banners.{{ $locale }}.{{ $index }}.link_url"
@@ -31,6 +32,7 @@
    </div>
 
    <flux:separator />
+
    @include('livewire.admin.settings.partials.banner-image')
 
    <div class="flex justify-end">
@@ -40,7 +42,7 @@
        size="sm"
        variant="danger"
        wire:click="remove('{{ $locale }}', {{ $index }})"
-       wire:confirm="{{ __('Are you sure you want to delete this banner?') }}"
+       wire:confim="Estas seguro que deseas eliminar este banner?"
      >
        Eliminar
      </flux:button>

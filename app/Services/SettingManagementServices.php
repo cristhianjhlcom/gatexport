@@ -117,9 +117,10 @@ final class SettingManagementServices
                     $banners[$locale][] = [
                         'title' => $banner['title'] ?? '',
                         'short_description' => $banner['short_description'] ?? '',
+                        'image_desktop' => $banner['image_desktop'] ?? '',
+                        'image_mobile' => $banner['image_mobile'] ?? '',
                         'link_text' => $banner['link_text'] ?? '',
                         'link_url' => $banner['link_url'] ?? '',
-                        'image' => $banner['image'] ?? '', // La imagen existente se guarda como string (path)
                     ];
                 }
             }
@@ -168,6 +169,24 @@ final class SettingManagementServices
         }
 
         return $general_info;
+    }
+
+    public function loadHighlightedCategories(): array
+    {
+        $highlighted_categories = [
+            'es' => [],
+            'en' => [],
+        ];
+
+        foreach ($this->available_locales as $locale) {
+            $settings = Setting::getByLocale('highlighted_categories', $locale);
+
+            if ($settings) {
+                $highlighted_categories[$locale] = $settings['translations'] ?? [];
+            }
+        }
+
+        return $highlighted_categories;
     }
 
     public function saveAbout(array $data)
@@ -318,34 +337,33 @@ final class SettingManagementServices
             foreach ($this->available_locales as $locale) {
                 $listOfBanners = [];
 
-                foreach ($data['banners'][$locale] as $banner) {
-                    $image_value = $banner['image'];
+                if (isset($data['banners'][$locale])) {
+                    foreach ($data['banners'][$locale] as $banner) {
+                        $image_desktop_value = $banner['image_desktop'];
+                        $image_mobile_value = $banner['image_mobile'];
 
-                    // Si es un nuevo archivo, lo procesamos
-                    if (is_object($banner['image']) && method_exists($banner['image'], 'store')) {
-                        $image_value = $this->handleFileUpload($banner['image'], 'uploads/settings/banners');
+                        if (is_object($banner['image_desktop']) && method_exists($banner['image_desktop'], 'store')) {
+                            $image_desktop_value = $banner['image_desktop']->store('settings/banners/desktop', 'public');
+                        }
+
+                        if (is_object($banner['image_mobile']) && method_exists($banner['image_mobile'], 'store')) {
+                            $image_mobile_value = $banner['image_mobile']->store('settings/banners/mobile', 'public');
+                        }
+
+                        $listOfBanners[] = [
+                            'title' => $banner['title'],
+                            'short_description' => $banner['short_description'],
+                            'image_desktop' => $image_desktop_value,
+                            'image_mobile' => $image_mobile_value,
+                            'link_text' => $banner['link_text'],
+                            'link_url' => $banner['link_url'],
+                        ];
                     }
-
-                    $listOfBanners[] = [
-                        'title' => $banner['title'],
-                        'short_description' => $banner['short_description'],
-                        'link_text' => $banner['link_text'] ?? '',
-                        'link_url' => $banner['link_url'] ?? '',
-                        'image' => $image_value,
-                    ];
                 }
 
                 Setting::updateOrCreate(
-                    [
-                        'key' => 'banners',
-                        'locale' => $locale,
-                        'group' => 'home',
-                    ],
-                    [
-                        'value' => $listOfBanners,
-                        'type' => 'json',
-                        'is_public' => true,
-                    ]
+                    ['name' => 'banners', 'locale' => $locale],
+                    ['payload' => $listOfBanners]
                 );
             }
         });
@@ -367,6 +385,23 @@ final class SettingManagementServices
             }
 
             foreach ($this->available_locales as $locale) {
+                if (isset($data['tmp_highlighted_category_images'][$locale])) {
+                    foreach ($data['tmp_highlighted_category_images'][$locale] as $index => $image) {
+                        if (is_object($image) && method_exists($image, 'store')) {
+                            $data['highlighted_categories'][$locale][$index]['image'] = $this->handleFileUpload($image, 'uploads/highlighted_categories');
+                        }
+                    }
+                }
+
+                $highlighted_categories = [];
+                foreach ($data['highlighted_categories'][$locale] as $category) {
+                    $highlighted_categories[] = [
+                        'title' => $category['title'],
+                        'url' => $category['url'],
+                        'image' => $category['image'] ?? null,
+                    ];
+                }
+
                 Setting::updateOrCreate(
                     [
                         'key' => 'general_info',
@@ -381,6 +416,21 @@ final class SettingManagementServices
                             'catalog_document' => $data['general_info']['catalog_document'],
                             'social_media' => $data['general_info']['social_media'],
                             'contact_information' => $data['general_info']['contact_information'],
+                        ],
+                        'type' => 'json',
+                        'is_public' => true,
+                    ]
+                );
+
+                Setting::updateOrCreate(
+                    [
+                        'key' => 'highlighted_categories',
+                        'locale' => $locale,
+                        'group' => 'home',
+                    ],
+                    [
+                        'value' => [
+                            'translations' => $highlighted_categories,
                         ],
                         'type' => 'json',
                         'is_public' => true,

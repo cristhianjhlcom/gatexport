@@ -22,21 +22,17 @@
       <div class="swiper__advantages">
         <div class="swiper-wrapper">
           @foreach ($competitive_advantages as $advantage)
-            <article class="swiper-slide flex flex-col items-center justify-center space-y-4 text-center">
+            <article class="swiper-slide flex flex-col items-center justify-center space-y-2 text-center">
               <img
                 alt="{{ $advantage['title'] }}"
-                class="mx-auto aspect-square h-16 w-16 object-cover"
+                class="mx-auto aspect-square h-28 w-28 object-cover"
                 src="{{ Storage::disk('public')->url($advantage['image']) }}"
               >
 
-              <x-common.title
-                level="3"
-                size="sub-title"
-                variant="secondary"
-                weight="font-bold"
-              >
+              <h3 class="text-primary-600 text-sm font-bold leading-tight sm:text-xs md:text-[15px] dark:text-gray-100">
                 {{ $advantage['title'] }}
-              </x-common.title>
+              </h3>
+
               {{-- NOTE: Por rediseño esta sección se oculta temporalmente
               <flux:text class="mt-auto">
                 {!! $advantage['description'] !!}
@@ -65,11 +61,11 @@
         breakpoints: {
           768: {
             slidesPerView: 3,
-            spaceBetween: 20,
+            spaceBetween: 5,
           },
           1280: {
             slidesPerView: 7,
-            spaceBetween: 20,
+            spaceBetween: 10,
           },
         },
       });

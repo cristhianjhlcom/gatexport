@@ -57,6 +57,19 @@ final class SettingGeneralManagement extends Component
         'catalog_document' => '',
     ];
 
+    // NOTE: Apartado para guardar categorias resaltantes en el home
+    #[Validate]
+    public $highlighted_categories = [
+        'es' => [],
+        'en' => [],
+    ];
+
+    #[Validate]
+    public $tmp_highlighted_category_images = [
+        'es' => [],
+        'en' => [],
+    ];
+
     protected SettingManagementServices $services;
 
     protected $rules = [
@@ -105,6 +118,21 @@ final class SettingGeneralManagement extends Component
             'dimensions:min_width=200,min_height=50,max_width=800,max_height=200',
         ],
         */
+
+        'highlighted_categories.es.*.title' => 'required|string|max:255',
+        'highlighted_categories.es.*.url' => 'required|url|max:255',
+        // 'highlighted_categories.es.*.image' => 'nullable|image|mimes:png,jpg,jpeg,svg,webp|max:1024|dimensions:min_width=100,min_height=100,max_width=500,min_height=500',
+        'highlighted_categories.es.*.image' => 'nullable|image|mimes:png,jpg,jpeg,svg,webp',
+
+        'highlighted_categories.en.*.title' => 'required|string|max:255',
+        'highlighted_categories.en.*.url' => 'required|url|max:255',
+        // 'highlighted_categories.en.*.image' => 'nullable|image|mimes:png,jpg,jpeg,svg,webp|max:1024|dimensions:min_width=100,min_height=100,max_width=500,min_height=500',
+        'highlighted_categories.en.*.image' => 'nullable|image|mimes:png,jpg,jpeg,svg,webp',
+
+        // 'tmp_highlighted_category_images.es.*' => 'nullable|mimes:png,jpg,jpeg,svg,webp|max:1024|dimensions:min_width=100,min_height=100,max_width=500,min_height=500',
+        'tmp_highlighted_category_images.es.*' => 'nullable|mimes:png,jpg,jpeg,svg,webp',
+        // 'tmp_highlighted_category_images.en.*' => 'nullable|mimes:png,jpg,jpeg,svg,webp|max:1024|dimensions:min_width=100,min_height=100,max_width=500,min_height=500',
+        'tmp_highlighted_category_images.en.*' => 'nullable|mimes:png,jpg,jpeg,svg,webp',
     ];
 
     protected $messages = [
@@ -131,6 +159,7 @@ final class SettingGeneralManagement extends Component
     public function mount()
     {
         $this->general_info = $this->services->loadGeneralInformation();
+        $this->highlighted_categories = $this->services->loadHighlightedCategories();
     }
 
     public function save()
@@ -142,6 +171,8 @@ final class SettingGeneralManagement extends Component
             'new_large_logo' => $this->new_large_logo,
             'new_small_logo' => $this->new_small_logo,
             'new_catalog_document' => $this->new_catalog_document,
+            'highlighted_categories' => $this->highlighted_categories,
+            'tmp_highlighted_category_images' => $this->tmp_highlighted_category_images,
         ]);
 
         Flux::toast(
@@ -149,6 +180,32 @@ final class SettingGeneralManagement extends Component
             text: __('Settings have been updated successfully.'),
             variant: 'success',
         );
+    }
+
+    public function addCategory(string $locale): void
+    {
+        if (count($this->highlighted_categories[$locale]) >= 4) {
+            Flux::toast(
+                heading: __('Limit Reached'),
+                text: __('You can only add up to 4 highlighted categories.'),
+                variant: 'warning',
+            );
+            return;
+        }
+
+        $this->highlighted_categories[$locale][] = [
+            'title' => '',
+            'url' => '',
+            'image' => null,
+        ];
+    }
+
+    public function removeCategory(string $locale, int $index): void
+    {
+        if (isset($this->highlighted_categories[$locale][$index])) {
+            unset($this->highlighted_categories[$locale][$index]);
+            $this->highlighted_categories[$locale] = array_values($this->highlighted_categories[$locale]);
+        }
     }
 
     public function render()

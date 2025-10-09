@@ -5,7 +5,7 @@ declare(strict_types=1);
 return [
     'home' => [
         'about' => [
-            'title' => 'Our History',
+            'title' => '¿Who We Are?',
             'mission' => 'Our Mission',
             'vision' => 'Our Vision',
             'full_history' => 'Our Full History',

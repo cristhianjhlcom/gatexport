@@ -42,7 +42,7 @@
           </x-common.title>
 
           <x-common.paragraph>
-            {{ $general_information['translations']['company_short_description'] }}
+            {!! $general_information['translations']['company_description'] !!}
           </x-common.paragraph>
 
           {{-- NOTE: Por rediseño esta sección se oculta temporalmente

@@ -1,6 +1,13 @@
+@php
+  $locales = [
+      'es' => 'Spanish',
+      'en' => 'English',
+  ];
+@endphp
+
 <form class="space-y-6" wire:submit.prevent="save">
   <header>
-    <flux:heading level="2" size="lg">{{ __('General Information') }}</flux:heading>
+    <flux:heading level="2" size="lg">General Information</flux:heading>
   </header>
   <section class="grid grid-cols-1 gap-4 sm:grid-cols-2">
     <div class="space-y-6">
@@ -8,60 +15,153 @@
       <flux:card class="space-y-4">
         <flux:tab.group>
           <flux:tabs variant="segmented">
-            <flux:tab name="es">Spanish</flux:tab>
-            <flux:tab name="en">English</flux:tab>
+            @foreach ($locales as $locale => $name)
+              <flux:tab name="{{ $locale }}">{{ $name }}</flux:tab>
+            @endforeach
           </flux:tabs>
-          <flux:tab.panel name="es">
-            <div class="space-y-4">
-              <flux:input
-                badge="{{ __('Required') }}"
-                label="Nombre de la Empresa"
-                placeholder="Gate Export"
-                wire:model="general_info.es.company_name"
-              />
 
-              <flux:textarea
-                badge="{{ __('Required') }}"
-                label="Descripción Corta"
-                placeholder="Lorem Ipsum..."
-                wire:model="general_info.es.company_short_description"
-              />
+          @foreach ($locales as $locale => $name)
+            <flux:tab.panel class="space-y-4" name="{{ $locale }}">
+              <div class="space-y-4">
+                <flux:input
+                  badge="Required"
+                  label="Nombre de la Empresa"
+                  placeholder="Gate Export"
+                  wire:model="general_info.{{ $locale }}.company_name"
+                />
 
-              <flux:editor
-                badge="{{ __('Required') }}"
-                label="Descripción Completa"
-                placeholder="Lorem Ipsum..."
-                wire:model="general_info.es.company_description"
-              />
-            </div>
-          </flux:tab.panel>
-          <flux:tab.panel name="en">
-            <div class="space-y-4">
-              <flux:input
-                badge="{{ __('Required') }}"
-                label="Company Name"
-                placeholder="Gate Export"
-                wire:model="general_info.en.company_name"
-              />
+                <flux:textarea
+                  badge="Required"
+                  label="Descripción Corta"
+                  placeholder="Lorem Ipsum..."
+                  wire:model="general_info.{{ $locale }}.company_short_description"
+                />
 
-              <flux:textarea
-                badge="{{ __('Required') }}"
-                label="Short Description"
-                placeholder="Lorem Ipsum..."
-                wire:model="general_info.en.company_short_description"
-              />
+                <flux:editor
+                  badge="Required"
+                  label="Descripción Completa"
+                  placeholder="Lorem Ipsum..."
+                  wire:model="general_info.{{ $locale }}.company_description"
+                />
+              </div>
+            </flux:tab.panel>
+          @endforeach
 
-              <flux:editor
-                badge="{{ __('Required') }}"
-                label="Full Description"
-                placeholder="Lorem Ipsum..."
-                wire:model="general_info.en.company_description"
-              />
-            </div>
-          </flux:tab.panel>
         </flux:tab.group>
       </flux:card>
       {{-- #End General Information --}}
+
+      {{-- Highlighted Categories --}}
+      <flux:card class="space-y-4">
+        <header class="space-y-2">
+          <flux:heading level="3" size="lg">
+            Categorías Destacadas
+          </flux:heading>
+          <flux:description size="xs">
+            Maneja las categorías destacadas para la página principal
+          </flux:description>
+          <flux:separator />
+        </header>
+
+        <flux:tab.group>
+          <flux:tabs variant="segmented">
+            @foreach ($locales as $locale => $name)
+              <flux:tab name="{{ $locale }}">{{ $name }}</flux:tab>
+            @endforeach
+          </flux:tabs>
+
+          @foreach ($locales as $locale => $name)
+            <flux:tab.panel class="space-y-4" name="{{ $locale }}">
+              <header>
+                <flux:button
+                  icon:trailing="plus"
+                  size="sm"
+                  type="button"
+                  variant="outline"
+                  wire:click="addCategory('{{ $locale }}')"
+                >
+                  Agregar categoría
+                </flux:button>
+                <span class="text-sm text-gray-500">
+                  {{ count($highlighted_categories[$locale]) }} Categoria(s) agregada(s)
+                </span>
+              </header>
+
+              @if (!empty($highlighted_categories[$locale]))
+                @foreach ($highlighted_categories[$locale] as $index => $category)
+                  <div class="flex flex-col space-y-4">
+                    <div class="grid grid-cols-2 gap-4">
+                      <flux:input
+                        label="Title"
+                        placeholder="Category Title"
+                        wire:model="highlighted_categories.{{ $locale }}.{{ $index }}.title"
+                      />
+
+                      <flux:input
+                        label="URL"
+                        placeholder="https://example.com"
+                        wire:model="highlighted_categories.{{ $locale }}.{{ $index }}.url"
+                      />
+                    </div>
+
+                    <div>
+                      @if (
+                          !empty($tmp_highlighted_category_images[$locale][$index]) &&
+                              is_string($tmp_highlighted_category_images[$locale][$index]))
+                        <img
+                          alt="Image Preview"
+                          class="object-contain"
+                          src="{{ Storage::disk('public')->url($tmp_highlighted_category_images[$locale][$index]) }}"
+                        />
+                      @elseif (isset($tmp_images_mobile[$locale][$index]) &&
+                              is_object($tmp_images_mobile[$locale][$index]) &&
+                              method_exists($tmp_highlighted_category_images[$locale][$index], 'temporaryUrl'))
+                        <img
+                          alt="Image Preview"
+                          class="object-contain"
+                          src="{{ $tmp_highlighted_category_images[$locale][$index]->temporaryUrl() }}"
+                        />
+                      @endif
+
+                      <flux:input type="file"
+                        wire:model="tmp_highlighted_category_images.{{ $locale }}.{{ $index }}"
+                      />
+                      <div wire:loading
+                        wire:target="tmp_highlighted_category_images.{{ $locale }}.{{ $index }}"
+                      >
+                        <flux:icon.loading />
+                      </div>
+                      <flux:error name="tmp_highlighted_category_images.{{ $locale }}.{{ $index }}" />
+                    </div>
+
+                    <div class="flex justify-end">
+                      <flux:button
+                        icon:trailing="x-mark"
+                        type="button"
+                        variant="danger"
+                        wire:click="removeCategory('{{ $locale }}', {{ $index }})"
+                      >
+                        Eliminar
+                      </flux:button>
+                    </div>
+                  </div>
+                @endforeach
+              @else
+                <flux:card class="space-y-4">
+                  <flux:heading level="3" size="lg">
+                    Aun no hay categorías cargadas
+                  </flux:heading>
+                  <flux:description size="xs">
+                    Agrega un categoría para comenzar
+                  </flux:description>
+                </flux:card>
+              @endif
+            </flux:tab.panel>
+          @endforeach
+
+        </flux:tab.group>
+      </flux:card>
+      {{-- #End Highlighted Categories --}}
     </div>
 
     <div class="space-y-6">
@@ -86,7 +186,7 @@
             </div>
 
             <div class="space-y-4">
-              <flux:label>{{ __('Large Logo') }}</flux:label>
+              <flux:label>Large Logo</flux:label>
               <flux:description size="xs">
                 Logo con texto. Recomendado: 400x100px. Formatos: PNG, JPG, SVG. Máximo: 2MB.
               </flux:description>
@@ -122,7 +222,7 @@
             </div>
 
             <div class="space-y-4">
-              <flux:label>{{ __('Small Logo') }}</flux:label>
+              <flux:label>Small Logo</flux:label>
               <flux:description size="xs">
                 Solo ícono. Recomendado: 64x64px. Formatos: PNG, JPG, SVG. Máximo: 1MB.
               </flux:description>
@@ -145,7 +245,7 @@
       <flux:card class="space-y-4">
         <header class="space-y-2">
           <flux:heading level="3" size="lg">
-            {{ __('Upload Document') }}
+            Upload Document
           </flux:heading>
           <flux:description size="xs">
             Carga un documento PDF.
@@ -154,7 +254,7 @@
         </header>
 
         <div class="space-y-4">
-          <flux:label>{{ __('Document') }}</flux:label>
+          <flux:label>Document</flux:label>
           <flux:input
             size="sm"
             type="file"
@@ -172,7 +272,7 @@
                 download
                 href="{{ Storage::url($settings['catalog_document']) }}"
               >
-                {{ __('Download Current Document') }}
+                Download Current Document
               </a>
             </div>
           @endif
@@ -184,7 +284,7 @@
       <flux:card class="space-y-4">
         <header class="space-y-2">
           <flux:heading level="3" size="lg">
-            {{ __('Social Media') }}
+            Social Media
           </flux:heading>
           <flux:description size="xs">
             Enlaces a tus redes sociales.
@@ -221,7 +321,7 @@
       <flux:card class="space-y-4">
         <header class="space-y-2">
           <flux:heading level="3" size="lg">
-            {{ __('Contact Information') }}
+            Contact Information
           </flux:heading>
           <flux:description size="xs">
             Información de contacto.
@@ -271,7 +371,7 @@
 
   <div>
     <flux:button type="submit" variant="primary">
-      {{ __('Save Settings') }}
+      Save Settings
     </flux:button>
   </div>
 </form>

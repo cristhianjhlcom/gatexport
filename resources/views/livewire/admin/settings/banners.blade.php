@@ -8,11 +8,8 @@
 <form class="space-y-6" wire:submit.prevent="save">
   <header>
     <flux:heading level="2" size="lg">
-      {{ __('Promotional Banners') }}
+      Banners Promocionales
     </flux:heading>
-    <flux:description size="xs">
-      {{ __('Manage your promotional banners.') }}
-    </flux:description>
   </header>
 
   <flux:tab.group>
@@ -25,14 +22,15 @@
     @foreach ($locales as $locale => $name)
       <flux:tab.panel class="space-y-4" name="{{ $locale }}">
         <flux:button
+          icon:trailing="plus"
           size="sm"
           variant="outline"
           wire:click="add('{{ $locale }}')"
         >
-          {{ __('Add Banner') }}
+          Agregar banner
         </flux:button>
         <span class="text-sm text-gray-500">
-          {{ count($banners[$locale]) }} {{ __('Banners') }}
+          {{ count($banners[$locale]) }} Banner(s) agregado(s)
         </span>
         @if (!empty($banners[$locale]))
           <section class="grid grid-cols-1 gap-4 md:grid-cols-3">
@@ -43,10 +41,10 @@
         @else
           <flux:card class="space-y-4">
             <flux:heading level="3" size="lg">
-              {{ __('No Banners') }}
+              Aun no hay banners cargados
             </flux:heading>
             <flux:description size="xs">
-              {{ __('Add a banner to get started.') }}
+              Agrega un banner para comenzar
             </flux:description>
           </flux:card>
         @endif
@@ -56,7 +54,7 @@
 
   <div>
     <flux:button type="submit" variant="primary">
-      {{ __('Save Settings') }}
+      Guardar banners
     </flux:button>
   </div>
 </form>
