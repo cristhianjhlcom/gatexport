@@ -20,24 +20,53 @@
 
     <div class="grid grid-cols-2 gap-4 lg:grid-cols-3">
 
-      @foreach ($highlighted_categories['translations'] as $category)
-        <div class="relative col-span-2 flex h-[30rem] items-end overflow-hidden bg-gray-300 p-6 lg:col-span-1">
-          {{-- Aquí va tu imagen de fondo --}}
-          <img
-            alt="{{ $category['title'] }}"
-            class="absolute inset-0 h-full w-full object-cover opacity-80 mix-blend-multiply"
-            src="{{ Storage::disk('public')->url($category['image']) }}"
+      @foreach ($highlighted_categories['translations'] as $index => $category)
+        @if ($index === 0)
+          {{-- 1. PALO SANTO: col-span-2 en mobile, col-span-1 en desktop. Altura completa. --}}
+          <a class="relative col-span-2 flex h-[34rem] items-end overflow-hidden p-6 lg:col-span-1"
+            href="{{ $category['url'] }}"
           >
-          {{--
-          <div class="z-10 text-white">
-            <h2 class="text-4xl font-bold tracking-tight md:text-5xl">{{ $category['name'] }}</h2>
-            <p class="mt-2 text-xl font-semibold md:text-2xl">{{ $category['short_description'] }}</p>
-          </div>
-          --}}
-        </div>
-      @endforeach
+            <img
+              alt="{{ $category['title'] }}"
+              class="absolute inset-0 h-full w-full object-fill transition-opacity hover:opacity-90"
+              src="{{ Storage::disk('public')->url($category['image']) }}"
+            >
+          </a>
+        @elseif ($index === 1)
+          {{-- 2. INCIENSOS: col-span-2 en mobile, col-span-1 en desktop. Altura completa. --}}
+          <a class="relative col-span-2 flex h-[34rem] items-end overflow-hidden p-6 lg:col-span-1"
+            href="{{ $category['url'] }}"
+          >
+            <img
+              alt="{{ $category['title'] }}"
+              class="absolute inset-0 h-full w-full object-fill transition-opacity hover:opacity-90"
+              src="{{ Storage::disk('public')->url($category['image']) }}"
+            >
+          </a>
+        @elseif ($index === 2 || $index === 3)
+          @if ($index === 2)
+            {{-- Contenedor para SMUDGE POP y SMUDGE STICK --}}
+            <div class="col-span-2 flex flex-col gap-4 lg:col-span-1">
+          @endif
 
+          {{-- Bloques pequeños --}}
+          <a class="relative col-span-2 flex h-[16.5rem] items-end overflow-hidden p-4 lg:col-span-1"
+            href="{{ $category['url'] }}"
+          >
+            <img
+              alt="{{ $category['title'] }}"
+              class="absolute inset-0 h-full w-full object-fill transition-opacity hover:opacity-90"
+              src="{{ Storage::disk('public')->url($category['image']) }}"
+            >
+          </a>
+
+          @if ($index === 3)
     </div>
+    @endif
+    @endif
+    @endforeach
+
+  </div>
 
   </div>
 </section>

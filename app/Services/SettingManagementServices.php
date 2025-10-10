@@ -343,11 +343,13 @@ final class SettingManagementServices
                         $image_mobile_value = $banner['image_mobile'];
 
                         if (is_object($banner['image_desktop']) && method_exists($banner['image_desktop'], 'store')) {
-                            $image_desktop_value = $banner['image_desktop']->store('settings/banners/desktop', 'public');
+                            // $image_desktop_value = $banner['image_desktop']->store('uploads/settings/banners/desktop', 'public');
+                            $image_desktop_value = $this->handleFileUpload($banner['image_desktop'], 'uploads/settings/banners/desktop');
                         }
 
                         if (is_object($banner['image_mobile']) && method_exists($banner['image_mobile'], 'store')) {
-                            $image_mobile_value = $banner['image_mobile']->store('settings/banners/mobile', 'public');
+                            // $image_mobile_value = $banner['image_mobile']->store('uploads/settings/banners/mobile', 'public');
+                            $image_mobile_value = $this->handleFileUpload($banner['image_mobile'], 'uploads/settings/banners/mobile');
                         }
 
                         $listOfBanners[] = [
@@ -362,8 +364,16 @@ final class SettingManagementServices
                 }
 
                 Setting::updateOrCreate(
-                    ['name' => 'banners', 'locale' => $locale],
-                    ['payload' => $listOfBanners]
+                    [
+                        'key' => 'banners',
+                        'locale' => $locale,
+                        'group' => 'home',
+                    ],
+                    [
+                        'value' => $listOfBanners,
+                        'type' => 'json',
+                        'is_public' => true,
+                    ]
                 );
             }
         });

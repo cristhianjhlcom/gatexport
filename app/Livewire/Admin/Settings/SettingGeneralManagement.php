@@ -122,12 +122,12 @@ final class SettingGeneralManagement extends Component
         'highlighted_categories.es.*.title' => 'required|string|max:255',
         'highlighted_categories.es.*.url' => 'required|url|max:255',
         // 'highlighted_categories.es.*.image' => 'nullable|image|mimes:png,jpg,jpeg,svg,webp|max:1024|dimensions:min_width=100,min_height=100,max_width=500,min_height=500',
-        'highlighted_categories.es.*.image' => 'nullable|image|mimes:png,jpg,jpeg,svg,webp',
+        // 'highlighted_categories.es.*.image' => 'nullable|image|mimes:png,jpg,jpeg,svg,webp',
 
         'highlighted_categories.en.*.title' => 'required|string|max:255',
         'highlighted_categories.en.*.url' => 'required|url|max:255',
         // 'highlighted_categories.en.*.image' => 'nullable|image|mimes:png,jpg,jpeg,svg,webp|max:1024|dimensions:min_width=100,min_height=100,max_width=500,min_height=500',
-        'highlighted_categories.en.*.image' => 'nullable|image|mimes:png,jpg,jpeg,svg,webp',
+        // 'highlighted_categories.en.*.image' => 'nullable|image|mimes:png,jpg,jpeg,svg,webp',
 
         // 'tmp_highlighted_category_images.es.*' => 'nullable|mimes:png,jpg,jpeg,svg,webp|max:1024|dimensions:min_width=100,min_height=100,max_width=500,min_height=500',
         'tmp_highlighted_category_images.es.*' => 'nullable|mimes:png,jpg,jpeg,svg,webp',

@@ -88,64 +88,77 @@
               </header>
 
               @if (!empty($highlighted_categories[$locale]))
-                @foreach ($highlighted_categories[$locale] as $index => $category)
-                  <div class="flex flex-col space-y-4">
-                    <div class="grid grid-cols-2 gap-4">
-                      <flux:input
-                        label="Title"
-                        placeholder="Category Title"
-                        wire:model="highlighted_categories.{{ $locale }}.{{ $index }}.title"
-                      />
-
-                      <flux:input
-                        label="URL"
-                        placeholder="https://example.com"
-                        wire:model="highlighted_categories.{{ $locale }}.{{ $index }}.url"
-                      />
-                    </div>
-
-                    <div>
-                      @if (
-                          !empty($tmp_highlighted_category_images[$locale][$index]) &&
-                              is_string($tmp_highlighted_category_images[$locale][$index]))
-                        <img
-                          alt="Image Preview"
-                          class="object-contain"
-                          src="{{ Storage::disk('public')->url($tmp_highlighted_category_images[$locale][$index]) }}"
+                <div class="grid grid-cols-1 gap-4 space-y-4 md:grid-cols-2">
+                  @foreach ($highlighted_categories[$locale] as $index => $category)
+                    <div class="flex flex-col space-y-4">
+                      <h5 class="text-sm font-bold md:text-xl">Categoría {{ $index + 1 }}</h5>
+                      <div class="space-y-4">
+                        <flux:textarea
+                          label="Title"
+                          placeholder="Category Title"
+                          wire:model="highlighted_categories.{{ $locale }}.{{ $index }}.title"
                         />
-                      @elseif (isset($tmp_images_mobile[$locale][$index]) &&
-                              is_object($tmp_images_mobile[$locale][$index]) &&
-                              method_exists($tmp_highlighted_category_images[$locale][$index], 'temporaryUrl'))
-                        <img
-                          alt="Image Preview"
-                          class="object-contain"
-                          src="{{ $tmp_highlighted_category_images[$locale][$index]->temporaryUrl() }}"
-                        />
-                      @endif
 
-                      <flux:input type="file"
-                        wire:model="tmp_highlighted_category_images.{{ $locale }}.{{ $index }}"
-                      />
-                      <div wire:loading
-                        wire:target="tmp_highlighted_category_images.{{ $locale }}.{{ $index }}"
-                      >
-                        <flux:icon.loading />
+                        <flux:input
+                          label="URL"
+                          placeholder="https://example.com"
+                          wire:model="highlighted_categories.{{ $locale }}.{{ $index }}.url"
+                        />
                       </div>
-                      <flux:error name="tmp_highlighted_category_images.{{ $locale }}.{{ $index }}" />
-                    </div>
 
-                    <div class="flex justify-end">
-                      <flux:button
-                        icon:trailing="x-mark"
-                        type="button"
-                        variant="danger"
-                        wire:click="removeCategory('{{ $locale }}', {{ $index }})"
-                      >
-                        Eliminar
-                      </flux:button>
+                      <flux:field class="rounded-sm border border-gray-200 bg-gray-50 p-4">
+                        <div class="flex items-center justify-between gap-4">
+
+                          <div class="w-56">
+                            @if (!empty($category['image']) && is_string($category['image']))
+                              <img
+                                alt="Image Preview"
+                                class="object-contain"
+                                src="{{ Storage::disk('public')->url($category['image']) }}"
+                              />
+                            @elseif (isset($tmp_highlighted_category_images[$locale][$index]) &&
+                                    is_object($tmp_highlighted_category_images[$locale][$index]) &&
+                                    method_exists($tmp_highlighted_category_images[$locale][$index], 'temporaryUrl'))
+                              <img
+                                alt="Image Preview"
+                                class="object-contain"
+                                src="{{ $tmp_highlighted_category_images[$locale][$index]->temporaryUrl() }}"
+                              />
+                            @endif
+                          </div>
+
+                          <div class="flex-1 space-y-4">
+                            <flux:label>Imagen del banner (Desktop)</flux:label>
+                            <flux:input
+                              size="sm"
+                              type="file"
+                              wire:model.live="tmp_highlighted_category_images.{{ $locale }}.{{ $index }}"
+                            />
+
+                            <flux:description size="xs">
+                              Formatos JPG, PNG, WebP o SVG
+                            </flux:description>
+
+                            <flux:error name="highlighted_categories.{{ $locale }}.{{ $index }}" />
+                            <flux:error
+                              name="tmp_highlighted_category_images.{{ $locale }}.{{ $index }}" />
+                          </div>
+                        </div>
+                      </flux:field>
+
+                      <div class="flex justify-end">
+                        <flux:button
+                          icon:trailing="x-mark"
+                          type="button"
+                          variant="danger"
+                          wire:click="removeCategory('{{ $locale }}', {{ $index }})"
+                        >
+                          Eliminar
+                        </flux:button>
+                      </div>
                     </div>
-                  </div>
-                @endforeach
+                  @endforeach
+                </div>
               @else
                 <flux:card class="space-y-4">
                   <flux:heading level="3" size="lg">
