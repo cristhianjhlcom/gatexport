@@ -7,13 +7,6 @@
     'open' => false,
 ])
 
-{{-- <details name="acordeon" open>
-  <summary>Sección 1</summary>
-  <div>
-    Este es el contenido del primer acordeón.
-  </div>
-</details> --}}
-
 <details
   {{-- open="{{ isOpen }}" --}}
   {{-- x-bind:open="isOpen" --}}
@@ -32,8 +25,15 @@
     class="flex w-full cursor-pointer list-none items-center text-left focus:outline-none [&::-webkit-details-marker]:hidden"
     name="accordion-header"
   >
-    <span class="mr-4 text-2xl text-amber-600">{{ $icon }}</span>
-    <h2 class="text-primary-400 text-md flex-grow font-extrabold md:text-2xl">{{ $title }}</h2>
+    <img
+      alt="{{ $title }}"
+      class="mr-4 h-10 w-10"
+      src="{{ Storage::disk('public')->url($icon) }}"
+    >
+
+    <h2 class="text-primary-400 text-md flex-grow font-extrabold md:text-xl">
+      {{ $title }}
+    </h2>
 
     <svg
       :class="{ 'hidden': isOpen, 'block': !isOpen }"

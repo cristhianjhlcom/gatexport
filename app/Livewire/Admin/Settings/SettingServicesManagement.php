@@ -24,6 +24,16 @@ final class SettingServicesManagement extends Component
         'es' => [],
         'en' => [],
         'main_image' => '',
+        'heading' => '',
+        'description' => '',
+        'important_message' => '',
+        'disclaimer' => '',
+    ];
+
+    #[Validate]
+    public $tmpIcons = [
+        'es' => [],
+        'en' => [],
     ];
 
     protected SettingManagementServices $services;
@@ -38,19 +48,37 @@ final class SettingServicesManagement extends Component
         $this->companyServices = $this->services->loadCompanyServices();
     }
 
+    public function updatedTmpIcons($value, $key)
+    {
+        $parts = explode('.', $key);
+
+        if (count($parts) >= 3) {
+            $locale = $parts[0];
+            $index = $parts[1];
+
+            if (isset($value) && is_object($value) && method_exists($value, 'store')) {
+                $this->tmpIcons[$locale][$index] = $value;
+                $this->companyServices[$locale][$index]['icon'] = $value;
+            }
+        }
+    }
+
     public function add($locale = 'es')
     {
         $this->companyServices[$locale][] = [
             'title' => '',
             'description' => '',
+            'icon' => NULL,
         ];
     }
 
     public function remove($locale, $index)
     {
         unset($this->companyServices[$locale][$index]);
+        unset($this->tmpIcons[$locale][$index]);
 
         $this->companyServices[$locale] = array_values($this->companyServices[$locale]);
+        $this->tmpIcons[$locale] = array_values($this->tmpIcons[$locale]);
     }
 
     public function save()
@@ -60,11 +88,12 @@ final class SettingServicesManagement extends Component
         $this->services->saveCompanyServices([
             'company_services' => $this->companyServices,
             'new_main_image' => $this->newMainImage,
+            'tmp_icons' => $this->tmpIcons,
         ]);
 
         Flux::toast(
-            heading: __('Settings Updated'),
-            text: __('Settings have been updated successfully.'),
+            heading: 'Configuración Actualizada',
+            text: 'La configuración ha sido actualizada exitosamente.',
             variant: 'success',
         );
     }
@@ -88,6 +117,20 @@ final class SettingServicesManagement extends Component
                 'image',
                 'mimes:png,jpg,jpeg,webp',
                 'max:2048', // 2MB max
+            ],
+
+            'tmpIcons.es.*' => [
+                'nullable',
+                'mimes:jpg,jpeg,png,webp,svg',
+                'max:2048',
+                'dimensions:min_width=400,min_height=400,max_width=1000,max_height=1000',
+            ],
+
+            'tmpIcons.en.*' => [
+                'nullable',
+                'mimes:jpg,jpeg,png,webp,svg',
+                'max:2048',
+                'dimensions:min_width=400,min_height=400,max_width=1000,max_height=1000',
             ],
         ];
     }

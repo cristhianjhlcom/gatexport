@@ -7,10 +7,30 @@ namespace App\Services;
 use App\Models\Setting;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 final class SettingManagementServices
 {
     private array $available_locales = ['es', 'en'];
+
+    /**
+     * #---------------------------
+     * 01. loadProviders
+     * 02. loadAbout
+     * 03. loadCompetitiveAdvantages
+     * 04. loadCompanyServices
+     * 05. loadBanners
+     * 06. loadGeneralInformation
+     * 07. loadHighlightedCategories
+     * 08. saveAbout
+     * 09. saveCompetitiveAdvantages
+     * 10. saveCompanyServices
+     * 11. saveProviders
+     * 12. saveBanners
+     * 13. saveGeneralInformation
+     * 14. handleFileUpload
+     * #---------------------------
+     */
 
     public function loadProviders(): array
     {
@@ -80,6 +100,10 @@ final class SettingManagementServices
             'es' => [],
             'en' => [],
             'main_image' => '',
+            'heading' => '',
+            'description' => '',
+            'important_message' => '',
+            'disclaimer' => '',
         ];
 
         foreach ($this->available_locales as $locale) {
@@ -88,14 +112,18 @@ final class SettingManagementServices
             if (is_array($setting_company_services)) {
                 $company_services[$locale] = $setting_company_services['services'] ?? [];
                 $company_services['main_image'] = $setting_company_services['main_image'] ?? '';
-                /*
-                foreach ($setting_company_services as $company_service) {
-                    $company_services[$locale][] = [
+                $company_services['heading'] = $setting_company_services['heading'] ?? '';
+                $company_services['description'] = $setting_company_services['description'] ?? '';
+                $company_services['important_message'] = $setting_company_services['important_message'] ?? '';
+                $company_services['disclaimer'] = $setting_company_services['disclaimer'] ?? '';
+
+                foreach ($company_services[$locale] as $index => $company_service) {
+                    $company_services[$locale][$index] = [
                         'title' => $company_service['title'] ?? '',
                         'description' => $company_service['description'] ?? '',
+                        'icon' => $company_service['icon'] ?? '',
                     ];
                 }
-                */
             }
         }
 
@@ -269,12 +297,27 @@ final class SettingManagementServices
             }
 
             foreach ($this->available_locales as $locale) {
+
+                if (isset($data['tmp_icons'][$locale])) {
+                    foreach ($data['tmp_icons'][$locale] as $index => $image) {
+                        if (is_object($image) && method_exists($image, 'store')) {
+                            // Eliminar el icono existente si está presente
+                            if (!empty($data['company_services'][$locale][$index]['icon'])) {
+                                Storage::disk('public')->delete($data['company_services'][$locale][$index]['icon']);
+                            }
+
+                            $data['company_services'][$locale][$index]['icon'] = $this->handleFileUpload($image, 'uploads/settings/services');
+                        }
+                    }
+                }
+
                 $listOfCompanyServices = [];
 
                 foreach ($data['company_services'][$locale] as $company_service) {
                     $listOfCompanyServices[] = [
                         'title' => $company_service['title'],
                         'description' => $company_service['description'],
+                        'icon' => $company_service['icon'],
                     ];
                 }
 
@@ -286,8 +329,16 @@ final class SettingManagementServices
                     ],
                     [
                         'value' => [
+                            //   heading
+                            //   description
+                            //   important_message
+                            //   disclaimer
                             'services' => $listOfCompanyServices,
                             'main_image' => $image_value,
+                            'heading' => $data['company_services']['heading'],
+                            'description' => $data['company_services']['description'],
+                            'important_message' => $data['company_services']['important_message'],
+                            'disclaimer' => $data['company_services']['disclaimer'],
                         ],
                         'type' => 'json',
                         'is_public' => true,

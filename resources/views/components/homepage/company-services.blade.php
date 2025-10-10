@@ -6,17 +6,19 @@
   <section class="py-6 md:py-10 lg:py-14" id="services">
     <div class="container">
       <div class="flex items-start justify-start gap-4 md:flex-row md:gap-12">
-        <div class="z-10 hidden overflow-hidden rounded-sm sm:block">
+
+        <div
+          class="z-10 hidden max-h-[800px] w-1/2 overflow-hidden rounded-sm sm:flex sm:items-center sm:justify-center">
           @if ($company_services)
             <img
               alt="{{ __('pages.home.services.title') }}"
-              class="aspect-square h-[550px] w-full object-contain"
+              class="object-contain"
               src="{{ Storage::disk('public')->url($company_services['main_image']) }}"
             >
           @endif
         </div>
 
-        <div class="flex-1 grow justify-start space-y-4 md:space-y-6">
+        <div class="w-1/2 justify-start space-y-4 md:space-y-6">
 
           <header class="relative hidden flex-col space-y-4 lg:flex">
             <x-common.title
@@ -56,14 +58,14 @@
                 @if ($loop->first)
                   <x-common.accordion.item
                     :content="$service['description']"
-                    :icon="$service['icon'] ?? '🛒'"
+                    :icon="$service['icon']"
                     :subtitle="$service['subtitle'] ?? 'Subtítulo Falso'"
                     :title="$service['title']"
                   />
                 @else
                   <x-common.accordion.item
                     :content="$service['description']"
-                    :icon="$service['icon'] ?? '🛒'"
+                    :icon="$service['icon']"
                     :subtitle="$service['subtitle'] ?? 'Subtítulo Falso'"
                     :title="$service['title']"
                   />
