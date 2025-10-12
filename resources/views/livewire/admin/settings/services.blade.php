@@ -28,21 +28,25 @@
               placeholder="Ej: servicio principal"
               wire:model="companyServices.heading"
             />
-            <flux:textarea
+
+            <flux:editor
               label="Descripción del servicio"
               placeholder="Ej: descripción de la sección"
               wire:model="companyServices.description"
             />
+
             <flux:textarea
               label="Mensaje importante"
               placeholder="Ej: lorem ipsum"
               wire:model="companyServices.important_message"
             />
+
             <flux:textarea
               label="Observación"
               placeholder="Ej: lorem ipsum"
               wire:model="companyServices.disclaimer"
             />
+
             <div>
               {{-- Input of the main image --}}
               <flux:file-upload label="Imagen Principal" wire:model="newMainImage">
@@ -67,7 +71,7 @@
                 </div>
               @endif
 
-              @if ($newMainImage)
+              @if ($newMainImage && !is_string($newMainImage))
                 <div class="mt-3 flex flex-col gap-2">
                   <flux:file-item
                     :heading="$newMainImage->getClientOriginalName()"
@@ -127,6 +131,13 @@
                         wire:model="companyServices.{{ $locale }}.{{ $index }}.title"
                       />
 
+                      <flux:input
+                        badge="Requerido"
+                        label="Sub título"
+                        placeholder="Lorem Ipsum.."
+                        wire:model="companyServices.{{ $locale }}.{{ $index }}.subtitle"
+                      />
+
                       <flux:editor
                         badge="Requerido"
                         label="Descripción"
@@ -154,11 +165,6 @@
                               {{-- :size="Storage::disk('public')->size($service['icon'])" --}}
                               heading="Icono actual"
                             >
-                              {{--
-                        <x-slot name="actions">
-                        <flux:file-item.remove aria-label="{{ 'Remove file: ' . $newMainImage->getClientOriginalName() }}" wire:click="removePhoto" />
-                        </x-slot>
-                        --}}
                             </flux:file-item>
                           </div>
                         @endif

@@ -120,6 +120,7 @@ final class SettingManagementServices
                 foreach ($company_services[$locale] as $index => $company_service) {
                     $company_services[$locale][$index] = [
                         'title' => $company_service['title'] ?? '',
+                        'subtitle' => $company_service['subtitle'] ?? '',
                         'description' => $company_service['description'] ?? '',
                         'icon' => $company_service['icon'] ?? '',
                     ];
@@ -290,10 +291,8 @@ final class SettingManagementServices
     public function saveCompanyServices(array $data)
     {
         DB::transaction(function () use ($data) {
-            $image_value = $data['new_main_image'];
-
-            if (is_object($data['new_main_image']) && method_exists($data['new_main_image'], 'store')) {
-                $image_value = $this->handleFileUpload($data['new_main_image'], 'uploads/settings/services');
+            if ($data['new_main_image']) {
+                $data['company_services']['main_image'] = $this->handleFileUpload($data['new_main_image'], 'uploads/settings/services');
             }
 
             foreach ($this->available_locales as $locale) {
@@ -316,6 +315,7 @@ final class SettingManagementServices
                 foreach ($data['company_services'][$locale] as $company_service) {
                     $listOfCompanyServices[] = [
                         'title' => $company_service['title'],
+                        'subtitle' => $company_service['subtitle'],
                         'description' => $company_service['description'],
                         'icon' => $company_service['icon'],
                     ];
@@ -334,7 +334,7 @@ final class SettingManagementServices
                             //   important_message
                             //   disclaimer
                             'services' => $listOfCompanyServices,
-                            'main_image' => $image_value,
+                            'main_image' => $data['company_services']['main_image'],
                             'heading' => $data['company_services']['heading'],
                             'description' => $data['company_services']['description'],
                             'important_message' => $data['company_services']['important_message'],

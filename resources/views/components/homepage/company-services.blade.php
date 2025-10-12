@@ -7,12 +7,9 @@
     <div class="container">
       <div class="flex items-start justify-start gap-4 md:flex-row md:gap-12">
 
-        <div
-          class="z-10 hidden max-h-[800px] w-1/2 overflow-hidden rounded-sm sm:flex sm:items-center sm:justify-center">
+        <div class="z-10 hidden min-h-[1175px] w-1/2 rounded-sm sm:flex">
           @if ($company_services)
-            <img
-              alt="{{ __('pages.home.services.title') }}"
-              class="object-contain"
+            <img alt="{{ __('pages.home.services.title') }}"
               src="{{ Storage::disk('public')->url($company_services['main_image']) }}"
             >
           @endif
@@ -21,7 +18,40 @@
         <div class="w-1/2 justify-start space-y-4 md:space-y-6">
 
           <header class="relative hidden flex-col space-y-4 lg:flex">
-            <x-common.title
+            @if (isset($company_services['heading']))
+              @php
+                $headingParts = explode(' ', $company_services['heading']);
+              @endphp
+              @if (count($headingParts) > 3)
+                <x-common.title
+                  class="text-center sm:text-left"
+                  level="2"
+                  size="title"
+                  weight="font-extrabold"
+                >
+                  {{ implode(' ', array_slice($headingParts, 0, 3)) }}
+                </x-common.title>
+                <x-common.separator-line class="absolute hidden lg:right-[5%] lg:top-[45.5%] lg:flex lg:w-[700px]" />
+                <x-common.title
+                  class="text-center sm:text-left"
+                  level="2"
+                  size="title"
+                  weight="font-extrabold"
+                >
+                  {{ implode(' ', array_slice($headingParts, 3)) }}
+                </x-common.title>
+              @else
+                <x-common.title
+                  class="text-center sm:text-left"
+                  level="2"
+                  size="title"
+                  weight="font-extrabold"
+                >
+                  {{ $company_services['heading'] }}
+                </x-common.title>
+              @endif
+            @endif
+            {{-- <x-common.title
               class="text-center sm:text-left"
               level="2"
               size="title"
@@ -37,7 +67,7 @@
               weight="font-extrabold"
             >
               Importadores de Palo Santo
-            </x-common.title>
+            </x-common.title> --}}
           </header>
 
           <header class="relative flex flex-col space-y-4 lg:hidden">
@@ -47,10 +77,18 @@
               size="title"
               weight="font-extrabold"
             >
-              Servicios especializados para importadores de Palo Santo
+              {{ $company_services['heading'] }}
             </x-common.title>
             <x-common.separator-line class="mx-auto w-full max-w-[500px]" />
           </header>
+
+          <div class="space-y-4">
+            <div class="space-y-4 text-[17px] font-light">
+              {!! $company_services['description'] !!}
+            </div>
+
+            <p class="text-primary-400 text-[17px] font-extrabold">{{ $company_services['important_message'] }}</p>
+          </div>
 
           @if ($company_services)
             <x-common.accordion>
@@ -73,6 +111,8 @@
               @endforeach
             </x-common.accordion>
           @endif
+
+          <small class="text-[17px] font-light">{{ $company_services['disclaimer'] }}</small>
 
         </div>
       </div>

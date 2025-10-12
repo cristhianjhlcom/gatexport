@@ -46,6 +46,10 @@ final class SettingServicesManagement extends Component
     public function mount()
     {
         $this->companyServices = $this->services->loadCompanyServices();
+
+        if (!empty($this->companyServices['main_image']) && is_string($this->companyServices['main_image'])) {
+            $this->newMainImage = NULL;
+        }
     }
 
     public function updatedTmpIcons($value, $key)
@@ -67,6 +71,7 @@ final class SettingServicesManagement extends Component
     {
         $this->companyServices[$locale][] = [
             'title' => '',
+            'subtitle' => '',
             'description' => '',
             'icon' => NULL,
         ];
@@ -108,6 +113,7 @@ final class SettingServicesManagement extends Component
     {
         return [
             'companyServices.es.*.title' => 'required|string|max:100',
+            'companyServices.es.*.subtitle' => 'required|string|max:100',
             'companyServices.es.*.description' => 'required|string|max:1000',
             'companyServices.en.*.title' => 'required|string|max:100',
             'companyServices.en.*.description' => 'required|string|max:1000',
