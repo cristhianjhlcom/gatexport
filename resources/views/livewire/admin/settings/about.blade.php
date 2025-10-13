@@ -12,9 +12,6 @@
         <flux:heading level="2" size="lg">
           {{ __('About Us') }}
         </flux:heading>
-        <flux:description size="xs">
-          {{ __('Manage the about us section of your company.') }}
-        </flux:description>
         <flux:separator />
       </header>
 

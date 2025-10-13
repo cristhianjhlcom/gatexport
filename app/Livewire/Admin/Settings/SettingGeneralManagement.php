@@ -176,8 +176,8 @@ final class SettingGeneralManagement extends Component
         ]);
 
         Flux::toast(
-            heading: __('Settings Updated'),
-            text: __('Settings have been updated successfully.'),
+            heading: 'Configuración actualizada',
+            text: 'La configuración ha sido actualizada correctamente',
             variant: 'success',
         );
     }

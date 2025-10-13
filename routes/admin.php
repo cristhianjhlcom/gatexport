@@ -2,15 +2,11 @@
 
 declare(strict_types=1);
 
-// use App\Http\Controllers\Admin\ImageDeleteController;
-// use App\Http\Controllers\Admin\ImageUploadController;
 use App\Livewire\Admin\Categories\CategoryCreateManagement;
 use App\Livewire\Admin\Categories\CategoryEditManagement;
 use App\Livewire\Admin\Categories\CategoryIndexManagement;
-use App\Livewire\Admin\Orders\OrderCreateManagement;
 use App\Livewire\Admin\Orders\OrderEditManagement;
 use App\Livewire\Admin\Orders\OrderIndexManagement;
-use App\Livewire\Admin\Orders\OrderShowManagement;
 use App\Livewire\Admin\Products\ProductCreateManagement;
 use App\Livewire\Admin\Products\ProductEditManagement;
 use App\Livewire\Admin\Products\ProductIndexManagement;
@@ -18,6 +14,7 @@ use App\Livewire\Admin\Products\ProductShowManagement;
 use App\Livewire\Admin\Settings\SettingAboutManagement;
 use App\Livewire\Admin\Settings\SettingBannersManagement;
 use App\Livewire\Admin\Settings\SettingCompetitiveAdvantagesManagement;
+use App\Livewire\Admin\Settings\SettingCountriesManagement;
 use App\Livewire\Admin\Settings\SettingGeneralManagement;
 use App\Livewire\Admin\Settings\SettingProvidersManagement;
 use App\Livewire\Admin\Settings\SettingServicesManagement;
@@ -65,5 +62,6 @@ Route::group(['middleware' => 'role:super_admin|manager'], function () {
     Route::get('settings/providers', SettingProvidersManagement::class)->name('settings.providers');
     Route::get('settings/banners', SettingBannersManagement::class)->name('settings.banners');
     Route::get('settings/services', SettingServicesManagement::class)->name('settings.services');
+    Route::get('settings/countries', SettingCountriesManagement::class)->name('settings.countries');
     Route::get('settings/advantages', SettingCompetitiveAdvantagesManagement::class)->name('settings.advantages');
 });

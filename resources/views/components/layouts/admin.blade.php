@@ -98,6 +98,9 @@
       <flux:navlist.item href="{{ route('admin.settings.advantages') }}">
         Ventajas
       </flux:navlist.item>
+      <flux:navlist.item href="{{ route('admin.settings.countries') }}">
+        Paises
+      </flux:navlist.item>
     </flux:navlist.group>
 
     @auth
