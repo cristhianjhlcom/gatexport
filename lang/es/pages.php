@@ -21,7 +21,7 @@ return [
             'title' => 'Servicios de Nuestra Empresa',
         ],
         'countries_exports' => [
-            'title' => 'Nuestros Países de Exportación',
+            'title' => 'Países de Exportación',
         ],
     ],
     'about' => [

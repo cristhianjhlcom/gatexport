@@ -7,21 +7,8 @@
     'open' => false,
 ])
 
-<details
-  {{-- open="{{ isOpen }}" --}}
-  {{-- x-bind:open="isOpen" --}}
-  class="rounded-2xl bg-white p-4"
-  name="services-accordion"
-  open="true"
-  x-data="{
-      get isOpen() { return $parent.openId === '{{ $id }}' },
-      handleClick() {
-          $parent.open('{{ $id }}');
-      }
-  }"
->
+<details class="rounded-2xl bg-white p-4" name="services-accordion">
   <summary
-    :class="{ 'border-amber-600': isOpen }"
     class="flex w-full cursor-pointer list-none items-center text-left focus:outline-none [&::-webkit-details-marker]:hidden"
     name="accordion-header"
   >
@@ -36,7 +23,6 @@
     </h2>
 
     <svg
-      :class="{ 'hidden': isOpen, 'block': !isOpen }"
       class="text-primary-400 size-6"
       fill="none"
       stroke-width="1.5"

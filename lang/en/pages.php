@@ -21,7 +21,7 @@ return [
             'title' => 'Our Services',
         ],
         'countries_exports' => [
-            'title' => 'Our Export Countries',
+            'title' => 'Export Countries',
         ],
     ],
     'about' => [
