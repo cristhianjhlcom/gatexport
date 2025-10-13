@@ -7,6 +7,6 @@
     {{-- <x-homepage.products :$categories /> --}}
     <x-homepage.categories :$highlighted_categories />
     <x-homepage.company-services :$company_services />
-    <x-homepage.maps />
+    <x-homepage.maps :$export_continents />
   </main>
 </x-layouts.public>

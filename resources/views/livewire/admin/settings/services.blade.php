@@ -51,7 +51,8 @@
               {{-- Input of the main image --}}
               <flux:file-upload label="Imagen Principal" wire:model="newMainImage">
                 <flux:file-upload.dropzone heading="Drop file here or click to browse"
-                  text="JPG, PNG, GIF up to 10MB" />
+                  text="625x1175 - JPG, PNG, GIF up to 10MB"
+                />
               </flux:file-upload>
 
               @if (Storage::disk('public')->exists($companyServices['main_image']))

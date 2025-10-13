@@ -8,6 +8,7 @@ use App\Actions\Home\GetAbout;
 use App\Actions\Home\GetCompanyProviders;
 use App\Actions\Home\GetCompanyServices;
 use App\Actions\Home\GetCompetitiveAdvantages;
+use App\Actions\Home\GetExportContinents;
 use App\Actions\Home\GetFeaturedCategories;
 use App\Actions\Home\GetGeneralInformation;
 use App\Actions\Home\GetHighlightedCategories;
@@ -31,6 +32,7 @@ final class HomeIndexController extends Controller
             'about' => (new GetAbout)->execute(),
             'highlighted_categories' => (new GetHighlightedCategories)->execute(),
             'company_services' => (new GetCompanyServices)->execute(),
+            'export_continents' => (new GetExportContinents)->execute(),
             'title' => $this->title,
         ]);
     }
