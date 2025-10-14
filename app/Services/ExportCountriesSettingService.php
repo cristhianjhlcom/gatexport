@@ -9,30 +9,6 @@ use Illuminate\Support\Facades\DB;
 
 final class ExportCountriesSettingService
 {
-    protected function formattedContinents(array $continents)
-    {
-        $data = [];
-
-        foreach ($continents as $continent) {
-            $formattedContinent = [
-                'name' => $continent['name'],
-                'countries' => [],
-            ];
-
-            foreach ($continent['countries'] as $country) {
-                $formattedContinent['countries'][] = [
-                    'name' => $country['name'],
-                    'code' => $country['code'],
-                    'export' => (bool) $country['export'],
-                ];
-            }
-
-            $data[] = $formattedContinent;
-        }
-
-        return $data;
-    }
-
     public function load()
     {
         $exportCountries = Setting::get('export_countries', []);
@@ -62,5 +38,29 @@ final class ExportCountriesSettingService
                 ]
             );
         });
+    }
+
+    private function formattedContinents(array $continents)
+    {
+        $data = [];
+
+        foreach ($continents as $continent) {
+            $formattedContinent = [
+                'name' => $continent['name'],
+                'countries' => [],
+            ];
+
+            foreach ($continent['countries'] as $country) {
+                $formattedContinent['countries'][] = [
+                    'name' => $country['name'],
+                    'code' => $country['code'],
+                    'export' => (bool) $country['export'],
+                ];
+            }
+
+            $data[] = $formattedContinent;
+        }
+
+        return $data;
     }
 }

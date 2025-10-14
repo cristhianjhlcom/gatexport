@@ -214,6 +214,7 @@ final class SettingGeneralManagement extends Component
                 text: 'Solo puedes agregar hasta 4 categorías',
                 variant: 'warning',
             );
+
             return;
         }
 

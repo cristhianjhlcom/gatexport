@@ -31,7 +31,6 @@ final class SettingManagementServices
      * 14. handleFileUpload
      * #---------------------------
      */
-
     public function loadProviders(): array
     {
         $settings = Setting::get('providers', []);
@@ -301,7 +300,7 @@ final class SettingManagementServices
                     foreach ($data['tmp_icons'][$locale] as $index => $image) {
                         if (is_object($image) && method_exists($image, 'store')) {
                             // Eliminar el icono existente si está presente
-                            if (!empty($data['company_services'][$locale][$index]['icon'])) {
+                            if (! empty($data['company_services'][$locale][$index]['icon'])) {
                                 Storage::disk('public')->delete($data['company_services'][$locale][$index]['icon']);
                             }
 

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Actions\Home;
 
 use App\Models\Setting;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 
 final class GetHighlightedCategories
@@ -20,7 +19,7 @@ final class GetHighlightedCategories
                 ->where('locale', $locale)
                 ->first();
 
-            if (!$setting) {
+            if (! $setting) {
                 return [];
             }
 

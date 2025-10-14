@@ -47,8 +47,8 @@ final class SettingServicesManagement extends Component
     {
         $this->companyServices = $this->services->loadCompanyServices();
 
-        if (!empty($this->companyServices['main_image']) && is_string($this->companyServices['main_image'])) {
-            $this->newMainImage = NULL;
+        if (! empty($this->companyServices['main_image']) && is_string($this->companyServices['main_image'])) {
+            $this->newMainImage = null;
         }
     }
 
@@ -73,7 +73,7 @@ final class SettingServicesManagement extends Component
             'title' => '',
             'subtitle' => '',
             'description' => '',
-            'icon' => NULL,
+            'icon' => null,
         ];
     }
 
