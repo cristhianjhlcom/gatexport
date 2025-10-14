@@ -17,8 +17,8 @@
 
         <div class="w-full justify-start space-y-4 md:w-1/2 md:space-y-6">
 
-          <header class="relative hidden flex-col space-y-4 lg:flex">
-            @if (isset($company_services['heading']))
+          @if (isset($company_services['heading']))
+            <header class="relative hidden flex-col space-y-4 lg:flex">
               @php
                 $headingParts = explode(' ', $company_services['heading']);
               @endphp
@@ -50,8 +50,7 @@
                   {{ $company_services['heading'] }}
                 </x-common.title>
               @endif
-            @endif
-            {{-- <x-common.title
+              {{-- <x-common.title
               class="text-center sm:text-left"
               level="2"
               size="title"
@@ -68,27 +67,34 @@
             >
               Importadores de Palo Santo
             </x-common.title> --}}
-          </header>
+            </header>
+          @endif
 
-          <header class="relative flex flex-col space-y-4 lg:hidden">
-            <x-common.title
-              class="text-center sm:text-left"
-              level="2"
-              size="title"
-              weight="font-extrabold"
-            >
-              {{ $company_services['heading'] }}
-            </x-common.title>
-            <x-common.separator-line class="mx-auto w-full max-w-[500px]" />
-          </header>
+          @if (isset($company_services['heading']))
+            <header class="relative flex flex-col space-y-4 lg:hidden">
+              <x-common.title
+                class="text-center sm:text-left"
+                level="2"
+                size="title"
+                weight="font-extrabold"
+              >
+                {{ $company_services['heading'] }}
+              </x-common.title>
+              <x-common.separator-line class="mx-auto w-full max-w-[500px]" />
+            </header>
+          @endif
 
-          <div class="space-y-4">
-            <div class="space-y-4 text-[17px] font-light">
-              {!! $company_services['description'] !!}
+          @if (isset($company_services['description']))
+            <div class="space-y-4">
+              <div class="space-y-4 text-[17px] font-light">
+                {!! $company_services['description'] !!}
+              </div>
+
+              @if (isset($company_services['important_message']))
+                <p class="text-primary-400 text-[17px] font-extrabold">{{ $company_services['important_message'] }}</p>
+              @endif
             </div>
-
-            <p class="text-primary-400 text-[17px] font-extrabold">{{ $company_services['important_message'] }}</p>
-          </div>
+          @endif
 
           @if ($company_services)
             <x-common.accordion>
@@ -113,7 +119,9 @@
             </x-common.accordion>
           @endif
 
-          <small class="text-[17px] font-light">{{ $company_services['disclaimer'] }}</small>
+          @if (isset($company_services['disclaimer']))
+            <small class="text-[17px] font-light">{{ $company_services['disclaimer'] }}</small>
+          @endif
 
         </div>
       </div>

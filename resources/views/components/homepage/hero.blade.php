@@ -9,17 +9,21 @@
       <div class="swiper-wrapper h-full">
         @foreach ($promotional_banners as $banner)
           <a class="swiper-slide relative h-full w-full" href="{{ $banner['link_url'] }}">
-            <img
-              alt="{{ $banner['title'] }}"
-              class="absolute inset-0 hidden h-full w-full object-cover md:block"
-              src="{{ Storage::disk('public')->url($banner['image_desktop']) }}"
-            />
+            @if (isset($banner['image_desktop']))
+              <img
+                alt="{{ $banner['title'] }}"
+                class="absolute inset-0 hidden h-full w-full object-cover md:block"
+                src="{{ Storage::disk('public')->url($banner['image_desktop']) }}"
+              />
+            @endif
 
-            <img
-              alt="{{ $banner['title'] }}"
-              class="absolute inset-0 block h-full w-full object-cover md:hidden"
-              src="{{ Storage::disk('public')->url($banner['image_mobile']) }}"
-            />
+            @if (isset($banner['image_mobile']))
+              <img
+                alt="{{ $banner['title'] }}"
+                class="absolute inset-0 block h-full w-full object-cover md:hidden"
+                src="{{ Storage::disk('public')->url($banner['image_mobile']) }}"
+              />
+            @endif
 
             {{-- NOTE: Nuevo diseño.
             <div class="bg-primary-900/50 absolute inset-0"></div>
