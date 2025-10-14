@@ -2,7 +2,7 @@
     'export_continents' => [],
 ])
 
-<article class="bg-white py-10 md:py-16 lg:py-20">
+<article class="relative bg-white py-10 md:py-16 lg:py-20">
   <div
     class="container space-y-6"
     continents="{{ json_encode(['continents' => $export_continents, 'selectedContinent' => []]) }}"
@@ -24,21 +24,22 @@
       <div class="swiper-wrapper">
         @foreach ($export_continents as $continent)
           <div class="swiper-slide relative" data-continent-id="{{ $continent['id'] }}">
+
             <div class="pointer-events-none absolute bottom-0 flex flex-col items-center justify-center">
-              <p class="text-primary-200 text-left text-6xl font-extrabold md:text-[150px] lg:text-[200px]">
+              <p class="text-primary-200 text-left text-3xl font-extrabold md:text-6xl lg:text-9xl">
                 {{ strtoupper($continent['name']) }}
               </p>
             </div>
 
             <div class="relative flex flex-col space-y-4">
-              <div class="absolute right-10 top-10 z-20">
-                <h2 class="text-primary-500 text-center text-5xl font-extrabold uppercase md:text-7xl">
+              <div class="absolute right-10 top-20 z-20">
+                <h2 class="text-primary-500 text-5xl font-extrabold uppercase md:text-7xl">
                   {{ $continent['name'] }}
                 </h2>
                 <x-common.separator-line class="mx-auto w-full max-w-[500px]" />
               </div>
 
-              <ul class="grid-rows-15 z-10 grid auto-cols-max grid-flow-col gap-x-10 gap-y-2 p-4">
+              <ul class="grid-rows-15 z-10 hidden auto-cols-max grid-flow-col gap-x-10 gap-y-2 md:grid md:p-4">
                 @foreach ($continent['countries'] as $country)
                   <li class="flex items-center gap-x-4 text-sm font-normal italic text-gray-900 md:text-2xl">
                     <span class="text-primary-500 text-2xl">
@@ -55,38 +56,39 @@
         @endforeach
       </div>
 
-      <div class="swiper-navigation-buttons absolute bottom-0 right-0 z-30 flex space-x-4 p-4">
-        <div class="swiper-button-prev-custom bg-primary-500 rounded-full p-2 text-white">
-          <svg
-            class="size-6"
-            fill="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              clip-rule="evenodd"
-              d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z"
-              fill-rule="evenodd"
-            />
-          </svg>
-        </div>
-        <div class="swiper-button-next-custom bg-primary-500 rounded-full p-2 text-white">
-          <svg
-            class="size-6"
-            fill="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              clip-rule="evenodd"
-              d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z"
-              fill-rule="evenodd"
-            />
-          </svg>
-        </div>
-      </div>
     </div>
 
+  </div>
+
+  <div class="swiper-navigation-buttons md:right-1/6 absolute bottom-0 right-0 z-30 flex space-x-4 p-4">
+    <div class="swiper-button-prev-custom bg-primary-500 rounded-full p-2 text-white">
+      <svg
+        class="size-6"
+        fill="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          clip-rule="evenodd"
+          d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z"
+          fill-rule="evenodd"
+        />
+      </svg>
+    </div>
+    <div class="swiper-button-next-custom bg-primary-500 rounded-full p-2 text-white">
+      <svg
+        class="size-6"
+        fill="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          clip-rule="evenodd"
+          d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z"
+          fill-rule="evenodd"
+        />
+      </svg>
+    </div>
   </div>
 </article>
 
@@ -200,9 +202,10 @@
 
       const swiper = new Swiper('.swiper-container-countries', {
         delay: 10000, // 10 segundos.
-        autoplay: true,
+        autoplay: false,
         disableOnInteraction: true,
-        loop: true,
+        loop: false,
+        slidesPerView: 1,
         navigation: {
           nextEl: '.swiper-button-next-custom',
           prevEl: '.swiper-button-prev-custom',

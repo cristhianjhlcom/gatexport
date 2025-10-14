@@ -1,15 +1,16 @@
 <div>
   <!-- Follow Us -->
-  <div class="bg-gray-700 py-4 text-white">
+  <div class="bg-primary-500 py-4 text-white">
     <div class="container mx-auto flex items-center gap-x-4 px-4">
-      <x-heading
-        level="3"
-        size="lg"
+      <x-common.title
+        class="text-center"
+        level="2"
+        size="title"
         variant="white"
-        weight="bold"
+        weight="font-extrabold"
       >
         {{ __('layouts.footer.follow_us') }}
-      </x-heading>
+      </x-common.title>
       <div class="flex space-x-4 text-gray-400">
         @if (!empty($general_information['social_media']['facebook']))
           <a
@@ -71,16 +72,23 @@
     </div>
   </div>
 
-  <footer class="bg-gray-900 py-8 text-white">
+  <footer class="bg-primary-600 py-8 text-white">
     <div class="container mx-auto px-4">
       <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
         <!-- Logo and Description -->
-        <div class="col-span-1 lg:col-span-2">
+        <div class="col-span-1 flex flex-col justify-center space-y-4 text-center lg:col-span-2">
           <img
-            alt="Gate Export Logo"
-            class="mb-4 h-12"
+            alt="Gate Export"
+            class="mx-auto h-12"
             src="{{ $company_logos['large_logo'] ?? asset('default-logo.png') }}"
           />
+
+          <x-common.separator-line
+            class="mx-auto w-full"
+            color="border-white"
+            pointColor="bg-white"
+          />
+
           @if (!empty($general_information['translations']['company_short_description']))
             <p class="mb-4 text-gray-400">
               {{ $general_information['translations']['company_short_description'] }}
@@ -90,54 +98,62 @@
 
         <!-- Address -->
         @if (!empty($general_information['contact_information']['address']))
-          <div>
-            <h3 class="mb-4 text-lg font-semibold">
-              {{ __('layouts.footer.address') }}
-            </h3>
+          <div class="space-y-4">
 
-            <address class="flex items-center gap-x-2 not-italic text-gray-400">
-              <flux:icon name="map-pin" />
-              <p>{{ $general_information['contact_information']['address'] }}</p>
-            </address>
+            <div>
+              <h3 class="mb-4 text-lg font-semibold">
+                {{ __('layouts.footer.address') }}
+              </h3>
+
+              <address class="flex items-center gap-x-2 not-italic text-gray-400">
+                <flux:icon name="map-pin" />
+                <p>{{ $general_information['contact_information']['address'] }}</p>
+              </address>
+            </div>
+
+            <!-- Contact Information -->
+            <div>
+              <h3 class="mb-4 text-lg font-semibold">
+                {{ __('layouts.footer.contact_information') }}
+              </h3>
+              <div class="space-y-4 text-gray-400">
+                @if (!empty($general_information['contact_information']['phone']))
+                  <p class="flex items-center gap-x-2">
+                    <flux:icon name="device-phone-mobile" />
+                    <span>{{ $general_information['contact_information']['phone'] }}</span>
+                  </p>
+                @endif
+                @if (!empty($general_information['contact_information']['second_phone']))
+                  <p class="flex items-center gap-x-2">
+                    <flux:icon name="device-phone-mobile" />
+                    {{ $general_information['contact_information']['second_phone'] }}
+                  </p>
+                @endif
+                @if (!empty($general_information['contact_information']['email']))
+                  <p class="flex items-center gap-x-2">
+                    <flux:icon name="envelope" />
+                    {{ $general_information['contact_information']['email'] ?? 'email@example.com' }}
+                  </p>
+                @endif
+              </div>
+            </div>
+
           </div>
         @endif
 
-        <!-- Contact Information -->
         <div>
-          <h3 class="mb-4 text-lg font-semibold">
-            {{ __('layouts.footer.contact_information') }}
-          </h3>
-          <div class="space-y-4 text-gray-400">
-            @if (!empty($general_information['contact_information']['phone']))
-              <p class="flex items-center gap-x-2">
-                <flux:icon name="device-phone-mobile" />
-                <span>{{ $general_information['contact_information']['phone'] }}</span>
-              </p>
-            @endif
-            @if (!empty($general_information['contact_information']['second_phone']))
-              <p class="flex items-center gap-x-2">
-                <flux:icon name="device-phone-mobile" />
-                {{ $general_information['contact_information']['second_phone'] }}
-              </p>
-            @endif
-            @if (!empty($general_information['contact_information']['email']))
-              <p class="flex items-center gap-x-2">
-                <flux:icon name="envelope" />
-                {{ $general_information['contact_information']['email'] ?? 'email@example.com' }}
-              </p>
-            @endif
-          </div>
+
         </div>
       </div>
 
       <!-- Copyright -->
-      <div class="mt-8 border-t border-gray-800 pt-8 text-center text-gray-400">
+      {{-- <div class="mt-8 border-t border-gray-800 pt-8 text-center text-gray-400">
         <p>
           <span>&copy; {{ date('Y') }}</span>
           <span>{{ $general_information['translations']['company_name'] ?? config('app.name') }}.</span>
           <span>{{ __('layouts.footer.copyright') }}</span>
         </p>
-      </div>
+      </div> --}}
     </div>
   </footer>
 </div>

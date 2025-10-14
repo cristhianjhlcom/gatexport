@@ -60,15 +60,8 @@
                   <flux:file-item
                     :image="Storage::disk('public')->url($companyServices['main_image'])"
                     :size="1000"
-                    {{-- :size="Storage::disk('public')->size($service['icon'])" --}}
                     heading="Imagen Principal Actual"
-                  >
-                    {{--
-                        <x-slot name="actions">
-                        <flux:file-item.remove aria-label="{{ 'Remove file: ' . $newMainImage->getClientOriginalName() }}" wire:click="removePhoto" />
-                        </x-slot>
-                        --}}
-                  </flux:file-item>
+                  />
                 </div>
               @endif
 
@@ -78,13 +71,7 @@
                     :heading="$newMainImage->getClientOriginalName()"
                     :image="$newMainImage->temporaryUrl()"
                     :size="$newMainImage->getSize()"
-                  >
-                    {{--
-                    <x-slot name="actions">
-                    <flux:file-item.remove aria-label="{{ 'Remove file: ' . $newMainImage->getClientOriginalName() }}" wire:click="removePhoto" />
-                    </x-slot>
-                    --}}
-                  </flux:file-item>
+                  />
                 </div>
               @endif
 

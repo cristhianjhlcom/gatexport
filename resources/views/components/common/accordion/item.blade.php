@@ -7,10 +7,16 @@
     'open' => false,
 ])
 
-<details class="rounded-2xl bg-white p-4" name="services-accordion">
+<details
+  class="rounded-2xl bg-white p-4"
+  name="services-accordion"
+  x-bind:open="open"
+  x-data="{ open: @json($open) }"
+>
   <summary
     class="flex w-full cursor-pointer list-none items-center text-left focus:outline-none [&::-webkit-details-marker]:hidden"
     name="accordion-header"
+    x-on:click.prevent="open = !open"
   >
     <img
       alt="{{ $title }}"
@@ -22,12 +28,14 @@
       {{ $title }}
     </h2>
 
+    {{-- NOTE: ARROW UP --}}
     <svg
       class="text-primary-400 size-6"
       fill="none"
       stroke-width="1.5"
       stroke="currentColor"
       viewBox="0 0 24 24"
+      x-show="open"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
@@ -36,6 +44,24 @@
         stroke-linejoin="round"
       />
     </svg>
+
+    {{-- NOTE: ARROW DOWN --}}
+    <svg
+      class="text-primary-400 size-6"
+      fill="none"
+      stroke-width="1.5"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      x-show="!open"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="m19.5 8.25-7.5 7.5-7.5-7.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+
   </summary>
   <div class="space-y-4 pt-4 text-center">
     <div class="bg-primary-400 block h-0.5 w-full"></div>

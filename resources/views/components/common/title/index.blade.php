@@ -17,6 +17,7 @@
       'primary' => 'text-primary-500',
       'secondary' => 'text-primary-600 dark:text-gray-100',
       'accent' => 'text-primary-400',
+      'white' => 'text-white',
   ];
 
   $responsive_class = $responsive_sizes[$size] ?? $responsive_sizes['md'];

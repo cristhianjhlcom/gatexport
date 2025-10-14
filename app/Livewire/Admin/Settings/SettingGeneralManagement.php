@@ -27,6 +27,12 @@ final class SettingGeneralManagement extends Component
     #[Validate]
     public $new_catalog_document;
 
+    #[Validate]
+    public $new_white_logo;
+
+    #[Validate]
+    public $new_special_logo;
+
     // NOTE: Properties for other settings.
     #[Validate]
     public $general_info = [
@@ -54,6 +60,8 @@ final class SettingGeneralManagement extends Component
         ],
         'large_logo' => '',
         'small_logo' => '',
+        'white_logo' => '',
+        'special_logo' => '',
         'catalog_document' => '',
     ];
 
@@ -103,6 +111,20 @@ final class SettingGeneralManagement extends Component
             'dimensions:min_width=16,min_height=16,max_width=256,max_height=256',
         ],
         'new_small_logo' => [
+            'nullable',
+            'image',
+            'mimes:png,jpg,jpeg,svg',
+            'max:1024', // 1MB max
+            'dimensions:min_width=32,min_height=32,max_width=200,max_height=200',
+        ],
+        'new_white_logo' => [
+            'nullable',
+            'image',
+            'mimes:png,jpg,jpeg,svg',
+            'max:1024', // 1MB max
+            'dimensions:min_width=32,min_height=32,max_width=200,max_height=200',
+        ],
+        'new_special_logo' => [
             'nullable',
             'image',
             'mimes:png,jpg,jpeg,svg',
@@ -170,6 +192,8 @@ final class SettingGeneralManagement extends Component
             'general_info' => $this->general_info,
             'new_large_logo' => $this->new_large_logo,
             'new_small_logo' => $this->new_small_logo,
+            'new_white_logo' => $this->new_white_logo,
+            'new_special_logo' => $this->new_special_logo,
             'new_catalog_document' => $this->new_catalog_document,
             'highlighted_categories' => $this->highlighted_categories,
             'tmp_highlighted_category_images' => $this->tmp_highlighted_category_images,
@@ -186,8 +210,8 @@ final class SettingGeneralManagement extends Component
     {
         if (count($this->highlighted_categories[$locale]) >= 4) {
             Flux::toast(
-                heading: __('Limit Reached'),
-                text: __('You can only add up to 4 highlighted categories.'),
+                heading: 'Limite alcanzado',
+                text: 'Solo puedes agregar hasta 4 categorías',
                 variant: 'warning',
             );
             return;

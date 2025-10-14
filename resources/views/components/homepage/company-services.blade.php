@@ -15,7 +15,7 @@
           @endif
         </div>
 
-        <div class="w-1/2 justify-start space-y-4 md:space-y-6">
+        <div class="w-full justify-start space-y-4 md:w-1/2 md:space-y-6">
 
           <header class="relative hidden flex-col space-y-4 lg:flex">
             @if (isset($company_services['heading']))
@@ -97,6 +97,7 @@
                   <x-common.accordion.item
                     :content="$service['description']"
                     :icon="$service['icon']"
+                    :open="true"
                     :subtitle="$service['subtitle'] ?? 'Subtítulo Falso'"
                     :title="$service['title']"
                   />

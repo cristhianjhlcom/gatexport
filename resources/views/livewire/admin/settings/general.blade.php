@@ -9,7 +9,7 @@
   <header>
     <flux:heading level="2" size="lg">General Information</flux:heading>
   </header>
-  <section class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+  <section class="grid grid-cols-1 items-start gap-4 sm:grid-cols-2">
     <div class="space-y-6">
       {{-- General Information --}}
       <flux:card class="space-y-4">
@@ -106,45 +106,18 @@
                         />
                       </div>
 
-                      <flux:field class="rounded-sm border border-gray-200 bg-gray-50 p-4">
-                        <div class="flex items-center justify-between gap-4">
-
-                          <div class="w-56">
-                            @if (!empty($category['image']) && is_string($category['image']))
-                              <img
-                                alt="Image Preview"
-                                class="object-contain"
-                                src="{{ Storage::disk('public')->url($category['image']) }}"
-                              />
-                            @elseif (isset($tmp_highlighted_category_images[$locale][$index]) &&
-                                    is_object($tmp_highlighted_category_images[$locale][$index]) &&
-                                    method_exists($tmp_highlighted_category_images[$locale][$index], 'temporaryUrl'))
-                              <img
-                                alt="Image Preview"
-                                class="object-contain"
-                                src="{{ $tmp_highlighted_category_images[$locale][$index]->temporaryUrl() }}"
-                              />
-                            @endif
-                          </div>
-
-                          <div class="flex-1 space-y-4">
-                            <flux:label>Imagen del banner (Desktop)</flux:label>
-                            <flux:input
-                              size="sm"
-                              type="file"
-                              wire:model.live="tmp_highlighted_category_images.{{ $locale }}.{{ $index }}"
-                            />
-
-                            <flux:description size="xs">
-                              Formatos JPG, PNG, WebP o SVG
-                            </flux:description>
-
-                            <flux:error name="highlighted_categories.{{ $locale }}.{{ $index }}" />
-                            <flux:error
-                              name="tmp_highlighted_category_images.{{ $locale }}.{{ $index }}" />
-                          </div>
+                      <div>
+                        <flux:file-upload label="Imagen de la categoría"
+                          wire:model="tmp_highlighted_category_images.{{ $locale }}.{{ $index }}"
+                        >
+                          <flux:file-upload.dropzone inline text="JPG, PNG, GIF o SVG up to 1MB" />
+                        </flux:file-upload>
+                        <div class="mt-3 flex flex-col gap-2">
+                          @if (isset($category['image']))
+                            <flux:file-item :heading="$category['image']" />
+                          @endif
                         </div>
-                      </flux:field>
+                      </div>
 
                       <div class="flex justify-end">
                         <flux:button
@@ -179,78 +152,51 @@
 
     <div class="space-y-6">
       {{-- Company Logos --}}
-      <flux:card class="space-y-4 divide-y divide-gray-200">
-        <flux:field>
-          <div class="flex items-center justify-start gap-x-4">
-            <div class="h-full w-[150px] rounded-sm bg-gray-100 p-4">
-              @if (is_string($settings['large_logo']) || !method_exists($new_large_logo, 'temporaryUrl'))
-                <img
-                  alt="Image Preview"
-                  class="object-contain"
-                  src="{{ Storage::disk('public')->url($settings['large_logo']) }}"
-                />
-              @else
-                <img
-                  alt="Image Preview"
-                  class="object-contain"
-                  src="{{ $new_large_logo->temporaryUrl() }}"
-                />
-              @endif
-            </div>
-
-            <div class="space-y-4">
-              <flux:label>Large Logo</flux:label>
-              <flux:description size="xs">
-                Logo con texto. Recomendado: 400x100px. Formatos: PNG, JPG, SVG. Máximo: 2MB.
-              </flux:description>
-              <flux:input
-                size="sm"
-                type="file"
-                wire:model="new_large_logo"
-              />
-              <div wire:loading wire:target="new_large_logo">
-                <flux:icon.loading />
-              </div>
-              <flux:error name="new_large_logo" />
-            </div>
+      <flux:card class="grid grid-cols-2 items-start gap-4">
+        <div>
+          <flux:file-upload label="Logo blanco" wire:model="new_white_logo">
+            <flux:file-upload.dropzone inline text="JPG, PNG, GIF up to 1MB" />
+          </flux:file-upload>
+          <div class="mt-3 flex flex-col gap-2">
+            @if (isset($settings['white_logo']))
+              <flux:file-item :heading="$settings['white_logo']" />
+            @endif
           </div>
-        </flux:field>
+        </div>
 
-        <flux:field>
-          <div class="flex items-center justify-start gap-x-4">
-            <div class="h-full w-[150px] rounded-sm bg-gray-100 p-4">
-              @if (is_string($settings['small_logo']) || !method_exists($new_small_logo, 'temporaryUrl'))
-                <img
-                  alt="Image Preview"
-                  class="object-contain"
-                  src="{{ Storage::disk('public')->url($settings['small_logo']) }}"
-                />
-              @else
-                <img
-                  alt="Image Preview"
-                  class="object-contain"
-                  src="{{ $new_small_logo->temporaryUrl() }}"
-                />
-              @endif
-            </div>
-
-            <div class="space-y-4">
-              <flux:label>Small Logo</flux:label>
-              <flux:description size="xs">
-                Solo ícono. Recomendado: 64x64px. Formatos: PNG, JPG, SVG. Máximo: 1MB.
-              </flux:description>
-              <flux:input
-                size="sm"
-                type="file"
-                wire:model="new_small_logo"
-              />
-              <div wire:loading wire:target="new_small_logo">
-                <flux:icon.loading />
-              </div>
-              <flux:error name="new_small_logo" />
-            </div>
+        <div>
+          <flux:file-upload label="Logo especial" wire:model="new_special_logo">
+            <flux:file-upload.dropzone inline text="JPG, PNG, GIF up to 1MB" />
+          </flux:file-upload>
+          <div class="mt-3 flex flex-col gap-2">
+            @if (isset($settings['special_logo']))
+              <flux:file-item :heading="$settings['special_logo']" />
+            @endif
           </div>
-        </flux:field>
+        </div>
+
+        <div>
+          <flux:file-upload label="Logo con texto" wire:model="new_large_logo">
+            <flux:file-upload.dropzone inline text="JPG, PNG, GIF up to 1MB" />
+          </flux:file-upload>
+          <div class="mt-3 flex flex-col gap-2">
+            @if (isset($settings['large_logo']))
+              <flux:file-item :heading="$settings['large_logo']" />
+            @endif
+          </div>
+        </div>
+
+        <div>
+          <flux:file-upload label="Logo sin texto" wire:model="new_small_logo">
+            <flux:file-upload.dropzone inline text="JPG, PNG, GIF up to 1MB" />
+          </flux:file-upload>
+          <div class="mt-3 flex flex-col gap-2">
+            @if (isset($settings['small_logo']))
+              <flux:file-item :heading="$settings['small_logo']" />
+            @endif
+          </div>
+        </div>
+
       </flux:card>
       {{-- #End Company Logos --}}
 
@@ -382,9 +328,9 @@
     </div>
   </section>
 
-  <div>
+  <div class="fixed bottom-0 w-full border-gray-200 bg-white/75 py-2">
     <flux:button type="submit" variant="primary">
-      Save Settings
+      Guardar configuración
     </flux:button>
   </div>
 </form>

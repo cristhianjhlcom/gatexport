@@ -23,23 +23,23 @@
       @foreach ($highlighted_categories['translations'] as $index => $category)
         @if ($index === 0)
           {{-- 1. PALO SANTO: col-span-2 en mobile, col-span-1 en desktop. Altura completa. --}}
-          <a class="relative col-span-2 flex h-[34rem] items-end overflow-hidden p-6 lg:col-span-1"
+          <a class="relative col-span-2 flex h-[300px] items-end overflow-hidden p-6 md:h-[34rem] lg:col-span-1"
             href="{{ $category['url'] }}"
           >
             <img
               alt="{{ $category['title'] }}"
-              class="absolute inset-0 h-full w-full object-fill transition-opacity hover:opacity-90"
+              class="absolute inset-0 h-full w-full transition-opacity hover:opacity-90 md:object-fill"
               src="{{ Storage::disk('public')->url($category['image']) }}"
             >
           </a>
         @elseif ($index === 1)
           {{-- 2. INCIENSOS: col-span-2 en mobile, col-span-1 en desktop. Altura completa. --}}
-          <a class="relative col-span-2 flex h-[34rem] items-end overflow-hidden p-6 lg:col-span-1"
+          <a class="relative col-span-2 flex h-[300px] items-end overflow-hidden p-6 md:h-[34rem] lg:col-span-1"
             href="{{ $category['url'] }}"
           >
             <img
               alt="{{ $category['title'] }}"
-              class="absolute inset-0 h-full w-full object-fill transition-opacity hover:opacity-90"
+              class="absolute inset-0 h-full w-full transition-opacity hover:opacity-90 md:object-fill"
               src="{{ Storage::disk('public')->url($category['image']) }}"
             >
           </a>
@@ -50,12 +50,12 @@
           @endif
 
           {{-- Bloques pequeños --}}
-          <a class="relative col-span-2 flex h-[16.5rem] items-end overflow-hidden p-4 lg:col-span-1"
+          <a class="relative col-span-2 flex h-[300px] items-end overflow-hidden p-4 md:h-[16.5rem] lg:col-span-1"
             href="{{ $category['url'] }}"
           >
             <img
               alt="{{ $category['title'] }}"
-              class="absolute inset-0 h-full w-full object-fill transition-opacity hover:opacity-90"
+              class="absolute inset-0 h-full w-full object-contain transition-opacity hover:opacity-90 md:object-fill"
               src="{{ Storage::disk('public')->url($category['image']) }}"
             >
           </a>
