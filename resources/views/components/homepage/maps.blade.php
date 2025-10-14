@@ -202,9 +202,9 @@
 
       const swiper = new Swiper('.swiper-container-countries', {
         delay: 10000, // 10 segundos.
-        autoplay: false,
+        autoplay: true,
         disableOnInteraction: true,
-        loop: false,
+        loop: true,
         slidesPerView: 1,
         navigation: {
           nextEl: '.swiper-button-next-custom',
