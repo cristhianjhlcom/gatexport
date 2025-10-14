@@ -10,7 +10,7 @@
     <flux:card class="space-y-4">
       <header class="space-y-2">
         <flux:heading level="2" size="lg">
-          {{ __('About Us') }}
+          Acerca de nosotros
         </flux:heading>
         <flux:separator />
       </header>
@@ -26,20 +26,20 @@
           <flux:tab.panel class="space-y-4" name="{{ $locale }}">
 
             <flux:editor
-              badge="{{ __('Required') }}"
-              label="{{ __('History') }}"
+              badge="Requerido"
+              label="Historia"
               wire:model="about.{{ $locale }}.history"
             />
 
             <flux:editor
-              badge="{{ __('Required') }}"
-              label="{{ __('Mission') }}"
+              badge="Requerido"
+              label="Misión"
               wire:model="about.{{ $locale }}.mission"
             />
 
             <flux:editor
-              badge="{{ __('Required') }}"
-              label="{{ __('Vision') }}"
+              badge="Requerido"
+              label="Visión"
               wire:model="about.{{ $locale }}.vision"
             />
 
@@ -49,90 +49,44 @@
     </flux:card>
 
     <div>
-      <flux:card class="space-y-4 divide-y divide-gray-200">
+      <flux:card class="space-y-4">
         <header class="space-y-2">
           <flux:heading level="2" size="lg">
-            {{ __('About Us Image') }}
+            Imagenes
           </flux:heading>
-          <flux:description size="xs">
-            {{ __('Manage the about us images of your company.') }}
-          </flux:description>
-          <flux:separator />
         </header>
 
-        <flux:field>
-          <div class="flex items-center justify-start gap-x-4">
-            <div class="h-full w-[150px] rounded-sm bg-gray-100 p-4">
-              @if (is_string($about['first_image']) || !method_exists($new_first_image, 'temporaryUrl'))
-                <img
-                  alt="Image Preview"
-                  class="aspect-square h-auto w-[200px] object-contain"
-                  src="{{ Storage::disk('public')->url($about['first_image']) }}"
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <flux:file-upload label="Primera Imagen" wire:model="new_first_image">
+              <flux:file-upload.dropzone inline text="300x450 - PNG, JPG, WEBP - Máx 2MB" />
+            </flux:file-upload>
+            @if (isset($about['first_image']))
+              <div class="mt-4 flex flex-col gap-2">
+                <flux:file-item
+                  heading="{{ Storage::disk('public')->url($about['first_image']) }}"
+                  image="{{ Storage::disk('public')->url($about['first_image']) }}"
+                  size="{{ Storage::disk('public')->size($about['first_image']) }}"
                 />
-              @else
-                <img
-                  alt="Image Preview"
-                  class="aspect-square h-auto w-[200px] object-contain"
-                  src="{{ $new_first_image->temporaryUrl() }}"
-                />
-              @endif
-            </div>
-
-            <div class="space-y-4">
-              <flux:label>{{ __('Imagen principal') }}</flux:label>
-              <flux:description size="xs">
-                Imagen principal entre 500x500px - 1000x1000px. Formatos: PNG, JPG, WEBP. Máximo: 2MB.
-              </flux:description>
-              <flux:input
-                size="sm"
-                type="file"
-                wire:model="new_first_image"
-              />
-              <div wire:loading wire:target="new_first_image">
-                <flux:icon.loading />
               </div>
-              <flux:error name="new_first_image" />
-            </div>
+            @endif
           </div>
-        </flux:field>
 
-        <flux:field>
-          <div class="flex items-center justify-start gap-x-4">
-            <div class="h-full w-[150px] rounded-sm bg-gray-100 p-4">
-              @if (is_string($about['second_image']) || !method_exists($new_second_image, 'temporaryUrl'))
-                <img
-                  alt="Image Preview"
-                  class="aspect-square h-auto w-[200px] object-contain"
-                  src="{{ Storage::disk('public')->url($about['second_image']) }}"
+          <div>
+            <flux:file-upload label="Segunda Imagen" wire:model="new_second_image">
+              <flux:file-upload.dropzone inline text="300x450 - PNG, JPG, WEBP - Máx 2MB" />
+            </flux:file-upload>
+            @if (isset($about['second_image']))
+              <div class="mt-4 flex flex-col gap-2">
+                <flux:file-item
+                  heading="{{ Storage::disk('public')->url($about['second_image']) }}"
+                  image="{{ Storage::disk('public')->url($about['second_image']) }}"
+                  size="{{ Storage::disk('public')->size($about['second_image']) }}"
                 />
-              @else
-                <img
-                  alt="Image Preview"
-                  class="aspect-square h-auto w-[200px] object-contain"
-                  src="{{ $new_second_image->temporaryUrl() }}"
-                />
-              @endif
-            </div>
-
-            <div class="space-y-4">
-              <flux:label>
-                {{ __('Secondary Image') }}
-              </flux:label>
-              <flux:description size="xs">
-                Imagen segundaria 500x500px - 1000x1000px. Formatos: PNG, JPG, WEBP. Máximo: 2MB.
-              </flux:description>
-              <flux:input
-                size="sm"
-                type="file"
-                wire:model="new_second_image"
-              />
-              <div wire:loading wire:target="new_second_image">
-                <flux:icon.loading />
               </div>
-              <flux:error name="new_second_image" />
-            </div>
+            @endif
           </div>
-        </flux:field>
+        </div>
 
         <flux:callout icon="exclamation-circle" variant="warning">
           <flux:callout.heading>Información importante</flux:callout.heading>
@@ -152,9 +106,9 @@
     </div>
   </div>
 
-  <div>
+  <div class="fixed bottom-0 w-full bg-white/75 py-2">
     <flux:button type="submit" variant="primary">
-      {{ __('Save Settings') }}
+      Guardar configuración
     </flux:button>
   </div>
 </form>

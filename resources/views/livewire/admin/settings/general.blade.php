@@ -155,7 +155,7 @@
       <flux:card class="grid grid-cols-2 items-start gap-4">
         <div>
           <flux:file-upload label="Logo blanco" wire:model="new_white_logo">
-            <flux:file-upload.dropzone inline text="JPG, PNG, GIF up to 1MB" />
+            <flux:file-upload.dropzone inline text="JPG, PNG, SVG up to 1MB" />
           </flux:file-upload>
           <div class="mt-3 flex flex-col gap-2">
             @if (isset($settings['white_logo']))
@@ -166,7 +166,7 @@
 
         <div>
           <flux:file-upload label="Logo especial" wire:model="new_special_logo">
-            <flux:file-upload.dropzone inline text="JPG, PNG, GIF up to 1MB" />
+            <flux:file-upload.dropzone inline text="JPG, PNG, SVG up to 1MB" />
           </flux:file-upload>
           <div class="mt-3 flex flex-col gap-2">
             @if (isset($settings['special_logo']))
@@ -328,7 +328,7 @@
     </div>
   </section>
 
-  <div class="fixed bottom-0 w-full border-gray-200 bg-white/75 py-2">
+  <div class="fixed bottom-0 w-full bg-white/75 py-2">
     <flux:button type="submit" variant="primary">
       Guardar configuración
     </flux:button>

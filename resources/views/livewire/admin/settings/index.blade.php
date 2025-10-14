@@ -247,9 +247,9 @@
   <!-- Save Button -->
   <flux:separator />
 
-  <div>
-    <flux:button variant="primary" wire:click="save">
-      {{ __('Save Settings') }}
+  <div class="fixed bottom-0 w-full bg-white/75 py-2">
+    <flux:button type="submit" variant="primary">
+      Guardar configuración
     </flux:button>
   </div>
 </div>

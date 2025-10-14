@@ -26,9 +26,9 @@
     </section>
   </section>
 
-  <div>
+  <div class="fixed bottom-0 w-full bg-white/75 py-2">
     <flux:button type="submit" variant="primary">
-      {{ __('Save Settings') }}
+      Guardar configuración
     </flux:button>
   </div>
 </form>

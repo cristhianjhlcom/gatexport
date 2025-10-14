@@ -141,9 +141,16 @@
           </div>
         @endif
 
-        <div>
-
-        </div>
+        <!-- 10 Years of Exports -->
+        @if (!empty($company_logos['special_logo']))
+          <div>
+            <img
+              alt="Más de 10 años exportando"
+              class="mx-auto aspect-square"
+              src="{{ $company_logos['special_logo'] }}"
+            />
+          </div>
+        @endif
       </div>
 
       <!-- Copyright -->

@@ -105,32 +105,36 @@ final class SettingGeneralManagement extends Component
 
         'new_large_logo' => [
             'nullable',
-            'image',
-            'mimes:ico,png',
-            'max:512', // 512KB max
+            // 'image',
+            'mimes:png,jpg,jpeg,svg',
+            'max:1024', // 1MB max
             'dimensions:min_width=16,min_height=16,max_width=256,max_height=256',
         ],
+
         'new_small_logo' => [
             'nullable',
-            'image',
+            // 'image',
             'mimes:png,jpg,jpeg,svg',
             'max:1024', // 1MB max
             'dimensions:min_width=32,min_height=32,max_width=200,max_height=200',
         ],
+
         'new_white_logo' => [
             'nullable',
-            'image',
+            // 'image',
             'mimes:png,jpg,jpeg,svg',
             'max:1024', // 1MB max
             'dimensions:min_width=32,min_height=32,max_width=200,max_height=200',
         ],
+
         'new_special_logo' => [
             'nullable',
-            'image',
+            // 'image',
             'mimes:png,jpg,jpeg,svg',
             'max:1024', // 1MB max
             'dimensions:min_width=32,min_height=32,max_width=200,max_height=200',
         ],
+
         /*
         'new_favicon' => [
             'nullable',

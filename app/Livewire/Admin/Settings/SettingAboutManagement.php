@@ -57,14 +57,14 @@ final class SettingAboutManagement extends Component
             'image',
             'mimes:png,jpg,jpeg,webp',
             'max:2048', // 2MB max
-            'dimensions:min_width=500,min_height=500,max_width=1000,max_height=1000',
+            'dimensions:min_width=300,min_height=450,max_width=300,max_height=450',
         ],
         'new_second_image' => [
             'nullable',
             'image',
             'mimes:png,jpg,jpeg,webp',
             'max:2048', // 2MB max
-            'dimensions:min_width=500,min_height=500,max_width=1000,max_height=1000',
+            'dimensions:min_width=300,min_height=450,max_width=300,max_height=450',
         ],
     ];
 
