@@ -96,10 +96,10 @@
           @endif
         </div>
 
-        <!-- Address -->
-        @if (!empty($general_information['contact_information']['address']))
-          <div class="space-y-4">
+        <div class="space-y-4">
 
+          <!-- Address -->
+          @if (!empty($general_information['contact_information']['address']))
             <div>
               <h3 class="mb-4 text-lg font-semibold">
                 {{ __('layouts.footer.address') }}
@@ -110,36 +110,36 @@
                 <p>{{ $general_information['contact_information']['address'] }}</p>
               </address>
             </div>
+          @endif
 
-            <!-- Contact Information -->
-            <div>
-              <h3 class="mb-4 text-lg font-semibold">
-                {{ __('layouts.footer.contact_information') }}
-              </h3>
-              <div class="space-y-4 text-gray-400">
-                @if (!empty($general_information['contact_information']['phone']))
-                  <p class="flex items-center gap-x-2">
-                    <flux:icon name="device-phone-mobile" />
-                    <span>{{ $general_information['contact_information']['phone'] }}</span>
-                  </p>
-                @endif
-                @if (!empty($general_information['contact_information']['second_phone']))
-                  <p class="flex items-center gap-x-2">
-                    <flux:icon name="device-phone-mobile" />
-                    {{ $general_information['contact_information']['second_phone'] }}
-                  </p>
-                @endif
-                @if (!empty($general_information['contact_information']['email']))
-                  <p class="flex items-center gap-x-2">
-                    <flux:icon name="envelope" />
-                    {{ $general_information['contact_information']['email'] ?? 'email@example.com' }}
-                  </p>
-                @endif
-              </div>
+          <!-- Contact Information -->
+          <div>
+            <h3 class="mb-4 text-lg font-semibold">
+              {{ __('layouts.footer.contact_information') }}
+            </h3>
+            <div class="space-y-4 text-gray-400">
+              @if (!empty($general_information['contact_information']['phone']))
+                <p class="flex items-center gap-x-2">
+                  <flux:icon name="device-phone-mobile" />
+                  <span>{{ $general_information['contact_information']['phone'] }}</span>
+                </p>
+              @endif
+              {{-- @if (!empty($general_information['contact_information']['second_phone']))
+                <p class="flex items-center gap-x-2">
+                  <flux:icon name="device-phone-mobile" />
+                  {{ $general_information['contact_information']['second_phone'] }}
+                </p>
+              @endif --}}
+              @if (!empty($general_information['contact_information']['email']))
+                <p class="flex items-center gap-x-2">
+                  <flux:icon name="envelope" />
+                  {{ $general_information['contact_information']['email'] ?? 'email@example.com' }}
+                </p>
+              @endif
             </div>
-
           </div>
-        @endif
+
+        </div>
 
         <!-- 10 Years of Exports -->
         @if (!empty($company_logos['special_logo']))

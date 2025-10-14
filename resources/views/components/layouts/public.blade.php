@@ -95,7 +95,7 @@
     <!-- End Google Tag Manager (noscript) -->
   @endproduction
   <flux:header
-    class="z-50 border-b border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900"
+    class="dark:bg-primary-600 dark:border-primary-600 z-50 border-b border-zinc-200 bg-zinc-50"
     container
     sticky
   >

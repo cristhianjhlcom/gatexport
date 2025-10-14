@@ -3,7 +3,7 @@
 ])
 
 @if (count($competitive_advantages) > 0)
-  <section class="bg-primary-50 space-y-10 dark:bg-gray-800" id="advantages">
+  <section class="bg-primary-50 dark:bg-primary-50 space-y-10" id="advantages">
     <div class="container space-y-16 overflow-hidden">
 
       <header class="flex flex-col space-y-4">
@@ -29,7 +29,9 @@
                 src="{{ Storage::disk('public')->url($advantage['image']) }}"
               >
 
-              <h3 class="text-primary-600 text-sm font-bold leading-tight sm:text-xs md:text-[15px] dark:text-gray-100">
+              <h3
+                class="text-primary-600 dark:text-primary-600 text-sm font-bold leading-tight sm:text-xs md:text-[15px]"
+              >
                 {{ $advantage['title'] }}
               </h3>
 

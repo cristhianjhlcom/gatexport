@@ -66,6 +66,6 @@
   <div class="space-y-4 pt-4 text-center">
     <div class="bg-primary-400 block h-0.5 w-full"></div>
     <h3 class="text-sm font-bold italic text-gray-600 md:text-[17px]">{{ $subtitle }}</h3>
-    <p class="text-sm leading-snug">{!! $content !!}</p>
-  </div>
+    <div class="text-sm leading-snug text-gray-900 dark:text-gray-900">{!! $content !!}</p>
+    </div>
 </details>

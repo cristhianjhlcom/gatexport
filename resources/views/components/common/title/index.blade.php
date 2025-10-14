@@ -14,10 +14,10 @@
   ];
 
   $variant_colors = [
-      'primary' => 'text-primary-500',
-      'secondary' => 'text-primary-600 dark:text-gray-100',
-      'accent' => 'text-primary-400',
-      'white' => 'text-white',
+      'primary' => 'text-primary-500 dark:text-primary-500',
+      'secondary' => 'text-primary-600 dark:text-primary-600',
+      'accent' => 'text-primary-400 dark:text-primary-400',
+      'white' => 'text-white dark:text-white',
   ];
 
   $responsive_class = $responsive_sizes[$size] ?? $responsive_sizes['md'];

@@ -86,12 +86,13 @@
 
           @if (isset($company_services['description']))
             <div class="space-y-4">
-              <div class="space-y-4 text-[17px] font-light">
+              <div class="space-y-4 text-[17px] font-light text-gray-900">
                 {!! $company_services['description'] !!}
               </div>
 
               @if (isset($company_services['important_message']))
-                <p class="text-primary-400 text-[17px] font-extrabold">{{ $company_services['important_message'] }}</p>
+                <p class="text-primary-400 dark:text-primary-400 text-[17px] font-extrabold">
+                  {{ $company_services['important_message'] }}</p>
               @endif
             </div>
           @endif
@@ -120,7 +121,8 @@
           @endif
 
           @if (isset($company_services['disclaimer']))
-            <small class="text-[17px] font-light">{{ $company_services['disclaimer'] }}</small>
+            <small
+              class="text-[17px] font-light text-gray-900 dark:text-gray-900">{{ $company_services['disclaimer'] }}</small>
           @endif
 
         </div>

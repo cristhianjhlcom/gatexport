@@ -10,7 +10,7 @@
   ];
 
   $variant_colors = [
-      'base' => 'text-gray-900 dark:text-gray-50',
+      'base' => 'text-gray-900 dark:text-gray-900',
   ];
 
   $responsive_class = $responsive_sizes[$size] ?? $responsive_sizes['base'];

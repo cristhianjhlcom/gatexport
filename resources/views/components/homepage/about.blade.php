@@ -3,7 +3,7 @@
     'general_information' => [],
 ])
 
-<article class="bg-primary-50 py-10 md:py-16 lg:py-20 dark:bg-gray-800" id="about-us">
+<article class="bg-primary-50 dark:bg-primary-50 py-10 md:py-16 lg:py-20" id="about-us">
   <div class="container space-y-8 md:space-y-12">
     <div class="relative flex flex-col-reverse items-start gap-8 md:flex-row md:gap-12">
 
@@ -41,9 +41,9 @@
             {{ __('pages.home.about.title') }}
           </x-common.title>
 
-          <x-common.paragraph>
+          <div class="space-y-4 text-gray-900">
             {!! $general_information['translations']['company_description'] !!}
-          </x-common.paragraph>
+          </div>
 
           {{-- NOTE: Por rediseño esta sección se oculta temporalmente
           <div class="flex flex-col gap-4 sm:flex-row">

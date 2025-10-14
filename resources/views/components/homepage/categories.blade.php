@@ -2,7 +2,7 @@
     'highlighted_categories' => [],
 ])
 
-<section class="bg-primary-50 py-10 md:py-14 dark:bg-gray-800">
+<section class="bg-primary-50 dark:bg-primary-50 py-10 md:py-14">
 
   <div class="container space-y-16 overflow-hidden">
 
