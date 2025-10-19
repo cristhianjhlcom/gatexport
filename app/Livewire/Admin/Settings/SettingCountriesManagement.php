@@ -7,7 +7,6 @@ namespace App\Livewire\Admin\Settings;
 use App\Services\ExportCountriesSettingService;
 use Flux\Flux;
 use Livewire\Attributes\Layout;
-use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 #[Layout('components.layouts.admin')]

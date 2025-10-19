@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Livewire\Admin\Settings;
 
 use App\Models\Setting;
-use App\Services\SettingManagementServices;
+use App\Services\AboutUsSettingService;
 use Flux\Flux;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Validate;
@@ -18,48 +18,66 @@ final class SettingAboutManagement extends Component
     use WithFileUploads;
 
     #[Validate]
-    public $new_first_image;
+    public $newHomeFirstImage;
 
-    #[Validate]
-    public $new_second_image;
+    public $newHomeSecondImage;
+
+    public $newHeroImage;
 
     #[Validate]
     public $about = [
         'es' => [
+            'home' => [
+                'history' => '',
+            ],
+            'mainHistory' => '',
             'history' => '',
             'mission' => '',
             'vision' => '',
         ],
         'en' => [
+            'home' => [
+                'history' => '',
+            ],
+            'mainHistory' => '',
             'history' => '',
             'mission' => '',
             'vision' => '',
         ],
 
-        'first_image' => '',
-        'second_image' => '',
+        'home_first_image' => '',
+        'home_second_image' => '',
         'youtube_video_id' => '',
     ];
 
-    protected SettingManagementServices $services;
-
     protected $rules = [
-        'about.es.history' => 'required|string|max:2000',
+        'about.es.home.history' => 'required|string|max:2000',
+        'about.es.mainHistory' => 'required|string|max:2000',
         'about.es.mission' => 'required|string|max:2000',
         'about.es.vision' => 'required|string|max:2000',
-        'about.en.history' => 'required|string|max:2000',
+        'about.en.home.history' => 'required|string|max:2000',
+        'about.en.mainHistory' => 'required|string|max:2000',
         'about.en.mission' => 'required|string|max:2000',
         'about.en.vision' => 'required|string|max:2000',
         'about.youtube_video_id' => 'nullable|string|min:7|max:30',
 
-        'new_first_image' => [
+        'newHeroImage' => [
+            'nullable',
+            'image',
+            'mimes:png,jpg,jpeg,webp',
+            'max:2048', // 2MB max
+            'dimensions:width=900,height=700',
+        ],
+
+        'newHomeFirstImage' => [
             'nullable',
             'image',
             'mimes:png,jpg,jpeg,webp',
             'max:2048', // 2MB max
             'dimensions:min_width=300,min_height=450,max_width=300,max_height=450',
         ],
-        'new_second_image' => [
+
+        'newHomeSecondImage' => [
             'nullable',
             'image',
             'mimes:png,jpg,jpeg,webp',
@@ -68,29 +86,32 @@ final class SettingAboutManagement extends Component
         ],
     ];
 
+    protected AboutUsSettingService $services;
+
     public function boot()
     {
-        $this->services = app(SettingManagementServices::class);
+        $this->services = app(AboutUsSettingService::class);
     }
 
     public function mount()
     {
-        $this->about = $this->services->loadAbout();
+        $this->about = $this->services->load();
     }
 
     public function save()
     {
         $this->validate();
 
-        $this->services->saveAbout([
+        $this->services->save([
             'about' => $this->about,
-            'new_first_image' => $this->new_first_image,
-            'new_second_image' => $this->new_second_image,
+            'new_hero_image' => $this->newHeroImage,
+            'new_home_first_image' => $this->newHomeFirstImage,
+            'new_home_second_image' => $this->newHomeSecondImage,
         ]);
 
         Flux::toast(
-            heading: __('Settings Updated'),
-            text: __('Settings have been updated successfully.'),
+            heading: 'Configuración actualizada',
+            text: 'La configuración ha sido actualizada correctamente',
             variant: 'success',
         );
     }
@@ -99,8 +120,8 @@ final class SettingAboutManagement extends Component
     {
         return view('livewire.admin.settings.about')
             ->with([
-                'about' => Setting::get('about'),
+                'about' => $this->about,
             ])
-            ->title('About | Settings | Management');
+            ->title('Nosotros | Settings | Management');
     }
 }

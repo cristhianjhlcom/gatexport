@@ -16,13 +16,11 @@ final class SettingManagementServices
     /**
      * #---------------------------
      * 01. loadProviders
-     * 02. loadAbout
      * 03. loadCompetitiveAdvantages
      * 04. loadCompanyServices
      * 05. loadBanners
      * 06. loadGeneralInformation
      * 07. loadHighlightedCategories
-     * 08. saveAbout
      * 09. saveCompetitiveAdvantages
      * 10. saveCompanyServices
      * 11. saveProviders
@@ -43,30 +41,6 @@ final class SettingManagementServices
         }
 
         return $settings;
-    }
-
-    public function loadAbout(): array
-    {
-        $about = [];
-
-        foreach ($this->available_locales as $locale) {
-            $about[$locale] = [
-                'history' => '',
-                'mission' => '',
-                'vision' => '',
-            ];
-
-            $setting_about = Setting::getByLocale('about', $locale);
-
-            if ($setting_about) {
-                $about[$locale] = $setting_about['translations'] ?? $about[$locale];
-                $about['first_image'] = $setting_about['first_image'] ?? '';
-                $about['second_image'] = $setting_about['second_image'] ?? '';
-                $about['youtube_video_id'] = $setting_about['youtube_video_id'] ?? '';
-            }
-        }
-
-        return $about;
     }
 
     public function loadCompetitiveAdvantages(): array
@@ -215,39 +189,6 @@ final class SettingManagementServices
         }
 
         return $highlighted_categories;
-    }
-
-    public function saveAbout(array $data)
-    {
-        DB::transaction(function () use ($data) {
-            if ($data['new_first_image']) {
-                $data['about']['first_image'] = $this->handleFileUpload($data['new_first_image'], 'uploads/about');
-            }
-
-            if ($data['new_second_image']) {
-                $data['about']['second_image'] = $this->handleFileUpload($data['new_second_image'], 'uploads/about');
-            }
-
-            foreach ($this->available_locales as $locale) {
-                Setting::updateOrCreate(
-                    [
-                        'key' => 'about',
-                        'locale' => $locale,
-                        'group' => 'about',
-                    ],
-                    [
-                        'value' => [
-                            'translations' => $data['about'][$locale],
-                            'first_image' => $data['about']['first_image'],
-                            'second_image' => $data['about']['second_image'],
-                            'youtube_video_id' => $data['about']['youtube_video_id'],
-                        ],
-                        'type' => 'json',
-                        'is_public' => true,
-                    ]
-                );
-            }
-        });
     }
 
     public function saveCompetitiveAdvantages(array $data)
