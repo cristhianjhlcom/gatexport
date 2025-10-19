@@ -2,52 +2,15 @@
   <main class="space-y-6">
     @include('pages.about-us.hero')
 
-    {{-- Mission and Vision --}}
-    @if (count($about) > 0)
-      <section class="container space-y-6">
-        <div class="grid grid-cols-1 items-center gap-8 py-10 md:grid-cols-2">
-          <article class="space-y-4">
-            @if ($about['translations']['mission'])
-              <x-heading
-                level="2"
-                size="lg"
-                weight="black"
-              >
-                {{ __('pages.about.mission') }}
-              </x-heading>
+    @include('pages.about-us.commitment')
 
-              <flux:text>
-                {!! $about['translations']['mission'] !!}
-              </flux:text>
-              <flux:separator />
-            @endif
+    @include('pages.about-us.quality-control')
 
-            @if ($about['translations']['vision'])
-              <x-heading
-                level="2"
-                size="lg"
-                weight="black"
-              >
-                {{ __('pages.about.vision') }}
-              </x-heading>
+    @include('pages.about-us.certification')
 
-              <flux:text>
-                {!! $about['translations']['vision'] !!}
-              </flux:text>
-            @endif
-          </article>
+    @include('pages.about-us.history')
 
-          <article class="space-y-4">
-            @if ($about && $about['youtube_video_id'])
-              <div class="w-full">
-                <lite-youtube videoid="{{ $about['youtube_video_id'] }}"></lite-youtube>
-              </div>
-            @endif
-          </article>
-        </div>
-      </section>
-    @endif
-    {{-- #End Mission and Vision --}}
+    @include('pages.about-us.values')
 
     {{-- Contact Information --}}
     @if (count($general_information) > 0)

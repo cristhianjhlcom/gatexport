@@ -6,13 +6,19 @@
 @endphp
 
 <form class="space-y-6" wire:submit.prevent="save">
+  <header class="space-y-2">
+    <flux:heading level="2" size="lg">
+      Página acerca de nosotros
+    </flux:heading>
+  </header>
   <div class="grid grid-cols-1 items-start gap-4 sm:grid-cols-2">
     {{-- About us Page Settings --}}
     <div class="space-y-4">
+      {{-- Hero Section --}}
       <flux:card class="space-y-4">
         <header class="space-y-2">
           <flux:heading level="2" size="lg">
-            Página acerca de nosotros
+            Banner Principal
           </flux:heading>
         </header>
 
@@ -39,6 +45,117 @@
                 />
               </flux:file-upload>
 
+            </flux:tab.panel>
+          @endforeach
+        </flux:tab.group>
+      </flux:card>
+      {{-- #End Hero Section --}}
+
+      {{-- Commitment --}}
+      <flux:card class="space-y-4">
+        <header class="space-y-2">
+          <flux:heading level="2" size="lg">
+            Nuestro Compromiso
+          </flux:heading>
+        </header>
+
+        <flux:tab.group>
+          <flux:tabs variant="segmented">
+            @foreach ($locales as $locale => $name)
+              <flux:tab name="{{ $locale }}">{{ $name }}</flux:tab>
+            @endforeach
+          </flux:tabs>
+
+          @foreach ($locales as $locale => $name)
+            <h1>Commitment {{ $name }}</h1>
+          @endforeach
+        </flux:tab.group>
+      </flux:card>
+      {{-- #End Commitment --}}
+
+      {{-- Quality Control --}}
+      <flux:card class="space-y-4">
+        <header class="space-y-2">
+          <flux:heading level="2" size="lg">
+            Nuestro Compromiso
+          </flux:heading>
+        </header>
+
+        <flux:tab.group>
+          <flux:tabs variant="segmented">
+            @foreach ($locales as $locale => $name)
+              <flux:tab name="{{ $locale }}">{{ $name }}</flux:tab>
+            @endforeach
+          </flux:tabs>
+
+          @foreach ($locales as $locale => $name)
+            <h1>Quality Control {{ $name }}</h1>
+          @endforeach
+        </flux:tab.group>
+      </flux:card>
+      {{-- #End Quality Control --}}
+
+      {{-- Certificatios --}}
+      <flux:card class="space-y-4">
+        <header class="space-y-2">
+          <flux:heading level="2" size="lg">
+            Certificationes
+          </flux:heading>
+        </header>
+
+        <flux:tab.group>
+          <flux:tabs variant="segmented">
+            @foreach ($locales as $locale => $name)
+              <flux:tab name="{{ $locale }}">{{ $name }}</flux:tab>
+            @endforeach
+          </flux:tabs>
+
+          @foreach ($locales as $locale => $name)
+            <h1>Certifications {{ $name }}</h1>
+          @endforeach
+        </flux:tab.group>
+      </flux:card>
+      {{-- #End Certifications --}}
+
+      {{-- History --}}
+      <flux:card class="space-y-4">
+        <header class="space-y-2">
+          <flux:heading level="2" size="lg">
+            Nuestra Historia
+          </flux:heading>
+        </header>
+
+        <flux:tab.group>
+          <flux:tabs variant="segmented">
+            @foreach ($locales as $locale => $name)
+              <flux:tab name="{{ $locale }}">{{ $name }}</flux:tab>
+            @endforeach
+          </flux:tabs>
+
+          @foreach ($locales as $locale => $name)
+            <h1>History {{ $name }}</h1>
+          @endforeach
+        </flux:tab.group>
+      </flux:card>
+      {{-- #End History --}}
+
+      {{-- Values, Mission and Vision --}}
+      <flux:card class="space-y-4">
+        <header class="space-y-2">
+          <flux:heading level="2" size="lg">
+            Valores, Mision y Vision
+          </flux:heading>
+        </header>
+
+        <flux:tab.group>
+          <flux:tabs variant="segmented">
+            @foreach ($locales as $locale => $name)
+              <flux:tab name="{{ $locale }}">{{ $name }}</flux:tab>
+            @endforeach
+          </flux:tabs>
+
+          @foreach ($locales as $locale => $name)
+            <flux:tab.panel class="space-y-4" name="{{ $locale }}">
               <flux:editor
                 badge="Requerido"
                 label="Misión"
@@ -50,11 +167,33 @@
                 label="Visión"
                 wire:model="about.{{ $locale }}.vision"
               />
-
             </flux:tab.panel>
           @endforeach
         </flux:tab.group>
       </flux:card>
+      {{-- #End Values, Mission and Vision --}}
+
+      {{-- Contact --}}
+      <flux:card class="space-y-4">
+        <header class="space-y-2">
+          <flux:heading level="2" size="lg">
+            Contactanos
+          </flux:heading>
+        </header>
+
+        <flux:tab.group>
+          <flux:tabs variant="segmented">
+            @foreach ($locales as $locale => $name)
+              <flux:tab name="{{ $locale }}">{{ $name }}</flux:tab>
+            @endforeach
+          </flux:tabs>
+
+          @foreach ($locales as $locale => $name)
+            <h1>Contact {{ $name }}</h1>
+          @endforeach
+        </flux:tab.group>
+      </flux:card>
+      {{-- #End Contact --}}
     </div>
     {{-- #End About us Page Settings --}}
 
