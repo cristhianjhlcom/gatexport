@@ -23,6 +23,22 @@ final class AboutUsSettingService
                     'history' => '',
                 ],
                 'mainHistory' => '',
+                'commitment' => [
+                    'title' => '',
+                    'description' => '',
+                ],
+                'quality' => [
+                    'title' => '',
+                    'description' => '',
+                ],
+                'certification' => [
+                    'title' => '',
+                    'description' => '',
+                ],
+                'ourHistory' => [
+                    'title' => '',
+                    'description' => '',
+                ],
                 'mission' => '',
                 'vision' => '',
             ];
@@ -37,6 +53,11 @@ final class AboutUsSettingService
                 $about['home_second_image'] = $setting['home_second_image'] ?? NULL;
                 $about['commitment_main_image'] = $setting['commitment_main_image'] ?? NULL;
                 $about['commitment_background_image'] = $setting['commitment_background_image'] ?? NULL;
+                $about['quality_main_image'] = $setting['quality_main_image'] ?? NULL;
+                $about['certification_main_image'] = $setting['certification_main_image'] ?? NULL;
+                $about['certification_secondary_image'] = $setting['certification_secondary_image'] ?? NULL;
+                $about['history_main_image'] = $setting['history_main_image'] ?? NULL;
+                $about['history_background_image'] = $setting['history_background_image'] ?? NULL;
             }
         }
 
@@ -51,6 +72,11 @@ final class AboutUsSettingService
             $data['about']['home_second_image'] = $this->handleFileUpload($data['new_home_second_image'], $data['about']['home_second_image']);
             $data['about']['commitment_main_image'] = $this->handleFileUpload($data['new_commitment_main_image'], $data['about']['commitment_main_image']);
             $data['about']['commitment_background_image'] = $this->handleFileUpload($data['new_commitment_background_image'], $data['about']['commitment_background_image']);
+            $data['about']['quality_main_image'] = $this->handleFileUpload($data['new_quality_main_image'], $data['about']['quality_main_image']);
+            $data['about']['certification_main_image'] = $this->handleFileUpload($data['new_certification_main_image'], $data['about']['certification_main_image']);
+            $data['about']['certification_secondary_image'] = $this->handleFileUpload($data['new_certification_secondary_image'], $data['about']['certification_secondary_image']);
+            $data['about']['history_main_image'] = $this->handleFileUpload($data['new_history_main_image'], $data['about']['history_main_image']);
+            $data['about']['history_background_image'] = $this->handleFileUpload($data['new_history_background_image'], $data['about']['history_background_image']);
 
             foreach ($this->availableLocales as $locale) {
                 Setting::updateOrCreate(
@@ -62,12 +88,17 @@ final class AboutUsSettingService
                     [
                         'value' => [
                             'translations' => $data['about'][$locale],
+                            'youtube_video_id' => $data['about']['youtube_video_id'],
                             'hero_image' => $data['about']['hero_image'],
                             'home_first_image' => $data['about']['home_first_image'],
                             'home_second_image' => $data['about']['home_second_image'],
                             'commitment_main_image' => $data['about']['commitment_main_image'],
                             'commitment_background_image' => $data['about']['commitment_background_image'],
-                            'youtube_video_id' => $data['about']['youtube_video_id'],
+                            'quality_main_image' => $data['about']['quality_main_image'],
+                            'certification_main_image' => $data['about']['certification_main_image'],
+                            'certification_secondary_image' => $data['about']['certification_secondary_image'],
+                            'history_main_image' => $data['about']['history_main_image'],
+                            'history_background_image' => $data['about']['history_background_image'],
                         ],
                         'type' => 'json',
                         'is_public' => true,

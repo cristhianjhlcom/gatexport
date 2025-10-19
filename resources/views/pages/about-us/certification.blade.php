@@ -1,4 +1,48 @@
-<section class="container">
-  @dump($about)
-  <h2>Certifications</h2>
-</section>
+@php
+  $data = $about['translations']['certification'];
+  $mainImage = $about['certification_main_image'];
+  $secondaryImage = $about['certification_secondary_image'];
+@endphp
+
+@if ($data)
+  <section class="bg-primary-50 dark:bg-primary-50 w-full pb-20 pt-10">
+    <div class="container flex items-start justify-between gap-10">
+      <header class="relative w-1/2 space-y-10">
+        @if ($data['title'])
+          <div class="space-y-4">
+            <h2 class="text-primary-500 text-4xl font-extrabold italic leading-tight">
+              {{ $data['title'] }}
+            </h2>
+            <x-common.separator-line
+              class="absolute hidden lg:left-[0%] lg:top-[15%] lg:flex lg:w-[700px]"
+              color="border-primary-500"
+              pointColor="bg-primary-500"
+            />
+          </div>
+        @endif
+
+        @if ($data['description'])
+          <div class="space-y-4 text-left leading-relaxed md:text-right">{!! $data['description'] !!}</div>
+        @endif
+      </header>
+
+      <div class="flex flex-1 justify-start gap-4 rounded-sm">
+        @if ($mainImage)
+          <img
+            alt="{{ $data['title'] }}"
+            class="z-20 aspect-auto translate-y-6 transform rounded-sm"
+            src="{{ Storage::disk('public')->url($mainImage) }}"
+          />
+        @endif
+
+        @if ($secondaryImage)
+          <img
+            alt="{{ $data['title'] }}"
+            class="z-20 aspect-auto rounded-sm"
+            src="{{ Storage::disk('public')->url($secondaryImage) }}"
+          />
+        @endif
+      </div>
+    </div>
+  </section>
+@endif

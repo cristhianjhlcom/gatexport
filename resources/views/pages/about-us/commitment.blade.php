@@ -6,7 +6,8 @@
       <header class="w-1/2 space-y-10 text-center text-white dark:text-white">
         @if ($about['translations']['commitment']['title'])
           <div class="flex flex-col items-center justify-center gap-4">
-            <h2 class="text-3xl font-extrabold leading-tight">{{ $about['translations']['commitment']['title'] }}</h2>
+            <h2 class="text-3xl font-extrabold capitalize leading-tight">
+              {{ $about['translations']['commitment']['title'] }}</h2>
             <x-common.separator-line
               class="w-full max-w-[400px]"
               color="border-white"
@@ -16,7 +17,7 @@
         @endif
 
         @if ($about['translations']['commitment']['description'])
-          <div class="leading-relaxed">{!! $about['translations']['commitment']['description'] !!}</div>
+          <div class="space-y-4 leading-relaxed">{!! $about['translations']['commitment']['description'] !!}</div>
         @endif
       </header>
 

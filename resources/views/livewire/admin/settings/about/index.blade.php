@@ -18,71 +18,11 @@
 
       @include('livewire.admin.settings.about.commitment')
 
-      {{-- Quality Control --}}
-      <flux:card class="space-y-4">
-        <header class="space-y-2">
-          <flux:heading level="2" size="lg">
-            Nuestro Compromiso
-          </flux:heading>
-        </header>
+      @include('livewire.admin.settings.about.quality-control')
 
-        <flux:tab.group>
-          <flux:tabs variant="segmented">
-            @foreach ($locales as $locale => $name)
-              <flux:tab name="{{ $locale }}">{{ $name }}</flux:tab>
-            @endforeach
-          </flux:tabs>
+      @include('livewire.admin.settings.about.certification')
 
-          @foreach ($locales as $locale => $name)
-            <h1>Quality Control {{ $name }}</h1>
-          @endforeach
-        </flux:tab.group>
-      </flux:card>
-      {{-- #End Quality Control --}}
-
-      {{-- Certificatios --}}
-      <flux:card class="space-y-4">
-        <header class="space-y-2">
-          <flux:heading level="2" size="lg">
-            Certificationes
-          </flux:heading>
-        </header>
-
-        <flux:tab.group>
-          <flux:tabs variant="segmented">
-            @foreach ($locales as $locale => $name)
-              <flux:tab name="{{ $locale }}">{{ $name }}</flux:tab>
-            @endforeach
-          </flux:tabs>
-
-          @foreach ($locales as $locale => $name)
-            <h1>Certifications {{ $name }}</h1>
-          @endforeach
-        </flux:tab.group>
-      </flux:card>
-      {{-- #End Certifications --}}
-
-      {{-- History --}}
-      <flux:card class="space-y-4">
-        <header class="space-y-2">
-          <flux:heading level="2" size="lg">
-            Nuestra Historia
-          </flux:heading>
-        </header>
-
-        <flux:tab.group>
-          <flux:tabs variant="segmented">
-            @foreach ($locales as $locale => $name)
-              <flux:tab name="{{ $locale }}">{{ $name }}</flux:tab>
-            @endforeach
-          </flux:tabs>
-
-          @foreach ($locales as $locale => $name)
-            <h1>History {{ $name }}</h1>
-          @endforeach
-        </flux:tab.group>
-      </flux:card>
-      {{-- #End History --}}
+      @include('livewire.admin.settings.about.history')
 
       {{-- Values, Mission and Vision --}}
       <flux:card class="space-y-4">

@@ -28,6 +28,16 @@ final class SettingAboutManagement extends Component
 
     public $newCommitmentBackgroundImage;
 
+    public $newQualityMainImage;
+
+    public $newCertificationMainImage;
+
+    public $newCertificationSecondaryImage;
+
+    public $newHistoryMainImage;
+
+    public $newHistoryBackgroundImage;
+
     #[Validate]
     public $about = [
         'es' => [
@@ -36,6 +46,18 @@ final class SettingAboutManagement extends Component
             ],
             'mainHistory' => '',
             'commitment' => [
+                'title' => '',
+                'description' => '',
+            ],
+            'quality' => [
+                'title' => '',
+                'description' => '',
+            ],
+            'certification' => [
+                'title' => '',
+                'description' => '',
+            ],
+            'ourHistory' => [
                 'title' => '',
                 'description' => '',
             ],
@@ -51,13 +73,33 @@ final class SettingAboutManagement extends Component
                 'title' => '',
                 'description' => '',
             ],
+            'quality' => [
+                'title' => '',
+                'description' => '',
+            ],
+            'certification' => [
+                'title' => '',
+                'description' => '',
+            ],
+            'ourHistory' => [
+                'title' => '',
+                'description' => '',
+            ],
             'mission' => '',
             'vision' => '',
         ],
+        'youtube_video_id' => '',
 
+        'hero_image' => '',
         'home_first_image' => '',
         'home_second_image' => '',
-        'youtube_video_id' => '',
+        'commitment_main_image' => '',
+        'commitment_background_image' => '',
+        'quality_main_image' => '',
+        'certification_main_image' => '',
+        'certification_secondary_image' => '',
+        'history_main_image' => '',
+        'history_background_image' => '',
     ];
 
     protected $rules = [
@@ -65,15 +107,28 @@ final class SettingAboutManagement extends Component
         'about.es.mainHistory' => 'required|string|max:2000',
         'about.es.commitment.title' => 'required|string|max:150',
         'about.es.commitment.description' => 'required|string|max:2000',
+        'about.es.quality.title' => 'required|string|max:150',
+        'about.es.quality.description' => 'required|string|max:2000',
+        'about.es.certification.title' => 'required|string|max:150',
+        'about.es.certification.description' => 'required|string|max:2000',
         'about.es.mission' => 'required|string|max:2000',
         'about.es.vision' => 'required|string|max:2000',
+        'about.es.ourHistory.title' => 'required|string|max:150',
+        'about.es.ourHistory.description' => 'required|string|max:2000',
 
         'about.en.home.history' => 'required|string|max:2000',
         'about.en.mainHistory' => 'required|string|max:2000',
-        'about.es.commitment.title' => 'required|string|max:150',
-        'about.es.commitment.description' => 'required|string|max:2000',
+        'about.en.commitment.title' => 'required|string|max:150',
+        'about.en.commitment.description' => 'required|string|max:2000',
+        'about.en.quality.title' => 'required|string|max:150',
+        'about.en.quality.description' => 'required|string|max:2000',
+        'about.en.certification.title' => 'required|string|max:150',
+        'about.en.certification.description' => 'required|string|max:2000',
         'about.en.mission' => 'required|string|max:2000',
         'about.en.vision' => 'required|string|max:2000',
+        'about.en.ourHistory.title' => 'required|string|max:150',
+        'about.en.ourHistory.description' => 'required|string|max:2000',
+
         'about.youtube_video_id' => 'nullable|string|min:7|max:30',
 
         'newHeroImage' => [
@@ -115,6 +170,48 @@ final class SettingAboutManagement extends Component
             'max:2048', // 2MB max
             'dimensions:width=900,height=500',
         ],
+
+        'newQualityMainImage' => [
+            'nullable',
+            'image',
+            'mimes:png,jpg,jpeg,webp',
+            'max:2048', // 2MB max
+            'dimensions:width=500,height=500',
+        ],
+
+        'newCertificationMainImage' => [
+            'nullable',
+            'image',
+            'mimes:png,jpg,jpeg,webp',
+            'max:2048', // 2MB max
+            'dimensions:width=300,height=500',
+        ],
+
+        'newCertificationSecondaryImage' => [
+            'nullable',
+            'image',
+            'mimes:png,jpg,jpeg,webp',
+            'max:2048', // 2MB max
+            'dimensions:width=300,height=500',
+        ],
+
+        'newHistoryMainImage' => [
+            'nullable',
+            'image',
+            'mimes:png,jpg,jpeg,webp',
+            'max:2048', // 2MB max
+            'dimensions:width=500,height=500',
+        ],
+
+        'newHistoryBackgroundImage' => [
+            'nullable',
+            'image',
+            'mimes:png,jpg,jpeg,webp',
+            'max:2048', // 2MB max
+            'dimensions:width=900,height=500',
+        ],
+
+
     ];
 
     protected AboutUsSettingService $services;
@@ -140,6 +237,11 @@ final class SettingAboutManagement extends Component
             'new_home_second_image' => $this->newHomeSecondImage,
             'new_commitment_main_image' => $this->newCommitmentMainImage,
             'new_commitment_background_image' => $this->newCommitmentBackgroundImage,
+            'new_quality_main_image' => $this->newQualityMainImage,
+            'new_certification_main_image' => $this->newCertificationMainImage,
+            'new_certification_secondary_image' => $this->newCertificationSecondaryImage,
+            'new_history_main_image' => $this->newHistoryMainImage,
+            'new_history_background_image' => $this->newHistoryBackgroundImage,
         ]);
 
         Flux::toast(
