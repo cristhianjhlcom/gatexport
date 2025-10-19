@@ -1,5 +1,5 @@
 <x-layouts.public :title="$title">
-  <main class="space-y-6">
+  <main>
     @include('pages.about-us.hero')
 
     @include('pages.about-us.commitment')

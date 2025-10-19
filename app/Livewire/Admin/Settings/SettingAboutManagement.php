@@ -24,6 +24,10 @@ final class SettingAboutManagement extends Component
 
     public $newHeroImage;
 
+    public $newCommitmentMainImage;
+
+    public $newCommitmentBackgroundImage;
+
     #[Validate]
     public $about = [
         'es' => [
@@ -31,7 +35,10 @@ final class SettingAboutManagement extends Component
                 'history' => '',
             ],
             'mainHistory' => '',
-            'history' => '',
+            'commitment' => [
+                'title' => '',
+                'description' => '',
+            ],
             'mission' => '',
             'vision' => '',
         ],
@@ -40,7 +47,10 @@ final class SettingAboutManagement extends Component
                 'history' => '',
             ],
             'mainHistory' => '',
-            'history' => '',
+            'commitment' => [
+                'title' => '',
+                'description' => '',
+            ],
             'mission' => '',
             'vision' => '',
         ],
@@ -53,10 +63,15 @@ final class SettingAboutManagement extends Component
     protected $rules = [
         'about.es.home.history' => 'required|string|max:2000',
         'about.es.mainHistory' => 'required|string|max:2000',
+        'about.es.commitment.title' => 'required|string|max:150',
+        'about.es.commitment.description' => 'required|string|max:2000',
         'about.es.mission' => 'required|string|max:2000',
         'about.es.vision' => 'required|string|max:2000',
+
         'about.en.home.history' => 'required|string|max:2000',
         'about.en.mainHistory' => 'required|string|max:2000',
+        'about.es.commitment.title' => 'required|string|max:150',
+        'about.es.commitment.description' => 'required|string|max:2000',
         'about.en.mission' => 'required|string|max:2000',
         'about.en.vision' => 'required|string|max:2000',
         'about.youtube_video_id' => 'nullable|string|min:7|max:30',
@@ -84,6 +99,22 @@ final class SettingAboutManagement extends Component
             'max:2048', // 2MB max
             'dimensions:min_width=300,min_height=450,max_width=300,max_height=450',
         ],
+
+        'newCommitmentMainImage' => [
+            'nullable',
+            'image',
+            'mimes:png,jpg,jpeg,webp',
+            'max:2048', // 2MB max
+            'dimensions:width=500,height=500',
+        ],
+
+        'newCommitmentBackgroundImage' => [
+            'nullable',
+            'image',
+            'mimes:png,jpg,jpeg,webp',
+            'max:2048', // 2MB max
+            'dimensions:width=900,height=500',
+        ],
     ];
 
     protected AboutUsSettingService $services;
@@ -107,6 +138,8 @@ final class SettingAboutManagement extends Component
             'new_hero_image' => $this->newHeroImage,
             'new_home_first_image' => $this->newHomeFirstImage,
             'new_home_second_image' => $this->newHomeSecondImage,
+            'new_commitment_main_image' => $this->newCommitmentMainImage,
+            'new_commitment_background_image' => $this->newCommitmentBackgroundImage,
         ]);
 
         Flux::toast(
@@ -118,7 +151,7 @@ final class SettingAboutManagement extends Component
 
     public function render()
     {
-        return view('livewire.admin.settings.about')
+        return view('livewire.admin.settings.about.index')
             ->with([
                 'about' => $this->about,
             ])

@@ -31,10 +31,12 @@ final class AboutUsSettingService
 
             if ($setting) {
                 $about[$locale] = $setting['translations'] ?? $about[$locale];
+                $about['youtube_video_id'] = $setting['youtube_video_id'] ?? NULL;
                 $about['hero_image'] = $setting['hero_image'] ?? NULL;
                 $about['home_first_image'] = $setting['home_first_image'] ?? NULL;
                 $about['home_second_image'] = $setting['home_second_image'] ?? NULL;
-                $about['youtube_video_id'] = $setting['youtube_video_id'] ?? NULL;
+                $about['commitment_main_image'] = $setting['commitment_main_image'] ?? NULL;
+                $about['commitment_background_image'] = $setting['commitment_background_image'] ?? NULL;
             }
         }
 
@@ -47,6 +49,8 @@ final class AboutUsSettingService
             $data['about']['hero_image'] = $this->handleFileUpload($data['new_hero_image'], $data['about']['hero_image']);
             $data['about']['home_first_image'] = $this->handleFileUpload($data['new_home_first_image'], $data['about']['home_first_image']);
             $data['about']['home_second_image'] = $this->handleFileUpload($data['new_home_second_image'], $data['about']['home_second_image']);
+            $data['about']['commitment_main_image'] = $this->handleFileUpload($data['new_commitment_main_image'], $data['about']['commitment_main_image']);
+            $data['about']['commitment_background_image'] = $this->handleFileUpload($data['new_commitment_background_image'], $data['about']['commitment_background_image']);
 
             foreach ($this->availableLocales as $locale) {
                 Setting::updateOrCreate(
@@ -61,6 +65,8 @@ final class AboutUsSettingService
                             'hero_image' => $data['about']['hero_image'],
                             'home_first_image' => $data['about']['home_first_image'],
                             'home_second_image' => $data['about']['home_second_image'],
+                            'commitment_main_image' => $data['about']['commitment_main_image'],
+                            'commitment_background_image' => $data['about']['commitment_background_image'],
                             'youtube_video_id' => $data['about']['youtube_video_id'],
                         ],
                         'type' => 'json',
