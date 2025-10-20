@@ -24,39 +24,7 @@
 
       @include('livewire.admin.settings.about.history')
 
-      {{-- Values, Mission and Vision --}}
-      <flux:card class="space-y-4">
-        <header class="space-y-2">
-          <flux:heading level="2" size="lg">
-            Valores, Mision y Vision
-          </flux:heading>
-        </header>
-
-        <flux:tab.group>
-          <flux:tabs variant="segmented">
-            @foreach ($locales as $locale => $name)
-              <flux:tab name="{{ $locale }}">{{ $name }}</flux:tab>
-            @endforeach
-          </flux:tabs>
-
-          @foreach ($locales as $locale => $name)
-            <flux:tab.panel class="space-y-4" name="{{ $locale }}">
-              <flux:editor
-                badge="Requerido"
-                label="Misión"
-                wire:model="about.{{ $locale }}.mission"
-              />
-
-              <flux:editor
-                badge="Requerido"
-                label="Visión"
-                wire:model="about.{{ $locale }}.vision"
-              />
-            </flux:tab.panel>
-          @endforeach
-        </flux:tab.group>
-      </flux:card>
-      {{-- #End Values, Mission and Vision --}}
+      @include('livewire.admin.settings.about.values')
 
       {{-- Contact --}}
       <flux:card class="space-y-4">
@@ -158,7 +126,7 @@
           label="YouTube Video ID"
           placeholder="guJLfqTFfIw"
           size="sm"
-          wire:model="about.youtube_video_id"
+          wire:model="youtubeVideoId"
         />
       </flux:card>
     </div>

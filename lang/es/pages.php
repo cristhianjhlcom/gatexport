@@ -26,6 +26,7 @@ return [
     ],
     'about' => [
         'title' => 'Nuestra Historia',
+        'values' => 'Valores',
         'mission' => 'Nuestra Misión',
         'vision' => 'Nuestra Visión',
         'full_history' => 'Nuestra Historia Completa',

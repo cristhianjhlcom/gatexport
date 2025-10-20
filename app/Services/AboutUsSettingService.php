@@ -39,15 +39,24 @@ final class AboutUsSettingService
                     'title' => '',
                     'description' => '',
                 ],
-                'mission' => '',
-                'vision' => '',
+                'values' => [
+                    'items' => [],
+                    'mission' => [
+                        'title' => '',
+                        'description' => '',
+                    ],
+                    'vision' => [
+                        'title' => '',
+                        'description' => '',
+                    ],
+                ],
             ];
 
             $setting = Setting::getByLocale('about', $locale);
 
             if ($setting) {
                 $about[$locale] = $setting['translations'] ?? $about[$locale];
-                $about['youtube_video_id'] = $setting['youtube_video_id'] ?? NULL;
+                $about['youtube_video_id'] = $setting['youtube_video_id'] ?? '';
                 $about['hero_image'] = $setting['hero_image'] ?? NULL;
                 $about['home_first_image'] = $setting['home_first_image'] ?? NULL;
                 $about['home_second_image'] = $setting['home_second_image'] ?? NULL;
@@ -79,6 +88,14 @@ final class AboutUsSettingService
             $data['about']['history_background_image'] = $this->handleFileUpload($data['new_history_background_image'], $data['about']['history_background_image']);
 
             foreach ($this->availableLocales as $locale) {
+                if (isset($data['about']['values']) && isset($data['about']['values']['items'])) {
+                    foreach ($data['new_values_icons'] as $idx => $icon) {
+                        $currentValueItem = $data['about']['values']['items'][$idx];
+                        $tempValueIcon = $data['new_values_icons'][$idx];
+                        $currentValueItem['image'] = $this->handleFileUpload($tempValueIcon[$locale], $currentValueItem['image']);
+                    }
+                }
+
                 Setting::updateOrCreate(
                     [
                         'key' => 'about',
@@ -88,7 +105,7 @@ final class AboutUsSettingService
                     [
                         'value' => [
                             'translations' => $data['about'][$locale],
-                            'youtube_video_id' => $data['about']['youtube_video_id'],
+                            'youtube_video_id' => $data['youtube_video_id'],
                             'hero_image' => $data['about']['hero_image'],
                             'home_first_image' => $data['about']['home_first_image'],
                             'home_second_image' => $data['about']['home_second_image'],
