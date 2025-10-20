@@ -78,6 +78,10 @@ final class SettingAboutManagement extends Component
                     'description' => '',
                 ],
             ],
+            'contact' => [
+                'title' => '',
+                'description' => '',
+            ],
         ],
         'en' => [
             'home' => [
@@ -111,6 +115,10 @@ final class SettingAboutManagement extends Component
                     'description' => '',
                 ],
             ],
+            'contact' => [
+                'title' => '',
+                'description' => '',
+            ],
         ],
         'hero_image' => '',
         'home_first_image' => '',
@@ -141,6 +149,8 @@ final class SettingAboutManagement extends Component
         'about.es.values.mission.description' => 'required|string|max:2000',
         'about.es.values.vision.title' => 'required|string|max:100',
         'about.es.values.vision.description' => 'required|string|max:2000',
+        'about.es.contact.title' => 'required|string|max:100',
+        'about.es.contact.description' => 'required|string|max:2000',
 
         'about.en.home.history' => 'required|string|max:2000',
         'about.en.mainHistory' => 'required|string|max:2000',
@@ -158,6 +168,8 @@ final class SettingAboutManagement extends Component
         'about.en.values.mission.description' => 'required|string|max:2000',
         'about.en.values.vision.title' => 'required|string|max:100',
         'about.en.values.vision.description' => 'required|string|max:2000',
+        'about.es.contact.title' => 'required|string|max:100',
+        'about.es.contact.description' => 'required|string|max:2000',
 
         'youtubeVideoId' => 'nullable|string|min:7|max:30',
         'newHeroImage' => [

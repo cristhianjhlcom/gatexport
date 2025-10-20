@@ -50,6 +50,10 @@ final class AboutUsSettingService
                         'description' => '',
                     ],
                 ],
+                'contact' => [
+                    'title' => '',
+                    'description' => '',
+                ],
             ];
 
             $setting = Setting::getByLocale('about', $locale);

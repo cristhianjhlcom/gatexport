@@ -31,6 +31,7 @@ return [
         'vision' => 'Our Vision',
         'full_history' => 'Our Full History',
         'download_catalog_document' => 'Download Catalog',
+        'call_to_action' => 'Let\'s talk',
     ],
     'categories' => [
         'title' => 'Categories',

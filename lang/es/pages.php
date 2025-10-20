@@ -31,6 +31,7 @@ return [
         'vision' => 'Nuestra Visión',
         'full_history' => 'Nuestra Historia Completa',
         'download_catalog_document' => 'Descargar Catálogo',
+        'call_to_action' => 'Conversemos',
     ],
     'categories' => [
         'title' => 'Categorías',

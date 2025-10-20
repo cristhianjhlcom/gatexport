@@ -26,27 +26,7 @@
 
       @include('livewire.admin.settings.about.values')
 
-      {{-- Contact --}}
-      <flux:card class="space-y-4">
-        <header class="space-y-2">
-          <flux:heading level="2" size="lg">
-            Contactanos
-          </flux:heading>
-        </header>
-
-        <flux:tab.group>
-          <flux:tabs variant="segmented">
-            @foreach ($locales as $locale => $name)
-              <flux:tab name="{{ $locale }}">{{ $name }}</flux:tab>
-            @endforeach
-          </flux:tabs>
-
-          @foreach ($locales as $locale => $name)
-            <h1>Contact {{ $name }}</h1>
-          @endforeach
-        </flux:tab.group>
-      </flux:card>
-      {{-- #End Contact --}}
+      @include('livewire.admin.settings.about.contact')
     </div>
     {{-- #End About us Page Settings --}}
 
