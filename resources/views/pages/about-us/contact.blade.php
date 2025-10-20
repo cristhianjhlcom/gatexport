@@ -13,7 +13,9 @@
     </header>
 
     <article class="flex items-center justify-between gap-10">
-      <div class="w-full space-y-2 md:w-8/12">{!! $description !!}</div>
+      <div class="w-full space-y-2 leading-relaxed text-gray-900 md:w-8/12 dark:text-gray-900">
+        {!! $description !!}
+      </div>
       <div class="flex-1">
         <flux:modal.trigger class="flex justify-end" name="contact-form">
           <button class="rounded-4xl bg-primary-400 px-6 py-4 text-xl font-extrabold uppercase text-white"

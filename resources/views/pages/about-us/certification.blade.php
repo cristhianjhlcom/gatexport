@@ -10,7 +10,7 @@
       <header class="relative w-1/2 space-y-10">
         @if ($data['title'])
           <div class="space-y-4">
-            <h2 class="text-primary-500 text-4xl font-extrabold italic leading-tight">
+            <h2 class="text-primary-500 dark:text-primary-500 text-4xl font-extrabold italic leading-tight">
               {{ $data['title'] }}
             </h2>
             <x-common.separator-line
@@ -22,7 +22,9 @@
         @endif
 
         @if ($data['description'])
-          <div class="space-y-4 text-left leading-relaxed md:text-right">{!! $data['description'] !!}</div>
+          <div class="space-y-4 text-left leading-relaxed text-gray-900 md:text-right dark:text-gray-900">
+            {!! $data['description'] !!}
+          </div>
         @endif
       </header>
 

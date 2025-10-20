@@ -23,7 +23,7 @@
           @endphp
 
           @if (count($headingParts) > 3)
-            <h2 class="text-primary-500 text-4xl font-extrabold italic leading-tight">
+            <h2 class="text-primary-500 dark:text-primary-500 text-4xl font-extrabold italic leading-tight">
               {{ implode(' ', array_slice($headingParts, 0, 3)) }}
             </h2>
             <x-common.separator-line
@@ -31,18 +31,20 @@
               color="border-primary-500"
               pointColor="bg-primary-500"
             />
-            <h2 class="text-primary-500 ml-20 text-4xl font-extrabold italic leading-tight">
+            <h2 class="text-primary-500 dark:text-primary-500 ml-20 text-4xl font-extrabold italic leading-tight">
               {{ implode(' ', array_slice($headingParts, 3)) }}
             </h2>
           @else
-            <h2 class="text-primary-500 text-4xl font-extrabold italic leading-tight">
+            <h2 class="text-primary-500 dark:text-primary-500 text-4xl font-extrabold italic leading-tight">
               {{ $quality['title'] }}
             </h2>
           @endif
         @endif
 
         @if ($quality['description'])
-          <div class="space-y-4 leading-relaxed">{!! $quality['description'] !!}</div>
+          <div class="space-y-4 leading-relaxed text-gray-900 dark:text-gray-900">
+            {!! $quality['description'] !!}
+          </div>
         @endif
       </header>
     </div>

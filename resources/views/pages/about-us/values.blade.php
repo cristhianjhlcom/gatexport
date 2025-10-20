@@ -22,7 +22,7 @@
 
         <div class="space-y-4">
           @foreach ($items as $item)
-            <div class="flex items-center gap-4">
+            <div class="flex items-center gap-4 text-gray-900 dark:text-gray-900">
               <div>💪🏽</div>
               <div>{!! $item['description'] !!}</div>
             </div>
@@ -41,7 +41,9 @@
               pointColor="bg-primary-500"
             />
           </header>
-          <div>{!! $mission['description'] !!}</div>
+          <div class="space-y-2 leading-relaxed text-gray-900 dark:text-gray-900">
+            {!! $mission['description'] !!}
+          </div>
         </div>
         <div
           class="rounded-4xl border-primary-300 border-3 flex flex-col items-center justify-center space-y-4 bg-white p-10 text-center"
@@ -54,7 +56,9 @@
               pointColor="bg-primary-500"
             />
           </header>
-          <div>{!! $vision['description'] !!}</div>
+          <div class="space-y-2 leading-relaxed text-gray-900 dark:text-gray-900">
+            {!! $vision['description'] !!}
+          </div>
         </div>
       </div>
     </div>
