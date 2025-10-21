@@ -92,14 +92,6 @@ final class AboutUsSettingService
             $data['about']['history_background_image'] = $this->handleFileUpload($data['new_history_background_image'], $data['about']['history_background_image']);
 
             foreach ($this->availableLocales as $locale) {
-                if (isset($data['about']['values']) && isset($data['about']['values']['items'])) {
-                    foreach ($data['new_values_icons'] as $idx => $icon) {
-                        $currentValueItem = $data['about']['values']['items'][$idx];
-                        $tempValueIcon = $data['new_values_icons'][$idx];
-                        $currentValueItem['image'] = $this->handleFileUpload($tempValueIcon[$locale], $currentValueItem['image']);
-                    }
-                }
-
                 Setting::updateOrCreate(
                     [
                         'key' => 'about',

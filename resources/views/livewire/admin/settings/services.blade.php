@@ -26,25 +26,25 @@
             <flux:input
               label="Título principal"
               placeholder="Ej: servicio principal"
-              wire:model="companyServices.heading"
+              wire:model="servicesInformation.{{ $locale }}.heading"
             />
 
             <flux:editor
               label="Descripción del servicio"
               placeholder="Ej: descripción de la sección"
-              wire:model="companyServices.description"
+              wire:model="servicesInformation.{{ $locale }}.description"
             />
 
             <flux:textarea
               label="Mensaje importante"
               placeholder="Ej: lorem ipsum"
-              wire:model="companyServices.important_message"
+              wire:model="servicesInformation.{{ $locale }}.important_message"
             />
 
             <flux:textarea
               label="Observación"
               placeholder="Ej: lorem ipsum"
-              wire:model="companyServices.disclaimer"
+              wire:model="servicesInformation.{{ $locale }}.disclaimer"
             />
 
             <div>
@@ -55,10 +55,10 @@
                 />
               </flux:file-upload>
 
-              @if (Storage::disk('public')->exists($companyServices['main_image']))
+              @if (Storage::disk('public')->exists($servicesInformation['main_image']))
                 <div class="mt-3 flex flex-col gap-2">
                   <flux:file-item
-                    :image="Storage::disk('public')->url($companyServices['main_image'])"
+                    :image="Storage::disk('public')->url($servicesInformation['main_image'])"
                     :size="1000"
                     heading="Imagen Principal Actual"
                   />

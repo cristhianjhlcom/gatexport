@@ -74,9 +74,9 @@
 
   <footer class="bg-primary-600 py-8 text-white">
     <div class="container mx-auto px-4">
-      <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+      <div class="grid grid-cols-1 gap-8 md:grid-cols-12">
         <!-- Logo and Description -->
-        <div class="col-span-1 flex flex-col justify-center space-y-4 text-center lg:col-span-2">
+        <div class="flex flex-col justify-center space-y-4 md:col-span-5">
           <img
             alt="Gate Export"
             class="mx-auto h-12"
@@ -96,8 +96,7 @@
           @endif
         </div>
 
-        <div class="space-y-4">
-
+        <div class="space-y-4 md:col-span-3">
           <!-- Address -->
           @if (!empty($general_information['contact_information']['address']))
             <div>
@@ -143,7 +142,7 @@
 
         <!-- 10 Years of Exports -->
         @if (!empty($company_logos['special_logo']))
-          <div>
+          <div class="md:col-span-3">
             <img
               alt="Más de 10 años exportando"
               class="mx-auto aspect-square"

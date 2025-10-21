@@ -21,7 +21,13 @@
         <div class="space-y-4">
           @foreach ($items as $item)
             <div class="flex items-center gap-4 text-gray-900 dark:text-gray-900">
-              <div>💪🏽</div>
+              <div>
+                <img
+                  alt="Valores de {{ str()->title($item['icon']) }}"
+                  class="aspect-square h-20 w-20"
+                  src="{{ Storage::disk('public')->url('/uploads/about/' . str()->lower($item['icon']) . '.svg') }}"
+                />
+              </div>
               <div class="text-sm leading-relaxed md:text-base">{!! $item['description'] !!}</div>
             </div>
           @endforeach
@@ -29,7 +35,7 @@
       </div>
       <div class="grid-cols1 grid grid-rows-2 gap-4">
         <div
-          class="border-primary-300 border-3 flex flex-col space-y-4 rounded-xl bg-white p-6 text-left md:space-y-10 md:p-10 md:text-center"
+          class="border-primary-300 border-3 flex flex-col space-y-4 rounded-xl bg-white p-6 text-left md:items-center md:justify-center md:space-y-10 md:p-10 md:text-center"
         >
           <header class="text-primary-500 flex flex-col items-center justify-center gap-2 md:gap-4">
             <h3 class="text-2xl font-extrabold capitalize leading-tight md:text-3xl">{{ $mission['title'] }}</h3>
@@ -44,7 +50,7 @@
           </div>
         </div>
         <div
-          class="border-primary-300 border-3 flex flex-col space-y-4 rounded-xl bg-white p-6 text-left md:p-10 md:text-center"
+          class="border-primary-300 border-3 flex flex-col space-y-4 rounded-xl bg-white p-6 text-left md:items-center md:justify-center md:p-10 md:text-center"
         >
           <header class="text-primary-500 flex flex-col items-center justify-center gap-2 md:gap-4">
             <h3 class="text-2xl font-extrabold capitalize leading-tight md:text-3xl">{{ $vision['title'] }}</h3>

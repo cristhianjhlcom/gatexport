@@ -72,11 +72,17 @@ final class SettingManagementServices
         $company_services = [
             'es' => [],
             'en' => [],
+            // 'main_image' => '',
+            // 'heading' => '',
+            // 'description' => '',
+            // 'important_message' => '',
+            // 'disclaimer' => '',
+        ];
+
+        $services_information = [
+            'es' => [],
+            'en' => [],
             'main_image' => '',
-            'heading' => '',
-            'description' => '',
-            'important_message' => '',
-            'disclaimer' => '',
         ];
 
         foreach ($this->available_locales as $locale) {
@@ -84,11 +90,11 @@ final class SettingManagementServices
 
             if (is_array($setting_company_services)) {
                 $company_services[$locale] = $setting_company_services['services'] ?? [];
-                $company_services['main_image'] = $setting_company_services['main_image'] ?? '';
-                $company_services['heading'] = $setting_company_services['heading'] ?? '';
-                $company_services['description'] = $setting_company_services['description'] ?? '';
-                $company_services['important_message'] = $setting_company_services['important_message'] ?? '';
-                $company_services['disclaimer'] = $setting_company_services['disclaimer'] ?? '';
+                $services_information['main_image'] = $setting_company_services['main_image'] ?? '';
+                $services_information[$locale]['heading'] = $setting_company_services[$locale]['heading'] ?? '';
+                $services_information[$locale]['description'] = $setting_company_services[$locale]['description'] ?? '';
+                $services_information[$locale]['important_message'] = $setting_company_services[$locale]['important_message'] ?? '';
+                $services_information[$locale]['disclaimer'] = $setting_company_services[$locale]['disclaimer'] ?? '';
 
                 foreach ($company_services[$locale] as $index => $company_service) {
                     $company_services[$locale][$index] = [
@@ -101,7 +107,10 @@ final class SettingManagementServices
             }
         }
 
-        return $company_services;
+        return [
+            'company_services' => $company_services,
+            'services_information' => $services_information,
+        ];
     }
 
     public function loadBanners(): array
@@ -232,7 +241,7 @@ final class SettingManagementServices
     {
         DB::transaction(function () use ($data) {
             if ($data['new_main_image']) {
-                $data['company_services']['main_image'] = $this->handleFileUpload($data['new_main_image'], 'uploads/settings/services');
+                $data['services_information']['main_image'] = $this->handleFileUpload($data['new_main_image'], 'uploads/settings/services');
             }
 
             foreach ($this->available_locales as $locale) {
@@ -274,11 +283,11 @@ final class SettingManagementServices
                             //   important_message
                             //   disclaimer
                             'services' => $listOfCompanyServices,
-                            'main_image' => $data['company_services']['main_image'],
-                            'heading' => $data['company_services']['heading'],
-                            'description' => $data['company_services']['description'],
-                            'important_message' => $data['company_services']['important_message'],
-                            'disclaimer' => $data['company_services']['disclaimer'],
+                            'main_image' => $data['services_information']['main_image'],
+                            'heading' => $data['services_information'][$locale]['heading'],
+                            'description' => $data['services_information'][$locale]['description'],
+                            'important_message' => $data['services_information'][$locale]['important_message'],
+                            'disclaimer' => $data['services_information'][$locale]['disclaimer'],
                         ],
                         'type' => 'json',
                         'is_public' => true,

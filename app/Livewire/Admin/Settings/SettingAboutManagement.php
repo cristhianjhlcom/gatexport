@@ -37,11 +37,6 @@ final class SettingAboutManagement extends Component
 
     public $newHistoryBackgroundImage;
 
-    public $newValuesIcons = [
-        'es' => [],
-        'en' => [],
-    ];
-
     #[Validate]
     public $youtubeVideoId = '';
 
@@ -251,14 +246,6 @@ final class SettingAboutManagement extends Component
             'max:2048', // 2MB max
             'dimensions:width=900,height=500',
         ],
-
-        'newValuesIcons.*.*' => [
-            'nullable',
-            'image',
-            'mimes:jpg,jpeg,png,webp,svg',
-            'max:1024',
-            'dimensions:width=50,height=50',
-        ],
     ];
 
     protected AboutUsSettingService $services;
@@ -280,7 +267,7 @@ final class SettingAboutManagement extends Component
         $index = $parts[1];
 
         if (isset($this->about[$locale]['values']['items'][$index])) {
-            $this->about[$locale]['values']['items'][$index] = $value;
+            $this->about[$locale]['values']['items'][$index]['image'] = $value;
         }
     }
 
@@ -288,17 +275,15 @@ final class SettingAboutManagement extends Component
     {
         $this->about[$locale]['values']['items'][] = [
             'description' => '',
-            'image' => '',
+            'icon' => '',
         ];
     }
 
     public function removeValue($locale, $index)
     {
         unset($this->about[$locale]['values']['items'][$index]);
-        unset($this->newValuesIcons[$locale][$index]);
 
         $this->about[$locale]['values']['items'] = array_values($this->about[$locale]['values']['items']);
-        $this->newValuesIcons[$locale] = array_values($this->newValuesIcons[$locale]);
     }
 
     public function save()
@@ -318,7 +303,6 @@ final class SettingAboutManagement extends Component
             'new_certification_secondary_image' => $this->newCertificationSecondaryImage,
             'new_history_main_image' => $this->newHistoryMainImage,
             'new_history_background_image' => $this->newHistoryBackgroundImage,
-            'new_values_icons' => $this->newValuesIcons,
         ]);
 
         Flux::toast(

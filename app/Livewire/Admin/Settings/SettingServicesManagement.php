@@ -23,11 +23,17 @@ final class SettingServicesManagement extends Component
     public $companyServices = [
         'es' => [],
         'en' => [],
+        // 'heading' => '',
+        // 'description' => '',
+        // 'important_message' => '',
+        // 'disclaimer' => '',
+    ];
+
+    #[Validate]
+    public $servicesInformation = [
+        'es' => [],
+        'en' => [],
         'main_image' => '',
-        'heading' => '',
-        'description' => '',
-        'important_message' => '',
-        'disclaimer' => '',
     ];
 
     #[Validate]
@@ -45,9 +51,11 @@ final class SettingServicesManagement extends Component
 
     public function mount()
     {
-        $this->companyServices = $this->services->loadCompanyServices();
+        $services = $this->services->loadCompanyServices();
+        $this->companyServices = $services['company_services'];
+        $this->servicesInformation = $services['services_information'];
 
-        if (! empty($this->companyServices['main_image']) && is_string($this->companyServices['main_image'])) {
+        if (! empty($this->servicesInformation['main_image']) && is_string($this->servicesInformation['main_image'])) {
             $this->newMainImage = null;
         }
     }
@@ -92,6 +100,7 @@ final class SettingServicesManagement extends Component
 
         $this->services->saveCompanyServices([
             'company_services' => $this->companyServices,
+            'services_information' => $this->servicesInformation,
             'new_main_image' => $this->newMainImage,
             'tmp_icons' => $this->tmpIcons,
         ]);
@@ -116,7 +125,17 @@ final class SettingServicesManagement extends Component
             'companyServices.es.*.subtitle' => 'required|string|max:100',
             'companyServices.es.*.description' => 'required|string|max:1000',
             'companyServices.en.*.title' => 'required|string|max:100',
+            'companyServices.en.*.subtitle' => 'required|string|max:100',
             'companyServices.en.*.description' => 'required|string|max:1000',
+
+            'servicesInformation.es.heading' => 'required|string|max:100',
+            'servicesInformation.es.description' => 'required|string|max:2000',
+            'servicesInformation.es.important_message' => 'required|string|max:2000',
+            'servicesInformation.es.disclaimer' => 'required|string|max:100',
+            'servicesInformation.en.heading' => 'required|string|max:100',
+            'servicesInformation.en.description' => 'required|string|max:2000',
+            'servicesInformation.en.important_message' => 'required|string|max:2000',
+            'servicesInformation.en.disclaimer' => 'required|string|max:100',
 
             'newMainImage' => [
                 'nullable',

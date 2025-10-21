@@ -36,21 +36,17 @@
             <div class="grid grid-cols-1 gap-4 space-y-4 md:grid-cols-2">
               @foreach ($about[$locale]['values']['items'] as $index => $value)
                 <flux:card class="space-y-2">
+                  <flux:input
+                    badge="Requerido"
+                    label="Icono"
+                    wire:model="about.{{ $locale }}.values.items.{{ $index }}.icon"
+                  />
+
                   <flux:editor
                     badge="Requerido"
                     label="Descripción"
                     wire:model="about.{{ $locale }}.values.items.{{ $index }}.description"
                   />
-
-                  <flux:file-upload label="Imagen Principal"
-                    wire:model="about.{{ $locale }}.values.items.{{ $index }}.image"
-                  >
-                    <flux:file-upload.dropzone
-                      inline
-                      text="50x50 - JPG, PNG, SVG hasta 1MB"
-                      with-progress
-                    />
-                  </flux:file-upload>
 
                   <div class="flex justify-end">
                     <flux:button
