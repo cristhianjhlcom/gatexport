@@ -4,21 +4,21 @@
     {{-- Imagen a la izquierda --}}
     <div class="relative h-[500px] w-full md:h-[650px]">
       <img
-        alt="Palo Santo en manos"
-        class="absolute inset-0 h-full w-full object-cover object-left-bottom"
+        alt="{{ __('pages.about.title') }}"
+        class="absolute inset-0 hidden h-full w-full object-contain object-left-bottom md:block md:object-cover"
         src="{{ Storage::disk('public')->url($about['hero_image']) }}"
       >
     </div>
 
     {{-- Contenido a la derecha --}}
-    <div class="absolute left-[800px] top-[100px] space-y-4">
+    <div class="absolute left-0 top-3 space-y-4 px-10 md:left-[800px] md:top-[100px] md:px-0">
       <header>
         @php
           $headingParts = explode(' ', __('pages.about.title'));
         @endphp
 
         @if (count($headingParts) > 1)
-          <h1 class="text-primary-400 text-7xl font-extrabold italic leading-tight">
+          <h1 class="text-primary-400 text-5xl font-extrabold italic leading-tight md:text-7xl">
             {{ implode(' ', array_slice($headingParts, 0, 1)) }}
           </h1>
           <x-common.separator-line
@@ -26,18 +26,20 @@
             color="border-primary-400"
             pointColor="bg-primary-400"
           />
-          <h1 class="text-primary-400 ml-50 text-7xl font-extrabold italic leading-tight">
+          <h1 class="text-primary-400 md:ml-50 ml-30 text-5xl font-extrabold italic leading-tight md:text-7xl">
             {{ implode(' ', array_slice($headingParts, 1)) }}
           </h1>
         @else
-          <h1 class="text-primary-400 text-7xl font-extrabold italic leading-tight">
+          <h1 class="text-primary-400 text-5xl font-extrabold italic leading-tight md:text-7xl">
             {{ __('pages.about.title') }}
           </h1>
         @endif
       </header>
 
       @if (isset($about['translations']['mainHistory']))
-        <div class="w-full space-y-4 text-base leading-relaxed text-gray-700 md:w-[700px]">
+        <div
+          class="w-full max-w-[700px] space-y-4 rounded-sm bg-white/35 p-2 text-sm font-medium leading-relaxed text-gray-900 md:w-[700px] md:bg-transparent md:p-0 md:text-base"
+        >
           {!! $about['translations']['mainHistory'] !!}
         </div>
       @endif

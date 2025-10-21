@@ -5,16 +5,18 @@
 @endphp
 
 @if ($data)
-  <section class="bg-primary-50 dark:bg-primary-50 w-full pb-20 pt-10">
-    <div class="container flex items-start justify-between gap-10">
-      <header class="relative w-1/2 space-y-10">
+  <section class="bg-primary-50 dark:bg-primary-50 w-full pb-20 pt-5 md:pt-10">
+    <div class="container flex flex-col items-start justify-between gap-10 md:flex-row">
+      <header class="relative w-full space-y-10 md:w-1/2">
         @if ($data['title'])
-          <div class="space-y-4">
-            <h2 class="text-primary-500 dark:text-primary-500 text-4xl font-extrabold italic leading-tight">
+          <div class="space-y-10">
+            <h2
+              class="text-primary-500 dark:text-primary-500 text-3xl font-extrabold italic leading-tight md:text-5xl md:leading-relaxed"
+            >
               {{ $data['title'] }}
             </h2>
             <x-common.separator-line
-              class="absolute hidden lg:left-[0%] lg:top-[15%] lg:flex lg:w-[700px]"
+              class="absolute hidden lg:left-[0%] lg:top-[16%] lg:flex lg:w-[700px]"
               color="border-primary-500"
               pointColor="bg-primary-500"
             />
@@ -32,7 +34,7 @@
         @if ($mainImage)
           <img
             alt="{{ $data['title'] }}"
-            class="z-20 aspect-auto translate-y-6 transform rounded-sm"
+            class="z-20 aspect-auto w-1/2 translate-y-6 transform rounded-sm md:w-full"
             src="{{ Storage::disk('public')->url($mainImage) }}"
           />
         @endif
@@ -40,7 +42,7 @@
         @if ($secondaryImage)
           <img
             alt="{{ $data['title'] }}"
-            class="z-20 aspect-auto rounded-sm"
+            class="z-20 aspect-auto w-1/2 rounded-sm md:w-full"
             src="{{ Storage::disk('public')->url($secondaryImage) }}"
           />
         @endif

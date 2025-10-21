@@ -5,12 +5,12 @@
 @endphp
 
 @if ($data)
-  <section class="w-full bg-cover bg-center py-20"
+  <section class="w-full bg-cover bg-center py-10 md:py-20"
     style="background-image: url({{ Storage::disk('public')->url($backgroundImage) }})"
   >
-    <div class="container flex items-center justify-between gap-10">
+    <div class="container flex flex-col items-start justify-between gap-10 md:flex-row md:items-center">
       @if ($mainImage)
-        <div class="flex flex-1 justify-start rounded-sm">
+        <div class="order-2 flex flex-1 justify-start rounded-sm md:order-1">
           <img
             alt="{{ $data['title'] }}"
             class="aspect-square rounded-sm shadow-xl"
@@ -19,7 +19,7 @@
         </div>
       @endif
 
-      <header class="w-1/2 space-y-10 text-center text-white dark:text-white">
+      <header class="order-1 w-full space-y-10 text-left text-white md:order-2 md:w-1/2 md:text-center dark:text-white">
         @if ($about['translations']['commitment']['title'])
           <div class="flex flex-col items-center justify-center gap-4">
             <h2 class="text-3xl font-extrabold capitalize leading-tight">
@@ -34,7 +34,7 @@
         @endif
 
         @if ($data['description'])
-          <div class="space-y-4 leading-relaxed">{!! $data['description'] !!}</div>
+          <div class="space-y-4 text-sm leading-relaxed md:text-base">{!! $data['description'] !!}</div>
         @endif
       </header>
     </div>
