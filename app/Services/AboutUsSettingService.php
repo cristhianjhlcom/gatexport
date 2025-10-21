@@ -61,16 +61,16 @@ final class AboutUsSettingService
             if ($setting) {
                 $about[$locale] = $setting['translations'] ?? $about[$locale];
                 $about['youtube_video_id'] = $setting['youtube_video_id'] ?? '';
-                $about['hero_image'] = $setting['hero_image'] ?? NULL;
-                $about['home_first_image'] = $setting['home_first_image'] ?? NULL;
-                $about['home_second_image'] = $setting['home_second_image'] ?? NULL;
-                $about['commitment_main_image'] = $setting['commitment_main_image'] ?? NULL;
-                $about['commitment_background_image'] = $setting['commitment_background_image'] ?? NULL;
-                $about['quality_main_image'] = $setting['quality_main_image'] ?? NULL;
-                $about['certification_main_image'] = $setting['certification_main_image'] ?? NULL;
-                $about['certification_secondary_image'] = $setting['certification_secondary_image'] ?? NULL;
-                $about['history_main_image'] = $setting['history_main_image'] ?? NULL;
-                $about['history_background_image'] = $setting['history_background_image'] ?? NULL;
+                $about['hero_image'] = $setting['hero_image'] ?? null;
+                $about['home_first_image'] = $setting['home_first_image'] ?? null;
+                $about['home_second_image'] = $setting['home_second_image'] ?? null;
+                $about['commitment_main_image'] = $setting['commitment_main_image'] ?? null;
+                $about['commitment_background_image'] = $setting['commitment_background_image'] ?? null;
+                $about['quality_main_image'] = $setting['quality_main_image'] ?? null;
+                $about['certification_main_image'] = $setting['certification_main_image'] ?? null;
+                $about['certification_secondary_image'] = $setting['certification_secondary_image'] ?? null;
+                $about['history_main_image'] = $setting['history_main_image'] ?? null;
+                $about['history_background_image'] = $setting['history_background_image'] ?? null;
             }
         }
 
@@ -123,7 +123,9 @@ final class AboutUsSettingService
 
     private function handleFileUpload(?UploadedFile $newImage, ?string $currentImage): ?string
     {
-        if (!$newImage) return $currentImage;
+        if (! $newImage) {
+            return $currentImage;
+        }
 
         if ($currentImage && Storage::disk('public')->exists($currentImage)) {
             Storage::disk('public')->delete($currentImage);
