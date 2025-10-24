@@ -18,7 +18,7 @@
   @fluxAppearance
 </head>
 
-<body class="min-h-screen bg-white dark:bg-zinc-800">
+<body class="min-h-screen bg-zinc-50 dark:bg-zinc-800">
   <flux:sidebar
     class="border-r border-zinc-200 bg-zinc-50 rtl:border-l rtl:border-r-0 dark:border-zinc-700 dark:bg-zinc-900"
     stashable

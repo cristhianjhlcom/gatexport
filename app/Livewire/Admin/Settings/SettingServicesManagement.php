@@ -17,27 +17,13 @@ final class SettingServicesManagement extends Component
     use WithFileUploads;
 
     #[Validate]
-    public $newMainImage;
-
-    #[Validate]
-    public $companyServices = [
+    public $data = [
         'es' => [],
         'en' => [],
-        // 'heading' => '',
-        // 'description' => '',
-        // 'important_message' => '',
-        // 'disclaimer' => '',
     ];
 
     #[Validate]
-    public $servicesInformation = [
-        'es' => [],
-        'en' => [],
-        'main_image' => '',
-    ];
-
-    #[Validate]
-    public $tmpIcons = [
+    public $tmpImages = [
         'es' => [],
         'en' => [],
     ];
@@ -51,16 +37,10 @@ final class SettingServicesManagement extends Component
 
     public function mount()
     {
-        $services = $this->services->loadCompanyServices();
-        $this->companyServices = $services['company_services'];
-        $this->servicesInformation = $services['services_information'];
-
-        if (! empty($this->servicesInformation['main_image']) && is_string($this->servicesInformation['main_image'])) {
-            $this->newMainImage = null;
-        }
+        $this->data = $this->services->loadCompanyServices();
     }
 
-    public function updatedTmpIcons($value, $key)
+    public function updatedTmpImages($value, $key)
     {
         $parts = explode('.', $key);
 
@@ -69,29 +49,29 @@ final class SettingServicesManagement extends Component
             $index = $parts[1];
 
             if (isset($value) && is_object($value) && method_exists($value, 'store')) {
-                $this->tmpIcons[$locale][$index] = $value;
-                $this->companyServices[$locale][$index]['icon'] = $value;
+                $this->tmpImages[$locale]['services'][$index] = $value;
+                $this->data[$locale]['services'][$index]['icon'] = $value;
             }
         }
     }
 
     public function add($locale = 'es')
     {
-        $this->companyServices[$locale][] = [
+        $this->data[$locale]['services'][] = [
             'title' => '',
             'subtitle' => '',
             'description' => '',
-            'icon' => null,
+            'icon' => NULL,
         ];
     }
 
     public function remove($locale, $index)
     {
-        unset($this->companyServices[$locale][$index]);
-        unset($this->tmpIcons[$locale][$index]);
+        unset($this->data[$locale]['services'][$index]);
+        unset($this->tmpImages[$locale]['services'][$index]);
 
-        $this->companyServices[$locale] = array_values($this->companyServices[$locale]);
-        $this->tmpIcons[$locale] = array_values($this->tmpIcons[$locale]);
+        $this->data[$locale]['services'] = array_values($this->data[$locale]['services']);
+        $this->tmpImages[$locale]['services'] = array_values($this->tmpImages[$locale]['services']);
     }
 
     public function save()
@@ -99,10 +79,8 @@ final class SettingServicesManagement extends Component
         $this->validate();
 
         $this->services->saveCompanyServices([
-            'company_services' => $this->companyServices,
-            'services_information' => $this->servicesInformation,
-            'new_main_image' => $this->newMainImage,
-            'tmp_icons' => $this->tmpIcons,
+            'services_information' => $this->data,
+            'tmp_images' => $this->tmpImages,
         ]);
 
         Flux::toast(
@@ -114,49 +92,35 @@ final class SettingServicesManagement extends Component
 
     public function render()
     {
-        return view('livewire.admin.settings.services')
+        return view('livewire.admin.settings.services.index')
             ->title('Company Services | Settings | Management');
     }
 
     protected function rules(): array
     {
         return [
-            'companyServices.es.*.title' => 'required|string|max:100',
-            'companyServices.es.*.subtitle' => 'required|string|max:100',
-            'companyServices.es.*.description' => 'required|string|max:1000',
-            'companyServices.en.*.title' => 'required|string|max:100',
-            'companyServices.en.*.subtitle' => 'required|string|max:100',
-            'companyServices.en.*.description' => 'required|string|max:1000',
+            'data.*.homepage.heading' => 'required|string|max:150',
+            'data.*.homepage.description' => 'required|string|max:2000',
+            'data.*.homepage.importantMessage' => 'required|string|max:2000',
+            'data.*.homepage.disclaimer' => 'required|string|max:250',
+            'tmpImages.*.homepage' => 'image|mimes:png,jpg,jpeg,webp|max:2048|dimensions:width=600,height=1000',
+        ];
+    }
 
-            'servicesInformation.es.heading' => 'required|string|max:100',
-            'servicesInformation.es.description' => 'required|string|max:2000',
-            'servicesInformation.es.important_message' => 'required|string|max:2000',
-            'servicesInformation.es.disclaimer' => 'required|string|max:100',
-            'servicesInformation.en.heading' => 'required|string|max:100',
-            'servicesInformation.en.description' => 'required|string|max:2000',
-            'servicesInformation.en.important_message' => 'required|string|max:2000',
-            'servicesInformation.en.disclaimer' => 'required|string|max:100',
+    protected function validationAttributes()
+    {
+        return [
+            'data.es.homepage.heading' => 'título (es)',
+            'data.es.homepage.description' => 'descripción (es)',
+            'data.es.homepage.importantMessage' => 'mensaje (es)',
+            'data.es.homepage.disclaimer' => 'aviso (es)',
+            'data.en.homepage.heading' => 'título (en)',
+            'data.en.homepage.description' => 'descripción (en)',
+            'data.en.homepage.importantMessage' => 'mensaje (en)',
+            'data.en.homepage.disclaimer' => 'aviso (en)',
 
-            'newMainImage' => [
-                'nullable',
-                'image',
-                'mimes:png,jpg,jpeg,webp',
-                'max:2048', // 2MB max
-            ],
-
-            'tmpIcons.es.*' => [
-                'nullable',
-                'mimes:jpg,jpeg,png,webp,svg',
-                'max:2048',
-                'dimensions:min_width=400,min_height=400,max_width=1000,max_height=1000',
-            ],
-
-            'tmpIcons.en.*' => [
-                'nullable',
-                'mimes:jpg,jpeg,png,webp,svg',
-                'max:2048',
-                'dimensions:min_width=400,min_height=400,max_width=1000,max_height=1000',
-            ],
+            'tmpImages.es.homepage' => 'imagen (es)',
+            'tmpImages.en.homepage' => 'imagen (en)',
         ];
     }
 }
