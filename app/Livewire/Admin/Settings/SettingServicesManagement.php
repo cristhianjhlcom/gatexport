@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Livewire\Admin\Settings;
 
+use App\Services\CompanyServicesSettingService;
 use App\Services\SettingManagementServices;
 use Flux\Flux;
 use Livewire\Attributes\Layout;
@@ -28,16 +29,16 @@ final class SettingServicesManagement extends Component
         'en' => [],
     ];
 
-    protected SettingManagementServices $services;
+    protected CompanyServicesSettingService $services;
 
     public function boot()
     {
-        $this->services = app(SettingManagementServices::class);
+        $this->services = app(CompanyServicesSettingService::class);
     }
 
     public function mount()
     {
-        $this->data = $this->services->loadCompanyServices();
+        $this->data = $this->services->load();
     }
 
     public function updatedTmpImages($value, $key)
@@ -78,7 +79,7 @@ final class SettingServicesManagement extends Component
     {
         $this->validate();
 
-        $this->services->saveCompanyServices([
+        $this->services->save([
             'services_information' => $this->data,
             'tmp_images' => $this->tmpImages,
         ]);
@@ -103,7 +104,10 @@ final class SettingServicesManagement extends Component
             'data.*.homepage.description' => 'required|string|max:2000',
             'data.*.homepage.importantMessage' => 'required|string|max:2000',
             'data.*.homepage.disclaimer' => 'required|string|max:250',
+            'data.*.hero.title' => 'required|string|max:150',
+            'data.*.hero.description' => 'required|string|max:2000',
             'tmpImages.*.homepage' => 'image|mimes:png,jpg,jpeg,webp|max:2048|dimensions:width=600,height=1000',
+            'tmpImages.*.hero' => 'image|mimes:png,jpg,jpeg,webp|max:2048|dimensions:width=1000,height=330',
         ];
     }
 
@@ -114,13 +118,21 @@ final class SettingServicesManagement extends Component
             'data.es.homepage.description' => 'descripción (es)',
             'data.es.homepage.importantMessage' => 'mensaje (es)',
             'data.es.homepage.disclaimer' => 'aviso (es)',
+            'data.es.hero.title' => 'título (es)',
+            'data.es.hero.description' => 'descripción (es)',
+
+            'tmpImages.es.homepage' => 'imagen (es)',
+            'tmpImages.es.hero' => 'imagen (es)',
+
             'data.en.homepage.heading' => 'título (en)',
             'data.en.homepage.description' => 'descripción (en)',
             'data.en.homepage.importantMessage' => 'mensaje (en)',
             'data.en.homepage.disclaimer' => 'aviso (en)',
+            'data.en.hero.title' => 'título (en)',
+            'data.en.hero.description' => 'descripción (en)',
 
-            'tmpImages.es.homepage' => 'imagen (es)',
             'tmpImages.en.homepage' => 'imagen (en)',
+            'tmpImages.en.hero' => 'imagen (en)',
         ];
     }
 }

@@ -11,12 +11,16 @@
   </flux:heading>
 
   <div class="grid grid-cols-1 items-start gap-4 lg:grid-cols-2">
-    <div>
-      @include('livewire.admin.settings.services.home')
+    <div class="space-y-4">
+      @include('livewire.admin.settings.services.hero')
+      @include('livewire.admin.settings.services.cycles')
+      @include('livewire.admin.settings.services.lists')
+      @include('livewire.admin.settings.services.message')
+      @include('livewire.admin.settings.services.benefits')
     </div>
 
-    <div>
-      @include('livewire.admin.settings.services.list-of-services')
+    <div class="space-y-4">
+      @include('livewire.admin.settings.services.home')
     </div>
   </div>
 

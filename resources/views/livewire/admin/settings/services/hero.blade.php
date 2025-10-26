@@ -1,6 +1,6 @@
 <flux:card class="space-y-2">
   <header>
-    <flux:heading>Página Principal</flux:heading>
+    <flux:heading>Sección de Hero</flux:heading>
   </header>
   <flux:tab.group>
     <flux:tabs variant="segmented">
@@ -13,50 +13,34 @@
       <flux:tab.panel class="space-y-4" name="{{ $locale }}">
         <flux:input
           badge="Requerido"
-          label="Título principal"
-          placeholder="Ej: servicio principal"
-          wire:model="data.{{ $locale }}.homepage.heading"
+          label="Título principal ({{ $name }})"
+          placeholder="Ej: Nuestros Servicios"
+          wire:model="data.{{ $locale }}.hero.title"
         />
 
         <flux:editor
           badge="Requerido"
-          label="Descripción del servicio"
+          label="Descripción del servicio ({{ $name }})"
           placeholder="Ej: descripción de la sección"
-          wire:model="data.{{ $locale }}.homepage.description"
+          wire:model="data.{{ $locale }}.hero.description"
         />
-
-        <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-          <flux:textarea
-            badge="Requerido"
-            label="Mensaje importante"
-            placeholder="Ej: lorem ipsum"
-            wire:model="data.{{ $locale }}.homepage.importantMessage"
-          />
-
-          <flux:textarea
-            badge="Requerido"
-            label="Observación"
-            placeholder="Ej: lorem ipsum"
-            wire:model="data.{{ $locale }}.homepage.disclaimer"
-          />
-        </div>
 
         <div class="space-y-2 overflow-hidden">
           @php
-            $image = $data[$locale]['homepage']['image'] ??= '';
+            $image = $data[$locale]['hero']['image'] ??= '';
             $hasImage = empty($image);
-            $tmp = $tmpImages[$locale]['homepage'] ??= null;
+            $tmp = $tmpImages[$locale]['hero'] ??= null;
           @endphp
 
           <flux:file-upload
-            label="Imagen Principal"
+            label="Imagen de fondo ({{ $name }})"
             size="sm"
-            wire:model.live="tmpImages.{{ $locale }}.homepage"
+            wire:model.live="tmpImages.{{ $locale }}.hero"
           >
             <flux:file-upload.dropzone
               :heading="$image"
               inline
-              text="600x1000 - JPG, PNG, Webp hasta 2MB"
+              text="1000x330 - JPG, PNG, Webp hasta 2MB"
               with-progress
             />
           </flux:file-upload>
