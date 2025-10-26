@@ -73,7 +73,7 @@
                         <flux:file-upload.dropzone
                           :heading="$image"
                           inline
-                          text="1000x330 - JPG, PNG, Webp hasta 2MB"
+                          text="1000x550 - JPG, PNG, Webp hasta 2MB"
                           with-progress
                         />
                       </flux:file-upload>
