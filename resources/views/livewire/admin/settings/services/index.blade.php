@@ -14,7 +14,7 @@
     <div class="space-y-4">
       @include('livewire.admin.settings.services.hero')
       @include('livewire.admin.settings.services.cycles')
-      @include('livewire.admin.settings.services.lists')
+      {{-- @include('livewire.admin.settings.services.lists') --}}
       @include('livewire.admin.settings.services.message')
       @include('livewire.admin.settings.services.benefits')
     </div>

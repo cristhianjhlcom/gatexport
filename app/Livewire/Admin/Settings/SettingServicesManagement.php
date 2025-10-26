@@ -45,34 +45,80 @@ final class SettingServicesManagement extends Component
     {
         $parts = explode('.', $key);
 
-        if (count($parts) >= 3) {
+        if (count($parts) == 2) {
             $locale = $parts[0];
-            $index = $parts[1];
+            $idx = $parts[1];
 
             if (isset($value) && is_object($value) && method_exists($value, 'store')) {
-                $this->tmpImages[$locale]['services'][$index] = $value;
-                $this->data[$locale]['services'][$index]['icon'] = $value;
+                $this->tmpImages[$locale][$idx] = $value;
+                $this->data[$locale][$idx]['image'] = $value;
+            }
+        }
+
+        if (count($parts) == 3) {
+            $locale = $parts[0];
+            $item = $parts[1];
+            $idx = $parts[2];
+
+            if (isset($value) && is_object($value) && method_exists($value, 'store')) {
+                $this->tmpImages[$locale][$item][$idx] = $value;
+                $this->data[$locale][$item][$idx]['image'] = $value;
             }
         }
     }
 
-    public function add($locale = 'es')
+    public function addService($locale = 'es')
     {
+        $count = $this->data[$locale]['cycles'] ??= [];
+
         $this->data[$locale]['services'][] = [
             'title' => '',
             'subtitle' => '',
             'description' => '',
-            'icon' => NULL,
+            'order' => count($count) + 1,
+            'image' => NULL,
         ];
     }
 
-    public function remove($locale, $index)
+    public function removeService($locale, $idx)
     {
-        unset($this->data[$locale]['services'][$index]);
-        unset($this->tmpImages[$locale]['services'][$index]);
+        unset($this->data[$locale]['services'][$idx]);
+        unset($this->tmpImages[$locale]['services'][$idx]);
 
         $this->data[$locale]['services'] = array_values($this->data[$locale]['services']);
         $this->tmpImages[$locale]['services'] = array_values($this->tmpImages[$locale]['services']);
+    }
+
+    public function addCycle($locale = 'es')
+    {
+        try {
+            $count = $this->data[$locale]['cycles'] ??= [];
+
+            if (count($count) >= 5) throw new \Exception('Límite de ciclos alcanzado (Max. 5).');
+
+            $this->data[$locale]['cycles'][] = [
+                'title' => '',
+                'order' => count($count) + 1,
+                'image' => NULL,
+            ];
+        } catch (\Exception $e) {
+            Flux::toast(
+                heading: 'Ups! Algo salió mal',
+                text: $e->getMessage(),
+                variant: 'danger',
+            );
+        }
+    }
+
+    public function removeCycle($locale, $idx)
+    {
+        unset($this->data[$locale]['cycles'][$idx]);
+        $this->data[$locale]['cycles'] = array_values($this->data[$locale]['cycles']);
+
+        if (isset($this->tmpImages[$locale]['cycles'])) {
+            unset($this->tmpImages[$locale]['cycles'][$idx]);
+            $this->tmpImages[$locale]['cycles'] = array_values($this->tmpImages[$locale]['cycles']);
+        }
     }
 
     public function save()
@@ -106,8 +152,12 @@ final class SettingServicesManagement extends Component
             'data.*.homepage.disclaimer' => 'required|string|max:250',
             'data.*.hero.title' => 'required|string|max:150',
             'data.*.hero.description' => 'required|string|max:2000',
+            'data.*.cycles' => 'required|array|min:1|max:5',
+            'data.*.cycles.*.title' => 'required|string|max:250',
+            'data.*.cycles.*.order' => 'required|integer|min:1|max:10',
             'tmpImages.*.homepage' => 'image|mimes:png,jpg,jpeg,webp|max:2048|dimensions:width=600,height=1000',
             'tmpImages.*.hero' => 'image|mimes:png,jpg,jpeg,webp|max:2048|dimensions:width=1000,height=330',
+            'tmpImages.*.cycles.*' => 'image|mimes:png,jpg,jpeg,webp|max:2048|dimensions:width=1000,height=550',
         ];
     }
 
@@ -119,10 +169,14 @@ final class SettingServicesManagement extends Component
             'data.es.homepage.importantMessage' => 'mensaje (es)',
             'data.es.homepage.disclaimer' => 'aviso (es)',
             'data.es.hero.title' => 'título (es)',
-            'data.es.hero.description' => 'descripción (es)',
+            'data.es.hero.description' => 'título (es)',
+            'data.es.cycles' => 'ciclos (es)',
+            'data.es.cycles.*.title' => 'título (es)',
+            'data.es.cycles.*.order' => 'orden (es)',
 
             'tmpImages.es.homepage' => 'imagen (es)',
             'tmpImages.es.hero' => 'imagen (es)',
+            'tmpImages.es.cycles.*' => 'imagen (es)',
 
             'data.en.homepage.heading' => 'título (en)',
             'data.en.homepage.description' => 'descripción (en)',
@@ -130,9 +184,13 @@ final class SettingServicesManagement extends Component
             'data.en.homepage.disclaimer' => 'aviso (en)',
             'data.en.hero.title' => 'título (en)',
             'data.en.hero.description' => 'descripción (en)',
+            'data.en.cycles' => 'ciclos (en)',
+            'data.en.cycles.*.title' => 'título (en)',
+            'data.en.cycles.*.order' => 'orden (en)',
 
             'tmpImages.en.homepage' => 'imagen (en)',
             'tmpImages.en.hero' => 'imagen (en)',
+            'tmpImages.en.cycles.*' => 'imagen (en)',
         ];
     }
 }

@@ -11,7 +11,13 @@ use Illuminate\Support\Facades\Storage;
 
 final class CompanyServicesSettingService
 {
-    private array $locales = ['es', 'en'];
+    public array $locales = ['es', 'en'];
+
+    public array $services = [];
+
+    public array $cycles = [];
+
+    public array $benefits = [];
 
     public function load(): array
     {
@@ -44,17 +50,32 @@ final class CompanyServicesSettingService
     public function save(array $data)
     {
         DB::transaction(function () use ($data) {
-            $keys = ['homepage', 'hero'];
+            $keys = ['homepage', 'hero', 'cycles'];
 
             foreach ($this->locales as $locale) {
                 foreach ($keys as $key) {
                     // TODO: Verificar si la key es 'services' y recorrer la lista de servicios.
                     if (!empty($data['tmp_images'][$locale][$key])) {
+                        if ($key === 'cycles') {
+                            foreach ($data['tmp_images'][$locale][$key] as $idx => $image) {
+                                if (is_object($image) && method_exists($image, 'store')) {
+                                    $upload = $this->handleFileUpload($image, 'uploads/settings/services');
+
+                                    // if (!empty($data['services_information'][$locale][$key][$idx]['image'])) {
+                                    //     Storage::disk('public')->delete($data['services_information'][$locale][$key][$idx]['image']);
+                                    // }
+
+                                    $data['services_information'][$locale][$key][$idx]['image'] = $upload;
+                                }
+                            }
+                            continue;
+                        }
+
                         $upload = $this->handleFileUpload($data['tmp_images'][$locale][$key], 'uploads/settings/services');
 
-                        if (!empty($data['services_information'][$locale][$key]['image'])) {
-                            Storage::disk('public')->delete($data['services_information'][$locale][$key]['image']);
-                        }
+                        // if (!empty($data['services_information'][$locale][$key]['image'])) {
+                        //     Storage::disk('public')->delete($data['services_information'][$locale][$key]['image']);
+                        // }
 
                         $data['services_information'][$locale][$key]['image'] = $upload;
                     }
@@ -91,6 +112,7 @@ final class CompanyServicesSettingService
                         'value' => [
                             'homepage' => $data['services_information'][$locale]['homepage'],
                             'hero' => $data['services_information'][$locale]['hero'],
+                            'cycles' => $data['services_information'][$locale]['cycles'],
                             // 'services' => $listOfCompanyServices,
                         ],
                         'type' => 'json',
