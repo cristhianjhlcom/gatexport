@@ -58,7 +58,8 @@ final class CompanyServicesSettingService
                         if ($key === 'cycles' || $key === 'services') {
                             foreach ($data['tmp_images'][$locale][$key] as $idx => $image) {
                                 if (is_object($image) && method_exists($image, 'store')) {
-                                    $upload = $this->handleFileUpload($image, 'uploads/settings/services');
+                                    $current = $data['services_information'][$locale][$key][$idx]['image'] ??= NULL;
+                                    $upload = $this->handleFileUpload($image, $current);
 
                                     // if (!empty($data['services_information'][$locale][$key][$idx]['image'])) {
                                     //     Storage::disk('public')->delete($data['services_information'][$locale][$key][$idx]['image']);
@@ -78,8 +79,10 @@ final class CompanyServicesSettingService
                                 $isValidBackground = is_object($background) && method_exists($background, 'store');
 
                                 if ($isValidImage && $isValidBackground) {
-                                    $imageUpload = $this->handleFileUpload($image, 'uploads/settings/services');
-                                    $backgroundUpload = $this->handleFileUpload($background, 'uploads/settings/services');
+                                    $currentImage = $data['services_information'][$locale][$key][$idx]['image'] ??= NULL;
+                                    $currentBackground = $data['services_information'][$locale][$key][$idx]['background'] ??= NULL;
+                                    $imageUpload = $this->handleFileUpload($image, $currentImage);
+                                    $backgroundUpload = $this->handleFileUpload($background, $currentBackground);
 
                                     $data['services_information'][$locale][$key][$idx]['image'] = $imageUpload;
                                     $data['services_information'][$locale][$key][$idx]['background'] = $backgroundUpload;
@@ -88,7 +91,8 @@ final class CompanyServicesSettingService
                             continue;
                         }
 
-                        $upload = $this->handleFileUpload($data['tmp_images'][$locale][$key], 'uploads/settings/services');
+                        $current = $data['services_information'][$locale][$key]['image'] ??= NULL;
+                        $upload = $this->handleFileUpload($data['tmp_images'][$locale][$key], $current);
 
                         // if (!empty($data['services_information'][$locale][$key]['image'])) {
                         //     Storage::disk('public')->delete($data['services_information'][$locale][$key]['image']);
@@ -131,6 +135,6 @@ final class CompanyServicesSettingService
             Storage::disk('public')->delete($currentImage);
         }
 
-        return $newImage->store('uploads/about', 'public');
+        return $newImage->store('uploads/services', 'public');
     }
 }

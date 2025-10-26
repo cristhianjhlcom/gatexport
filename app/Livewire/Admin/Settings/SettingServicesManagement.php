@@ -46,23 +46,25 @@ final class SettingServicesManagement extends Component
 
         if (count($parts) == 2) {
             $locale = $parts[0];
-            $idx = $parts[1];
+            $key = $parts[1];
 
             if (isset($value) && is_object($value) && method_exists($value, 'store')) {
-                $this->tmpImages[$locale][$idx] = $value;
-                $this->data[$locale][$idx]['image'] = $value;
+                $this->tmpImages[$locale][$key] = $value;
+                // $this->data[$locale][$key]['image'] = $value;
             }
+            return;
         }
 
         if (count($parts) == 3) {
             $locale = $parts[0];
-            $item = $parts[1];
+            $key = $parts[1];
             $idx = $parts[2];
 
             if (isset($value) && is_object($value) && method_exists($value, 'store')) {
-                $this->tmpImages[$locale][$item][$idx] = $value;
-                $this->data[$locale][$item][$idx]['image'] = $value;
+                $this->tmpImages[$locale][$key][$idx] = $value;
+                // $this->data[$locale][$key][$idx]['image'] = $value;
             }
+            return;
         }
     }
 
