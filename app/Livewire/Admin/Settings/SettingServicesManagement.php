@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Livewire\Admin\Settings;
 
 use App\Services\CompanyServicesSettingService;
-use App\Services\SettingManagementServices;
 use Flux\Flux;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Validate;
@@ -133,6 +132,42 @@ final class SettingServicesManagement extends Component
         }
     }
 
+    public function addBenefit($locale = 'es')
+    {
+        try {
+            $count = $this->data[$locale]['benefits'] ??= [];
+
+            if (count($count) >= 5) throw new \Exception('Límite de beneficios (Max. 5).');
+
+            $this->data[$locale]['benefits'][] = [
+                'title' => '',
+                'description' => '',
+                'order' => count($count) + 1,
+                'image' => NULL,
+                'background' => NULL,
+            ];
+        } catch (\Exception $e) {
+            Flux::toast(
+                heading: 'Ups! Algo salió mal',
+                text: $e->getMessage(),
+                variant: 'danger',
+            );
+        }
+    }
+
+    public function removeBenefit($locale, $idx)
+    {
+        unset($this->data[$locale]['benefits'][$idx]);
+        $this->data[$locale]['benefits'] = array_values($this->data[$locale]['benefits']);
+
+        if (isset($this->tmpImages[$locale]['benefits'])) {
+            unset($this->tmpImages[$locale]['benefits'][$idx]['image']);
+            unset($this->tmpImages[$locale]['benefits'][$idx]['background']);
+
+            $this->tmpImages[$locale]['benefits'] = array_values($this->tmpImages[$locale]['benefits']);
+        }
+    }
+
     public function save()
     {
         $this->validate();
@@ -177,6 +212,12 @@ final class SettingServicesManagement extends Component
             'tmpImages.*.hero' => 'image|mimes:png,jpg,jpeg,webp|max:2048|dimensions:width=1000,height=330',
             'tmpImages.*.cycles.*' => 'image|mimes:png,jpg,jpeg,webp|max:2048|dimensions:width=1000,height=550',
             'tmpImages.*.services.*' => 'image|mimes:png,jpg,jpeg,webp|max:1024|dimensions:width=55,height=55',
+            'data.*.benefits' => 'required|array|min:1|max:5',
+            'data.*.benefits.*.title' => 'required|string|max:250',
+            'data.*.benefits.*.description' => 'required|string|max:2000',
+            'data.*.benefits.*.order' => 'required|integer|min:1|max:10',
+            'tmpImages.*.benefits.*.image' => 'image|mimes:png,jpg,jpeg,webp|max:2048|dimensions:width=600,height=450',
+            'tmpImages.*.benefits.*.background' => 'image|mimes:png,jpg,jpeg,webp|max:2048|dimensions:width=900,height=350',
         ];
     }
 
@@ -198,11 +239,16 @@ final class SettingServicesManagement extends Component
             'data.es.services.*.disclaimer' => 'aviso (es)',
             'data.es.services.*.order' => 'orden (es)',
             'data.es.authority.content' => 'contenido (es)',
+            'data.es.benefits.*.title' => 'título (es)',
+            'data.es.benefits.*.description' => 'descripción (es)',
+            'data.es.benefits.*.order' => 'orden (es)',
 
             'tmpImages.es.homepage' => 'imagen (es)',
             'tmpImages.es.hero' => 'imagen (es)',
             'tmpImages.es.cycles.*' => 'imagen (es)',
             'tmpImages.es.services.*' => 'imagen (es)',
+            'tmpImages.es.benefits.*.image' => 'imagen (es)',
+            'tmpImages.es.benefits.*.background' => 'fondo (es)',
 
             'data.en.homepage.heading' => 'título (en)',
             'data.en.homepage.description' => 'descripción (en)',
@@ -219,11 +265,16 @@ final class SettingServicesManagement extends Component
             'data.en.services.*.disclaimer' => 'aviso (en)',
             'data.en.services.*.order' => 'orden (en)',
             'data.en.authority.content' => 'contenido (en)',
+            'data.en.benefits.*.title' => 'título (en)',
+            'data.en.benefits.*.description' => 'descripción (en)',
+            'data.en.benefits.*.order' => 'orden (en)',
 
             'tmpImages.en.homepage' => 'imagen (en)',
             'tmpImages.en.hero' => 'imagen (en)',
             'tmpImages.en.cycles.*' => 'imagen (en)',
             'tmpImages.en.services.*' => 'imagen (en)',
+            'tmpImages.en.benefits.*.image' => 'imagen (en)',
+            'tmpImages.en.benefits.*.background' => 'fondo (en)',
         ];
     }
 }

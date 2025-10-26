@@ -50,11 +50,10 @@ final class CompanyServicesSettingService
     public function save(array $data)
     {
         DB::transaction(function () use ($data) {
-            $keys = ['homepage', 'hero', 'cycles', 'services'];
+            $keys = ['homepage', 'hero', 'cycles', 'services', 'benefits'];
 
             foreach ($this->locales as $locale) {
                 foreach ($keys as $key) {
-                    // TODO: Verificar si la key es 'services' y recorrer la lista de servicios.
                     if (!empty($data['tmp_images'][$locale][$key])) {
                         if ($key === 'cycles' || $key === 'services') {
                             foreach ($data['tmp_images'][$locale][$key] as $idx => $image) {
@@ -66,6 +65,24 @@ final class CompanyServicesSettingService
                                     // }
 
                                     $data['services_information'][$locale][$key][$idx]['image'] = $upload;
+                                }
+                            }
+                            continue;
+                        }
+
+                        if ($key === 'benefits') {
+                            foreach ($data['tmp_images'][$locale][$key] as $idx => $item) {
+                                $image = $item['image'] ??= NULL;
+                                $background = $item['background'] ??= NULL;
+                                $isValidImage = is_object($image) && method_exists($image, 'store');
+                                $isValidBackground = is_object($background) && method_exists($background, 'store');
+
+                                if ($isValidImage && $isValidBackground) {
+                                    $imageUpload = $this->handleFileUpload($image, 'uploads/settings/services');
+                                    $backgroundUpload = $this->handleFileUpload($background, 'uploads/settings/services');
+
+                                    $data['services_information'][$locale][$key][$idx]['image'] = $imageUpload;
+                                    $data['services_information'][$locale][$key][$idx]['background'] = $backgroundUpload;
                                 }
                             }
                             continue;
@@ -94,6 +111,7 @@ final class CompanyServicesSettingService
                             'cycles' => $data['services_information'][$locale]['cycles'],
                             'services' => $data['services_information'][$locale]['services'],
                             'authority' => $data['services_information'][$locale]['authority'],
+                            'benefits' => $data['services_information'][$locale]['benefits'],
                         ],
                         'type' => 'json',
                         'is_public' => true,
