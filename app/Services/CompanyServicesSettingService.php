@@ -80,27 +80,6 @@ final class CompanyServicesSettingService
                         $data['services_information'][$locale][$key]['image'] = $upload;
                     }
                 }
-                // if (isset($data['tmp_icons'][$locale])) {
-                //     foreach ($data['tmp_icons'][$locale] as $index => $image) {
-                //         if (is_object($image) && method_exists($image, 'store')) {
-                //             // Eliminar el icono existente si está presente
-                //             if (! empty($data['company_services'][$locale][$index]['icon'])) {
-                //                 Storage::disk('public')->delete($data['company_services'][$locale][$index]['icon']);
-                //             }
-
-                //             $data['company_services'][$locale][$index]['icon'] = $this->handleFileUpload($image, 'uploads/settings/services');
-                //         }
-                //     }
-                // }
-                // $listOfCompanyServices = [];
-                // foreach ($data['company_services'][$locale] as $company_service) {
-                //     $listOfCompanyServices[] = [
-                //         'title' => $company_service['title'],
-                //         'subtitle' => $company_service['subtitle'],
-                //         'description' => $company_service['description'],
-                //         'icon' => $company_service['icon'],
-                //     ];
-                // }
 
                 Setting::updateOrCreate(
                     [
@@ -114,6 +93,7 @@ final class CompanyServicesSettingService
                             'hero' => $data['services_information'][$locale]['hero'],
                             'cycles' => $data['services_information'][$locale]['cycles'],
                             // 'services' => $listOfCompanyServices,
+                            'authority' => $data['services_information'][$locale]['authority'],
                         ],
                         'type' => 'json',
                         'is_public' => true,

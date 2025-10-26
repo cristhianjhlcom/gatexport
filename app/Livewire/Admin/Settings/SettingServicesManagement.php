@@ -155,6 +155,7 @@ final class SettingServicesManagement extends Component
             'data.*.cycles' => 'required|array|min:1|max:5',
             'data.*.cycles.*.title' => 'required|string|max:250',
             'data.*.cycles.*.order' => 'required|integer|min:1|max:10',
+            'data.*.authority.content' => 'required|string|max:2000',
             'tmpImages.*.homepage' => 'image|mimes:png,jpg,jpeg,webp|max:2048|dimensions:width=600,height=1000',
             'tmpImages.*.hero' => 'image|mimes:png,jpg,jpeg,webp|max:2048|dimensions:width=1000,height=330',
             'tmpImages.*.cycles.*' => 'image|mimes:png,jpg,jpeg,webp|max:2048|dimensions:width=1000,height=550',
@@ -173,6 +174,7 @@ final class SettingServicesManagement extends Component
             'data.es.cycles' => 'ciclos (es)',
             'data.es.cycles.*.title' => 'título (es)',
             'data.es.cycles.*.order' => 'orden (es)',
+            'data.es.authority.content' => 'contenido (es)',
 
             'tmpImages.es.homepage' => 'imagen (es)',
             'tmpImages.es.hero' => 'imagen (es)',
@@ -187,6 +189,7 @@ final class SettingServicesManagement extends Component
             'data.en.cycles' => 'ciclos (en)',
             'data.en.cycles.*.title' => 'título (en)',
             'data.en.cycles.*.order' => 'orden (en)',
+            'data.en.authority.content' => 'contenido (en)',
 
             'tmpImages.en.homepage' => 'imagen (en)',
             'tmpImages.en.hero' => 'imagen (en)',

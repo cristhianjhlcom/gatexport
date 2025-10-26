@@ -1,4 +1,7 @@
 <flux:card class="space-y-2">
+  <header>
+    <flux:heading><strong>Mensaje Autoridad</strong></flux:heading>
+  </header>
   <flux:tab.group>
     <flux:tabs variant="segmented">
       @foreach ($locales as $locale => $name)
@@ -8,13 +11,13 @@
 
     @foreach ($locales as $locale => $name)
       <flux:tab.panel class="space-y-4" name="{{ $locale }}">
-        <h4>NEW SECTION (MESSAGE)</h4>
-        {{-- <flux:input
+        <flux:textarea
           badge="Requerido"
-          label="Título principal"
-          placeholder="Ej: servicio principal"
-          wire:model="data.{{ $locale }}.homepage.heading"
-        /> --}}
+          label="Mensaje de autoridad ({{ $name }})"
+          placeholder="Ej: Más de 10 años exportando..."
+          rows="auto"
+          wire:model="data.{{ $locale }}.authority.content"
+        />
       </flux:tab.panel>
     @endforeach
   </flux:tab.group>

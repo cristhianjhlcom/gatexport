@@ -1,4 +1,7 @@
 <flux:card class="space-y-2">
+  <header>
+    <flux:heading><strong>Ciclos de Producción</strong></flux:heading>
+  </header>
   <flux:tab.group>
     <flux:tabs variant="segmented">
       @foreach ($locales as $locale => $name)

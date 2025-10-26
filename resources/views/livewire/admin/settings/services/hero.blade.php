@@ -1,6 +1,6 @@
 <flux:card class="space-y-2">
   <header>
-    <flux:heading>Sección de Hero</flux:heading>
+    <flux:heading><strong>Sección de Hero</strong></flux:heading>
   </header>
   <flux:tab.group>
     <flux:tabs variant="segmented">
