@@ -50,13 +50,13 @@ final class CompanyServicesSettingService
     public function save(array $data)
     {
         DB::transaction(function () use ($data) {
-            $keys = ['homepage', 'hero', 'cycles'];
+            $keys = ['homepage', 'hero', 'cycles', 'services'];
 
             foreach ($this->locales as $locale) {
                 foreach ($keys as $key) {
                     // TODO: Verificar si la key es 'services' y recorrer la lista de servicios.
                     if (!empty($data['tmp_images'][$locale][$key])) {
-                        if ($key === 'cycles') {
+                        if ($key === 'cycles' || $key === 'services') {
                             foreach ($data['tmp_images'][$locale][$key] as $idx => $image) {
                                 if (is_object($image) && method_exists($image, 'store')) {
                                     $upload = $this->handleFileUpload($image, 'uploads/settings/services');
@@ -92,7 +92,7 @@ final class CompanyServicesSettingService
                             'homepage' => $data['services_information'][$locale]['homepage'],
                             'hero' => $data['services_information'][$locale]['hero'],
                             'cycles' => $data['services_information'][$locale]['cycles'],
-                            // 'services' => $listOfCompanyServices,
+                            'services' => $data['services_information'][$locale]['services'],
                             'authority' => $data['services_information'][$locale]['authority'],
                         ],
                         'type' => 'json',

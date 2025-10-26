@@ -88,16 +88,16 @@
                 @if ($loop->first)
                   <x-common.accordion.item
                     :content="$service['description']"
-                    :icon="$service['icon']"
+                    :icon="$service['image']"
                     :open="true"
-                    :subtitle="$service['subtitle'] ?? 'Subtítulo Falso'"
+                    :subtitle="$service['disclaimer'] ?? 'Subtítulo Falso'"
                     :title="$service['title']"
                   />
                 @else
                   <x-common.accordion.item
                     :content="$service['description']"
                     :icon="$service['icon']"
-                    :subtitle="$service['subtitle'] ?? 'Subtítulo Falso'"
+                    :subtitle="$service['disclaimer'] ?? 'Subtítulo Falso'"
                     :title="$service['title']"
                   />
                 @endif

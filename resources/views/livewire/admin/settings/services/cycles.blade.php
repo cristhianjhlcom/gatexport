@@ -31,10 +31,10 @@
 
         @if (!empty($cycles))
           <flux:accordion class="rounded-sm border border-gray-200 p-4">
-            @foreach ($cycles as $index => $cycle)
+            @foreach ($cycles as $idx => $cycle)
               <flux:accordion.item :expanded="$loop->first">
                 <flux:accordion.heading>
-                  <strong>({{ $index + 1 }})</strong>
+                  <strong>({{ $idx + 1 }})</strong>
                   @if (!empty($cycle['title']))
                     <strong>{{ $cycle['title'] }}</strong>
                   @else
@@ -48,30 +48,30 @@
                       label="Encabezado del ciclo"
                       placeholder="Ej: Ciclo de producción de Palo Santo..."
                       rows="auto"
-                      wire:model="data.{{ $locale }}.cycles.{{ $index }}.title"
+                      wire:model="data.{{ $locale }}.cycles.{{ $idx }}.title"
                     />
 
                     <flux:input
                       badge="Requerido"
-                      label="Posicion del ciclo"
+                      label="Orden del ciclo"
                       max="10"
                       min="1"
                       placeholder="Ej: 1"
                       type="number"
-                      wire:model="data.{{ $locale }}.cycles.{{ $index }}.order"
+                      wire:model="data.{{ $locale }}.cycles.{{ $idx }}.order"
                     />
 
                     <div class="space-y-2 overflow-hidden">
                       @php
-                        $image = $data[$locale]['cycles'][$index]['image'] ??= '';
+                        $image = $data[$locale]['cycles'][$idx]['image'] ??= '';
                         $hasImage = empty($image);
-                        $tmp = $tmpImages[$locale]['cycles'][$index] ??= null;
+                        $tmp = $tmpImages[$locale]['cycles'][$idx] ??= null;
                       @endphp
 
                       <flux:file-upload
                         label="Imagen ({{ $name }})"
                         size="sm"
-                        wire:model.live="tmpImages.{{ $locale }}.cycles.{{ $index }}"
+                        wire:model.live="tmpImages.{{ $locale }}.cycles.{{ $idx }}"
                       >
                         <flux:file-upload.dropzone
                           :heading="$image"
@@ -89,12 +89,13 @@
                         />
                       @endif
                     </div>
+
                     <div>
                       <flux:button
                         icon="trash"
                         size="sm"
                         variant="ghost"
-                        wire:click="removeCycle('{{ $locale }}', {{ $index }})"
+                        wire:click="removeCycle('{{ $locale }}', {{ $idx }})"
                       >Eliminar ciclo</flux:button>
                     </div>
                   </div>
@@ -102,6 +103,15 @@
               </flux:accordion.item>
             @endforeach
           </flux:accordion>
+        @else
+          <div class="w-full space-y-4">
+            <flux:heading level="3" size="lg">
+              No ha ciclos
+            </flux:heading>
+            <flux:description size="xs">
+              Agrega un ciclo para empezar
+            </flux:description>
+          </div>
         @endif
       </flux:tab.panel>
     @endforeach

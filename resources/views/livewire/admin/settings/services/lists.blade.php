@@ -1,4 +1,7 @@
-<flux:card>
+<flux:card class="space-y-2">
+  <header>
+    <flux:heading><strong>Servicios de la Empresa</strong></flux:heading>
+  </header>
   <flux:tab.group>
     <flux:tabs variant="segmented">
       @foreach ($locales as $locale => $name)
@@ -16,7 +19,7 @@
             icon:trailing="plus"
             size="sm"
             variant="outline"
-            wire:click="add('{{ $locale }}')"
+            wire:click="addService('{{ $locale }}')"
           >
             Agregar servicio
           </flux:button>
@@ -28,78 +31,88 @@
 
         @if (!empty($services))
           <flux:accordion class="rounded-sm border border-gray-200 p-4">
-            @foreach ($services as $index => $service)
+            @foreach ($services as $idx => $service)
               <flux:accordion.item :expanded="$loop->first">
-                <flux:accordion.heading>({{ $index + 1 }}) {{ $service['title'] }}</flux:accordion.heading>
+                <flux:accordion.heading>
+                  <strong>({{ $idx + 1 }})</strong>
+                  @if (!empty($service['title']))
+                    <strong>{{ $service['title'] }}</strong>
+                  @else
+                    <strong>Título Temporal</strong>
+                  @endif
+                </flux:accordion.heading>
                 <flux:accordion.content>
                   <div class="space-y-4 pt-4">
                     <flux:input
                       badge="Requerido"
                       label="Título"
-                      placeholder="Lorem Ipsum.."
-                      wire:model="companyServices.{{ $locale }}.{{ $index }}.title"
+                      placeholder="Ej: Documentación aduanera..."
+                      wire:model="data.{{ $locale }}.services.{{ $idx }}.title"
+                    />
+
+                    <flux:textarea
+                      badge="Requerido"
+                      label="Descripción"
+                      placeholder="Ej: Brindamos asesoría en..."
+                      rows="auto"
+                      wire:model="data.{{ $locale }}.services.{{ $idx }}.description"
+                    />
+
+                    <flux:textarea
+                      badge="Requerido"
+                      label="Aviso"
+                      placeholder="Ej: Servicio disponible para..."
+                      rows="auto"
+                      wire:model="data.{{ $locale }}.services.{{ $idx }}.disclaimer"
                     />
 
                     <flux:input
                       badge="Requerido"
-                      label="Sub título"
-                      placeholder="Lorem Ipsum.."
-                      wire:model="companyServices.{{ $locale }}.{{ $index }}.subtitle"
+                      label="Orden del servicio"
+                      max="10"
+                      min="1"
+                      placeholder="Ej: 1"
+                      type="number"
+                      wire:model="data.{{ $locale }}.services.{{ $idx }}.order"
                     />
 
-                    <flux:editor
-                      badge="Requerido"
-                      label="Descripción"
-                      wire:model="companyServices.{{ $locale }}.{{ $index }}.description"
-                    />
+                    <div class="space-y-2 overflow-hidden">
+                      @php
+                        $image = $data[$locale]['services'][$idx]['image'] ??= '';
+                        $hasImage = empty($image);
+                        $tmp = $tmpImages[$locale]['services'][$idx] ??= null;
+                      @endphp
 
-                    <div>
-                      {{-- Input of the main image --}}
-                      <flux:file-upload label="Icono del servicio"
-                        wire:model="tmpIcons.{{ $locale }}.{{ $index }}"
+                      <flux:file-upload
+                        label="Icono ({{ $name }})"
+                        size="sm"
+                        wire:model.live="tmpImages.{{ $locale }}.services.{{ $idx }}"
                       >
                         <flux:file-upload.dropzone
-                          heading="Drop file here or click to browse"
+                          :heading="$image"
                           inline
-                          text="JPG, PNG, WebP o SVG - 2MB"
+                          text="55x55 - JPG, PNG, Webp hasta 2MB"
                           with-progress
                         />
                       </flux:file-upload>
 
-                      @if (isset($service['icon']) && Storage::disk('public')->exists($service['icon']))
-                        <div class="mt-3 flex flex-col gap-2">
-                          <flux:file-item
-                            :image="Storage::disk('public')->url($service['icon'])"
-                            :size="1000"
-                            {{-- :size="Storage::disk('public')->size($service['icon'])" --}}
-                            heading="Icono actual"
-                          >
-                          </flux:file-item>
-                        </div>
-                      @endif
-
-                      @if (isset($tmp_icons[$locale][$index]))
-                        <div class="mt-3 flex flex-col gap-2">
-                          <flux:file-item
-                            :heading="$tmp_icons[$locale][$index]->getClientOriginalName()"
-                            :image="$tmp_icons[$locale][$index]->temporaryUrl()"
-                            :size="$tmp_icons[$locale][$index]->getSize()"
-                          />
-                        </div>
+                      @if ($tmp)
+                        <flux:file-item
+                          :heading="$tmp->getClientOriginalName()"
+                          :image="$tmp->temporaryUrl()"
+                          :size="$tmp->getSize()"
+                        />
                       @endif
                     </div>
 
-                    <div class="flex justify-end">
+
+                    <div>
                       <flux:button
-                        class="absolute right-0 top-0 z-10"
-                        icon:trailing="x-mark"
+                        icon="trash"
                         size="sm"
-                        variant="danger"
-                        wire:click="remove('{{ $locale }}', {{ $index }})"
-                        wire:confim="Estas seguro de eliminar este servicio?"
-                      >
-                        Eliminar
-                      </flux:button>
+                        variant="ghost"
+                        wire:click="removeService('{{ $locale }}', {{ $idx }})"
+                      >Eliminar ciclo</flux:button>
                     </div>
                   </div>
                 </flux:accordion.content>
