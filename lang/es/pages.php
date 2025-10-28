@@ -33,6 +33,9 @@ return [
         'download_catalog_document' => 'Descargar Catálogo',
         'call_to_action' => 'Conversemos',
     ],
+    'services' => [
+        'title' => 'Servicios detallados',
+    ],
     'categories' => [
         'title' => 'Categorías',
         'view_all' => 'Ver Todos',

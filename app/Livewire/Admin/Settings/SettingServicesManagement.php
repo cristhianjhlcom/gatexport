@@ -213,7 +213,7 @@ final class SettingServicesManagement extends Component
             'tmpImages.*.homepage' => 'image|mimes:png,jpg,jpeg,webp|max:2048|dimensions:width=600,height=1000',
             'tmpImages.*.hero' => 'image|mimes:png,jpg,jpeg,webp|max:2048|dimensions:width=1000,height=330',
             'tmpImages.*.cycles.*' => 'image|mimes:png,jpg,jpeg,webp|max:2048|dimensions:width=1000,height=550',
-            'tmpImages.*.services.*' => 'image|mimes:png,jpg,jpeg,webp|max:1024|dimensions:width=55,height=55',
+            // 'tmpImages.*.services.*' => 'image|mimes:png,jpg,webp,svg|max:1024|dimensions:width=55,height=55',
             'data.*.benefits' => 'required|array|min:1|max:5',
             'data.*.benefits.*.title' => 'required|string|max:250',
             'data.*.benefits.*.description' => 'required|string|max:2000',

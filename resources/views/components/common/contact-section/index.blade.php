@@ -1,9 +1,3 @@
-@php
-  $data = $about['translations']['contact'];
-  $title = $data['title'] ??= '';
-  $description = $data['description'] ??= '';
-@endphp
-
 <section class="bg-white py-10 md:py-20 dark:bg-white">
   <div class="container space-y-6 md:space-y-10">
     <header class="space-y-4">

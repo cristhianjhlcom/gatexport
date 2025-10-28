@@ -21,8 +21,9 @@ final class ServicesIndexController extends Controller
             'title' => $this->title,
             'hero' => $this->services->getHeroData(),
             'cycles' => $this->services->getCyclesData(),
-            'services' => [],
-            'benefits' => [],
+            'services' => $this->services->getServicesData(),
+            'authority' => $this->services->getAuthorityData(),
+            'benefits' => $this->services->getBenefitsData(),
         ]);
     }
 }

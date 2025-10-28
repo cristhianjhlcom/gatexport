@@ -149,6 +149,21 @@
             </flux:description>
           </div>
         @endif
+
+        <footer class="rounded-sm border border-gray-200 p-4">
+          <flux:button
+            icon:trailing="plus"
+            size="sm"
+            variant="outline"
+            wire:click="addBenefit('{{ $locale }}')"
+          >
+            Agregar beneficio
+          </flux:button>
+
+          <span class="text-sm text-gray-500">
+            {{ count($benefits) }} beneficios agregados
+          </span>
+        </footer>
       </flux:tab.panel>
     @endforeach
   </flux:tab.group>

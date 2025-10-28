@@ -28,7 +28,6 @@
             {{ count($services) }} servicios agregados
           </span>
         </header>
-
         @if (!empty($services))
           <flux:accordion class="rounded-sm border border-gray-200 p-4">
             @foreach ($services as $idx => $service)
@@ -91,7 +90,7 @@
                         <flux:file-upload.dropzone
                           :heading="$image"
                           inline
-                          text="55x55 - JPG, PNG, Webp hasta 2MB"
+                          text="55x55 - JPG, PNG, Webp, SVG hasta 1MB"
                           with-progress
                         />
                       </flux:file-upload>
@@ -129,6 +128,20 @@
             </flux:description>
           </div>
         @endif
+        <footer class="rounded-sm border border-gray-200 p-4">
+          <flux:button
+            icon:trailing="plus"
+            size="sm"
+            variant="outline"
+            wire:click="addService('{{ $locale }}')"
+          >
+            Agregar servicio
+          </flux:button>
+
+          <span class="text-sm text-gray-500">
+            {{ count($services) }} servicios agregados
+          </span>
+        </footer>
       </flux:tab.panel>
     @endforeach
   </flux:tab.group>

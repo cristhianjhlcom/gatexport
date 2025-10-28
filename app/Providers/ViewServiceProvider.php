@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Actions\Home\GetAbout;
 use App\Actions\Home\GetGeneralInformation;
 use App\Actions\Setting\GetCompanyLogos;
 use App\Models\Category;
@@ -43,15 +44,26 @@ final class ViewServiceProvider extends ServiceProvider
             ]);
         });
 
+        View::composer('components.common.contact-section.index', function ($view) {
+            $about = (new GetAbout)->execute();
+            $data = $about['translations']['contact'];
+            $title = $data['title'] ??= '';
+            $description = $data['description'] ??= '';
+            $view->with([
+                'title' => $title,
+                'description' => $description,
+            ]);
+        });
+
         View::composer('components.layouts.public', function ($view) {
             $categories = Category::with('subcategories')
                 ->orderBy('name')
                 ->get()
-                ->map(fn ($category) => [
+                ->map(fn($category) => [
                     'name' => $category->name,
                     'slug' => $category->slug,
                     'image' => $category->imageUrl,
-                    'subcategories' => $category->subcategories->map(fn ($subcategory) => [
+                    'subcategories' => $category->subcategories->map(fn($subcategory) => [
                         'name' => $subcategory->name,
                         'slug' => $subcategory->slug,
                         'image' => $subcategory->imageUrl,

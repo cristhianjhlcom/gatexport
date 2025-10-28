@@ -22,13 +22,46 @@ final class CompanyServicesService
     {
         $companyServices = $this->getCompanyServicesData();
 
-        $cycles = $companyServices['cycles'] ?? [];
+        $data = $companyServices['cycles'] ?? [];
 
-        usort($cycles, function ($a, $b) {
+        usort($data, function ($a, $b) {
             return $a['order'] <=> $b['order'];
         });
 
-        return $cycles;
+        return $data;
+    }
+
+    public function getServicesData(): array
+    {
+        $companyServices = $this->getCompanyServicesData();
+
+        $data = $companyServices['services'] ?? [];
+
+        usort($data, function ($a, $b) {
+            return $a['order'] <=> $b['order'];
+        });
+
+        return $data;
+    }
+
+    public function getAuthorityData(): array
+    {
+        $data = $this->getCompanyServicesData();
+
+        return $data['authority'] ?? [];
+    }
+
+    public function getBenefitsData(): array
+    {
+        $companyServices = $this->getCompanyServicesData();
+
+        $data = $companyServices['benefits'] ?? [];
+
+        usort($data, function ($a, $b) {
+            return $a['order'] <=> $b['order'];
+        });
+
+        return $data;
     }
 
     protected function getCompanyServicesData(): array

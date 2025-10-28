@@ -33,6 +33,9 @@ return [
         'download_catalog_document' => 'Download Catalog',
         'call_to_action' => 'Let\'s talk',
     ],
+    'services' => [
+        'title' => 'Detailed Services',
+    ],
     'categories' => [
         'title' => 'Categories',
         'view_all' => 'View All',

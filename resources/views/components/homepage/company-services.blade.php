@@ -96,7 +96,7 @@
                 @else
                   <x-common.accordion.item
                     :content="$service['description']"
-                    :icon="$service['icon']"
+                    :icon="$service['image']"
                     :subtitle="$service['disclaimer'] ?? 'Subtítulo Falso'"
                     :title="$service['title']"
                   />
