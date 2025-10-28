@@ -11,7 +11,7 @@
         @if ($data['title'])
           <div class="space-y-10">
             <h2
-              class="text-primary-500 dark:text-primary-500 text-3xl font-extrabold italic leading-tight md:text-5xl md:leading-relaxed"
+              class="text-primary-500 dark:text-primary-500 text-3xl font-extrabold italic leading-tight md:leading-relaxed"
             >
               {{ $data['title'] }}
             </h2>

@@ -10,7 +10,7 @@
         <div class="order-2 flex flex-1 justify-start overflow-hidden rounded-sm md:order-1">
           <img
             alt="{{ $quality['title'] }}"
-            class="z-20 aspect-square rounded-sm"
+            class="z-20 aspect-auto rounded-sm object-contain"
             src="{{ Storage::disk('public')->url($image) }}"
           />
         </div>
@@ -24,24 +24,21 @@
             @endphp
 
             @if (count($headingParts) > 3)
-              <h2
-                class="text-primary-500 dark:text-primary-500 text-3xl font-extrabold italic leading-tight md:text-5xl">
+              <h2 class="text-primary-500 dark:text-primary-500 text-3xl font-extrabold italic leading-tight">
                 {{ implode(' ', array_slice($headingParts, 0, 3)) }}
               </h2>
               <x-common.separator-line
-                class="absolute hidden lg:right-[10%] lg:top-[15%] lg:flex lg:w-[700px]"
+                class="absolute hidden lg:right-[10%] lg:top-[10%] lg:flex lg:w-[700px]"
                 color="border-primary-500"
                 pointColor="bg-primary-500"
               />
               <h2
-                class="text-primary-500 dark:text-primary-500 m-0 text-3xl font-extrabold italic leading-tight md:ml-20 md:text-5xl"
+                class="text-primary-500 dark:text-primary-500 m-0 text-3xl font-extrabold italic leading-tight md:ml-20"
               >
                 {{ implode(' ', array_slice($headingParts, 3)) }}
               </h2>
             @else
-              <h2
-                class="text-primary-500 dark:text-primary-500 text-3xl font-extrabold italic leading-tight md:text-5xl"
-              >
+              <h2 class="text-primary-500 dark:text-primary-500 text-3xl font-extrabold italic leading-tight">
                 {{ $quality['title'] }}
               </h2>
             @endif

@@ -26,44 +26,63 @@
           wire:model="about.{{ $locale }}.commitment.description"
         />
 
-        <flux:file-upload label="Imagen Principal" wire:model="newCommitmentMainImage">
-          <flux:file-upload.dropzone
-            inline
-            text="500x500 - JPG, PNG, SVG hasta 2MB"
-            with-progress
-          />
-        </flux:file-upload>
+        <div class="space-y-2 overflow-hidden">
+          @php
+            $image = $about['commitment_main_image'] ??= '';
+            $hasImage = empty($image);
+            $tmp = $newCommitmentMainImage ??= null;
+          @endphp
 
-        @if (isset($about['commitment_main_image']))
-          <div class="mt-4 flex flex-col gap-2">
-            <flux:file-item
-              heading="{{ Storage::disk('public')->url($about['commitment_main_image']) }}"
-              image="{{ Storage::disk('public')->url($about['commitment_main_image']) }}"
-              size="{{ Storage::disk('public')->size($about['commitment_main_image']) }}"
+          <flux:file-upload
+            label="Imagen principal ({{ $name }})"
+            size="sm"
+            wire:model.live="newCommitmentMainImage"
+          >
+            <flux:file-upload.dropzone
+              :heading="$image"
+              inline
+              text="600x450 - JPG, PNG, SVG hasta 2MB"
+              with-progress
             />
-          </div>
-        @endif
+          </flux:file-upload>
 
-        <flux:file-upload label="Background Image" wire:model="newCommitmentBackgroundImage">
-          <flux:file-upload.dropzone
-            inline
-            text="900x500 - JPG, PNG, SVG hasta 2MB"
-            with-progress
-          />
-        </flux:file-upload>
-
-        @if (isset($about['commitment_background_image']) &&
-                !empty($about['commitment_background_image']) &&
-                Storage::disk('public')->exists($about['commitment_background_image']))
-          <div class="mt-4 flex flex-col gap-2">
+          @if ($tmp)
             <flux:file-item
-              heading="{{ Storage::disk('public')->url($about['commitment_background_image']) }}"
-              image="{{ Storage::disk('public')->url($about['commitment_background_image']) }}"
-              size="{{ Storage::disk('public')->size($about['commitment_background_image']) }}"
+              :heading="$tmp->getClientOriginalName()"
+              :image="$tmp->temporaryUrl()"
+              :size="$tmp->getSize()"
             />
-          </div>
-        @endif
+          @endif
+        </div>
 
+        <div class="space-y-2 overflow-hidden">
+          @php
+            $background = $about['commitment_background_image'] ??= '';
+            $hasBackground = empty($background);
+            $tmpBackground = $newCommitmentBackgroundImage ??= null;
+          @endphp
+
+          <flux:file-upload
+            label="Imagen de fondo ({{ $name }})"
+            size="sm"
+            wire:model.live="newCommitmentBackgroundImage"
+          >
+            <flux:file-upload.dropzone
+              :heading="$background"
+              inline
+              text="900x500 - JPG, PNG, SVG hasta 2MB"
+              with-progress
+            />
+          </flux:file-upload>
+
+          @if ($tmpBackground)
+            <flux:file-item
+              :heading="$tmpBackground->getClientOriginalName()"
+              :image="$tmpBackground->temporaryUrl()"
+              :size="$tmpBackground->getSize()"
+            />
+          @endif
+        </div>
       </flux:tab.panel>
     @endforeach
   </flux:tab.group>

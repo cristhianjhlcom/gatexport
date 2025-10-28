@@ -15,17 +15,11 @@
     {{-- About us Page Settings --}}
     <div class="space-y-4">
       @include('livewire.admin.settings.about.hero')
-
       @include('livewire.admin.settings.about.commitment')
-
       @include('livewire.admin.settings.about.quality-control')
-
       @include('livewire.admin.settings.about.certification')
-
       @include('livewire.admin.settings.about.history')
-
       @include('livewire.admin.settings.about.values')
-
       @include('livewire.admin.settings.about.contact')
     </div>
     {{-- #End About us Page Settings --}}

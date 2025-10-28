@@ -196,7 +196,7 @@ final class SettingAboutManagement extends Component
             'image',
             'mimes:png,jpg,jpeg,webp',
             'max:2048', // 2MB max
-            'dimensions:width=500,height=500',
+            'dimensions:width=600,height=450',
         ],
 
         'newCommitmentBackgroundImage' => [
@@ -212,7 +212,7 @@ final class SettingAboutManagement extends Component
             'image',
             'mimes:png,jpg,jpeg,webp',
             'max:2048', // 2MB max
-            'dimensions:width=500,height=500',
+            'dimensions:width=600,height=450',
         ],
 
         'newCertificationMainImage' => [
@@ -236,7 +236,7 @@ final class SettingAboutManagement extends Component
             'image',
             'mimes:png,jpg,jpeg,webp',
             'max:2048', // 2MB max
-            'dimensions:width=500,height=500',
+            'dimensions:width=600,height=450',
         ],
 
         'newHistoryBackgroundImage' => [

@@ -26,44 +26,63 @@
           wire:model="about.{{ $locale }}.ourHistory.description"
         />
 
-        <flux:file-upload label="Imagen Principal" wire:model="newHistoryMainImage">
-          <flux:file-upload.dropzone
-            inline
-            text="500x500 - JPG, PNG, SVG hasta 2MB"
-            with-progress
-          />
-        </flux:file-upload>
+        <div class="space-y-2 overflow-hidden">
+          @php
+            $image = $about['history_main_image'] ??= '';
+            $hasImage = empty($image);
+            $tmp = $newHistoryMainImage ??= null;
+          @endphp
 
-        @if (isset($about['history_main_image']))
-          <div class="mt-4 flex flex-col gap-2">
-            <flux:file-item
-              heading="{{ Storage::disk('public')->url($about['history_main_image']) }}"
-              image="{{ Storage::disk('public')->url($about['history_main_image']) }}"
-              size="{{ Storage::disk('public')->size($about['history_main_image']) }}"
+          <flux:file-upload
+            label="Imagen principal ({{ $name }})"
+            size="sm"
+            wire:model.live="newHistoryMainImage"
+          >
+            <flux:file-upload.dropzone
+              :heading="$image"
+              inline
+              text="600x450 - JPG, PNG, SVG hasta 2MB"
+              with-progress
             />
-          </div>
-        @endif
+          </flux:file-upload>
 
-        <flux:file-upload label="Background Image" wire:model="newHistoryBackgroundImage">
-          <flux:file-upload.dropzone
-            inline
-            text="900x500 - JPG, PNG, SVG hasta 2MB"
-            with-progress
-          />
-        </flux:file-upload>
-
-        @if (isset($about['history_background_image']) &&
-                !empty($about['history_background_image']) &&
-                Storage::disk('public')->exists($about['history_background_image']))
-          <div class="mt-4 flex flex-col gap-2">
+          @if ($tmp)
             <flux:file-item
-              heading="{{ Storage::disk('public')->url($about['history_background_image']) }}"
-              image="{{ Storage::disk('public')->url($about['history_background_image']) }}"
-              size="{{ Storage::disk('public')->size($about['history_background_image']) }}"
+              :heading="$tmp->getClientOriginalName()"
+              :image="$tmp->temporaryUrl()"
+              :size="$tmp->getSize()"
             />
-          </div>
-        @endif
+          @endif
+        </div>
 
+        <div class="space-y-2 overflow-hidden">
+          @php
+            $background = $about['history_background_image'] ??= '';
+            $hasBackground = empty($background);
+            $tmpBackground = $newHistoryMainImage ??= null;
+          @endphp
+
+          <flux:file-upload
+            label="Imagen de fondo ({{ $name }})"
+            size="sm"
+            wire:model.live="newHistoryBackgroundImage"
+          >
+            <flux:file-upload.dropzone
+              :heading="$background"
+              inline
+              text="900x500 - JPG, PNG, SVG hasta 2MB"
+              with-progress
+            />
+          </flux:file-upload>
+
+          @if ($tmpBackground)
+            <flux:file-item
+              :heading="$tmpBackground->getClientOriginalName()"
+              :image="$tmpBackground->temporaryUrl()"
+              :size="$tmpBackground->getSize()"
+            />
+          @endif
+        </div>
       </flux:tab.panel>
     @endforeach
   </flux:tab.group>

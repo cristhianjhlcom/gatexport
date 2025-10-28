@@ -26,23 +26,34 @@
           wire:model="about.{{ $locale }}.quality.description"
         />
 
-        <flux:file-upload label="Imagen Principal" wire:model="newQualityMainImage">
-          <flux:file-upload.dropzone
-            inline
-            text="500x500 - JPG, PNG, SVG hasta 2MB"
-            with-progress
-          />
-        </flux:file-upload>
+        <div class="space-y-2 overflow-hidden">
+          @php
+            $image = $about['quality_main_image'] ??= '';
+            $hasImage = empty($image);
+            $tmp = $newQualityMainImage ??= null;
+          @endphp
 
-        @if (isset($about['quality_main_image']))
-          <div class="mt-4 flex flex-col gap-2">
-            <flux:file-item
-              heading="{{ Storage::disk('public')->url($about['quality_main_image']) }}"
-              image="{{ Storage::disk('public')->url($about['quality_main_image']) }}"
-              size="{{ Storage::disk('public')->size($about['quality_main_image']) }}"
+          <flux:file-upload
+            label="Imagen principal ({{ $name }})"
+            size="sm"
+            wire:model.live="newQualityMainImage"
+          >
+            <flux:file-upload.dropzone
+              :heading="$image"
+              inline
+              text="600x450 - JPG, PNG, SVG hasta 2MB"
+              with-progress
             />
-          </div>
-        @endif
+          </flux:file-upload>
+
+          @if ($tmp)
+            <flux:file-item
+              :heading="$tmp->getClientOriginalName()"
+              :image="$tmp->temporaryUrl()"
+              :size="$tmp->getSize()"
+            />
+          @endif
+        </div>
       </flux:tab.panel>
     @endforeach
   </flux:tab.group>

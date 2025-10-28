@@ -25,7 +25,7 @@
         <div class="flex flex-1 justify-end overflow-hidden rounded-sm">
           <img
             alt="{{ $about['translations']['commitment']['title'] }}"
-            class="aspect-square rounded-sm"
+            class="aspect-auto rounded-sm object-contain"
             src="{{ Storage::disk('public')->url($about['commitment_main_image']) }}"
           />
         </div>

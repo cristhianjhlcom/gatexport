@@ -13,7 +13,7 @@
         <div class="order-2 flex flex-1 justify-start rounded-sm md:order-1">
           <img
             alt="{{ $data['title'] }}"
-            class="aspect-square rounded-sm shadow-xl"
+            class="aspect-auto rounded-sm object-contain shadow-xl"
             src="{{ Storage::disk('public')->url($mainImage) }}"
           />
         </div>
