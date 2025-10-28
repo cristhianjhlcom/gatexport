@@ -24,38 +24,6 @@
                 src="{{ Storage::disk('public')->url($banner['image_mobile']) }}"
               />
             @endif
-
-            {{-- NOTE: Nuevo diseño.
-            <div class="bg-primary-900/50 absolute inset-0"></div>
-            <div class="container relative z-10 h-full">
-              <div class="flex h-full items-center py-8 md:py-12">
-                <div class="w-full space-y-4 text-white md:w-4/5 md:space-y-6 lg:w-7/12">
-                  <x-heading
-                    level="2"
-                    size="xl"
-                    variant="white"
-                    weight="black"
-                  >
-                    {{ $banner['title'] }}
-                  </x-heading>
-                  <x-text
-                    size="xs"
-                    variant="white"
-                    weight="light"
-                  >{{ $banner['short_description'] }}</x-text>
-                  <flux:button
-                    class="w-full sm:w-auto"
-                    href="{{ $banner['link_url'] }}"
-                    type="button"
-                    variant="primary"
-                  >
-                    {{ $banner['link_text'] }}
-                  </flux:button>
-                </div>
-              </div>
-            </div>
-            --}}
-
           </a>
         @endforeach
       </div>

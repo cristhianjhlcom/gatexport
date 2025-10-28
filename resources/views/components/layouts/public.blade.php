@@ -202,12 +202,12 @@
         </flux:navmenu>
       </flux:dropdown>
 
-      <flux:navbar.item href="{{ route('home.index') }}/#services">
-        {{ __('layouts.navigation.services') }}
-      </flux:navbar.item>
-
       <flux:navbar.item href="{{ route('about-us.index') }}">
         {{ __('layouts.navigation.about_us') }}
+      </flux:navbar.item>
+
+      <flux:navbar.item href="{{ route('services.index') }}">
+        {{ __('layouts.navigation.services') }}
       </flux:navbar.item>
 
     </flux:navbar>
