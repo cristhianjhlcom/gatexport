@@ -22,6 +22,7 @@ final class PageView extends Component
     public function render()
     {
         $productsQuery = Product::query()
+            ->with(['subcategory', 'subcategory.category'])
             ->where('status', ProductStatusEnum::PUBLISHED);
 
         if ($this->subcategoryId) {
