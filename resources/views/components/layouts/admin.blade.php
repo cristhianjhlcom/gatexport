@@ -86,9 +86,6 @@
       <flux:navlist.item href="{{ route('admin.settings.about') }}">
         Historia
       </flux:navlist.item>
-      <flux:navlist.item href="{{ route('admin.settings.providers') }}">
-        Proveedores
-      </flux:navlist.item>
       <flux:navlist.item href="{{ route('admin.settings.banners') }}">
         Banners
       </flux:navlist.item>

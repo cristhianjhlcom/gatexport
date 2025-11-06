@@ -8,7 +8,7 @@ use App\Models\Setting;
 use App\Traits\ImageUploads;
 use Illuminate\Support\Facades\DB;
 
-final class BannerManagementServices
+final class BannerManagementService
 {
     use ImageUploads;
 

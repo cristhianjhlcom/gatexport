@@ -4,7 +4,7 @@
 
 
 @if (count($promotional_banners) > 0)
-  <article class="overflow-hidden">
+  <article class="relative overflow-hidden">
     <div class="swiper__hero relative h-[500px] bg-gray-300 md:h-[700px]">
       <div class="swiper-wrapper h-full">
         @foreach ($promotional_banners as $banner)
@@ -28,6 +28,8 @@
         @endforeach
       </div>
       <div class="swiper-pagination swiper-pagination__hero"></div>
+    </div>
+    <div class="swiper-navigation__hero absolute">
       <div class="swiper-button-prev__hero"></div>
       <div class="swiper-button-next__hero"></div>
     </div>
@@ -41,7 +43,7 @@
         loop: true,
         autoplay: {
           delay: 5000,
-          disableOnInteraction: false,
+          disableOnInteraction: true,
         },
         pagination: {
           el: '.swiper-pagination__hero',
@@ -56,34 +58,6 @@
   </script>
 
   <style>
-    /* .swiper-button-prev__hero,
-      .swiper-button-next__hero {
-        position: absolute;
-        top: 10%;
-        z-index: 10;
-        width: 40px;
-        height: 40px;
-        background-color: #ff6600;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .swiper-button-prev__hero {
-        left: 10px;
-      }
-
-      .swiper-button-next__hero {
-        right: 10px;
-      }
-
-      .swiper-button-prev__hero::after,
-      .swiper-button-next__hero::after {
-        color: #ffffff;
-        font-size: 18px;
-      } */
-
     .swiper-pagination-bullet {
       width: 150px !important;
       height: 10px !important;

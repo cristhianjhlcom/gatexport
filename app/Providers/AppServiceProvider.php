@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Models\Setting;
+use App\Observers\SettingObserver;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
@@ -36,5 +38,8 @@ final class AppServiceProvider extends ServiceProvider
         Model::shouldBeStrict(! app()->isProduction());
 
         DB::prohibitDestructiveCommands(app()->isProduction());
+
+        // NOTE: Observers
+        Setting::observe(SettingObserver::class);
     }
 }
