@@ -37,11 +37,11 @@
   <script>
     window.addEventListener('DOMContentLoaded', (event) => {
       const benefitsSwiper = new Swiper('.swiper__services__benefits', {
-        // loop: true,
-        // autoplay: {
-        //   delay: 7000,
-        //   disableOnInteraction: false,
-        // },
+        loop: true,
+        autoplay: {
+          delay: 5000,
+          disableOnInteraction: false,
+        },
         pagination: {
           el: '.swiper-pagination__services__benefits',
           clickable: true,
