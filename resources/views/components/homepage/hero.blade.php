@@ -27,11 +27,9 @@
           </a>
         @endforeach
       </div>
-      {{-- NOTE: Nuevo diseño.
-        <div class="swiper-pagination swiper-pagination__hero"></div>
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
-        --}}
+      <div class="swiper-pagination swiper-pagination__hero"></div>
+      <div class="swiper-button-prev__hero"></div>
+      <div class="swiper-button-next__hero"></div>
     </div>
   </article>
 @endif
@@ -49,19 +47,48 @@
           el: '.swiper-pagination__hero',
           clickable: true,
         },
-        // navigation: {
-        //   nextEl: '.swiper-button-next',
-        //   prevEl: '.swiper-button-prev',
-        // },
+        navigation: {
+          nextEl: '.swiper-button-next__hero',
+          prevEl: '.swiper-button-prev__hero',
+        },
       });
     });
   </script>
 
   <style>
+    /* .swiper-button-prev__hero,
+      .swiper-button-next__hero {
+        position: absolute;
+        top: 10%;
+        z-index: 10;
+        width: 40px;
+        height: 40px;
+        background-color: #ff6600;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .swiper-button-prev__hero {
+        left: 10px;
+      }
+
+      .swiper-button-next__hero {
+        right: 10px;
+      }
+
+      .swiper-button-prev__hero::after,
+      .swiper-button-next__hero::after {
+        color: #ffffff;
+        font-size: 18px;
+      } */
+
     .swiper-pagination-bullet {
-      width: 10px !important;
+      width: 150px !important;
       height: 10px !important;
       margin: 0 6px !important;
+      border-radius: 20px;
       background-color: #ffffff !important;
     }
   </style>

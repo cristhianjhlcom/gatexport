@@ -12,7 +12,7 @@
     <div class="container">
       <div class="flex items-start justify-start gap-4 md:flex-row md:gap-12">
 
-        <div class="z-10 hidden min-h-[1175px] w-1/2 rounded-sm sm:flex">
+        <div class="z-10 hidden w-1/2 rounded-sm sm:flex">
           @if ($data)
             <img alt="{{ __('pages.home.services.title') }}" src="{{ Storage::disk('public')->url($data['image']) }}">
           @endif
