@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Livewire\Admin\Settings;
 
 use App\Services\CompanyServicesSettingService;
+use Exception;
 use Flux\Flux;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Validate;
@@ -44,7 +45,7 @@ final class SettingServicesManagement extends Component
     {
         $parts = explode('.', $key);
 
-        if (count($parts) == 2) {
+        if (count($parts) === 2) {
             $locale = $parts[0];
             $key = $parts[1];
 
@@ -52,10 +53,11 @@ final class SettingServicesManagement extends Component
                 $this->tmpImages[$locale][$key] = $value;
                 // $this->data[$locale][$key]['image'] = $value;
             }
+
             return;
         }
 
-        if (count($parts) == 3) {
+        if (count($parts) === 3) {
             $locale = $parts[0];
             $key = $parts[1];
             $idx = $parts[2];
@@ -64,6 +66,7 @@ final class SettingServicesManagement extends Component
                 $this->tmpImages[$locale][$key][$idx] = $value;
                 // $this->data[$locale][$key][$idx]['image'] = $value;
             }
+
             return;
         }
     }
@@ -73,16 +76,18 @@ final class SettingServicesManagement extends Component
         try {
             $count = $this->data[$locale]['services'] ??= [];
 
-            if (count($count) >= 5) throw new \Exception('Límite de servicios (Max. 5).');
+            if (count($count) >= 5) {
+                throw new Exception('Límite de servicios (Max. 5).');
+            }
 
             $this->data[$locale]['services'][] = [
                 'title' => '',
                 'description' => '',
                 'disclaimer' => '',
                 'order' => count($count) + 1,
-                'image' => NULL,
+                'image' => null,
             ];
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Flux::toast(
                 heading: 'Ups! Algo salió mal',
                 text: $e->getMessage(),
@@ -107,14 +112,16 @@ final class SettingServicesManagement extends Component
         try {
             $count = $this->data[$locale]['cycles'] ??= [];
 
-            if (count($count) >= 5) throw new \Exception('Límite de ciclos (Max. 5).');
+            if (count($count) >= 5) {
+                throw new Exception('Límite de ciclos (Max. 5).');
+            }
 
             $this->data[$locale]['cycles'][] = [
                 'title' => '',
                 'order' => count($count) + 1,
-                'image' => NULL,
+                'image' => null,
             ];
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Flux::toast(
                 heading: 'Ups! Algo salió mal',
                 text: $e->getMessage(),
@@ -139,16 +146,18 @@ final class SettingServicesManagement extends Component
         try {
             $count = $this->data[$locale]['benefits'] ??= [];
 
-            if (count($count) >= 5) throw new \Exception('Límite de beneficios (Max. 5).');
+            if (count($count) >= 5) {
+                throw new Exception('Límite de beneficios (Max. 5).');
+            }
 
             $this->data[$locale]['benefits'][] = [
                 'title' => '',
                 'description' => '',
                 'order' => count($count) + 1,
-                'image' => NULL,
-                'background' => NULL,
+                'image' => null,
+                'background' => null,
             ];
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Flux::toast(
                 heading: 'Ups! Algo salió mal',
                 text: $e->getMessage(),

@@ -30,7 +30,6 @@ final class BannerManagementServices
         return $banners;
     }
 
-
     public function save(array $data)
     {
         DB::transaction(function () use ($data) {

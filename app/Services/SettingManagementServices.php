@@ -7,7 +7,6 @@ namespace App\Services;
 use App\Models\Setting;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 
 final class SettingManagementServices
 {

@@ -29,16 +29,16 @@ final class CategoryManagementForm extends Form
     public string $slug = '';
 
     #[Validate]
-    public ?string $backgroundColor = NULL;
+    public ?string $backgroundColor = null;
 
     #[Validate]
-    public $image = NULL;
+    public $image = null;
 
     #[Validate]
-    public $whiteIcon = NULL;
+    public $whiteIcon = null;
 
     #[Validate]
-    public $primaryIcon = NULL;
+    public $primaryIcon = null;
 
     public function setCategory(Category $category): void
     {

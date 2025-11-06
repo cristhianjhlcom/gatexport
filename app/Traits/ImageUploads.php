@@ -19,7 +19,6 @@ trait ImageUploads
      *     directory: string,
      *     disk?: string
      * } $options
-     * @return string|null
      */
     protected function upload($options): ?string
     {
@@ -29,7 +28,7 @@ trait ImageUploads
         $directory = $options['directory'] ??= 'uploads';
 
         if (! $newFile) {
-            Log::info("No new file to upload, keeping current path.", [
+            Log::info('No new file to upload, keeping current path.', [
                 'currentPath' => $currentPath,
             ]);
 
@@ -37,7 +36,7 @@ trait ImageUploads
         }
 
         if ($currentPath && Storage::disk($disk)->exists($currentPath)) {
-            Log::info("Delete old file", [
+            Log::info('Delete old file', [
                 'path' => $currentPath,
                 'disk' => $disk,
             ]);
@@ -45,7 +44,7 @@ trait ImageUploads
             Storage::disk($disk)->delete($currentPath);
         }
 
-        Log::info("Process to store new file", [
+        Log::info('Process to store new file', [
             'directory' => $directory,
             'disk' => $disk,
         ]);

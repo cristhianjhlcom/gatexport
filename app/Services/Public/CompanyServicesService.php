@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 final class CompanyServicesService
 {
-    protected string $key = 'company_services';
+    private string $key = 'company_services';
 
     public function getHeroData(): array
     {
@@ -64,7 +64,7 @@ final class CompanyServicesService
         return $data;
     }
 
-    protected function getCompanyServicesData(): array
+    private function getCompanyServicesData(): array
     {
         return DB::transaction(function () {
             $locale = app()->getLocale();

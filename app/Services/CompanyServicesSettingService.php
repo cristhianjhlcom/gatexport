@@ -38,7 +38,7 @@ final class CompanyServicesSettingService
                         'title' => $service['title'] ?? '',
                         'subtitle' => $service['subtitle'] ?? '',
                         'description' => $service['description'] ?? '',
-                        'icon' => $service['icon'] ?? NULL,
+                        'icon' => $service['icon'] ?? null,
                     ];
                 }
             }
@@ -54,11 +54,11 @@ final class CompanyServicesSettingService
 
             foreach ($this->locales as $locale) {
                 foreach ($keys as $key) {
-                    if (!empty($data['tmp_images'][$locale][$key])) {
+                    if (! empty($data['tmp_images'][$locale][$key])) {
                         if ($key === 'cycles' || $key === 'services') {
                             foreach ($data['tmp_images'][$locale][$key] as $idx => $image) {
                                 if (is_object($image) && method_exists($image, 'store')) {
-                                    $current = $data['services_information'][$locale][$key][$idx]['image'] ??= NULL;
+                                    $current = $data['services_information'][$locale][$key][$idx]['image'] ??= null;
                                     $upload = $this->handleFileUpload($image, $current);
 
                                     // if (!empty($data['services_information'][$locale][$key][$idx]['image'])) {
@@ -68,19 +68,20 @@ final class CompanyServicesSettingService
                                     $data['services_information'][$locale][$key][$idx]['image'] = $upload;
                                 }
                             }
+
                             continue;
                         }
 
                         if ($key === 'benefits') {
                             foreach ($data['tmp_images'][$locale][$key] as $idx => $item) {
-                                $image = $item['image'] ??= NULL;
-                                $background = $item['background'] ??= NULL;
+                                $image = $item['image'] ??= null;
+                                $background = $item['background'] ??= null;
                                 $isValidImage = is_object($image) && method_exists($image, 'store');
                                 $isValidBackground = is_object($background) && method_exists($background, 'store');
 
                                 if ($isValidImage && $isValidBackground) {
-                                    $currentImage = $data['services_information'][$locale][$key][$idx]['image'] ??= NULL;
-                                    $currentBackground = $data['services_information'][$locale][$key][$idx]['background'] ??= NULL;
+                                    $currentImage = $data['services_information'][$locale][$key][$idx]['image'] ??= null;
+                                    $currentBackground = $data['services_information'][$locale][$key][$idx]['background'] ??= null;
                                     $imageUpload = $this->handleFileUpload($image, $currentImage);
                                     $backgroundUpload = $this->handleFileUpload($background, $currentBackground);
 
@@ -88,10 +89,11 @@ final class CompanyServicesSettingService
                                     $data['services_information'][$locale][$key][$idx]['background'] = $backgroundUpload;
                                 }
                             }
+
                             continue;
                         }
 
-                        $current = $data['services_information'][$locale][$key]['image'] ??= NULL;
+                        $current = $data['services_information'][$locale][$key]['image'] ??= null;
                         $upload = $this->handleFileUpload($data['tmp_images'][$locale][$key], $current);
 
                         // if (!empty($data['services_information'][$locale][$key]['image'])) {
