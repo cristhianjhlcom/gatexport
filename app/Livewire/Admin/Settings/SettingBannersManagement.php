@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Livewire\Admin\Settings;
 
-use App\Services\SettingManagementServices;
+use App\Services\Setting\BannerManagementServices;
 use Flux\Flux;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Validate;
@@ -34,7 +34,7 @@ final class SettingBannersManagement extends Component
         'en' => [],
     ];
 
-    protected SettingManagementServices $services;
+    protected BannerManagementServices $services;
 
     protected $messages = [
         'tmp_images_desktop.*.*.dimensions' => 'La imagen de escritorio debe tener un tamaño entre 1200x600px y 2560x1440px.',
@@ -47,12 +47,12 @@ final class SettingBannersManagement extends Component
 
     public function boot()
     {
-        $this->services = app(SettingManagementServices::class);
+        $this->services = app(BannerManagementServices::class);
     }
 
     public function mount()
     {
-        $this->banners = $this->services->loadBanners();
+        $this->banners = $this->services->load();
     }
 
     public function updatedTmpImagesDesktop($value, $key)
@@ -104,8 +104,10 @@ final class SettingBannersManagement extends Component
     {
         $this->validate();
 
-        $this->services->saveBanners([
+        $this->services->save([
             'banners' => $this->banners,
+            'tmp_images_desktop' => $this->tmp_images_desktop,
+            'tmp_images_mobile' => $this->tmp_images_mobile,
         ]);
 
         Flux::toast(
@@ -117,7 +119,7 @@ final class SettingBannersManagement extends Component
 
     public function render()
     {
-        return view('livewire.admin.settings.banners')
+        return view('livewire.admin.settings.banners.index')
             ->title('Banners | Settings | Management');
     }
 

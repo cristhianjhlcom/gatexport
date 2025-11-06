@@ -17,12 +17,10 @@ final class SettingManagementServices
      * #---------------------------
      * 01. loadProviders
      * 03. loadCompetitiveAdvantages
-     * 05. loadBanners
      * 06. loadGeneralInformation
      * 07. loadHighlightedCategories
      * 09. saveCompetitiveAdvantages
      * 11. saveProviders
-     * 12. saveBanners
      * 13. saveGeneralInformation
      * 14. handleFileUpload
      * #---------------------------
@@ -63,33 +61,6 @@ final class SettingManagementServices
         }
 
         return $competitive_advantages;
-    }
-
-    public function loadBanners(): array
-    {
-        $banners = [
-            'es' => [],
-            'en' => [],
-        ];
-
-        foreach ($this->available_locales as $locale) {
-            $setting_banners = Setting::getByLocale('banners', $locale);
-
-            if (is_array($setting_banners)) {
-                foreach ($setting_banners as $banner) {
-                    $banners[$locale][] = [
-                        'title' => $banner['title'] ?? '',
-                        'short_description' => $banner['short_description'] ?? '',
-                        'image_desktop' => $banner['image_desktop'] ?? '',
-                        'image_mobile' => $banner['image_mobile'] ?? '',
-                        'link_text' => $banner['link_text'] ?? '',
-                        'link_url' => $banner['link_url'] ?? '',
-                    ];
-                }
-            }
-        }
-
-        return $banners;
     }
 
     public function loadGeneralInformation(): array
@@ -220,54 +191,6 @@ final class SettingManagementServices
                     'is_public' => true,
                 ]
             );
-        });
-    }
-
-    public function saveBanners(array $data)
-    {
-        DB::transaction(function () use ($data) {
-            foreach ($this->available_locales as $locale) {
-                $listOfBanners = [];
-
-                if (isset($data['banners'][$locale])) {
-                    foreach ($data['banners'][$locale] as $banner) {
-                        $image_desktop_value = $banner['image_desktop'];
-                        $image_mobile_value = $banner['image_mobile'];
-
-                        if (is_object($banner['image_desktop']) && method_exists($banner['image_desktop'], 'store')) {
-                            // $image_desktop_value = $banner['image_desktop']->store('uploads/settings/banners/desktop', 'public');
-                            $image_desktop_value = $this->handleFileUpload($banner['image_desktop'], 'uploads/settings/banners/desktop');
-                        }
-
-                        if (is_object($banner['image_mobile']) && method_exists($banner['image_mobile'], 'store')) {
-                            // $image_mobile_value = $banner['image_mobile']->store('uploads/settings/banners/mobile', 'public');
-                            $image_mobile_value = $this->handleFileUpload($banner['image_mobile'], 'uploads/settings/banners/mobile');
-                        }
-
-                        $listOfBanners[] = [
-                            'title' => $banner['title'],
-                            'short_description' => $banner['short_description'],
-                            'image_desktop' => $image_desktop_value,
-                            'image_mobile' => $image_mobile_value,
-                            'link_text' => $banner['link_text'],
-                            'link_url' => $banner['link_url'],
-                        ];
-                    }
-                }
-
-                Setting::updateOrCreate(
-                    [
-                        'key' => 'banners',
-                        'locale' => $locale,
-                        'group' => 'home',
-                    ],
-                    [
-                        'value' => $listOfBanners,
-                        'type' => 'json',
-                        'is_public' => true,
-                    ]
-                );
-            }
         });
     }
 
