@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Observers;
 
 use App\Models\Setting;
 use Illuminate\Support\Facades\Cache;
 
-class SettingObserver
+final class SettingObserver
 {
     public function saved(Setting $setting): void
     {
@@ -19,7 +21,7 @@ class SettingObserver
 
         if ($setting->key === 'general_info' && $setting->group === 'general') {
             Cache::forget("general_information_{$setting->locale}");
-            Cache::forget("company_logos");
+            Cache::forget('company_logos');
         }
 
         if ($setting->key === 'about' && $setting->group === 'about') {
@@ -51,7 +53,7 @@ class SettingObserver
 
         if ($setting->key === 'general_info' && $setting->group === 'general') {
             Cache::forget("general_information_{$setting->locale}");
-            Cache::forget("company_logos");
+            Cache::forget('company_logos');
         }
 
         if ($setting->key === 'about' && $setting->group === 'about') {

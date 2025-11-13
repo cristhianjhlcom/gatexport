@@ -13,7 +13,7 @@ final class GetCompanyLogos
 {
     public function execute(): array
     {
-        return Cache::rememberForever("company_logos", function () {
+        return Cache::rememberForever('company_logos', function () {
             return DB::transaction(function () {
                 $setting = Setting::where('key', 'general_info')
                     ->where('group', 'general')

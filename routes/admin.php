@@ -8,6 +8,7 @@ use App\Livewire\Admin\Categories\CategoryIndexManagement;
 use App\Livewire\Admin\Orders\OrderEditManagement;
 use App\Livewire\Admin\Orders\OrderIndexManagement;
 use App\Livewire\Admin\Products\ProductCreateManagement;
+use App\Livewire\Admin\Products\ProductDetailManagement;
 use App\Livewire\Admin\Products\ProductEditManagement;
 use App\Livewire\Admin\Products\ProductIndexManagement;
 use App\Livewire\Admin\Products\ProductShowManagement;
@@ -16,7 +17,6 @@ use App\Livewire\Admin\Settings\SettingBannersManagement;
 use App\Livewire\Admin\Settings\SettingCompetitiveAdvantagesManagement;
 use App\Livewire\Admin\Settings\SettingCountriesManagement;
 use App\Livewire\Admin\Settings\SettingGeneralManagement;
-use App\Livewire\Admin\Settings\SettingProvidersManagement;
 use App\Livewire\Admin\Settings\SettingServicesManagement;
 use App\Livewire\Admin\Subcategories\SubcategoryCreateManagement;
 use App\Livewire\Admin\Subcategories\SubcategoryEditManagement;
@@ -42,6 +42,7 @@ Route::group(['middleware' => 'role:super_admin|manager'], function () {
 
     // NOTE: Products Management.
     Route::get('products', ProductIndexManagement::class)->name('products.index');
+    Route::get('products/detail', ProductDetailManagement::class)->name('products.detail');
     Route::get('products/create', ProductCreateManagement::class)->name('products.create');
     Route::get('products/{product}', ProductShowManagement::class)->name('products.show');
     Route::get('products/{product}/edit', ProductEditManagement::class)->name('products.edit');

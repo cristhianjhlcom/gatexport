@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('categories', function (Blueprint $table) {
+        Schema::table('subcategories', function (Blueprint $table) {
             $table->string('background_color')->default('#dc801e');
             $table->string('icon_white')->nullable();
             $table->string('icon_primary')->nullable();
@@ -29,7 +27,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('categories', function (Blueprint $table) {
+        Schema::table('subcategories', function (Blueprint $table) {
             $table->dropColumn([
                 'background_color',
                 'icon_white',

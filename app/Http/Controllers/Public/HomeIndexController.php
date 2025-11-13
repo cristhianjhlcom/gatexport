@@ -5,15 +5,12 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Public;
 
 use App\Actions\Home\GetAbout;
-use App\Actions\Home\GetCompanyProviders;
 use App\Actions\Home\GetCompanyServices;
 use App\Actions\Home\GetCompetitiveAdvantages;
 use App\Actions\Home\GetExportContinents;
-use App\Actions\Home\GetFeaturedCategories;
 use App\Actions\Home\GetGeneralInformation;
 use App\Actions\Home\GetHighlightedCategories;
 use App\Actions\Home\GetPromotionalBanners;
-use App\Actions\Home\GetSteps;
 use Illuminate\Routing\Controller;
 
 final class HomeIndexController extends Controller

@@ -1,15 +1,28 @@
 <div class="space-y-4">
-  <flux:heading>
-    Manejo de Producto
-  </flux:heading>
-  <flux:separator />
+  <header>
+    <flux:heading size="lg">
+      Manejo de Producto
+    </flux:heading>
+  </header>
 
   <div class="flex flex-col space-y-4">
-    <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-      <div></div>
-      <flux:button href="{{ route('admin.products.create') }}" icon="plus">
-        Agregar Producto
-      </flux:button>
+    <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-end">
+      <flux:button.group>
+        <flux:button
+          href="{{ route('admin.products.create') }}"
+          icon:trailing="plus"
+          size="sm"
+        >
+          Agregar Producto
+        </flux:button>
+        <flux:button
+          href="{{ route('admin.products.detail') }}"
+          icon:trailing="wrench-screwdriver"
+          size="sm"
+        >
+          Configuración
+        </flux:button>
+      </flux:button.group>
     </div>
 
     <flux:table :paginate="$products">
@@ -59,10 +72,10 @@
                     icon:trailing="arrow-trending-up"
                     target="_blank"
                   >
-                    Ver Producto
+                    Ver
                   </flux:menu.item>
                   <flux:menu.item href="{{ route('admin.products.edit', $product) }}" icon:trailing="pencil">
-                    Editar Producto
+                    Editar
                   </flux:menu.item>
                   <flux:menu.item
                     icon:trailing="trash"
@@ -70,7 +83,7 @@
                     wire:click="delete({{ $product }})"
                     wire:confirm.prevent="Estas seguro? Esta operación no se puede revertir."
                   >
-                    Eliminar Producto
+                    Eliminar
                   </flux:menu.item>
                 </flux:menu>
               </flux:dropdown>
