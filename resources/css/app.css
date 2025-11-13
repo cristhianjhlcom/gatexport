@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @import "../../vendor/livewire/flux/dist/flux.css";
-@import "jsvectormap/dist/jsvectormap.min.css";
+/* @import "jsvectormap/dist/jsvectormap.min.css"; */
 @import "swiper/css/bundle";
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
@@ -79,4 +79,32 @@
 
 .container {
     @apply mx-auto w-full max-w-[1280px] px-8 md:px-8;
+}
+
+.special-content h1 {
+    @apply text-4xl text-center font-extrabold text-primary-500;
+}
+
+.special-content h2 {
+    @apply text-2xl text-center italic text-primary-500;
+}
+
+.special-content p {
+    @apply leading-relaxed;
+}
+
+.special-content ul {
+    @apply list-disc pl-5 marker:text-[#a45200];
+}
+
+.special-content ul li p {
+    @apply font-normal leading-relaxed text-gray-900;
+}
+
+.special-content ul li p strong {
+    @apply font-extrabold leading-relaxed text-gray-900;
+}
+
+.special-content strong {
+    @apply text-primary-500 font-extrabold;
 }

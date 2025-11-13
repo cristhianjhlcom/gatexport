@@ -7,20 +7,6 @@
 
   <title>{{ $title ?? config('app.name') }} | {{ config('app.name') }}</title>
 
-  <!-- Paragraphs Fonts -->
-  {{-- <link href="https://fonts.bunny.net" rel="preconnect">
-  <link href="https://fonts.bunny.net/css?family=inter:400,500,600&display=swap" rel="stylesheet" /> --}}
-
-  <!-- Headings Fonts -->
-  {{-- <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link
-    crossorigin
-    href="https://fonts.gstatic.com"
-    rel="preconnect"
-  >
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
-    rel="stylesheet"
-  > --}}
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link
     crossorigin
@@ -83,7 +69,7 @@
   @endproduction
 </head>
 
-<body class="min-h-screen bg-white dark:bg-zinc-800">
+<body class="min-h-screen bg-white antialiased dark:bg-zinc-800">
   @production
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe
@@ -176,7 +162,7 @@
                         </a>
                       @endforeach
                     @else
-                      <!-- Subcategorías -->
+                      <!-- Sub categorías -->
                       @foreach ($category['subcategories'] as $index => $subcategory)
                         <a
                           class="{{ $index < 2 ? 'col-start-' . ($index + 4) : '' }} bg-primary-500 relative overflow-hidden rounded-sm"

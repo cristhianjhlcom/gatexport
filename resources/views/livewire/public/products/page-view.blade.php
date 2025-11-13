@@ -1,9 +1,12 @@
 <main>
-  <header class="bg-primary-100 py-20">
-    <div class="container">
-      <h1>Productos</h1>
-    </div>
+  <header>
+    <img
+      alt="{{ $details['altText'] }}"
+      class="aspect-auto h-80 w-full object-cover object-center"
+      src="{{ asset("storage/{$details['backgroundImage']}") }}"
+    />
   </header>
+
   <div class="container space-y-4 py-10">
     <div class="flex flex-col gap-4 md:flex-row">
       <div class="w-full max-w-[250px]">
@@ -65,7 +68,8 @@
           </ul>
         </aside>
       </div>
-      <div class="flex-1">
+
+      <div class="flex-1 space-y-6">
         <header class="flex items-center justify-between pb-4">
           <div>
             <button>
@@ -87,12 +91,24 @@
             </flux:select>
           </div>
         </header>
-        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
+
+        {{-- <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3"> --}}
+        <div class="grid grid-cols-1 gap-6 divide-y divide-gray-200">
           @foreach ($products as $product)
-            <x-common.product-card :$product />
+            <x-common.product-card :$product :largeLayout="true" />
           @endforeach
         </div>
+
+        {{ $products->links('components.common.pagination.index') }}
       </div>
     </div>
-    <div>
+  </div>
+
+  <div class="bg-primary-50 p-6">
+    <div class="container space-y-4">
+      <section class="special-content space-y-4 rounded-3xl bg-white p-10">
+        {!! $details['description'] !!}
+      </section>
+    </div>
+  </div>
 </main>
