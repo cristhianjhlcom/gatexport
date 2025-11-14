@@ -33,6 +33,16 @@ final class ProductDetailManagement extends Component
 
     protected ProductPageManagementService $services;
 
+    protected array $rules = [
+        'details.*.title' => 'required|string|max:100',
+        'details.*.description' => 'required|string|max:2000',
+        'details.*.altText' => 'nullable|string|max:125',
+        'details.*.seo.title' => 'nullable|string|max:60',
+        'details.*.seo.description' => 'nullable|string|max:160',
+        'tmp.*.backgroundImage' => 'image|dimensions:min_width=1000,max_width=1920,min_height=300,max_height=392|max:1024|mimes:jpeg,png,jpg,webp',
+        'tmp.*.seo.image' => 'image|dimensions:width=500,height=500|max:1024|mimes:jpeg,png,jpg,webp',
+    ];
+
     public function boot()
     {
         $this->services = app(ProductPageManagementService::class);
@@ -75,14 +85,4 @@ final class ProductDetailManagement extends Component
     {
         return view('livewire.admin.products.detail');
     }
-
-    protected array $rules = [
-        'details.*.title' => 'required|string|max:100',
-        'details.*.description' => 'required|string|max:2000',
-        'details.*.altText' => 'nullable|string|max:125',
-        'details.*.seo.title' => 'nullable|string|max:60',
-        'details.*.seo.description' => 'nullable|string|max:160',
-        'tmp.*.backgroundImage' => 'image|dimensions:min_width=1000,max_width=1920,min_height=300,max_height=392|max:1024|mimes:jpeg,png,jpg,webp',
-        'tmp.*.seo.image' => 'image|dimensions:width=500,height=500|max:1024|mimes:jpeg,png,jpg,webp',
-    ];
 }

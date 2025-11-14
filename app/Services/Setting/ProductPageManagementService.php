@@ -35,6 +35,7 @@ final class ProductPageManagementService
                         'image' => null,
                     ],
                 ];
+
                 continue;
             }
 

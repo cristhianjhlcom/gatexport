@@ -18,6 +18,7 @@ final class PageView extends Component
     public ?int $categoryId = null;
 
     public ?int $subcategoryId = null;
+
     public ?string $sort = null;
 
     protected $queryString = [
@@ -35,7 +36,7 @@ final class PageView extends Component
         if ($this->subcategoryId) {
             $productsQuery->where('subcategory_id', $this->subcategoryId);
         } elseif ($this->categoryId) {
-            $productsQuery->whereHas('subcategory', fn($query) => $query->where('category_id', $this->categoryId));
+            $productsQuery->whereHas('subcategory', fn ($query) => $query->where('category_id', $this->categoryId));
         }
 
         // Apply sorting
