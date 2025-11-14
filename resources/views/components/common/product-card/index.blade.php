@@ -1,6 +1,6 @@
 @props([
     'product' => null,
-    'largeLayout' => true,
+    'largeLayout' => false,
 ])
 
 {{-- TODO: Aplicar que cambie de forma dinámica desde livewire. --}}

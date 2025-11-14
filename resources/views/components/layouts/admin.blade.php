@@ -106,7 +106,12 @@
         class="max-lg:hidden"
         position="top"
       >
-        <flux:profile name="{{ auth()->user()->profile->full_name }}" />
+
+        @if (isset(auth()->user()->profile))
+          <flux:profile name="{{ auth()->user()->profile->full_name }}" />
+        @else
+          <flux:profile name="" />
+        @endif
 
         <flux:menu>
           <flux:menu.item href="#" icon="cog-6-tooth">
@@ -131,7 +136,11 @@
     />
     <flux:spacer />
     <flux:dropdown alignt="start" position="top">
-      <flux:profile avatar:name="{{ auth()->user()->profile->full_name }}" />
+      @if (isset(auth()->user()->profile))
+        <flux:profile avatar:name="{{ auth()->user()->profile->full_name }}" />
+      @else
+        <flux:profile avatar:name="" />
+      @endif
       <flux:menu>
         <flux:menu.item href="#" icon="cog-6-tooth">
           Configuración

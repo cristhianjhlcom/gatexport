@@ -134,7 +134,7 @@
           x-transition
         >
           @forelse ($products as $product)
-            <x-common.product-card :$product :largeLayout="false" />
+            <x-common.product-card :$product />
           @empty
             <h2 class="text-primary-400 text-3xl font-extrabold">No hay productos</h2>
           @endforelse

@@ -24,10 +24,14 @@
       <flux:table.rows>
         @foreach ($users as $user)
           <flux:table.row key="{{ $user->id }}">
-            <flux:table.cell class="flex items-center gap-3">
-              <flux:avatar name="{{ $user->profile->full_name }}" />
-              {{ $user->profile->full_name }}
-            </flux:table.cell>
+            @if (isset($user->profile))
+              <flux:table.cell class="flex items-center gap-3">
+                <flux:avatar name="{{ $user->profile->full_name }}" />
+                {{ $user->profile->full_name }}
+              </flux:table.cell>
+            @else
+              <flux:table.cell>-</flux:table.cell>
+            @endif
             <flux:table.cell>
               @foreach ($user->getRoles() as $role)
                 <flux:badge color="{{ $role->color() }}">
@@ -38,13 +42,18 @@
             <flux:table.cell>
               {{ $user->email }}
             </flux:table.cell>
-            <flux:table.cell class="flex items-center gap-3">
-              <flux:badge>{{ $user->profile->documentTypeLabel() }}</flux:badge>
-              {{ $user->profile->document_number ?? '-' }}
-            </flux:table.cell>
-            <flux:table.cell>
-              {{ $user->profile->phone_number ?? '-' }}
-            </flux:table.cell>
+            @if (isset($user->profile))
+              <flux:table.cell class="flex items-center gap-3">
+                <flux:badge>{{ $user->profile->documentTypeLabel() }}</flux:badge>
+                {{ $user->profile->document_number ?? '-' }}
+              </flux:table.cell>
+              <flux:table.cell>
+                {{ $user->profile->phone_number ?? '-' }}
+              </flux:table.cell>
+            @else
+              <flux:table.cell>-</flux:table.cell>
+              <flux:table.cell>-</flux:table.cell>
+            @endif
             <flux:table.cell>{{ $user->createdAtHuman() }}</flux:table.cell>
             <flux:table.cell>
               <flux:dropdown align="end" position="bottom">

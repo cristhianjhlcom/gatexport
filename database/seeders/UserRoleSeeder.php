@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 final class UserRoleSeeder extends Seeder
 {
@@ -15,16 +13,16 @@ final class UserRoleSeeder extends Seeder
      */
     public function run(): void
     {
+        /*
         $super_admin_user = User::factory()->create([
             'email' => 'admin@email.com',
             'password' => '12345678',
         ]);
-
         $super_admin_role = DB::table('roles')->where('name', 'super-admin')->value('id');
-
         DB::table('users_roles')->insert([
             'user_id' => $super_admin_user->id,
             'role_id' => $super_admin_role,
         ]);
+        */
     }
 }
