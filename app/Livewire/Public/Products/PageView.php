@@ -18,10 +18,12 @@ final class PageView extends Component
     public ?int $categoryId = null;
 
     public ?int $subcategoryId = null;
+    public ?string $sort = null;
 
     protected $queryString = [
         'categoryId' => ['except' => null],
         'subcategoryId' => ['except' => null],
+        'sort' => ['except' => ''],
     ];
 
     public function render()
@@ -34,6 +36,11 @@ final class PageView extends Component
             $productsQuery->where('subcategory_id', $this->subcategoryId);
         } elseif ($this->categoryId) {
             $productsQuery->whereHas('subcategory', fn($query) => $query->where('category_id', $this->categoryId));
+        }
+
+        // Apply sorting
+        if ($this->sort === 'latest') {
+            $productsQuery->orderBy('created_at', 'desc');
         }
 
         $products = $productsQuery->paginate(9);
@@ -52,10 +59,40 @@ final class PageView extends Component
     {
         $this->categoryId = $categoryId;
         $this->subcategoryId = null;
+        $this->resetPage();
     }
 
     public function filterBySubcategory(int $subcategoryId): void
     {
         $this->subcategoryId = $subcategoryId;
+        $this->resetPage();
+    }
+
+    // Reset paginator when sort or filters change
+    public function updatedCategoryId(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatedSubcategoryId(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatedSort(): void
+    {
+        $this->resetPage();
+    }
+
+    /**
+     * Clear all filters and reset pagination and query string.
+     */
+    public function clearFilters(): void
+    {
+        $this->categoryId = null;
+        $this->subcategoryId = null;
+        $this->sort = '';
+
+        $this->resetPage();
     }
 }

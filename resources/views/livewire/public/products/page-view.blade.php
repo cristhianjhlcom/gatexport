@@ -1,82 +1,116 @@
 <main>
-  <header>
-    <img
-      alt="{{ $details['altText'] }}"
-      class="aspect-auto h-80 w-full object-cover object-center"
-      src="{{ asset("storage/{$details['backgroundImage']}") }}"
-    />
-  </header>
+  @if (isset($details['altText']))
+    <header>
+      <img
+        alt="{{ $details['altText'] }}"
+        class="aspect-auto h-80 w-full object-cover object-center"
+        src="{{ asset("storage/{$details['backgroundImage']}") }}"
+      />
+    </header>
+  @endif
 
   <div class="container space-y-4 py-10">
     <div class="flex flex-col gap-4 md:flex-row">
-      <div class="w-full max-w-[250px]">
-        <aside class="bg-primary-500 border-primary-500 overflow-hidden rounded-sm border text-white">
+      <div class="w-full md:max-w-[250px]">
+        <aside class="bg-primary-500 overflow-hidden rounded-sm border border-gray-200 text-white">
           <ul>
             @foreach ($categories as $category)
               @if ($category->subcategories)
                 <li x-data="{ open: {{ $loop->first ? 'true' : 'false' }} }">
                   <button
                     @click="open = !open"
-                    class="hover:bg-primary-600 items-between flex max-h-14 w-full cursor-pointer items-center justify-between gap-4 p-2 font-extrabold"
+                    class="hover:bg-primary-600 items-between flex w-full cursor-pointer items-center justify-between gap-4 p-2 font-extrabold"
                     type="button"
                   >
                     <div class="flex items-center justify-start gap-2">
-                      <img
+                      {{-- <img
                         alt="Icono"
-                        class="aspect-square object-contain"
-                        height="45"
+                        class="aspect-auto w-[80px] object-cover object-left"
                         src="{{ Storage::disk('public')->url($category->image) }}"
-                        width="45"
-                      />
+                      /> --}}
                       <span>{{ $category->localizedName }}</span>
                     </div>
                     <flux:icon.chevron-right class="size-8" x-show="!open" />
                     <flux:icon.chevron-down class="size-8" x-show="open" />
                   </button>
-                  <ul class="text-primary-500 divide-y bg-white">
+                  <ul class="text-primary-500 divide-y divide-gray-200 bg-white">
                     @foreach ($category->subcategories as $subcategory)
                       <li x-cloak x-show="open">
                         <button
-                          class="hover:bg-primary-200 bg-primary-100 flex max-h-14 w-full cursor-pointer items-center justify-start gap-4 p-2"
+                          class="hover:bg-primary-200 flex w-full cursor-pointer items-center justify-start gap-4 bg-white p-2"
                           type="button"
                           wire:click="filterBySubcategory({{ $subcategory->id }})"
                         >
-                          <img
+                          {{-- <img
                             alt="Icono"
                             class="aspect-square object-contain"
                             height="35"
                             src="{{ Storage::disk('public')->url($subcategory->image) }}"
                             width="35"
-                          />
+                          /> --}}
+
+                          <flux:icon.plus size="6" />
                           <span>{{ $subcategory->localizedName }}</span>
                         </button>
                       </li>
                     @endforeach
                     <li x-cloak x-show="open">
                       <button
-                        class="hover:bg-primary-200 bg-primary-100 flex w-full cursor-pointer items-center justify-start gap-4 p-2"
+                        class="hover:bg-primary-200 flex w-full cursor-pointer items-center justify-start gap-4 bg-white p-2"
                         type="button"
                         wire:click="filterByCategory({{ $category->id }})"
                       >
-                        Todos
+                        <flux:icon.plus size="6" />
+                        <span>Todos</span>
                       </button>
                     </li>
                   </ul>
                 </li>
               @endif
             @endforeach
+            <li>
+              <button
+                class="hover:bg-primary-600 items-between flex w-full cursor-pointer items-center justify-start gap-4 p-2 font-extrabold"
+                type="button"
+                wire:click="clearFilters"
+              >
+                <flux:icon.trash size="6" />
+                <span>Limpiar Filtros</span>
+              </button>
+            </li>
           </ul>
         </aside>
       </div>
 
-      <div class="flex-1 space-y-6">
-        <header class="flex items-center justify-between pb-4">
-          <div>
-            <button>
-              <flux:icon.view-columns class="rotate-90 text-gray-500" variant="solid" />
+      <div class="flex-1 space-y-6" x-data="{ view: 'grid' }">
+        <header class="hidden items-center justify-between pb-4 md:flex">
+          <div
+            aria-label="Vista de productos"
+            class="flex items-center gap-2"
+            role="tablist"
+          >
+            <button
+              class="rounded p-2"
+              title="Vista en cuadrícula"
+              type="button"
+              x-bind:aria-pressed="view === 'grid' ? 'true' : 'false'"
+              x-bind:class="view === 'grid' ? 'text-primary-600 bg-primary-50' : 'text-gray-500'"
+              x-on:click="view = 'grid'"
+            >
+              <flux:icon.view-columns class="" variant="solid" />
+              <span class="sr-only">Cuadrícula</span>
             </button>
-            <button>
-              <flux:icon.view-columns class="text-gray-500" variant="solid" />
+
+            <button
+              class="rounded p-2"
+              title="Vista en lista"
+              type="button"
+              x-bind:aria-pressed="view === 'list' ? 'true' : 'false'"
+              x-bind:class="view === 'list' ? 'text-primary-600 bg-primary-50' : 'text-gray-500'"
+              x-on:click="view = 'list'"
+            >
+              <flux:icon.view-columns class="rotate-90" variant="solid" />
+              <span class="sr-only">Lista</span>
             </button>
           </div>
           <div class="flex w-1/2 items-center justify-end gap-2">
@@ -85,18 +119,38 @@
               class="flex-1/4"
               placeholder="Clasificación..."
               size="sm"
+              wire:model="sort"
             >
-              <flux:select.option selected>Clasificación por defecto</flux:select.option>
-              <flux:select.option>Último agregado</flux:select.option>
+              <flux:select.option value="">Clasificación por defecto</flux:select.option>
+              <flux:select.option value="latest">Último agregado</flux:select.option>
             </flux:select>
           </div>
         </header>
 
-        {{-- <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3"> --}}
-        <div class="grid grid-cols-1 gap-6 divide-y divide-gray-200">
-          @foreach ($products as $product)
+        <div
+          class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3"
+          x-cloak
+          x-show="view === 'grid'"
+          x-transition
+        >
+          @forelse ($products as $product)
+            <x-common.product-card :$product :largeLayout="false" />
+          @empty
+            <h2 class="text-primary-400 text-3xl font-extrabold">No hay productos</h2>
+          @endforelse
+        </div>
+
+        <div
+          class="grid grid-cols-1 gap-6 divide-y divide-gray-200"
+          x-cloak
+          x-show="view === 'list'"
+          x-transition
+        >
+          @forelse ($products as $product)
             <x-common.product-card :$product :largeLayout="true" />
-          @endforeach
+          @empty
+            <h2 class="text-primary-400 text-3xl font-extrabold">No hay productos</h2>
+          @endforelse
         </div>
 
         {{ $products->links('components.common.pagination.index') }}
@@ -104,11 +158,13 @@
     </div>
   </div>
 
-  <div class="bg-primary-50 p-6">
-    <div class="container space-y-4">
-      <section class="special-content space-y-4 rounded-3xl bg-white p-10">
-        {!! $details['description'] !!}
-      </section>
+  @if (isset($details['description']))
+    <div class="bg-primary-50 py-10">
+      <div class="container space-y-4">
+        <section class="special-content space-y-4 rounded-3xl bg-white p-4 md:p-10">
+          {!! $details['description'] !!}
+        </section>
+      </div>
     </div>
-  </div>
+  @endif
 </main>
