@@ -43,11 +43,13 @@
                 class="flex h-[50px] w-full items-center justify-between px-4 py-3 text-left transition hover:bg-white/10"
               >
                 <div class="flex items-center gap-3">
-                  <img
-                    alt="{{ $item['name'] }}"
-                    class="h-8 w-8"
-                    src="{{ $item['secondary_icon'] }}"
-                  >
+                  @if (isset($item['secondary_icon']))
+                    <img
+                      alt="{{ $item['name'] }}"
+                      class="h-8 w-8"
+                      src="{{ $item['secondary_icon'] }}"
+                    >
+                  @endif
 
                   <span class="text-sm font-extrabold">{{ $item['name'] }}</span>
                 </div>
@@ -88,11 +90,13 @@
               title="{{ $item['name'] }}"
             >
               <div class="flex h-full items-center justify-center gap-6 p-4 text-left">
-                <img
-                  alt="{{ $item['name'] }}"
-                  class="h-40 w-40 object-contain opacity-35"
-                  src="{{ $item['primary_icon'] }}"
-                />
+                @if (isset($item['primary_icon']))
+                  <img
+                    alt="{{ $item['name'] }}"
+                    class="h-40 w-40 object-contain opacity-35"
+                    src="{{ $item['primary_icon'] }}"
+                  />
+                @endif
 
                 <h6 class="text-primary-500 -ml-10 text-left text-5xl font-extrabold leading-none">
                   @foreach (explode(' ', $item['name']) as $word)
@@ -111,11 +115,13 @@
                 title="{{ $subcategory['name'] }}"
               >
                 <div class="flex h-full flex-col items-baseline justify-between gap-4">
-                  <img
-                    alt="{{ $subcategory['name'] }}"
-                    class="h-full max-h-[135px] w-full object-contain"
-                    src="{{ $subcategory['secondary_icon'] }}"
-                  />
+                  @if (isset($subcategory['secondary_icon']))
+                    <img
+                      alt="{{ $subcategory['name'] }}"
+                      class="h-full max-h-[135px] w-full object-contain"
+                      src="{{ $subcategory['secondary_icon'] }}"
+                    />
+                  @endif
 
                   <h6 class="text-sm font-extrabold italic">
                     {{ $subcategory['name'] }}

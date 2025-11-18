@@ -147,7 +147,7 @@
     </div>
   </div>
 
-  @if (isset($category->description))
+  @if (isset($category->description) && !empty($category->description[app()->getLocale()]))
     <div class="bg-primary-50 py-10">
       <div class="container space-y-4">
         <section class="special-content space-y-4 rounded-3xl bg-white p-4 md:p-10">
