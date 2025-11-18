@@ -81,8 +81,8 @@
     <!-- End Google Tag Manager (noscript) -->
   @endproduction
 
-  <header class="bg-primary-100 relative flex h-16 items-center justify-between">
-    <div class="container">
+  <header class="relative h-16 bg-white">
+    <div class="container flex items-center justify-between">
       <flux:sidebar.toggle
         class="lg:hidden"
         icon="bars-2"
@@ -97,11 +97,14 @@
             src="{{ $companyLogos['small_logo'] }}"
           />
         </a>
+
         <x-common.navigation />
       </div>
 
-      {{-- <x-common.locale-switch /> --}}
-      {{-- <livewire:shared.search /> --}}
+      <div class="flex items-center gap-4">
+        <x-common.locale-switch />
+        <livewire:shared.search />
+      </div>
     </div>
   </header>
 
