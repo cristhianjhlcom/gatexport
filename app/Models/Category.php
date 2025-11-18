@@ -19,6 +19,7 @@ final class Category extends Model
         'name',
         'slug',
         'image',
+        'background_image',
         'background_color',
         'icon_white',
         'icon_primary',
@@ -35,6 +36,7 @@ final class Category extends Model
      */
     protected $casts = [
         'name' => 'array',
+        'background_image' => 'array',
         'description' => 'array',
         'seo_title' => 'array',
         'seo_description' => 'array',
@@ -63,7 +65,7 @@ final class Category extends Model
         $locale = $locale ?? app()->getLocale();
 
         return Attribute::make(
-            get: fn() => $this->name[$locale],
+            get: fn () => $this->name[$locale],
         );
     }
 
@@ -72,7 +74,7 @@ final class Category extends Model
         $locale = $locale ?? app()->getLocale();
 
         return Attribute::make(
-            get: fn() => $this->description[$locale],
+            get: fn () => $this->description[$locale],
         );
     }
 
@@ -81,7 +83,7 @@ final class Category extends Model
         $locale = $locale ?? app()->getLocale();
 
         return Attribute::make(
-            get: fn() => $this->seo_title[$locale],
+            get: fn () => $this->seo_title[$locale],
         );
     }
 
@@ -90,7 +92,22 @@ final class Category extends Model
         $locale = $locale ?? app()->getLocale();
 
         return Attribute::make(
-            get: fn() => $this->seo_description[$locale],
+            get: fn () => $this->seo_description[$locale],
+        );
+    }
+
+    public function localizedBackgroundImage($locale = null): Attribute
+    {
+        $locale = $locale ?? app()->getLocale();
+
+        return Attribute::make(
+            get: function () use ($locale) {
+                if (! is_array($this->background_image)) {
+                    return null;
+                }
+
+                return $this->background_image[$locale] ?? null;
+            },
         );
     }
 

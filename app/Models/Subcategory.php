@@ -21,11 +21,23 @@ final class Subcategory extends Model
         'slug',
         'image',
         'category_id',
+        'background_color',
+        'background_image',
+        'icon_white',
+        'icon_primary',
+        'description',
+        'seo_image',
+        'seo_title',
+        'seo_description',
     ];
 
     protected $casts = [
         'category_id' => 'integer',
         'name' => 'array',
+        'background_image' => 'array',
+        'description' => 'array',
+        'seo_title' => 'array',
+        'seo_description' => 'array',
     ];
 
     public function category(): BelongsTo
@@ -57,6 +69,30 @@ final class Subcategory extends Model
 
         return Attribute::make(
             get: fn () => $this->name[$locale],
+        );
+    }
+
+    public function localizedDescription($locale = null): Attribute
+    {
+        $locale = $locale ?? app()->getLocale();
+
+        return Attribute::make(
+            get: fn () => $this->description[$locale],
+        );
+    }
+
+    public function localizedBackgroundImage($locale = null): Attribute
+    {
+        $locale = $locale ?? app()->getLocale();
+
+        return Attribute::make(
+            get: function () use ($locale) {
+                if (! is_array($this->background_image)) {
+                    return null;
+                }
+
+                return $this->background_image[$locale] ?? null;
+            },
         );
     }
 

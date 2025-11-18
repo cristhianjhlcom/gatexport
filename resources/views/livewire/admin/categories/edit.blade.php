@@ -50,6 +50,18 @@
                     with-progress
                   />
                 </flux:file-upload>
+
+                @php
+                  $tmpBackgroundImage = $form->tmpImages['backgroundImage'][$locale] ?? null;
+                @endphp
+
+                @if ($tmpBackgroundImage && !is_string($tmpBackgroundImage))
+                  <flux:file-item
+                    :heading="$tmpBackgroundImage->getClientOriginalName()"
+                    :image="$tmpBackgroundImage->temporaryUrl()"
+                    :size="$tmpBackgroundImage->getSize()"
+                  />
+                @endif
               </div>
             </flux:tab.panel>
           @endforeach

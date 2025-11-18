@@ -1,10 +1,10 @@
 <main>
-  @if (isset($category->image))
+  @if (isset($subcategory->localizedBackgroundImage))
     <header>
       <img
-        alt="{{ $category->localizedName }}"
+        alt="{{ $subcategory->localizedName }}"
         class="aspect-auto h-80 w-full object-cover object-center"
-        src="{{ Storage::disk('public')->url($category->image) }}"
+        src="{{ Storage::disk('public')->url($subcategory->localizedBackgroundImage) }}"
       />
     </header>
   @endif
@@ -14,58 +14,26 @@
       <div class="w-full md:max-w-[250px]">
         <aside class="bg-primary-500 overflow-hidden rounded-sm border border-gray-200 text-white">
           <ul>
-            @if ($category->subcategories)
+            @if ($subcategory)
               <li x-data="{ open: 'true' }">
                 <button
-                  @click="open = !open"
+                  @click="open = true"
                   class="hover:bg-primary-600 items-between flex w-full cursor-pointer items-center justify-between gap-4 p-4 font-extrabold"
                   type="button"
                 >
                   <div class="flex items-center justify-start gap-2">
-                    @if (isset($category->icon_white))
+                    @if (isset($subcategory->icon_white))
                       <img
                         alt="Icono"
                         class="aspect-auto h-8 w-8 object-contain object-left"
-                        src="{{ Storage::disk('public')->url($category->icon_white) }}"
+                        src="{{ Storage::disk('public')->url($subcategory->icon_white) }}"
                       />
                     @endif
-                    <span>{{ $category->localizedName }}</span>
+                    <span>{{ $subcategory->localizedName }}</span>
                   </div>
-                  <flux:icon.chevron-right class="size-8" x-show="!open" />
-                  <flux:icon.chevron-down class="size-8" x-show="open" />
                 </button>
-                <ul class="text-primary-500 divide-y divide-gray-200 bg-white">
-                  @foreach ($category->subcategories as $subcategory)
-                    <li x-cloak x-show="open">
-                      <button
-                        class="hover:bg-primary-200 flex w-full cursor-pointer items-center justify-start gap-4 bg-white p-2"
-                        type="button"
-                        wire:click="filterBySubcategory({{ $subcategory->id }})"
-                      >
-                        @if (isset($subcategory->icon_primary))
-                          <img
-                            alt="Icono"
-                            class="aspect-auto h-8 w-8 object-contain object-left"
-                            src="{{ Storage::disk('public')->url($subcategory->icon_primary) }}"
-                          />
-                        @endif
-                        <span>{{ $subcategory->localizedName }}</span>
-                      </button>
-                    </li>
-                  @endforeach
-                </ul>
               </li>
             @endif
-            <li>
-              <button
-                class="hover:bg-primary-600 items-between flex w-full cursor-pointer items-center justify-start gap-4 p-2 font-extrabold"
-                type="button"
-                wire:click="clearFilters"
-              >
-                <flux:icon.trash size="6" />
-                <span>Limpiar Filtros</span>
-              </button>
-            </li>
           </ul>
         </aside>
       </div>
@@ -147,11 +115,11 @@
     </div>
   </div>
 
-  @if (isset($category->description))
+  @if (isset($subcategory->description))
     <div class="bg-primary-50 py-10">
       <div class="container space-y-4">
         <section class="special-content space-y-4 rounded-3xl bg-white p-4 md:p-10">
-          {!! $category->localizedDescription !!}
+          {!! $subcategory->localizedDescription !!}
         </section>
       </div>
     </div>

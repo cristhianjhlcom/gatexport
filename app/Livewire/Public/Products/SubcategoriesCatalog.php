@@ -5,25 +5,20 @@ declare(strict_types=1);
 namespace App\Livewire\Public\Products;
 
 use App\Enums\ProductStatusEnum;
-use App\Models\Category;
 use App\Models\Product;
-use Illuminate\Support\Collection;
+use App\Models\Subcategory;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-final class CategoriesCatalog extends Component
+final class SubcategoriesCatalog extends Component
 {
     use WithPagination;
 
-    public ?int $categoryId = null;
-
-    public int|string|null $subcategoryId = null;
+    public ?int $subcategoryId = null;
 
     public ?string $sort = null;
 
-    public Category $category;
-
-    public Collection $subcategories;
+    public Subcategory $subcategory;
 
     protected $queryString = [
         'subcategoryId' => ['except' => null],
@@ -32,29 +27,12 @@ final class CategoriesCatalog extends Component
 
     public function boot()
     {
-        $this->subcategories = $this->category->subcategories;
-        $this->categoryId = $this->category->id;
+        $this->subcategoryId = $this->subcategory->id;
     }
 
     public function filterBySubcategory($subcategoryId): void
     {
         $this->subcategoryId = is_null($subcategoryId) ? null : (int) $subcategoryId;
-        $this->resetPage();
-    }
-
-    public function updatedCategoryId(): void
-    {
-        $this->resetPage();
-    }
-
-    public function updatedSubcategoryId(): void
-    {
-        if (! is_null($this->subcategoryId) && is_numeric($this->subcategoryId)) {
-            $this->subcategoryId = (int) $this->subcategoryId;
-        } elseif (! is_numeric($this->subcategoryId)) {
-            $this->subcategoryId = null;
-        }
-
         $this->resetPage();
     }
 
@@ -65,7 +43,7 @@ final class CategoriesCatalog extends Component
 
     public function clearFilters(): void
     {
-        $this->categoryId = $this->category->id;
+        $this->subcategoryId = $this->category->id;
         $this->subcategoryId = null;
         $this->sort = '';
 
@@ -80,8 +58,6 @@ final class CategoriesCatalog extends Component
 
         if ($this->subcategoryId) {
             $products->where('subcategory_id', $this->subcategoryId);
-        } elseif ($this->categoryId) {
-            $products->whereHas('subcategory', fn ($query) => $query->where('category_id', $this->categoryId));
         }
 
         if ($this->sort === 'latest') {
@@ -90,6 +66,6 @@ final class CategoriesCatalog extends Component
 
         $products = $products->paginate(9);
 
-        return view('livewire.public.products.categories-catalog', compact('products'));
+        return view('livewire.public.products.subcategories-catalog', compact('products'));
     }
 }

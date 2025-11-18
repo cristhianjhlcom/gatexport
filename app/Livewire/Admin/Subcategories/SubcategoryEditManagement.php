@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Livewire\Admin\Subcategories;
 
-use App\Exceptions\Admin\SubcategoryCreationException;
 use App\Livewire\Forms\Admin\SubcategoryManagementForm;
 use App\Models\Category;
 use App\Models\Subcategory;
+use Exception;
 use Flux\Flux;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
@@ -41,7 +41,7 @@ final class SubcategoryEditManagement extends Component
             $this->form->reset();
 
             $this->redirect(route('admin.subcategories.index'), navigate: true);
-        } catch (SubcategoryCreationException $exception) {
+        } catch (Exception $exception) {
             report($exception);
 
             Flux::toast(

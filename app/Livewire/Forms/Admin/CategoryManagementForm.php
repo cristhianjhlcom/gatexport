@@ -47,6 +47,7 @@ final class CategoryManagementForm extends Form
         'icon_white' => null,
         'icon_primary' => null,
         'seo_image' => null,
+        'background_image' => null,
     ];
 
     #[Validate]
@@ -97,12 +98,12 @@ final class CategoryManagementForm extends Form
                 'description' => $this->description,
                 'background_image' => [
                     'es' => $this->upload([
-                        'currentPath' => $this->category?->background_image['es'] ?? null,
+                        'currentPath' => data_get($this->category?->background_image, 'es'),
                         'newFile' => $this->tmpImages['background_image']['es'] ?? null,
                         'directory' => 'uploads/categories',
                     ]),
                     'en' => $this->upload([
-                        'currentPath' => $this->category?->background_image['en'] ?? null,
+                        'currentPath' => data_get($this->category?->background_image, 'en'),
                         'newFile' => $this->tmpImages['background_image']['en'] ?? null,
                         'directory' => 'uploads/categories',
                     ]),
@@ -149,12 +150,12 @@ final class CategoryManagementForm extends Form
                 'seo_description' => $this->seo['description'],
                 'background_image' => [
                     'es' => $this->upload([
-                        'currentPath' => $this->category?->background_image['es'] ?? null,
+                        'currentPath' => data_get($this->category?->background_image, 'es'),
                         'newFile' => $this->tmpImages['background_image']['es'] ?? null,
                         'directory' => 'uploads/categories',
                     ]),
                     'en' => $this->upload([
-                        'currentPath' => $this->category?->background_image['en'] ?? null,
+                        'currentPath' => data_get($this->category?->background_image, 'en'),
                         'newFile' => $this->tmpImages['background_image']['en'] ?? null,
                         'directory' => 'uploads/categories',
                     ]),

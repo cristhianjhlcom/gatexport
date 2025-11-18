@@ -19,7 +19,7 @@
                 <li x-data="{ open: {{ $loop->first ? 'true' : 'false' }} }">
                   <button
                     @click="open = !open"
-                    class="hover:bg-primary-600 items-between flex w-full cursor-pointer items-center justify-between gap-4 p-2 font-extrabold"
+                    class="hover:bg-primary-600 items-between flex w-full cursor-pointer items-center justify-between gap-4 p-4 font-extrabold"
                     type="button"
                   >
                     <div class="flex items-center justify-start gap-2">
@@ -39,28 +39,24 @@
                     @foreach ($category->subcategories as $subcategory)
                       <li x-cloak x-show="open">
                         <button
-                          class="hover:bg-primary-200 flex w-full cursor-pointer items-center justify-start gap-4 bg-white p-2"
+                          class="hover:bg-primary-200 flex w-full cursor-pointer items-center justify-start gap-4 bg-white p-4"
                           type="button"
                           wire:click="filterBySubcategory({{ $subcategory->id }})"
                         >
-                          {{--
                           @if (isset($subcategory->icon_primary))
-                          <img
-                            alt="Icono"
-                            class="aspect-auto h-8 w-8 object-contain object-left"
-                            src="{{ Storage::disk('public')->url($subcategory->image) }}"
-                          />
+                            <img
+                              alt="Icono"
+                              class="aspect-auto h-8 w-8 object-contain object-left"
+                              src="{{ Storage::disk('public')->url($subcategory->icon_primary) }}"
+                            />
                           @endif
-                          --}}
-
-                          <flux:icon.plus size="6" />
                           <span>{{ $subcategory->localizedName }}</span>
                         </button>
                       </li>
                     @endforeach
                     <li x-cloak x-show="open">
                       <button
-                        class="hover:bg-primary-200 flex w-full cursor-pointer items-center justify-start gap-4 bg-white p-2"
+                        class="hover:bg-primary-200 flex w-full cursor-pointer items-center justify-start gap-4 bg-white p-4"
                         type="button"
                         wire:click="filterByCategory({{ $category->id }})"
                       >
