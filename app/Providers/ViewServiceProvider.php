@@ -56,22 +56,7 @@ final class ViewServiceProvider extends ServiceProvider
         });
 
         View::composer('components.layouts.public', function ($view) {
-            $categories = Category::with('subcategories')
-                ->orderBy('name')
-                ->get()
-                ->map(fn ($category) => [
-                    'name' => $category->name,
-                    'slug' => $category->slug,
-                    'image' => $category->imageUrl,
-                    'subcategories' => $category->subcategories->map(fn ($subcategory) => [
-                        'name' => $subcategory->name,
-                        'slug' => $subcategory->slug,
-                        'image' => $subcategory->imageUrl,
-                    ]),
-                ]);
-
             $view->with([
-                'navigationCategories' => $categories,
                 'companyLogos' => (new GetCompanyLogos)->execute(),
             ]);
         });
