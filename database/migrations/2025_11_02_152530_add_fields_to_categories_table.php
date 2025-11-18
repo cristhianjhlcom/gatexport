@@ -17,10 +17,10 @@ return new class extends Migration
             $table->string('background_color')->default('#dc801e');
             $table->string('icon_white')->nullable();
             $table->string('icon_primary')->nullable();
-            $table->string('description')->nullable();
+            $table->json('description')->nullable();
             $table->string('seo_image')->nullable();
-            $table->string('seo_title')->nullable();
-            $table->text('seo_description')->nullable();
+            $table->json('seo_title')->nullable();
+            $table->json('seo_description')->nullable();
         });
     }
 

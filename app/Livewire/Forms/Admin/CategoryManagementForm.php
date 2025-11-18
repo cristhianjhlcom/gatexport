@@ -5,18 +5,16 @@ declare(strict_types=1);
 namespace App\Livewire\Forms\Admin;
 
 use App\Models\Category;
-use Exception;
-use Flux\Flux;
+use App\Traits\ImageUploads;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
-use Intervention\Image\Drivers\Imagick\Driver;
-use Intervention\Image\ImageManager;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
 final class CategoryManagementForm extends Form
 {
+    use ImageUploads;
+
     public ?Category $category = null;
 
     #[Validate]
@@ -29,25 +27,46 @@ final class CategoryManagementForm extends Form
     public string $slug = '';
 
     #[Validate]
+    public $description = [
+        'en' => '',
+        'es' => '',
+    ];
+
+    #[Validate]
     public ?string $backgroundColor = null;
 
     #[Validate]
-    public $image = null;
+    public $tmpImages = [
+        'image' => null,
+        'icon_white' => null,
+        'icon_primary' => null,
+        'seo_image' => null,
+    ];
 
     #[Validate]
-    public $whiteIcon = null;
-
-    #[Validate]
-    public $primaryIcon = null;
+    public $seo = [
+        'title' => [],
+        'description' => [],
+    ];
 
     public function setCategory(Category $category): void
     {
         $this->name = $category->name;
         $this->slug = $category->slug;
-        $this->image = $category->image;
         $this->backgroundColor = $category->background_color;
-        $this->whiteIcon = $category->icon_white;
-        $this->primaryIcon = $category->icon_primary;
+
+        // Populate description locales safely
+        $categoryDescription = $category->description ?? [];
+        $this->description['es'] = $categoryDescription['es'] ?? '';
+        $this->description['en'] = $categoryDescription['en'] ?? '';
+
+        // Populate SEO locales safely
+        $categorySeoTitle = $category->seo_title ?? [];
+        $categorySeoDescription = $category->seo_description ?? [];
+        $this->seo['title']['es'] = $categorySeoTitle['es'] ?? '';
+        $this->seo['title']['en'] = $categorySeoTitle['en'] ?? '';
+        $this->seo['description']['es'] = $categorySeoDescription['es'] ?? '';
+        $this->seo['description']['en'] = $categorySeoDescription['en'] ?? '';
         $this->category = $category;
     }
 
@@ -61,28 +80,36 @@ final class CategoryManagementForm extends Form
                 'en' => str()->title($this->name['en']),
             ];
 
-            $iconArgs = [
-                'width' => 55,
-                'height' => 55,
-                'quality' => 80,
-            ];
-
-            $imageArgs = [
-                'width' => 1000,
-                'height' => 550,
-                'quality' => 60,
-            ];
-
-            $catetegory = Category::create([
+            $category = Category::create([
                 'name' => $name,
                 'slug' => $this->slug,
                 'background_color' => $this->backgroundColor,
-                'image' => $this->upload($this->image, $imageArgs),
-                'icon_white' => $this->upload($this->whiteIcon, $iconArgs),
-                'icon_primary' => $this->upload($this->primaryIcon, $iconArgs),
+                'description' => $this->description,
+                'seo_title' => $this->seo['title'],
+                'seo_description' => $this->seo['description'],
+                'image' => $this->upload([
+                    'currentPath' => $this->category?->image ?? null,
+                    'newFile' => $this->tmpImages['image'] ?? null,
+                    'directory' => 'uploads/categories',
+                ]),
+                'icon_white' => $this->upload([
+                    'currentPath' => $this->category?->icon_white ?? null,
+                    'newFile' => $this->tmpImages['icon_white'] ?? null,
+                    'directory' => 'uploads/categories',
+                ]),
+                'icon_primary' => $this->upload([
+                    'currentPath' => $this->category?->icon_primary ?? null,
+                    'newFile' => $this->tmpImages['icon_primary'] ?? null,
+                    'directory' => 'uploads/categories',
+                ]),
+                'seo_image' => $this->upload([
+                    'currentPath' => $this->category?->seo_image ?? null,
+                    'newFile' => $this->tmpImages['seo_image'] ?? null,
+                    'directory' => 'uploads/categories',
+                ]),
             ]);
 
-            return $catetegory->fresh();
+            return $category->fresh();
         });
     }
 
@@ -96,25 +123,33 @@ final class CategoryManagementForm extends Form
                 'en' => str()->title($this->name['en']),
             ];
 
-            $iconArgs = [
-                'width' => 55,
-                'height' => 55,
-                'quality' => 80,
-            ];
-
-            $imageArgs = [
-                'width' => 1000,
-                'height' => 550,
-                'quality' => 60,
-            ];
-
             $this->category->update([
                 'name' => $name,
                 'slug' => $this->slug,
                 'background_color' => $this->backgroundColor,
-                'image' => $this->upload($this->image, $imageArgs),
-                'icon_white' => $this->upload($this->whiteIcon, $iconArgs),
-                'icon_primary' => $this->upload($this->primaryIcon, $iconArgs),
+                'description' => $this->description,
+                'seo_title' => $this->seo['title'],
+                'seo_description' => $this->seo['description'],
+                'image' => $this->upload([
+                    'currentPath' => $this->category->image ?? null,
+                    'newFile' => $this->tmpImages['image'] ?? null,
+                    'directory' => 'uploads/categories',
+                ]),
+                'icon_white' => $this->upload([
+                    'currentPath' => $this->category->icon_white ?? null,
+                    'newFile' => $this->tmpImages['icon_white'] ?? null,
+                    'directory' => 'uploads/categories',
+                ]),
+                'icon_primary' => $this->upload([
+                    'currentPath' => $this->category->icon_primary ?? null,
+                    'newFile' => $this->tmpImages['icon_primary'] ?? null,
+                    'directory' => 'uploads/categories',
+                ]),
+                'seo_image' => $this->upload([
+                    'currentPath' => $this->category->seo_image ?? null,
+                    'newFile' => $this->tmpImages['seo_image'] ?? null,
+                    'directory' => 'uploads/categories',
+                ]),
             ]);
 
             return $this->category->fresh();
@@ -131,44 +166,12 @@ final class CategoryManagementForm extends Form
                 'string',
                 Rule::unique('categories', 'slug')->ignore($this->category?->id),
             ],
-            'image' => 'required',
-            'whiteIcon' => 'required',
-            'primaryIcon' => 'required',
+            'description.*' => 'nullable|string|max:1000',
+            'seo.title.*' => 'nullable|string|max:70',
+            'seo.description.*' => 'nullable|string|max:160',
+            'tmpImages.*' => 'nullable',
         ];
 
         return $rules;
-    }
-
-    protected function upload($image, $args)
-    {
-        if (! $image) {
-            throw new Exception('No se pudo subir la imagen');
-        }
-
-        if ($this->category && $image === $this->category->image) {
-            return $this->category->image;
-        }
-
-        if ($this->category && Storage::disk('public')->exists($this->category->image)) {
-            Storage::disk('public')->delete($this->category->image);
-        }
-
-        $upload = $image->store(path: 'uploads/categories', options: 'public');
-
-        if (Storage::disk('public')->missing($upload)) {
-            throw new Exception('El archivo no existe. Intenta nuevamente.');
-        }
-
-        $manager = new ImageManager(new Driver());
-        $image = $manager->read(Storage::disk('public')->get($upload));
-        $image->resize($args['width'], $args['height']);
-        $image->toWebp($args['quality']);
-        // $image->resize(450, 200);
-        // $image->toWebp(60);
-        $image->save(Storage::disk('public')->path($upload));
-
-        Flux::toast('Imagen procesada correctamente.', 'success');
-
-        return $upload;
     }
 }

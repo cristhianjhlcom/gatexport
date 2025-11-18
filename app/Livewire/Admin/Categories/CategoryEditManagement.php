@@ -40,7 +40,7 @@ final class CategoryEditManagement extends Component
             report($exception);
 
             Flux::toast(
-                heading: 'Uops! Algo salió mal',
+                heading: 'Ups! Algo salió mal',
                 text: $exception->getMessage(),
                 variant: 'error',
             );
@@ -63,7 +63,7 @@ final class CategoryEditManagement extends Component
             report($exception);
 
             Flux::toast(
-                heading: 'Uops! Algo salió mal',
+                heading: 'Ups! Algo salió mal',
                 text: $exception->getMessage(),
                 variant: 'error',
             );

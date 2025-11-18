@@ -23,11 +23,11 @@
                     type="button"
                   >
                     <div class="flex items-center justify-start gap-2">
-                      {{-- <img
+                      <img
                         alt="Icono"
-                        class="aspect-auto w-[80px] object-cover object-left"
-                        src="{{ Storage::disk('public')->url($category->image) }}"
-                      /> --}}
+                        class="aspect-auto h-8 w-8 object-contain object-left"
+                        src="{{ Storage::disk('public')->url($category->icon_white) }}"
+                      />
                       <span>{{ $category->localizedName }}</span>
                     </div>
                     <flux:icon.chevron-right class="size-8" x-show="!open" />
@@ -43,10 +43,8 @@
                         >
                           {{-- <img
                             alt="Icono"
-                            class="aspect-square object-contain"
-                            height="35"
+                            class="aspect-auto h-8 w-8 object-contain object-left"
                             src="{{ Storage::disk('public')->url($subcategory->image) }}"
-                            width="35"
                           /> --}}
 
                           <flux:icon.plus size="6" />

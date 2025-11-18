@@ -15,15 +15,15 @@ final class CategoryShowController extends Controller
         $category = $category->load([
             'subcategories',
             'subcategories.products' => function ($query) {
-                $query->where('status', ProductStatusEnum::PUBLISHED)->limit(8);
+                $query->where('status', ProductStatusEnum::PUBLISHED);
             },
             'subcategories.products.images',
-            // 'subcategories.products.subcategory.category',
-            // 'subcategories.category',
         ]);
+        $subcategories = $category->subcategories;
 
         return view('pages.categories.show')->with([
             'category' => $category,
+            'subcategories' => $subcategories,
         ]);
     }
 }

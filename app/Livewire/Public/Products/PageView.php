@@ -30,13 +30,13 @@ final class PageView extends Component
     public function render()
     {
         $productsQuery = Product::query()
-            ->with(['subcategory', 'subcategory.category'])
+            ->with(['subcategory', 'subcategory.category', 'images'])
             ->where('status', ProductStatusEnum::PUBLISHED);
 
         if ($this->subcategoryId) {
             $productsQuery->where('subcategory_id', $this->subcategoryId);
         } elseif ($this->categoryId) {
-            $productsQuery->whereHas('subcategory', fn ($query) => $query->where('category_id', $this->categoryId));
+            $productsQuery->whereHas('subcategory', fn($query) => $query->where('category_id', $this->categoryId));
         }
 
         // Apply sorting
@@ -69,7 +69,6 @@ final class PageView extends Component
         $this->resetPage();
     }
 
-    // Reset paginator when sort or filters change
     public function updatedCategoryId(): void
     {
         $this->resetPage();
@@ -85,9 +84,6 @@ final class PageView extends Component
         $this->resetPage();
     }
 
-    /**
-     * Clear all filters and reset pagination and query string.
-     */
     public function clearFilters(): void
     {
         $this->categoryId = null;

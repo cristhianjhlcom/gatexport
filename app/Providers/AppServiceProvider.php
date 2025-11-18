@@ -27,7 +27,7 @@ final class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         // NOTE: Si empieza a dar problemas con las relaciones automáticas, comentar esta línea.
-        // NOTE: 01# Carg lentas de Eloquent al usar relaciones automáticas.
+        // NOTE: 01# Carga lentas de Eloquent al usar relaciones automáticas.
         // NOTE: 02# Problemas con relaciones automáticas y carga condicional.
         Model::automaticallyEagerLoadRelationships();
 

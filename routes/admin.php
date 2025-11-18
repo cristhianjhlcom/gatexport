@@ -28,6 +28,7 @@ use App\Livewire\Admin\Users\UserShowManagement;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'role:super_admin|manager'], function () {
+    Route::get('/', OrderIndexManagement::class)->name('dashboard.index');
     // NOTE: Users Management.
     Route::get('users', UserIndexManagement::class)->name('users.index');
     Route::get('users/create', UserCreateManagement::class)->name('users.create');

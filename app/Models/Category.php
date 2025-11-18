@@ -19,14 +19,26 @@ final class Category extends Model
         'name',
         'slug',
         'image',
+        'background_color',
+        'icon_white',
+        'icon_primary',
+        'description',
+        'seo_image',
+        'seo_title',
+        'seo_description',
     ];
 
-    public function casts(): array
-    {
-        return [
-            'name' => 'array',
-        ];
-    }
+    /**
+     * Cast JSON columns to arrays.
+     *
+     * @var array<string,string>
+     */
+    protected $casts = [
+        'name' => 'array',
+        'description' => 'array',
+        'seo_title' => 'array',
+        'seo_description' => 'array',
+    ];
 
     public function subcategories(): HasMany
     {
@@ -51,7 +63,34 @@ final class Category extends Model
         $locale = $locale ?? app()->getLocale();
 
         return Attribute::make(
-            get: fn () => $this->name[$locale],
+            get: fn() => $this->name[$locale],
+        );
+    }
+
+    public function localizedDescription($locale = null): Attribute
+    {
+        $locale = $locale ?? app()->getLocale();
+
+        return Attribute::make(
+            get: fn() => $this->description[$locale],
+        );
+    }
+
+    public function localizedSeoTitle($locale = null): Attribute
+    {
+        $locale = $locale ?? app()->getLocale();
+
+        return Attribute::make(
+            get: fn() => $this->seo_title[$locale],
+        );
+    }
+
+    public function localizedSeoDescription($locale = null): Attribute
+    {
+        $locale = $locale ?? app()->getLocale();
+
+        return Attribute::make(
+            get: fn() => $this->seo_description[$locale],
         );
     }
 
