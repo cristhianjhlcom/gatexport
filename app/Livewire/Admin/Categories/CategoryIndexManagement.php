@@ -36,7 +36,7 @@ final class CategoryIndexManagement extends Component
             report($e);
 
             Flux::toast(
-                heading: 'Uops! Algo salió mal',
+                heading: 'Ups! Algo salió mal',
                 text: $e->getMessage(),
                 variant: 'error',
             );

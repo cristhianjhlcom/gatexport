@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::table('subcategories', function (Blueprint $table) {
             $table->string('background_color')->default('#dc801e');
+            $table->json('background_image')->nullable();
             $table->string('icon_white')->nullable();
             $table->string('icon_primary')->nullable();
             $table->json('description')->nullable();
@@ -32,6 +33,7 @@ return new class extends Migration
         Schema::table('subcategories', function (Blueprint $table) {
             $table->dropColumn([
                 'background_color',
+                'background_image',
                 'icon_white',
                 'icon_primary',
                 'description',

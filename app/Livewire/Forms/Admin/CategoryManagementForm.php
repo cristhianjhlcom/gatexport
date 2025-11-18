@@ -33,6 +33,12 @@ final class CategoryManagementForm extends Form
     ];
 
     #[Validate]
+    public $backgroundImage = [
+        'en' => '',
+        'es' => '',
+    ];
+
+    #[Validate]
     public ?string $backgroundColor = null;
 
     #[Validate]
@@ -54,6 +60,10 @@ final class CategoryManagementForm extends Form
         $this->name = $category->name;
         $this->slug = $category->slug;
         $this->backgroundColor = $category->background_color;
+
+        $categoryBackgroundImage = $category->background_image ??= [];
+        $this->backgroundImage['es'] = $categoryBackgroundImage['es'] ?? '';
+        $this->backgroundImage['en'] = $categoryBackgroundImage['en'] ?? '';
 
         // Populate description locales safely
         $categoryDescription = $category->description ?? [];
@@ -85,13 +95,20 @@ final class CategoryManagementForm extends Form
                 'slug' => $this->slug,
                 'background_color' => $this->backgroundColor,
                 'description' => $this->description,
+                'background_image' => [
+                    'es' => $this->upload([
+                        'currentPath' => $this->category?->background_image['es'] ?? null,
+                        'newFile' => $this->tmpImages['background_image']['es'] ?? null,
+                        'directory' => 'uploads/categories',
+                    ]),
+                    'en' => $this->upload([
+                        'currentPath' => $this->category?->background_image['en'] ?? null,
+                        'newFile' => $this->tmpImages['background_image']['en'] ?? null,
+                        'directory' => 'uploads/categories',
+                    ]),
+                ],
                 'seo_title' => $this->seo['title'],
                 'seo_description' => $this->seo['description'],
-                'image' => $this->upload([
-                    'currentPath' => $this->category?->image ?? null,
-                    'newFile' => $this->tmpImages['image'] ?? null,
-                    'directory' => 'uploads/categories',
-                ]),
                 'icon_white' => $this->upload([
                     'currentPath' => $this->category?->icon_white ?? null,
                     'newFile' => $this->tmpImages['icon_white'] ?? null,
@@ -130,11 +147,18 @@ final class CategoryManagementForm extends Form
                 'description' => $this->description,
                 'seo_title' => $this->seo['title'],
                 'seo_description' => $this->seo['description'],
-                'image' => $this->upload([
-                    'currentPath' => $this->category->image ?? null,
-                    'newFile' => $this->tmpImages['image'] ?? null,
-                    'directory' => 'uploads/categories',
-                ]),
+                'background_image' => [
+                    'es' => $this->upload([
+                        'currentPath' => $this->category?->background_image['es'] ?? null,
+                        'newFile' => $this->tmpImages['background_image']['es'] ?? null,
+                        'directory' => 'uploads/categories',
+                    ]),
+                    'en' => $this->upload([
+                        'currentPath' => $this->category?->background_image['en'] ?? null,
+                        'newFile' => $this->tmpImages['background_image']['en'] ?? null,
+                        'directory' => 'uploads/categories',
+                    ]),
+                ],
                 'icon_white' => $this->upload([
                     'currentPath' => $this->category->icon_white ?? null,
                     'newFile' => $this->tmpImages['icon_white'] ?? null,

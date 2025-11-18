@@ -37,6 +37,20 @@
                 size="sm"
                 wire:model="form.description.{{ $locale }}"
               />
+
+              <div class="space-y-2 overflow-hidden">
+                <flux:file-upload
+                  label="Background Image ({{ $name }})"
+                  size="sm"
+                  wire:model.live="form.tmpImages.backgroundImage.{{ $locale }}"
+                >
+                  <flux:file-upload.dropzone
+                    inline
+                    text="1000x550 - JPG, PNG, Webp hasta 2MB"
+                    with-progress
+                  />
+                </flux:file-upload>
+              </div>
             </flux:tab.panel>
           @endforeach
         </flux:tab.group>
@@ -63,35 +77,6 @@
           size="sm"
           wire:model.blur="form.backgroundColor"
         />
-
-        <div class="space-y-2 overflow-hidden">
-          @php
-            $image = $form->category->image ?? '';
-            $hasImage = !empty($image);
-            $tmpImage = $form->tmpImages['image'] ?? null;
-          @endphp
-
-          <flux:file-upload
-            label="Background Image"
-            size="sm"
-            wire:model.live="form.tmpImages.image"
-          >
-            <flux:file-upload.dropzone
-              :heading="$image"
-              inline
-              text="1000x550 - JPG, PNG, Webp hasta 2MB"
-              with-progress
-            />
-          </flux:file-upload>
-
-          @if ($tmpImage && !is_string($tmpImage))
-            <flux:file-item
-              :heading="$tmpImage->getClientOriginalName()"
-              :image="$tmpImage->temporaryUrl()"
-              :size="$tmpImage->getSize()"
-            />
-          @endif
-        </div>
 
         <div class="space-y-2 overflow-hidden">
           @php
