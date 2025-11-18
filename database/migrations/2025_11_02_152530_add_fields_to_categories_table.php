@@ -14,7 +14,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('categories', function (Blueprint $table) {
-            $table->string('background_color')->default('#dc801e');
+            $table->string('background_color')->default('#E6A857');
             $table->json('background_image')->nullable();
             $table->string('icon_white')->nullable();
             $table->string('icon_primary')->nullable();
