@@ -69,7 +69,7 @@
   @endproduction
 </head>
 
-<body class="min-h-screen bg-white antialiased dark:bg-zinc-800">
+<body class="min-h-screen bg-white text-gray-900 antialiased dark:bg-white dark:text-gray-900">
   @production
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe

@@ -1,15 +1,25 @@
 <flux:navbar>
   <flux:modal.trigger name="search" shortcut="cmd.k">
-    <flux:button
-      flat
-      icon="magnifying-glass"
-      size="sm"
-      variant="ghost"
-    />
+    <button type="button">
+      <svg
+        class="size-6"
+        fill="none"
+        stroke-width="1.5"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </button>
   </flux:modal.trigger>
 
   <flux:modal
-    class="!radius-sm my-[12vh] max-h-screen w-full max-w-[30rem] space-y-2 !overflow-hidden bg-white !p-2"
+    class="!radius-sm max-w-120 overflow-hidden! p-2! my-[12vh] max-h-screen w-full space-y-2 bg-white"
     name="search"
     style="border-radius: 0.5rem !important;"
     variant="bare"

@@ -1,4 +1,4 @@
-<nav class="flex h-16 items-center gap-4 max-lg:hidden">
+<nav class="flex h-16 items-center gap-4 text-gray-900 max-lg:hidden">
   <a class="{{ request()->routeIs('home.index')
       ? 'border-b-4 border-primary-400 text-primary-400 font-bold'
       : 'border-b-4 border-transparent' }} flex h-full items-center text-sm uppercase transition"
