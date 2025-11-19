@@ -12,34 +12,48 @@
       </flux:modal.trigger>
 
       <flux:modal class="md:w-[500px]" name="add-specs">
-        <div class="space-y-4">
-          <flux:input
-            autocomplete="off"
-            label="Clave"
-            placeholder="Peso"
-            type="text"
-            wire:model="key"
-          />
+        <flux:tab.group>
+          <flux:tabs variant="segmented">
+            @foreach ($locales as $locale => $name)
+              <flux:tab name="{{ $locale }}">{{ $name }}</flux:tab>
+            @endforeach
+          </flux:tabs>
+          @foreach ($locales as $locale => $name)
+            <flux:tab.panel class="space-y-4" name="{{ $locale }}">
+              <div class="space-y-4">
+                <flux:input
+                  autocomplete="off"
+                  label="Clave ({{ $name }})"
+                  placeholder="Peso"
+                  type="text"
+                  wire:model="values.{{ $locale }}.key"
+                />
 
-          <flux:input
-            autocomplete="off"
-            label="Valor"
-            placeholder="10 KG"
-            type="text"
-            wire:model="value"
-          />
+                <flux:input
+                  autocomplete="off"
+                  label="Valor ({{ $name }})"
+                  placeholder="10 KG"
+                  type="text"
+                  wire:model="values.{{ $locale }}.value"
+                />
 
-          <div class="flex">
-            <flux:spacer />
-            <flux:button
-              type="button"
-              variant="primary"
-              wire:click="add"
-            >
-              Crear especificación
-            </flux:button>
-          </div>
-        </div>
+                <div class="flex items-center gap-4">
+                  <flux:button
+                    type="button"
+                    variant="primary"
+                    wire:click="add"
+                  >
+                    Crear especificación
+                  </flux:button>
+
+                  @error('values.*')
+                    <small class="text-xs italic text-gray-400">Complete todos los idiomas</small>
+                  @enderror
+                </div>
+              </div>
+            </flux:tab.panel>
+          @endforeach
+        </flux:tab.group>
       </flux:modal>
 
     </div>
@@ -48,16 +62,20 @@
   <flux:table>
     <flux:table.columns>
       <flux:table.column>#</flux:table.column>
-      <flux:table.column>Key</flux:table.column>
-      <flux:table.column>Value</flux:table.column>
+      @foreach ($locales as $locale => $name)
+        <flux:table.column>Key ({{ $name }})</flux:table.column>
+        <flux:table.column>Value ({{ $name }})</flux:table.column>
+      @endforeach
     </flux:table.columns>
 
     <flux:table.rows>
       @forelse ($specifications as $spec)
         <flux:table.row key="{{ $spec->id }}">
           <flux:table.cell>#{{ $spec->id }}</flux:table.cell>
-          <flux:table.cell>{{ $spec['key'] }}</flux:table.cell>
-          <flux:table.cell>{{ $spec['value'] }}</flux:table.cell>
+          @foreach ($locales as $locale => $name)
+            <flux:table.cell>{{ $spec['value'][$locale]['key'] }}</flux:table.cell>
+            <flux:table.cell>{{ $spec['value'][$locale]['value'] }}</flux:table.cell>
+          @endforeach
           <flux:table.cell>
             <flux:button
               icon="x-mark"
@@ -74,6 +92,7 @@
         </flux:table.row>
       @endforelse
     </flux:table.rows>
+
   </flux:table>
 
 </flux:card>

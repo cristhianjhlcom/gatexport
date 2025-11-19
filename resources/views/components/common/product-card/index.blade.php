@@ -36,7 +36,11 @@
             <h4 class="text-primary-500 text-sm font-extrabold uppercase md:text-[21px]">
               {{ $product->localizedSubcategoryName }}
             </h4>
-            <span class="text-xs font-normal text-[#808080]">10 x 1.5 cm - 2.3 cm / MOQ 20 KG (BULK)</span>
+            <span class="text-xs font-normal text-[#808080]">
+              @foreach ($product->specifications as $spec)
+                {{ $spec->value[app()->getLocale()]['value'] }}
+              @endforeach
+            </span>
           </div>
         </header>
 
@@ -85,7 +89,11 @@
           {{ $product->localizedSubcategoryName }}
         </h4>
         <div>
-          <span class="text-xs font-normal text-[#808080]">10 x 1.5 cm - 2.3 cm / MOQ 20 KG (BULK)</span>
+          <span class="text-xs font-normal text-[#808080]">
+            @foreach ($product->specifications as $spec)
+              {{ $spec->value[app()->getLocale()]['value'] }}
+            @endforeach
+          </span>
         </div>
 
         <a
