@@ -16,11 +16,22 @@ final class Specifications extends Component
 {
     public Product $product;
 
-    #[Validate('required|string|max:60', as: 'clave')]
-    public string $key = '';
+    public array $locales = [
+        'es' => 'Español',
+        'en' => 'Inglés',
+    ];
 
-    #[Validate('required|string|max:60', as: 'valor')]
-    public string $value = '';
+    #[Validate]
+    public $values = [
+        'es' => [
+            'key' => '',
+            'value' => '',
+        ],
+        'en' => [
+            'key' => '',
+            'value' => '',
+        ]
+    ];
 
     public function mount(Product $product)
     {
@@ -55,8 +66,8 @@ final class Specifications extends Component
                 }
 
                 $this->product->specifications()->create([
-                    'key' => str()->title($this->key),
-                    'value' => str()->title($this->value),
+                    'key' => [],
+                    'value' => $this->values,
                 ]);
 
                 Flux::toast(
@@ -67,7 +78,7 @@ final class Specifications extends Component
 
                 Flux::modal('add-specs')->close();
 
-                $this->reset(['key', 'value']);
+                $this->reset(['values']);
             });
         } catch (Exception $e) {
             report($e);
@@ -85,5 +96,25 @@ final class Specifications extends Component
         return view('livewire.admin.products.specifications', [
             'specifications' => $this->product->fresh()->specifications,
         ]);
+    }
+
+    protected function rules(): array
+    {
+        return [
+            'values.*.key' => 'required|string|max:50',
+            'values.*.value' => 'required|string|max:100',
+        ];
+    }
+
+    protected function messages(): array
+    {
+        return [
+            'values.*.key.required' => 'La clave es obligatoria.',
+            'values.*.key.string' => 'La clave debe ser una cadena de texto.',
+            'values.*.key.max' => 'La clave no debe exceder los 50 caracteres.',
+            'values.*.value.required' => 'El valor es obligatorio.',
+            'values.*.value.string' => 'El valor debe ser una cadena de texto.',
+            'values.*.value.max' => 'El valor no debe exceder los 100 caracteres.',
+        ];
     }
 }

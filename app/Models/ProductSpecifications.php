@@ -21,8 +21,8 @@ final class ProductSpecifications extends Model
     public function casts(): array
     {
         return [
-            'key' => 'string',
-            'value' => 'string',
+            'key' => 'json',
+            'value' => 'json',
             'created_at' => 'datetime',
             'updated_at' => 'datetime',
         ];
