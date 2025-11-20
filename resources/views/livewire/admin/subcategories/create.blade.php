@@ -1,7 +1,7 @@
 <div class="space-y-4">
   <div class="flex items-center justify-between">
     <div>
-      <flux:heading>Crear Subcategoría</flux:heading>
+      <flux:heading>Crear Sub categoría</flux:heading>
     </div>
   </div>
 
@@ -12,10 +12,6 @@
 
     <div class="grid grid-cols-1 items-start gap-4 md:grid-cols-2">
       <flux:card class="space-y-4">
-        <header>
-          <flux:heading size="lg">Crear Subcategoría</flux:heading>
-        </header>
-
         <flux:tab.group>
           <flux:tabs variant="segmented">
             @foreach ($locales as $locale => $name)
@@ -93,34 +89,6 @@
           size="sm"
           wire:model.blur="form.backgroundColor"
         />
-
-        <div class="space-y-2 overflow-hidden">
-          @php
-            $image = $form->tmpImages['image'] ?? '';
-            $tmpImage = $form->tmpImages['image'] ?? null;
-          @endphp
-
-          <flux:file-upload
-            label="Imagen principal"
-            size="sm"
-            wire:model.live="form.tmpImages.image"
-          >
-            <flux:file-upload.dropzone
-              :heading="$image"
-              inline
-              text="1000x1000 - JPG, PNG, Webp hasta 4.5MB"
-              with-progress
-            />
-          </flux:file-upload>
-
-          @if ($tmpImage && !is_string($tmpImage))
-            <flux:file-item
-              :heading="$tmpImage->getClientOriginalName()"
-              :image="$tmpImage->temporaryUrl()"
-              :size="$tmpImage->getSize()"
-            />
-          @endif
-        </div>
 
         <div class="space-y-2 overflow-hidden">
           @php
@@ -238,6 +206,11 @@
           @endif
         </div>
       </flux:card>
+
+      <div class="fixed bottom-0 w-full bg-white/75 py-2">
+        <flux:button type="submit" variant="primary">Crear</flux:button>
+        <flux:button type="button" wire:click="createAnother">Guardar & Crear Otro</flux:button>
+      </div>
     </div>
   </form>
 </div>

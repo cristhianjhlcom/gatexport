@@ -39,7 +39,7 @@ final class SubcategoryManagementForm extends Form
     ];
 
     #[Validate]
-    public ?string $backgroundColor = null;
+    public ?string $backgroundColor = '#E6A857';
 
     #[Validate]
     public $tmpImages = [

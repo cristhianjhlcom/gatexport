@@ -1,12 +1,12 @@
 <div class="space-y-4">
-  <flux:heading>Manejo de Subcategorías</flux:heading>
+  <flux:heading>Manejo de Sub-categorías</flux:heading>
   <flux:separator />
 
   <div class="flex flex-col space-y-4">
     <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
       <div></div>
       <flux:button href="{{ route('admin.subcategories.create') }}" icon="plus">
-        Agregar Subcategoría
+        Agregar Sub-categoría
       </flux:button>
     </div>
 
@@ -21,14 +21,14 @@
         @foreach ($subcategories as $subcategory)
           <flux:table.row key="{{ $subcategory->id }}">
             <flux:table.cell class="flex items-center gap-3 text-wrap">
-              @if ($subcategory->image)
+              @if ($subcategory->iconPrimaryUrl)
                 <img
                   alt="{{ $subcategory->localizedName }}"
                   class="h-10 w-10 rounded-lg object-contain"
-                  src="{{ $subcategory->imageUrl }}"
+                  src="{{ $subcategory->iconPrimaryUrl }}"
                 />
               @else
-                <flux:avatar name="{{ $subcategory->name }}" />
+                <flux:avatar name="{{ $subcategory->localizedName }}" />
               @endif
               {{ $subcategory->localizedName }}
             </flux:table.cell>

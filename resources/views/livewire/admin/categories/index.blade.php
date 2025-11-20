@@ -20,11 +20,11 @@
         @foreach ($categories as $category)
           <flux:table.row key="{{ $category->id }}">
             <flux:table.cell class="flex items-center gap-3 text-wrap">
-              @if ($category->image)
+              @if ($category->iconPrimaryUrl)
                 <img
                   alt="{{ $category->localizedName }}"
                   class="h-10 w-10 rounded-lg object-contain"
-                  src="{{ $category->imageUrl }}"
+                  src="{{ $category->iconPrimaryUrl }}"
                 />
               @else
                 <flux:avatar name="{{ $category->localizedName }}" />

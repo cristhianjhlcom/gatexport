@@ -63,12 +63,38 @@ final class Subcategory extends Model
         );
     }
 
+    public function iconWhiteUrl(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                if ($this->icon_white) {
+                    return Storage::disk('public')->url($this->icon_white);
+                }
+
+                return NULL;
+            },
+        );
+    }
+
+    public function iconPrimaryUrl(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                if ($this->icon_primary) {
+                    return Storage::disk('public')->url($this->icon_primary);
+                }
+
+                return NULL;
+            },
+        );
+    }
+
     public function localizedName($locale = null): Attribute
     {
         $locale = $locale ?? app()->getLocale();
 
         return Attribute::make(
-            get: fn () => $this->name[$locale],
+            get: fn() => $this->name[$locale],
         );
     }
 
@@ -77,7 +103,7 @@ final class Subcategory extends Model
         $locale = $locale ?? app()->getLocale();
 
         return Attribute::make(
-            get: fn () => $this->description[$locale],
+            get: fn() => $this->description[$locale],
         );
     }
 
