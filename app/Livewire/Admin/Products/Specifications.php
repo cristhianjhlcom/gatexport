@@ -30,7 +30,7 @@ final class Specifications extends Component
         'en' => [
             'key' => '',
             'value' => '',
-        ]
+        ],
     ];
 
     public function mount(Product $product)

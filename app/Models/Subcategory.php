@@ -71,7 +71,7 @@ final class Subcategory extends Model
                     return Storage::disk('public')->url($this->icon_white);
                 }
 
-                return NULL;
+                return null;
             },
         );
     }
@@ -84,7 +84,7 @@ final class Subcategory extends Model
                     return Storage::disk('public')->url($this->icon_primary);
                 }
 
-                return NULL;
+                return null;
             },
         );
     }
@@ -94,7 +94,7 @@ final class Subcategory extends Model
         $locale = $locale ?? app()->getLocale();
 
         return Attribute::make(
-            get: fn() => $this->name[$locale],
+            get: fn () => $this->name[$locale],
         );
     }
 
@@ -103,7 +103,7 @@ final class Subcategory extends Model
         $locale = $locale ?? app()->getLocale();
 
         return Attribute::make(
-            get: fn() => $this->description[$locale],
+            get: fn () => $this->description[$locale],
         );
     }
 

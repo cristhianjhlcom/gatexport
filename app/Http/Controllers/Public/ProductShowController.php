@@ -14,18 +14,10 @@ final class ProductShowController extends Controller
 {
     public function __invoke(Category $category, Subcategory $subcategory, Product $product)
     {
+        // TODO: Mover a scope del modelo producto.
         abort_if($product->status !== ProductStatusEnum::PUBLISHED, 404);
 
-        $category = $category->load('subcategories');
-        $subcategory = $subcategory->load([
-            'products.subcategory',
-            'products.images',
-        ]);
-        $product = $product->load([
-            'subcategory',
-            'images',
-            'specifications',
-        ]);
+        // TODO: Mover a scope del modelo subcategory.
         $relatedProducts = $subcategory->products()
             ->where('id', '!=', $product->id)
             ->where('status', ProductStatusEnum::PUBLISHED)
@@ -33,6 +25,7 @@ final class ProductShowController extends Controller
             ->limit(8)
             ->get();
 
+        // TODO: Refactorizar la vista de productos.
         return view('pages.products.show')->with([
             'product' => $product,
             'subcategory' => $subcategory,

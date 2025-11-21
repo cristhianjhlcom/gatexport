@@ -3,10 +3,8 @@ import forms from "@tailwindcss/forms";
 
 /** @type {import('tailwindcss').Config} */
 export default {
-    // darkMode: "selector",
+    darkMode: "selector",
     content: [
-        // "./vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php",
-        // "./storage/framework/views/*.php",
         "./resources/**/*.blade.php",
         "./resources/**/*.js",
         "./vendor/livewire/flux-pro/stubs/**/*.blade.php",
@@ -17,9 +15,6 @@ export default {
         extend: {
             fontFamily: {
                 sans: ["Montserrat", ...defaultTheme.fontFamily.sans],
-                // sans: ["Inter", ...defaultTheme.fontFamily.sans],
-                // display: ["Playfair Display", ...defaultTheme.fontFamily.sans],
-                // display: ["Inter", ...defaultTheme.fontFamily.sans],
             },
         },
     },
