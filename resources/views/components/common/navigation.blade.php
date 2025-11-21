@@ -29,6 +29,7 @@
       @mouseenter="open = true"
       @mouseleave="open = false"
       class="bg-primary-500 absolute top-16 z-10 flex min-h-[450px] w-full max-w-[900px] rounded-none text-white shadow-md"
+      x-cloak
       x-show="open"
       x-transition.opacity
     >
@@ -79,6 +80,7 @@
         @foreach ($items as $index => $item)
           <div
             class="absolute inset-0 grid grid-cols-5 grid-rows-2 gap-2 p-2"
+            x-cloak
             x-show="active === {{ $index }}"
             x-transition.opacity
           >

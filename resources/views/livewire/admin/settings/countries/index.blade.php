@@ -8,7 +8,7 @@
 <form class="space-y-6" wire:submit.prevent="save">
   <header class="space-y-2">
     <flux:heading level="2" size="lg">
-      Paises de Exportación
+      Países de Exportación
     </flux:heading>
   </header>
 

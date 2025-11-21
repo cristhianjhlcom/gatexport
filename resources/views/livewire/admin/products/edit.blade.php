@@ -15,12 +15,6 @@
       <div class="w-full space-y-4 md:w-6/12">
         {{-- Product Content --}}
         @include('livewire.admin.products.content')
-
-        <div>
-          <flux:button type="submit" variant="primary">
-            Guardar
-          </flux:button>
-        </div>
       </div>
 
       <div class="w-full space-y-4 md:w-6/12">
@@ -43,7 +37,7 @@
             @endforeach
           </flux:select>
 
-          <flux:select label="Subcategoría" wire:model.live="form.selectedSubcategoryId">
+          <flux:select label="Sub-categoría" wire:model.live="form.selectedSubcategoryId">
             @foreach ($form->subcategories as $item)
               <flux:select.option value="{{ $item->id }}">
                 {{ $item->localizedName }}
@@ -58,6 +52,12 @@
         {{-- Product Specifications --}}
         <livewire:admin.products.specifications :product="$form->product" />
       </div>
+    </div>
+
+    <div class="fixed inset-x-0 bottom-0 left-64 flex items-center gap-4 bg-white/75 px-8 py-2 dark:bg-gray-900/75">
+      <flux:button type="submit" variant="primary">
+        Actualizar
+      </flux:button>
     </div>
   </form>
 </div>

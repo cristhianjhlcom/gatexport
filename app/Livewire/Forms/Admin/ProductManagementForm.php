@@ -68,7 +68,7 @@ final class ProductManagementForm extends Form
                 'string',
                 Rule::unique('products', 'slug')->ignore($this->product?->id),
             ],
-            'description.*' => 'nullable|string|max:1000',
+            'description.*' => 'nullable|string|max:2000',
             'seo.title.*' => 'nullable|string|max:60',
             'seo.description.*' => 'nullable|string|max:160',
             'status' => 'required',
@@ -84,8 +84,8 @@ final class ProductManagementForm extends Form
         return [
             'selectedCategoryId.required' => 'Debe seleccionar una categoría',
             'selectedCategoryId.exists' => 'La categoría no existe',
-            'selectedSubcategoryId.required' => 'Debe seleccionar una subcategoría',
-            'selectedSubcategoryId.exists' => 'La subcategoría no existe',
+            'selectedSubcategoryId.required' => 'Debe seleccionar una sub-categoría',
+            'selectedSubcategoryId.exists' => 'La sub-categoría no existe',
         ];
     }
 
@@ -161,9 +161,9 @@ final class ProductManagementForm extends Form
 
     public function loadCategories(): void
     {
-        // TODO: Mejorar la logica de carga ya que no esta cargando ^
+        // TODO: Mejorar la lógica de carga ya que no esta cargando ^
         // correctamente al momento de editar un producto.
-        // Solo se deberia agregar categorias que tengan subcategorias al listado
+        // Solo se debería agregar categorías que tengan sub-categorías al listado
 
         if ($this->isEditing) {
             $this->categories = Category::with('subcategories')->orderBy('name')->get();

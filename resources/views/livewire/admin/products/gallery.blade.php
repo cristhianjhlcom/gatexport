@@ -1,6 +1,6 @@
 <flux:card>
   <flux:field class="space-y-4">
-    <flux:label>Imagenes</flux:label>
+    <flux:label>Imágenes</flux:label>
 
     @if (count($images) > 0)
       <div class="grid grid-cols-2 gap-x-2 md:grid-cols-4">
@@ -13,7 +13,7 @@
                 src="{{ Storage::disk('public')->url($image->path) }}"
               />
               <button
-                class="boder absolute right-2 top-2 z-50 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border-gray-200 bg-white p-4 text-xs hover:bg-gray-300"
+                class="absolute right-2 top-2 z-50 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border border-gray-200 bg-white p-4 text-xs hover:bg-gray-300"
                 type="button"
                 wire:click="remove({{ $image }})"
               >
@@ -25,7 +25,7 @@
       </div>
     @else
       <flux:callout
-        heading="Agrega algunas imagenes a tu producto. Como máximo 4 imagenes."
+        heading="Agrega algunas imágenes a tu producto. Como máximo 4 imágenes."
         icon="exclamation-circle"
         variant="warning"
       />

@@ -14,16 +14,10 @@
         @include('livewire.admin.products.content')
 
         <flux:callout
-          heading="Podras agregar imagenes y especificaciones luego de guardar el producto."
+          heading="Podrás agregar imágenes y especificaciones luego de guardar el producto."
           icon="exclamation-triangle"
           variant="warning"
         />
-
-        <div>
-          <flux:button type="submit" variant="primary">
-            Guardar & Continuar
-          </flux:button>
-        </div>
       </div>
 
       <div class="w-full space-y-4 md:w-1/3">
@@ -47,7 +41,7 @@
             @endforeach
           </flux:select>
 
-          <flux:select label="Subcategoría" wire:model.live="form.selectedSubcategoryId">
+          <flux:select label="Sub-categoría" wire:model.live="form.selectedSubcategoryId">
             @foreach ($form->subcategories as $item)
               <flux:select.option value="{{ $item->id }}">
                 {{ $item->localizedName }}
@@ -56,6 +50,12 @@
           </flux:select>
         </flux:card>
       </div>
+    </div>
+
+    <div class="fixed inset-x-0 bottom-0 left-64 flex items-center bg-white/75 px-8 py-2 dark:bg-gray-900/75">
+      <flux:button type="submit" variant="primary">
+        Guardar & Continuar
+      </flux:button>
     </div>
   </form>
 </div>

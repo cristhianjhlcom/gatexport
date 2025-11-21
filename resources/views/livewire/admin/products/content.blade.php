@@ -5,7 +5,7 @@
   ];
 @endphp
 
-<div>
+<flux:card>
   <flux:tab.group>
     <flux:tabs variant="segmented">
       @foreach ($locales as $locale => $value)
@@ -15,12 +15,11 @@
 
     @foreach ($locales as $locale => $value)
       <flux:tab.panel class="space-y-4" name="{{ $locale }}">
-        <flux:card class="space-y-4">
+        <div class="space-y-4">
           <flux:input
             autocomplete="off"
             badge="Requerido"
-            description:trailing="Versión en {{ strtolower($value) }} del nombre"
-            label="Nombre"
+            label="Nombre ({{ $value }})"
             placeholder="Lorem Ipsum"
             wire:model.blur="form.name.{{ $locale }}"
           />
@@ -31,7 +30,6 @@
               <flux:input
                 id="slug"
                 placeholder="product-slug"
-                readonly
                 wire:model='form.slug'
               />
             </flux:input.group>
@@ -39,34 +37,30 @@
           </flux:field>
 
           <flux:editor
-            badge="Optional"
-            description:trailing="Descripción del producto, debe ser de 500 caracteres como máximo."
-            label="Descripción"
+            badge="Opcional"
+            label="Descripción ({{ $value }})"
             name="description"
             wire:model="form.description.{{ $locale }}"
           />
-        </flux:card>
+        </div>
 
-        <flux:card class="space-y-4">
+        <div class="space-y-4">
           <flux:input
             autocomplete="off"
-            description:trailing="Versión en {{ strtolower($value) }} del nombre"
-            label="Título SEO"
+            label="Título SEO ({{ $value }})"
             placeholder="Pretty Title 📦"
-            wire:model.blur="form.seo.title.{{ $locale }}"
+            wire:model="form.seo.title.{{ $locale }}"
           />
 
           <flux:textarea
             autocomplete="off"
-            description:trailing="Versión en {{ strtolower($value) }} del nombre"
-            label="Descripción SEO"
+            label="Descripción SEO ({{ $value }})"
             placeholder="Descripción para los buscadores como Google, Bing, etc."
             rows="2"
-            wire:model.lazy="form.seo.description.{{ $locale }}"
+            wire:model="form.seo.description.{{ $locale }}"
           />
-        </flux:card>
-
+        </div>
       </flux:tab.panel>
     @endforeach
   </flux:tab.group>
-</div>
+</flux:card>
