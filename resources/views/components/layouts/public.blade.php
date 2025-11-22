@@ -4,6 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="light" name="color-scheme">
 
   <title>{{ $title ?? config('app.name') }} | {{ config('app.name') }}</title>
 
@@ -44,7 +45,7 @@
   @endif
 
   @stack('styles')
-  @fluxAppearance
+  {{-- @fluxAppearance --}}
 
   @production
     <!-- Google Tag Manager -->

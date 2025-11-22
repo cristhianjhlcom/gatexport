@@ -1,6 +1,4 @@
 @import "tailwindcss";
-@import "../../vendor/livewire/flux/dist/flux.css";
-/* @import "jsvectormap/dist/jsvectormap.min.css"; */
 @import "swiper/css/bundle";
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
@@ -11,6 +9,7 @@
 /* Re-assign Flux's gray of choice... */
 @theme {
     --font-sans: "Montserrat", sans-serif;
+    --default-font-family: "Montserrat", sans-serif;
     /*--font-display: Playfair Display, serif; */
 
     /* Color principal (medio) */

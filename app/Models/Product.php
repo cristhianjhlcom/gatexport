@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Storage;
 
 final class Product extends Model
 {
@@ -64,7 +65,7 @@ final class Product extends Model
         $locale = $locale ?? app()->getLocale();
 
         return Attribute::make(
-            get: fn () => $this->name[$locale],
+            get: fn() => $this->name[$locale],
         );
     }
 
@@ -73,7 +74,7 @@ final class Product extends Model
         $locale = $locale ?? app()->getLocale();
 
         return Attribute::make(
-            get: fn () => $this->description[$locale],
+            get: fn() => $this->description[$locale],
         );
     }
 
@@ -82,7 +83,7 @@ final class Product extends Model
         $locale = $locale ?? app()->getLocale();
 
         return Attribute::make(
-            get: fn () => $this->seo_title[$locale],
+            get: fn() => $this->seo_title[$locale],
         );
     }
 
@@ -91,7 +92,7 @@ final class Product extends Model
         $locale = $locale ?? app()->getLocale();
 
         return Attribute::make(
-            get: fn () => $this->seo_description[$locale],
+            get: fn() => $this->seo_description[$locale],
         );
     }
 
@@ -100,7 +101,7 @@ final class Product extends Model
         $locale = $locale ?? app()->getLocale();
 
         return Attribute::make(
-            get: fn () => $this->subcategory->category->name[$locale],
+            get: fn() => $this->subcategory->category->name[$locale],
         );
     }
 
@@ -109,7 +110,7 @@ final class Product extends Model
         $locale = $locale ?? app()->getLocale();
 
         return Attribute::make(
-            get: fn () => $this->subcategory->name[$locale],
+            get: fn() => $this->subcategory->name[$locale],
         );
     }
 
@@ -119,9 +120,7 @@ final class Product extends Model
 
         return Attribute::make(
             get: function () {
-                if ($this->images->count() > 0) {
-                    return $this->images->first()->url;
-                }
+                if ($this->images->count() > 0) return $this->images->first()->url;
 
                 return '';
             },
@@ -133,7 +132,7 @@ final class Product extends Model
         $this->load(['subcategory', 'subcategory.category']);
 
         return Attribute::make(
-            fn () => route('products.show', [
+            fn() => route('products.show', [
                 'category' => $this->subcategory->category,
                 'subcategory' => $this->subcategory,
                 'product' => $this,
@@ -146,11 +145,20 @@ final class Product extends Model
         return $query
             ->when(
                 $search,
-                fn (Builder $query) => $query->whereAny(
+                fn(Builder $query) => $query->whereAny(
                     ['name', 'description'],
                     'like',
                     "%{$search}%"
                 )
             );
+    }
+
+    public function published(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return $this->status === ProductStatusEnum::PUBLISHED;
+            },
+        );
     }
 }

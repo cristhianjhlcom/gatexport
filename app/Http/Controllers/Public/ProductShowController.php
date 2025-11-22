@@ -14,8 +14,7 @@ final class ProductShowController extends Controller
 {
     public function __invoke(Category $category, Subcategory $subcategory, Product $product)
     {
-        // TODO: Mover a scope del modelo producto.
-        abort_if($product->status !== ProductStatusEnum::PUBLISHED, 404);
+        abort_if(!$product->published, 404);
 
         // TODO: Mover a scope del modelo subcategory.
         $relatedProducts = $subcategory->products()

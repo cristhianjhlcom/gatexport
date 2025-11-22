@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\ProductStatusEnum;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -94,7 +95,7 @@ final class Subcategory extends Model
         $locale = $locale ?? app()->getLocale();
 
         return Attribute::make(
-            get: fn () => $this->name[$locale],
+            get: fn() => $this->name[$locale],
         );
     }
 
@@ -103,7 +104,7 @@ final class Subcategory extends Model
         $locale = $locale ?? app()->getLocale();
 
         return Attribute::make(
-            get: fn () => $this->description[$locale],
+            get: fn() => $this->description[$locale],
         );
     }
 
