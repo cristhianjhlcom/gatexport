@@ -52,7 +52,9 @@ return [
     'product' => [
         'title' => 'Product',
         'description' => 'Description',
+        'contact_us' => 'Contact Us',
         'specifications' => 'Specifications',
+        'share' => 'Share',
         'related_products' => 'Related Products',
         'request_product' => 'Request Product',
         'request_title' => 'Request Product',

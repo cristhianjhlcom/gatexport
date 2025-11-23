@@ -1,28 +1,13 @@
 <section>
   <flux:modal.trigger name="call-to-action">
-    <div
-      class="border-t-1 fixed bottom-0 left-0 right-0 m-0 flex w-full items-center justify-center border-gray-200 bg-white/75 px-8 py-4 md:hidden"
+    <button
+      class="text-primary-500 text-md rounded-4xl block w-full border-transparent bg-white px-4 py-3 font-extrabold uppercase md:max-w-[180px]"
+      type="button"
     >
-      <flux:button
-        class="w-full"
-        type="button"
-        variant="primary"
-      >
-        {{ __('pages.product.request_product') }}
-      </flux:button>
-    </div>
+      {{ __('pages.product.contact_us') }}
+    </button>
   </flux:modal.trigger>
-  <flux:modal.trigger name="call-to-action">
-    <div class="hidden md:block">
-      <flux:button
-        class="w-full"
-        type="button"
-        variant="primary"
-      >
-        {{ __('pages.product.request_product') }}
-      </flux:button>
-    </div>
-  </flux:modal.trigger>
+
   <flux:modal class="md:w-7/12" name="call-to-action">
     <form class="space-y-6" wire:submit="createOrder">
       <header>
