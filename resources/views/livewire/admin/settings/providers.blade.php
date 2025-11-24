@@ -9,11 +9,7 @@
       </flux:description>
     </header>
     <flux:separator />
-    <flux:button
-      size="sm"
-      variant="outline"
-      wire:click="add"
-    >
+    <flux:button size="sm" variant="outline" wire:click="add">
       {{ __('Add Provider') }}
     </flux:button>
     <span class="text-sm text-gray-500">

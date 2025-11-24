@@ -12,9 +12,7 @@
       </div>
       <div class="flex-1">
         <flux:modal.trigger class="flex md:justify-end" name="contact-form">
-          <button class="rounded-4xl bg-primary-400 w-full px-6 py-4 text-xl font-extrabold uppercase text-white"
-            type="button"
-          >
+          <button class="rounded-4xl bg-primary-400 w-full px-6 py-4 text-xl font-extrabold uppercase text-white" type="button">
             {{ __('pages.about.call_to_action') }}
           </button>
         </flux:modal.trigger>

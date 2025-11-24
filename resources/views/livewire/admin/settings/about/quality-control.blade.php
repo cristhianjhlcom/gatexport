@@ -14,17 +14,9 @@
 
     @foreach ($locales as $locale => $name)
       <flux:tab.panel class="space-y-4" name="{{ $locale }}">
-        <flux:input
-          badge="Requerido"
-          label="Título"
-          wire:model="about.{{ $locale }}.quality.title"
-        />
+        <flux:input badge="Requerido" label="Título" wire:model="about.{{ $locale }}.quality.title" />
 
-        <flux:editor
-          badge="Requerido"
-          label="Descripción"
-          wire:model="about.{{ $locale }}.quality.description"
-        />
+        <flux:editor badge="Requerido" label="Descripción" wire:model="about.{{ $locale }}.quality.description" />
 
         <div class="space-y-2 overflow-hidden">
           @php
@@ -33,25 +25,12 @@
             $tmp = $newQualityMainImage ??= null;
           @endphp
 
-          <flux:file-upload
-            label="Imagen principal ({{ $name }})"
-            size="sm"
-            wire:model.live="newQualityMainImage"
-          >
-            <flux:file-upload.dropzone
-              :heading="$image"
-              inline
-              text="600x450 - JPG, PNG, SVG hasta 2MB"
-              with-progress
-            />
+          <flux:file-upload label="Imagen principal ({{ $name }})" size="sm" wire:model.live="newQualityMainImage">
+            <flux:file-upload.dropzone :heading="$image" inline text="600x450 - JPG, PNG, SVG hasta 2MB" with-progress />
           </flux:file-upload>
 
           @if ($tmp)
-            <flux:file-item
-              :heading="$tmp->getClientOriginalName()"
-              :image="$tmp->temporaryUrl()"
-              :size="$tmp->getSize()"
-            />
+            <flux:file-item :heading="$tmp->getClientOriginalName()" :image="$tmp->temporaryUrl()" :size="$tmp->getSize()" />
           @endif
         </div>
       </flux:tab.panel>

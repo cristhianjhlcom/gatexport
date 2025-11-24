@@ -59,11 +59,7 @@
                 <flux:dropdown align="end" position="bottom">
                   <flux:button icon="ellipsis-horizontal" variant="ghost"></flux:button>
                   <flux:menu>
-                    <flux:menu.item
-                      icon="pencil"
-                      type="button"
-                      wire:click="toggleStatus({{ $order }})"
-                    >
+                    <flux:menu.item icon="pencil" type="button" wire:click="toggleStatus({{ $order }})">
                       Actualizar
                     </flux:menu.item>
                   </flux:menu>

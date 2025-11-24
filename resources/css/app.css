@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "swiper/css/bundle";
+@import "../../vendor/livewire/flux/dist/flux.css";
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -105,5 +106,47 @@
 }
 
 .special-content strong {
+    @apply text-primary-500 font-extrabold;
+}
+
+.policies__content h1,
+.policies__content h2,
+.policies__content h3,
+.policies__content h4,
+.policies__content h5,
+.policies__content h6 {
+    @apply text-2xl md:text-4xl font-semibold text-primary-400;
+}
+
+.policies__content h1 strong,
+.policies__content h2 strong,
+.policies__content h3 strong,
+.policies__content h4 strong,
+.policies__content h5 strong,
+.policies__content h6 strong {
+    @apply text-2xl md:text-4xl font-semibold text-primary-400;
+}
+
+.policies__content p {
+    @apply leading-relaxed text-lg;
+}
+
+.policies__content a strong {
+    @apply leading-relaxed font-normal text-blue-500 underline;
+}
+
+.policies__content ul {
+    @apply list-disc pl-20 marker:text-[#a45200];
+}
+
+.policies__content ul li p {
+    @apply font-normal leading-relaxed text-gray-900;
+}
+
+.policies__content ul li p strong {
+    @apply font-extrabold leading-relaxed text-gray-900;
+}
+
+.policies__content strong {
     @apply text-primary-500 font-extrabold;
 }

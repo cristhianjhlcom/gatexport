@@ -21,28 +21,14 @@
           @foreach ($locales as $locale => $name)
             <flux:tab.panel class="space-y-4" name="{{ $locale }}">
               <div class="space-y-4">
-                <flux:input
-                  autocomplete="off"
-                  label="Clave ({{ $name }})"
-                  placeholder="Peso"
-                  type="text"
-                  wire:model="values.{{ $locale }}.key"
-                />
+                <flux:input autocomplete="off" label="Clave ({{ $name }})" placeholder="Peso" type="text"
+                  wire:model="values.{{ $locale }}.key" />
 
-                <flux:input
-                  autocomplete="off"
-                  label="Valor ({{ $name }})"
-                  placeholder="10 KG"
-                  type="text"
-                  wire:model="values.{{ $locale }}.value"
-                />
+                <flux:input autocomplete="off" label="Valor ({{ $name }})" placeholder="10 KG" type="text"
+                  wire:model="values.{{ $locale }}.value" />
 
                 <div class="flex items-center gap-4">
-                  <flux:button
-                    type="button"
-                    variant="primary"
-                    wire:click="add"
-                  >
+                  <flux:button type="button" variant="primary" wire:click="add">
                     Crear especificación
                   </flux:button>
 
@@ -77,11 +63,7 @@
             <flux:table.cell>{{ $spec['value'][$locale]['value'] }}</flux:table.cell>
           @endforeach
           <flux:table.cell>
-            <flux:button
-              icon="x-mark"
-              variant="subtle"
-              wire:click="remove({{ $spec }})"
-            />
+            <flux:button icon="x-mark" variant="subtle" wire:click="remove({{ $spec }})" />
           </flux:table.cell>
         </flux:table.row>
       @empty

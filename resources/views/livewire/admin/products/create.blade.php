@@ -13,11 +13,7 @@
         {{-- Product Content --}}
         @include('livewire.admin.products.content')
 
-        <flux:callout
-          heading="Podrás agregar imágenes y especificaciones luego de guardar el producto."
-          icon="exclamation-triangle"
-          variant="warning"
-        />
+        <flux:callout heading="Podrás agregar imágenes y especificaciones luego de guardar el producto." icon="exclamation-triangle" variant="warning" />
       </div>
 
       <div class="w-full space-y-4 md:w-1/3">

@@ -11,13 +11,8 @@
 
     @foreach ($locales as $locale => $name)
       <flux:tab.panel class="space-y-4" name="{{ $locale }}">
-        <flux:textarea
-          badge="Requerido"
-          label="Mensaje de autoridad ({{ $name }})"
-          placeholder="Ej: Más de 10 años exportando..."
-          rows="auto"
-          wire:model="data.{{ $locale }}.authority.content"
-        />
+        <flux:textarea badge="Requerido" label="Mensaje de autoridad ({{ $name }})" placeholder="Ej: Más de 10 años exportando..." rows="auto"
+          wire:model="data.{{ $locale }}.authority.content" />
       </flux:tab.panel>
     @endforeach
   </flux:tab.group>

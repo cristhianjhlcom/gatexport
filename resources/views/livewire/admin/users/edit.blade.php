@@ -4,36 +4,16 @@
   <form class="w-[95%] max-w-xl space-y-4" wire:submit.prevent="save">
     <flux:field>
       <flux:label>{{ __('Email') }}</flux:label>
-      <flux:input
-        readonly
-        value="{{ $user->email }}"
-        variant="filled"
-      />
+      <flux:input readonly value="{{ $user->email }}" variant="filled" />
       <flux:error name="email" />
       <flux:description>{{ __('This email cannot be changed.') }}</flux:description>
     </flux:field>
     <flux:separator />
     <div class="grid grid-cols-2 gap-4">
-      <flux:input
-        label="{{ __('First Name') }}"
-        name="first_name"
-        placeholder="John"
-        wire:model="first_name"
-      />
-      <flux:input
-        label="{{ __('Last Name') }}"
-        name="last_name"
-        placeholder="Doe"
-        wire:model="last_name"
-      />
+      <flux:input label="{{ __('First Name') }}" name="first_name" placeholder="John" wire:model="first_name" />
+      <flux:input label="{{ __('Last Name') }}" name="last_name" placeholder="Doe" wire:model="last_name" />
     </div>
-    <flux:input
-      label="{{ __('Phone Number') }}"
-      mask="999-999-999"
-      name="phone_number"
-      placeholder="999-999-999"
-      wire:model="phone_number"
-    />
+    <flux:input label="{{ __('Phone Number') }}" mask="999-999-999" name="phone_number" placeholder="999-999-999" wire:model="phone_number" />
     <div class="grid grid-cols-2 gap-4">
       <flux:field>
         <flux:label>{{ __('Document Type') }}</flux:label>
@@ -44,12 +24,7 @@
         </flux:select>
         <flux:error name="document_type" />
       </flux:field>
-      <flux:input
-        label="{{ __('Document Number') }}"
-        name="document_number"
-        placeholder="41222333"
-        wire:model="document_number"
-      />
+      <flux:input label="{{ __('Document Number') }}" name="document_number" placeholder="41222333" wire:model="document_number" />
     </div>
     <flux:separator />
     <flux:field>

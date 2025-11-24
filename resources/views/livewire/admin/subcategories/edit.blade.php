@@ -25,45 +25,25 @@
 
           @foreach ($locales as $locale => $name)
             <flux:tab.panel class="space-y-4" name="{{ $locale }}">
-              <flux:input
-                autocomplete="off"
-                badge="Requerido"
-                label="Nombre ({{ $name }})"
-                placeholder="Lorem Ipsum"
-                size="sm"
-                wire:model="form.name.{{ $locale }}"
-              />
+              <flux:input autocomplete="off" badge="Requerido" label="Nombre ({{ $name }})" placeholder="Lorem Ipsum" size="sm"
+                wire:model="form.name.{{ $locale }}" />
 
-              <flux:editor
-                label="Descripción ({{ $name }})"
-                placeholder="Lorem ipsum..."
-                size="sm"
-                wire:model="form.description.{{ $locale }}"
-              />
+              <flux:editor label="Descripción ({{ $name }})" placeholder="Lorem ipsum..." size="sm"
+                wire:model="form.description.{{ $locale }}" />
 
               <div class="space-y-2 overflow-hidden">
-                <flux:file-upload
-                  label="Background Image ({{ $name }})"
-                  size="sm"
-                  wire:model.live="form.tmpImages.backgroundImage.{{ $locale }}"
-                >
-                  <flux:file-upload.dropzone
-                    :heading="$form->subcategory?->background_image[$locale] ?? ''"
-                    inline
-                    text="1000x550 - JPG, PNG, Webp hasta 2MB"
-                    with-progress
-                  />
+                <flux:file-upload label="Background Image ({{ $name }})" size="sm"
+                  wire:model.live="form.tmpImages.backgroundImage.{{ $locale }}">
+                  <flux:file-upload.dropzone :heading="$form->subcategory?->background_image[$locale] ?? ''" inline
+                    text="1000x550 - JPG, PNG, Webp hasta 2MB" with-progress />
                 </flux:file-upload>
                 @php
                   $tmpBackgroundImage = $form->tmpImages['backgroundImage'][$locale] ?? null;
                 @endphp
 
                 @if ($tmpBackgroundImage && !is_string($tmpBackgroundImage))
-                  <flux:file-item
-                    :heading="$tmpBackgroundImage->getClientOriginalName()"
-                    :image="$tmpBackgroundImage->temporaryUrl()"
-                    :size="$tmpBackgroundImage->getSize()"
-                  />
+                  <flux:file-item :heading="$tmpBackgroundImage->getClientOriginalName()" :image="$tmpBackgroundImage->temporaryUrl()"
+                    :size="$tmpBackgroundImage->getSize()" />
                 @endif
               </div>
             </flux:tab.panel>
@@ -73,25 +53,13 @@
         <flux:field>
           <flux:input.group>
             <flux:input.group.prefix>{{ env('APP_URL') }}/subcategories/</flux:input.group.prefix>
-            <flux:input
-              disabled
-              id="slug"
-              placeholder="lorem-ipsum"
-              readonly
-              size="sm"
-              wire:model='form.slug'
-            />
+            <flux:input disabled id="slug" placeholder="lorem-ipsum" readonly size="sm" wire:model='form.slug' />
           </flux:input.group>
           <flux:error name="form.slug" />
         </flux:field>
 
-        <flux:input
-          autocomplete="off"
-          label="Color de fondo"
-          placeholder="Ej: color en hexadecimal de la empresa..."
-          size="sm"
-          wire:model.blur="form.backgroundColor"
-        />
+        <flux:input autocomplete="off" label="Color de fondo" placeholder="Ej: color en hexadecimal de la empresa..." size="sm"
+          wire:model.blur="form.backgroundColor" />
 
         <div class="space-y-2 overflow-hidden">
           @php
@@ -99,25 +67,13 @@
             $tmpWhiteIcon = $form->tmpImages['icon_white'] ?? null;
           @endphp
 
-          <flux:file-upload
-            label="Icono en color blanco"
-            size="sm"
-            wire:model.live="form.tmpImages.icon_white"
-          >
-            <flux:file-upload.dropzone
-              :heading="$whiteIcon"
-              inline
-              text="55x55 - JPG, PNG, Webp, SVG hasta 1MB"
-              with-progress
-            />
+          <flux:file-upload label="Icono en color blanco" size="sm" wire:model.live="form.tmpImages.icon_white">
+            <flux:file-upload.dropzone :heading="$whiteIcon" inline text="55x55 - JPG, PNG, Webp, SVG hasta 1MB" with-progress />
           </flux:file-upload>
 
           @if ($tmpWhiteIcon && !is_string($tmpWhiteIcon))
-            <flux:file-item
-              :heading="$tmpWhiteIcon->getClientOriginalName()"
-              :image="$tmpWhiteIcon->temporaryUrl()"
-              :size="$tmpWhiteIcon->getSize()"
-            />
+            <flux:file-item :heading="$tmpWhiteIcon->getClientOriginalName()" :image="$tmpWhiteIcon->temporaryUrl()"
+              :size="$tmpWhiteIcon->getSize()" />
           @endif
         </div>
 
@@ -127,25 +83,13 @@
             $tmpPrimaryIcon = $form->tmpImages['icon_primary'] ?? null;
           @endphp
 
-          <flux:file-upload
-            label="Icono en color primario"
-            size="sm"
-            wire:model.live="form.tmpImages.icon_primary"
-          >
-            <flux:file-upload.dropzone
-              :heading="$primaryIcon"
-              inline
-              text="55x55 - JPG, PNG, Webp, SVG hasta 1MB"
-              with-progress
-            />
+          <flux:file-upload label="Icono en color primario" size="sm" wire:model.live="form.tmpImages.icon_primary">
+            <flux:file-upload.dropzone :heading="$primaryIcon" inline text="55x55 - JPG, PNG, Webp, SVG hasta 1MB" with-progress />
           </flux:file-upload>
 
           @if ($tmpPrimaryIcon && !is_string($tmpPrimaryIcon))
-            <flux:file-item
-              :heading="$tmpPrimaryIcon->getClientOriginalName()"
-              :image="$tmpPrimaryIcon->temporaryUrl()"
-              :size="$tmpPrimaryIcon->getSize()"
-            />
+            <flux:file-item :heading="$tmpPrimaryIcon->getClientOriginalName()" :image="$tmpPrimaryIcon->temporaryUrl()"
+              :size="$tmpPrimaryIcon->getSize()" />
           @endif
         </div>
 
@@ -169,19 +113,11 @@
 
           @foreach ($locales as $locale => $name)
             <flux:tab.panel class="space-y-4" name="{{ $locale }}">
-              <flux:input
-                label="Título SEO ({{ $name }})"
-                placeholder="Lorem Ipsum"
-                size="sm"
-                wire:model.blur="form.seo.title.{{ $locale }}"
-              />
+              <flux:input label="Título SEO ({{ $name }})" placeholder="Lorem Ipsum" size="sm"
+                wire:model.blur="form.seo.title.{{ $locale }}" />
 
-              <flux:textarea
-                label="Descripción SEO ({{ $name }})"
-                placeholder="Lorem ipsum..."
-                size="sm"
-                wire:model.blur="form.seo.description.{{ $locale }}"
-              />
+              <flux:textarea label="Descripción SEO ({{ $name }})" placeholder="Lorem ipsum..." size="sm"
+                wire:model.blur="form.seo.description.{{ $locale }}" />
             </flux:tab.panel>
           @endforeach
         </flux:tab.group>
@@ -192,25 +128,13 @@
             $tmpSeoImage = $form->tmpImages['seo_image'] ?? null;
           @endphp
 
-          <flux:file-upload
-            label="SEO Image"
-            size="sm"
-            wire:model.live="form.tmpImages.seo_image"
-          >
-            <flux:file-upload.dropzone
-              :heading="$seoImage"
-              inline
-              text="500x500 - JPG, PNG, Webp hasta 2MB"
-              with-progress
-            />
+          <flux:file-upload label="SEO Image" size="sm" wire:model.live="form.tmpImages.seo_image">
+            <flux:file-upload.dropzone :heading="$seoImage" inline text="500x500 - JPG, PNG, Webp hasta 2MB" with-progress />
           </flux:file-upload>
 
           @if ($tmpSeoImage && !is_string($tmpSeoImage))
-            <flux:file-item
-              :heading="$tmpSeoImage->getClientOriginalName()"
-              :image="$tmpSeoImage->temporaryUrl()"
-              :size="$tmpSeoImage->getSize()"
-            />
+            <flux:file-item :heading="$tmpSeoImage->getClientOriginalName()" :image="$tmpSeoImage->temporaryUrl()"
+              :size="$tmpSeoImage->getSize()" />
           @endif
         </div>
       </flux:card>

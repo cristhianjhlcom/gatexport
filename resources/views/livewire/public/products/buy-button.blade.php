@@ -1,9 +1,7 @@
 <section>
   <flux:modal.trigger name="call-to-action">
-    <button
-      class="text-primary-500 text-md rounded-4xl block w-full border-transparent bg-white px-4 py-3 font-extrabold uppercase md:max-w-[180px]"
-      type="button"
-    >
+    <button class="text-primary-500 text-md rounded-4xl block w-full border-transparent bg-white px-4 py-3 font-extrabold uppercase md:max-w-[180px]"
+      type="button">
       {{ __('pages.product.contact_us') }}
     </button>
   </flux:modal.trigger>
@@ -20,41 +18,18 @@
       </header>
       <flux:separator />
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <flux:input
-          badge="{{ __('pages.product.required') }}"
-          label="{{ __('pages.product.first_name') }}"
-          placeholder="John"
-          wire:model="firstName"
-        />
-        <flux:input
-          badge="{{ __('pages.product.required') }}"
-          label="{{ __('pages.product.last_name') }}"
-          placeholder="Doe"
-          wire:model="lastName"
-        />
+        <flux:input badge="{{ __('pages.product.required') }}" label="{{ __('pages.product.first_name') }}" placeholder="John"
+          wire:model="firstName" />
+        <flux:input badge="{{ __('pages.product.required') }}" label="{{ __('pages.product.last_name') }}" placeholder="Doe" wire:model="lastName" />
       </div>
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <flux:input
-          badge="{{ __('pages.product.required') }}"
-          label="{{ __('pages.product.email') }}"
-          placeholder="john.doe@email.com"
-          wire:model="email"
-        />
-        <flux:input
-          badge="{{ __('pages.product.required') }}"
-          label="{{ __('pages.product.phone') }}"
-          mask="999-999-999"
-          placeholder="999-999-999"
-          wire:model="phone"
-        />
+        <flux:input badge="{{ __('pages.product.required') }}" label="{{ __('pages.product.email') }}" placeholder="john.doe@email.com"
+          wire:model="email" />
+        <flux:input badge="{{ __('pages.product.required') }}" label="{{ __('pages.product.phone') }}" mask="999-999-999" placeholder="999-999-999"
+          wire:model="phone" />
       </div>
-      <flux:textarea
-        badge="{{ __('pages.product.required') }}"
-        description:trailing="{{ __('pages.product.observation') }}"
-        label="{{ __('pages.product.notes') }}"
-        placeholder="Lorem ipsum..."
-        wire:model="notes"
-      />
+      <flux:textarea badge="{{ __('pages.product.required') }}" description:trailing="{{ __('pages.product.observation') }}"
+        label="{{ __('pages.product.notes') }}" placeholder="Lorem ipsum..." wire:model="notes" />
       <div class="flex">
         <flux:spacer />
         <flux:button type="submit" variant="primary">

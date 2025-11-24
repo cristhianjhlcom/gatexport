@@ -21,12 +21,7 @@
 
     @foreach ($locales as $locale => $name)
       <flux:tab.panel class="space-y-4" name="{{ $locale }}">
-        <flux:button
-          icon:trailing="plus"
-          size="sm"
-          variant="outline"
-          wire:click="add('{{ $locale }}')"
-        >
+        <flux:button icon:trailing="plus" size="sm" variant="outline" wire:click="add('{{ $locale }}')">
           Agregar continente
         </flux:button>
 
@@ -38,21 +33,11 @@
           <section class="grid grid-cols-1 gap-4 md:grid-cols-2">
             @foreach ($this->continents[$locale] as $idx => $continent)
               <flux:card class="space-y-4">
-                <flux:textarea
-                  badge="Requerido"
-                  description="Sera utilizado como el alt de la imagen"
-                  label="Título"
-                  placeholder="Ej: Sahumerios, Inciensos y Velas"
-                  wire:model="continents.{{ $locale }}.{{ $idx }}.title"
-                />
+                <flux:textarea badge="Requerido" description="Sera utilizado como el alt de la imagen" label="Título"
+                  placeholder="Ej: Sahumerios, Inciensos y Velas" wire:model="continents.{{ $locale }}.{{ $idx }}.title" />
 
-                <flux:input
-                  badge="Requerido"
-                  label="Position del banner"
-                  placeholder="Ej: 1"
-                  type="number"
-                  wire:model="continents.{{ $locale }}.{{ $idx }}.position"
-                />
+                <flux:input badge="Requerido" label="Position del banner" placeholder="Ej: 1" type="number"
+                  wire:model="continents.{{ $locale }}.{{ $idx }}.position" />
 
                 <div class="space-y-4">
                   <div class="space-y-2 overflow-hidden">
@@ -62,37 +47,19 @@
                       $tmp = $tmpImages[$locale][$idx] ??= null;
                     @endphp
 
-                    <flux:file-upload
-                      label="Imagen Desktop"
-                      size="sm"
-                      wire:model.live="tmpImages.{{ $locale }}.{{ $idx }}"
-                    >
-                      <flux:file-upload.dropzone
-                        :heading="$image"
-                        inline
-                        text="1000x600 - JPG, PNG, Webp hasta 1MB"
-                        with-progress
-                      />
+                    <flux:file-upload label="Imagen Desktop" size="sm" wire:model.live="tmpImages.{{ $locale }}.{{ $idx }}">
+                      <flux:file-upload.dropzone :heading="$image" inline text="1000x600 - JPG, PNG, Webp hasta 1MB" with-progress />
                     </flux:file-upload>
 
                     @if ($tmp)
-                      <flux:file-item
-                        :heading="$tmp->getClientOriginalName()"
-                        :image="$tmp->temporaryUrl()"
-                        :size="$tmp->getSize()"
-                      />
+                      <flux:file-item :heading="$tmp->getClientOriginalName()" :image="$tmp->temporaryUrl()" :size="$tmp->getSize()" />
                     @endif
                   </div>
                 </div>
 
                 <div class="flex justify-end">
-                  <flux:button
-                    icon:trailing="trash"
-                    size="sm"
-                    variant="ghost"
-                    wire:click="remove('{{ $locale }}', {{ $idx }})"
-                    wire:confirm.prevent="Estas seguro? Esta operación no se puede revertir."
-                  >
+                  <flux:button icon:trailing="trash" size="sm" variant="ghost" wire:click="remove('{{ $locale }}', {{ $idx }})"
+                    wire:confirm.prevent="Estas seguro? Esta operación no se puede revertir.">
                     Eliminar
                   </flux:button>
                 </div>

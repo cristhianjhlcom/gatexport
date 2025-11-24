@@ -6,13 +6,7 @@
   <article class="relative bg-white py-10 md:py-16 lg:py-20">
     <div class="container space-y-6 overflow-hidden">
       <header class="flex flex-col space-y-4">
-        <x-common.title
-          class="text-center"
-          level="2"
-          size="title"
-          variant="primary"
-          weight="font-extrabold"
-        >
+        <x-common.title class="text-center" level="2" size="title" variant="primary" weight="font-extrabold">
           {{ __('pages.home.countries_exports.title') }}
         </x-common.title>
         <x-common.separator-line class="mx-auto w-full max-w-[500px]" />
@@ -23,11 +17,8 @@
           @foreach ($export_continents as $continent)
             @if (isset($continent['image']))
               <div class="swiper-slide relative h-full w-full">
-                <img
-                  alt="{{ $continent['title'] }}"
-                  class="aspect-auto h-full w-full bg-center object-contain"
-                  src="{{ Storage::disk('public')->url($continent['image']) }}"
-                />
+                <img alt="{{ $continent['title'] }}" class="aspect-auto h-full w-full bg-center object-contain"
+                  src="{{ Storage::disk('public')->url($continent['image']) }}" />
               </div>
             @endif
           @endforeach

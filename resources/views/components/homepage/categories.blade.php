@@ -7,12 +7,7 @@
   <div class="container space-y-16 overflow-hidden">
 
     <header class="flex flex-col space-y-4">
-      <x-common.title
-        class="text-center"
-        level="2"
-        size="title"
-        weight="font-extrabold"
-      >
+      <x-common.title class="text-center" level="2" size="title" weight="font-extrabold">
         {{ __('pages.home.products.title') }}
       </x-common.title>
       <x-common.separator-line class="mx-auto w-full max-w-[500px]" />
@@ -24,25 +19,15 @@
         @foreach ($highlighted_categories['translations'] as $index => $category)
           @if ($index === 0)
             {{-- 1. PALO SANTO: col-span-2 en mobile, col-span-1 en desktop. Altura completa. --}}
-            <a class="relative col-span-2 flex h-[300px] items-end overflow-hidden p-6 md:h-[34rem] lg:col-span-1"
-              href="{{ $category['url'] }}"
-            >
-              <img
-                alt="{{ $category['title'] }}"
-                class="absolute inset-0 h-full w-full transition-opacity hover:opacity-90 md:object-fill"
-                src="{{ Storage::disk('public')->url($category['image']) }}"
-              >
+            <a class="relative col-span-2 flex h-[300px] items-end overflow-hidden p-6 md:h-[34rem] lg:col-span-1" href="{{ $category['url'] }}">
+              <img alt="{{ $category['title'] }}" class="absolute inset-0 h-full w-full transition-opacity hover:opacity-90 md:object-fill"
+                src="{{ Storage::disk('public')->url($category['image']) }}">
             </a>
           @elseif ($index === 1)
             {{-- 2. INCIENSOS: col-span-2 en mobile, col-span-1 en desktop. Altura completa. --}}
-            <a class="relative col-span-2 flex h-[300px] items-end overflow-hidden p-6 md:h-[34rem] lg:col-span-1"
-              href="{{ $category['url'] }}"
-            >
-              <img
-                alt="{{ $category['title'] }}"
-                class="absolute inset-0 h-full w-full transition-opacity hover:opacity-90 md:object-fill"
-                src="{{ Storage::disk('public')->url($category['image']) }}"
-              >
+            <a class="relative col-span-2 flex h-[300px] items-end overflow-hidden p-6 md:h-[34rem] lg:col-span-1" href="{{ $category['url'] }}">
+              <img alt="{{ $category['title'] }}" class="absolute inset-0 h-full w-full transition-opacity hover:opacity-90 md:object-fill"
+                src="{{ Storage::disk('public')->url($category['image']) }}">
             </a>
           @elseif ($index === 2 || $index === 3)
             @if ($index === 2)
@@ -51,14 +36,10 @@
             @endif
 
             {{-- Bloques pequeños --}}
-            <a class="relative col-span-2 flex h-[300px] items-end overflow-hidden p-4 md:h-[16.5rem] lg:col-span-1"
-              href="{{ $category['url'] }}"
-            >
-              <img
-                alt="{{ $category['title'] }}"
+            <a class="relative col-span-2 flex h-[300px] items-end overflow-hidden p-4 md:h-[16.5rem] lg:col-span-1" href="{{ $category['url'] }}">
+              <img alt="{{ $category['title'] }}"
                 class="absolute inset-0 h-full w-full object-contain transition-opacity hover:opacity-90 md:object-fill"
-                src="{{ Storage::disk('public')->url($category['image']) }}"
-              >
+                src="{{ Storage::disk('public')->url($category['image']) }}">
             </a>
 
             @if ($index === 3)

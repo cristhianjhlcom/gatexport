@@ -15,12 +15,7 @@
       @endphp
       <flux:tab.panel class="space-y-4" name="{{ $locale }}">
         <header class="rounded-sm border border-gray-200 p-4">
-          <flux:button
-            icon:trailing="plus"
-            size="sm"
-            variant="outline"
-            wire:click="addCycle('{{ $locale }}')"
-          >
+          <flux:button icon:trailing="plus" size="sm" variant="outline" wire:click="addCycle('{{ $locale }}')">
             Agregar ciclo
           </flux:button>
 
@@ -43,23 +38,11 @@
                 </flux:accordion.heading>
                 <flux:accordion.content>
                   <div class="space-y-4 pt-4">
-                    <flux:textarea
-                      badge="Requerido"
-                      label="Encabezado del ciclo"
-                      placeholder="Ej: Ciclo de producción de Palo Santo..."
-                      rows="auto"
-                      wire:model="data.{{ $locale }}.cycles.{{ $idx }}.title"
-                    />
+                    <flux:textarea badge="Requerido" label="Encabezado del ciclo" placeholder="Ej: Ciclo de producción de Palo Santo..."
+                      rows="auto" wire:model="data.{{ $locale }}.cycles.{{ $idx }}.title" />
 
-                    <flux:input
-                      badge="Requerido"
-                      label="Orden del ciclo"
-                      max="10"
-                      min="1"
-                      placeholder="Ej: 1"
-                      type="number"
-                      wire:model="data.{{ $locale }}.cycles.{{ $idx }}.order"
-                    />
+                    <flux:input badge="Requerido" label="Orden del ciclo" max="10" min="1" placeholder="Ej: 1" type="number"
+                      wire:model="data.{{ $locale }}.cycles.{{ $idx }}.order" />
 
                     <div class="space-y-2 overflow-hidden">
                       @php
@@ -68,35 +51,19 @@
                         $tmp = $tmpImages[$locale]['cycles'][$idx] ??= null;
                       @endphp
 
-                      <flux:file-upload
-                        label="Imagen ({{ $name }})"
-                        size="sm"
-                        wire:model.live="tmpImages.{{ $locale }}.cycles.{{ $idx }}"
-                      >
-                        <flux:file-upload.dropzone
-                          :heading="$image"
-                          inline
-                          text="1000x550 - JPG, PNG, Webp hasta 2MB"
-                          with-progress
-                        />
+                      <flux:file-upload label="Imagen ({{ $name }})" size="sm"
+                        wire:model.live="tmpImages.{{ $locale }}.cycles.{{ $idx }}">
+                        <flux:file-upload.dropzone :heading="$image" inline text="1000x550 - JPG, PNG, Webp hasta 2MB" with-progress />
                       </flux:file-upload>
 
                       @if ($tmp)
-                        <flux:file-item
-                          :heading="$tmp->getClientOriginalName()"
-                          :image="$tmp->temporaryUrl()"
-                          :size="$tmp->getSize()"
-                        />
+                        <flux:file-item :heading="$tmp->getClientOriginalName()" :image="$tmp->temporaryUrl()" :size="$tmp->getSize()" />
                       @endif
                     </div>
 
                     <div>
-                      <flux:button
-                        icon="trash"
-                        size="sm"
-                        variant="ghost"
-                        wire:click="removeCycle('{{ $locale }}', {{ $idx }})"
-                      >Eliminar ciclo</flux:button>
+                      <flux:button icon="trash" size="sm" variant="ghost"
+                        wire:click="removeCycle('{{ $locale }}', {{ $idx }})">Eliminar ciclo</flux:button>
                     </div>
                   </div>
                 </flux:accordion.content>

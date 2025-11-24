@@ -15,12 +15,7 @@
       @endphp
       <flux:tab.panel class="space-y-4" name="{{ $locale }}">
         <header class="rounded-sm border border-gray-200 p-4">
-          <flux:button
-            icon:trailing="plus"
-            size="sm"
-            variant="outline"
-            wire:click="addService('{{ $locale }}')"
-          >
+          <flux:button icon:trailing="plus" size="sm" variant="outline" wire:click="addService('{{ $locale }}')">
             Agregar servicio
           </flux:button>
 
@@ -42,38 +37,17 @@
                 </flux:accordion.heading>
                 <flux:accordion.content>
                   <div class="space-y-4 pt-4">
-                    <flux:input
-                      badge="Requerido"
-                      label="Título"
-                      placeholder="Ej: Documentación aduanera..."
-                      wire:model="data.{{ $locale }}.services.{{ $idx }}.title"
-                    />
+                    <flux:input badge="Requerido" label="Título" placeholder="Ej: Documentación aduanera..."
+                      wire:model="data.{{ $locale }}.services.{{ $idx }}.title" />
 
-                    <flux:textarea
-                      badge="Requerido"
-                      label="Descripción"
-                      placeholder="Ej: Brindamos asesoría en..."
-                      rows="auto"
-                      wire:model="data.{{ $locale }}.services.{{ $idx }}.description"
-                    />
+                    <flux:textarea badge="Requerido" label="Descripción" placeholder="Ej: Brindamos asesoría en..." rows="auto"
+                      wire:model="data.{{ $locale }}.services.{{ $idx }}.description" />
 
-                    <flux:textarea
-                      badge="Requerido"
-                      label="Aviso"
-                      placeholder="Ej: Servicio disponible para..."
-                      rows="auto"
-                      wire:model="data.{{ $locale }}.services.{{ $idx }}.disclaimer"
-                    />
+                    <flux:textarea badge="Requerido" label="Aviso" placeholder="Ej: Servicio disponible para..." rows="auto"
+                      wire:model="data.{{ $locale }}.services.{{ $idx }}.disclaimer" />
 
-                    <flux:input
-                      badge="Requerido"
-                      label="Orden del servicio"
-                      max="10"
-                      min="1"
-                      placeholder="Ej: 1"
-                      type="number"
-                      wire:model="data.{{ $locale }}.services.{{ $idx }}.order"
-                    />
+                    <flux:input badge="Requerido" label="Orden del servicio" max="10" min="1" placeholder="Ej: 1" type="number"
+                      wire:model="data.{{ $locale }}.services.{{ $idx }}.order" />
 
                     <div class="space-y-2 overflow-hidden">
                       @php
@@ -82,36 +56,20 @@
                         $tmp = $tmpImages[$locale]['services'][$idx] ??= null;
                       @endphp
 
-                      <flux:file-upload
-                        label="Icono ({{ $name }})"
-                        size="sm"
-                        wire:model.live="tmpImages.{{ $locale }}.services.{{ $idx }}"
-                      >
-                        <flux:file-upload.dropzone
-                          :heading="$image"
-                          inline
-                          text="55x55 - JPG, PNG, Webp, SVG hasta 1MB"
-                          with-progress
-                        />
+                      <flux:file-upload label="Icono ({{ $name }})" size="sm"
+                        wire:model.live="tmpImages.{{ $locale }}.services.{{ $idx }}">
+                        <flux:file-upload.dropzone :heading="$image" inline text="55x55 - JPG, PNG, Webp, SVG hasta 1MB" with-progress />
                       </flux:file-upload>
 
                       @if ($tmp)
-                        <flux:file-item
-                          :heading="$tmp->getClientOriginalName()"
-                          :image="$tmp->temporaryUrl()"
-                          :size="$tmp->getSize()"
-                        />
+                        <flux:file-item :heading="$tmp->getClientOriginalName()" :image="$tmp->temporaryUrl()" :size="$tmp->getSize()" />
                       @endif
                     </div>
 
 
                     <div>
-                      <flux:button
-                        icon="trash"
-                        size="sm"
-                        variant="ghost"
-                        wire:click="removeService('{{ $locale }}', {{ $idx }})"
-                      >Eliminar ciclo</flux:button>
+                      <flux:button icon="trash" size="sm" variant="ghost"
+                        wire:click="removeService('{{ $locale }}', {{ $idx }})">Eliminar ciclo</flux:button>
                     </div>
                   </div>
                 </flux:accordion.content>
@@ -129,12 +87,7 @@
           </div>
         @endif
         <footer class="rounded-sm border border-gray-200 p-4">
-          <flux:button
-            icon:trailing="plus"
-            size="sm"
-            variant="outline"
-            wire:click="addService('{{ $locale }}')"
-          >
+          <flux:button icon:trailing="plus" size="sm" variant="outline" wire:click="addService('{{ $locale }}')">
             Agregar servicio
           </flux:button>
 

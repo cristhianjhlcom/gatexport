@@ -30,7 +30,7 @@ final class ViewServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::composer('components.footer.index', function ($view) {
+        View::composer('components.footer.footer', function ($view) {
             $view->with([
                 'company_logos' => (new GetCompanyLogos)->execute(),
                 'general_information' => (new GetGeneralInformation)->execute(),

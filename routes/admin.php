@@ -5,8 +5,11 @@ declare(strict_types=1);
 use App\Livewire\Admin\Categories\CategoryCreateManagement;
 use App\Livewire\Admin\Categories\CategoryEditManagement;
 use App\Livewire\Admin\Categories\CategoryIndexManagement;
-use App\Livewire\Admin\Orders\OrderEditManagement;
+use App\Livewire\Admin\Faqs\FaqManagement;
 use App\Livewire\Admin\Orders\OrderIndexManagement;
+use App\Livewire\Admin\Policies\CreatePolicy;
+use App\Livewire\Admin\Policies\PolicyManagement;
+use App\Livewire\Admin\Policies\UpdatePolicy;
 use App\Livewire\Admin\Products\ProductCreateManagement;
 use App\Livewire\Admin\Products\ProductDetailManagement;
 use App\Livewire\Admin\Products\ProductEditManagement;
@@ -24,7 +27,6 @@ use App\Livewire\Admin\Subcategories\SubcategoryIndexManagement;
 use App\Livewire\Admin\Users\UserCreateManagement;
 use App\Livewire\Admin\Users\UserEditManagement;
 use App\Livewire\Admin\Users\UserIndexManagement;
-use App\Livewire\Admin\Users\UserShowManagement;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'role:super_admin|manager'], function () {
@@ -32,14 +34,10 @@ Route::group(['middleware' => 'role:super_admin|manager'], function () {
     // NOTE: Users Management.
     Route::get('users', UserIndexManagement::class)->name('users.index');
     Route::get('users/create', UserCreateManagement::class)->name('users.create');
-    Route::get('users/{user}', UserShowManagement::class)->name('users.show');
     Route::get('users/{user}/edit', UserEditManagement::class)->name('users.edit');
 
     // NOTE: Orders Management.
     Route::get('orders', OrderIndexManagement::class)->name('orders.index');
-    // Route::get('orders/create', OrderCreateManagement::class)->name('orders.create');
-    // Route::get('orders/{user}', OrderShowManagement::class)->name('orders.show');
-    Route::get('orders/{order}/edit', OrderEditManagement::class)->name('orders.edit');
 
     // NOTE: Products Management.
     Route::get('products', ProductIndexManagement::class)->name('products.index');
@@ -57,6 +55,14 @@ Route::group(['middleware' => 'role:super_admin|manager'], function () {
     Route::get('subcategories', SubcategoryIndexManagement::class)->name('subcategories.index');
     Route::get('subcategories/create', SubcategoryCreateManagement::class)->name('subcategories.create');
     Route::get('subcategories/{subcategory}/edit', SubcategoryEditManagement::class)->name('subcategories.edit');
+
+    // NOTE: FAQs Management.
+    Route::get('faqs', FaqManagement::class)->name('faqs.index');
+
+    // NOTE: Policies Management.
+    Route::get('policies', PolicyManagement::class)->name('policies.index');
+    Route::get('policies/create', CreatePolicy::class)->name('policies.store');
+    Route::get('policies/{policy}/update', UpdatePolicy::class)->name('policies.update');
 
     // NOTE: Settings Management.
     Route::get('settings/general', SettingGeneralManagement::class)->name('settings.general');

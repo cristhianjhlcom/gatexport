@@ -3,11 +3,7 @@
     <div class="swiper-wrapper">
       @foreach ($this->images as $image)
         <div class="swiper-slide">
-          <img
-            alt="Gallery Image"
-            class="h-full w-full rounded-sm object-contain""
-            src="{{ Storage::disk('public')->url($image->path) }}"
-          >
+          <img alt="Gallery Image" class="h-full w-full rounded-sm object-contain"" src="{{ Storage::disk('public')->url($image->path) }}">
 
           <flux:modal.trigger name="show-{{ $image->path }}">
             <flux:button class="absolute bottom-12 left-0" variant="filled">
@@ -16,11 +12,7 @@
           </flux:modal.trigger>
 
           <flux:modal class="p-0! max-w-[800px]" name="show-{{ $image->path }}">
-            <img
-              alt="Gallery Image"
-              class="h-full w-full rounded-sm object-contain""
-              src="{{ Storage::disk('public')->url($image->path) }}"
-            >
+            <img alt="Gallery Image" class="h-full w-full rounded-sm object-contain"" src="{{ Storage::disk('public')->url($image->path) }}">
           </flux:modal>
         </div>
       @endforeach
@@ -37,11 +29,7 @@
     <div class="swiper-wrapper">
       @foreach ($this->images as $image)
         <div class="swiper-slide">
-          <img
-            alt="Gallery Image"
-            class="h-full w-full rounded-sm object-contain"
-            src="{{ Storage::disk('public')->url($image->path) }}"
-          >
+          <img alt="Gallery Image" class="h-full w-full rounded-sm object-contain" src="{{ Storage::disk('public')->url($image->path) }}">
         </div>
       @endforeach
     </div>

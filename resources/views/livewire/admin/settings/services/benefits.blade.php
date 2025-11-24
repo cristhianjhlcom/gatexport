@@ -15,12 +15,7 @@
       @endphp
       <flux:tab.panel class="space-y-4" name="{{ $locale }}">
         <header class="rounded-sm border border-gray-200 p-4">
-          <flux:button
-            icon:trailing="plus"
-            size="sm"
-            variant="outline"
-            wire:click="addBenefit('{{ $locale }}')"
-          >
+          <flux:button icon:trailing="plus" size="sm" variant="outline" wire:click="addBenefit('{{ $locale }}')">
             Agregar beneficio
           </flux:button>
 
@@ -43,30 +38,14 @@
                 </flux:accordion.heading>
                 <flux:accordion.content>
                   <div class="space-y-4 pt-4">
-                    <flux:input
-                      badge="Requerido"
-                      label="Título del beneficio"
-                      placeholder="Ej: En Gate Export..."
-                      wire:model="data.{{ $locale }}.benefits.{{ $idx }}.title"
-                    />
+                    <flux:input badge="Requerido" label="Título del beneficio" placeholder="Ej: En Gate Export..."
+                      wire:model="data.{{ $locale }}.benefits.{{ $idx }}.title" />
 
-                    <flux:textarea
-                      badge="Requerido"
-                      label="Título del beneficio"
-                      placeholder="Ej: construimos relaciones de confianza..."
-                      rows="auto"
-                      wire:model="data.{{ $locale }}.benefits.{{ $idx }}.description"
-                    />
+                    <flux:textarea badge="Requerido" label="Título del beneficio" placeholder="Ej: construimos relaciones de confianza..."
+                      rows="auto" wire:model="data.{{ $locale }}.benefits.{{ $idx }}.description" />
 
-                    <flux:input
-                      badge="Requerido"
-                      label="Orden del beneficio"
-                      max="10"
-                      min="1"
-                      placeholder="Ej: 1"
-                      type="number"
-                      wire:model="data.{{ $locale }}.benefits.{{ $idx }}.order"
-                    />
+                    <flux:input badge="Requerido" label="Orden del beneficio" max="10" min="1" placeholder="Ej: 1" type="number"
+                      wire:model="data.{{ $locale }}.benefits.{{ $idx }}.order" />
 
                     <div class="space-y-2 overflow-hidden">
                       @php
@@ -75,25 +54,14 @@
                         $tmpImage = $tmpImages[$locale]['benefits'][$idx]['image'] ??= null;
                       @endphp
 
-                      <flux:file-upload
-                        label="Imagen ({{ $name }})"
-                        size="sm"
-                        wire:model.live="tmpImages.{{ $locale }}.benefits.{{ $idx }}.image"
-                      >
-                        <flux:file-upload.dropzone
-                          :heading="$image"
-                          inline
-                          text="600x450 - JPG, PNG, Webp hasta 2MB"
-                          with-progress
-                        />
+                      <flux:file-upload label="Imagen ({{ $name }})" size="sm"
+                        wire:model.live="tmpImages.{{ $locale }}.benefits.{{ $idx }}.image">
+                        <flux:file-upload.dropzone :heading="$image" inline text="600x450 - JPG, PNG, Webp hasta 2MB" with-progress />
                       </flux:file-upload>
 
                       @if ($tmpImage)
-                        <flux:file-item
-                          :heading="$tmpImage->getClientOriginalName()"
-                          :image="$tmpImage->temporaryUrl()"
-                          :size="$tmpImage->getSize()"
-                        />
+                        <flux:file-item :heading="$tmpImage->getClientOriginalName()" :image="$tmpImage->temporaryUrl()"
+                          :size="$tmpImage->getSize()" />
                       @endif
                     </div>
 
@@ -104,35 +72,20 @@
                         $tmpBackground = $tmpImages[$locale]['benefits'][$idx]['background'] ??= null;
                       @endphp
 
-                      <flux:file-upload
-                        label="Fondo ({{ $name }})"
-                        size="sm"
-                        wire:model.live="tmpImages.{{ $locale }}.benefits.{{ $idx }}.background"
-                      >
-                        <flux:file-upload.dropzone
-                          :heading="$background"
-                          inline
-                          text="900x350 - JPG, PNG, Webp hasta 2MB"
-                          with-progress
-                        />
+                      <flux:file-upload label="Fondo ({{ $name }})" size="sm"
+                        wire:model.live="tmpImages.{{ $locale }}.benefits.{{ $idx }}.background">
+                        <flux:file-upload.dropzone :heading="$background" inline text="900x350 - JPG, PNG, Webp hasta 2MB" with-progress />
                       </flux:file-upload>
 
                       @if ($tmpBackground)
-                        <flux:file-item
-                          :heading="$tmpBackground->getClientOriginalName()"
-                          :image="$tmpBackground->temporaryUrl()"
-                          :size="$tmpBackground->getSize()"
-                        />
+                        <flux:file-item :heading="$tmpBackground->getClientOriginalName()" :image="$tmpBackground->temporaryUrl()"
+                          :size="$tmpBackground->getSize()" />
                       @endif
                     </div>
 
                     <div>
-                      <flux:button
-                        icon="trash"
-                        size="sm"
-                        variant="ghost"
-                        wire:click="removeBenefit('{{ $locale }}', {{ $idx }})"
-                      >Eliminar beneficio</flux:button>
+                      <flux:button icon="trash" size="sm" variant="ghost"
+                        wire:click="removeBenefit('{{ $locale }}', {{ $idx }})">Eliminar beneficio</flux:button>
                     </div>
                   </div>
                 </flux:accordion.content>
@@ -151,12 +104,7 @@
         @endif
 
         <footer class="rounded-sm border border-gray-200 p-4">
-          <flux:button
-            icon:trailing="plus"
-            size="sm"
-            variant="outline"
-            wire:click="addBenefit('{{ $locale }}')"
-          >
+          <flux:button icon:trailing="plus" size="sm" variant="outline" wire:click="addBenefit('{{ $locale }}')">
             Agregar beneficio
           </flux:button>
 

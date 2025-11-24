@@ -29,79 +29,42 @@
 
         @foreach ($locales as $locale => $name)
           <flux:tab.panel class="space-y-4" name="{{ $locale }}">
-            <flux:input
-              badge="Requerido"
-              label="Título ({{ $name }})"
-              placeholder="Título del producto..."
-              wire:model="details.{{ $locale }}.title"
-            />
+            <flux:input badge="Requerido" label="Título ({{ $name }})" placeholder="Título del producto..."
+              wire:model="details.{{ $locale }}.title" />
 
-            <flux:file-upload
-              label="Imagen de fondo ({{ $name }})"
-              size="sm"
-              wire:model="tmp.{{ $locale }}.backgroundImage"
-            >
-              <flux:file-upload.dropzone
-                inline
-                text="Recomendado:1000x300 - JPG, PNG, Webp up to 1MB"
-                with-progress
-              />
+            <flux:file-upload label="Imagen de fondo ({{ $name }})" size="sm" wire:model="tmp.{{ $locale }}.backgroundImage">
+              <flux:file-upload.dropzone inline text="Recomendado:1000x300 - JPG, PNG, Webp up to 1MB" with-progress />
             </flux:file-upload>
 
             @if (isset($details[$locale]['backgroundImage']))
               <div class="mt-4 flex flex-col gap-2">
-                <flux:file-item
-                  heading="{{ Storage::disk('public')->url($details[$locale]['backgroundImage']) }}"
+                <flux:file-item heading="{{ Storage::disk('public')->url($details[$locale]['backgroundImage']) }}"
                   image="{{ Storage::disk('public')->url($details[$locale]['backgroundImage']) }}"
-                  size="{{ Storage::disk('public')->size($details[$locale]['backgroundImage']) }}"
-                />
+                  size="{{ Storage::disk('public')->size($details[$locale]['backgroundImage']) }}" />
               </div>
             @endif
 
-            <flux:editor
-              badge="Requerido"
-              label="Descripción ({{ $name }})"
-              placeholder="Descripción del producto..."
-              wire:model="details.{{ $locale }}.description"
-            />
+            <flux:editor badge="Requerido" label="Descripción ({{ $name }})" placeholder="Descripción del producto..."
+              wire:model="details.{{ $locale }}.description" />
 
-            <flux:textarea
-              label="Text Alternativo ({{ $name }})"
-              placeholder="Lorem ipsum..."
-              wire:model="details.{{ $locale }}.altText"
-            />
+            <flux:textarea label="Text Alternativo ({{ $name }})" placeholder="Lorem ipsum..."
+              wire:model="details.{{ $locale }}.altText" />
 
-            <flux:input
-              label="Título Seo ({{ $name }})"
-              placeholder="Título del producto..."
-              wire:model="details.{{ $locale }}.seo.title"
-            />
+            <flux:input label="Título Seo ({{ $name }})" placeholder="Título del producto..."
+              wire:model="details.{{ $locale }}.seo.title" />
 
-            <flux:textarea
-              label="Descripción Seo ({{ $name }})"
-              placeholder="Descripción del producto..."
-              wire:model="details.{{ $locale }}.seo.description"
-            />
+            <flux:textarea label="Descripción Seo ({{ $name }})" placeholder="Descripción del producto..."
+              wire:model="details.{{ $locale }}.seo.description" />
 
-            <flux:file-upload
-              label="Imagen Seo ({{ $name }})"
-              size="sm"
-              wire:model="tmp.{{ $locale }}.seo.image"
-            >
-              <flux:file-upload.dropzone
-                inline
-                text="500x500 - JPG, PNG, Webp up to 1MB"
-                with-progress
-              />
+            <flux:file-upload label="Imagen Seo ({{ $name }})" size="sm" wire:model="tmp.{{ $locale }}.seo.image">
+              <flux:file-upload.dropzone inline text="500x500 - JPG, PNG, Webp up to 1MB" with-progress />
             </flux:file-upload>
 
             @if (isset($details[$locale]['seo']['image']))
               <div class="mt-4 flex flex-col gap-2">
-                <flux:file-item
-                  heading="{{ Storage::disk('public')->url($details[$locale]['seo']['image']) }}"
+                <flux:file-item heading="{{ Storage::disk('public')->url($details[$locale]['seo']['image']) }}"
                   image="{{ Storage::disk('public')->url($details[$locale]['seo']['image']) }}"
-                  size="{{ Storage::disk('public')->size($details[$locale]['seo']['image']) }}"
-                />
+                  size="{{ Storage::disk('public')->size($details[$locale]['seo']['image']) }}" />
               </div>
             @endif
           </flux:tab.panel>

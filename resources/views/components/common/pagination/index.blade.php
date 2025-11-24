@@ -1,21 +1,13 @@
 <div>
   @if ($paginator->hasPages())
-    <nav
-      aria-label="Pagination Navigation"
-      class="mx-auto flex items-center justify-center gap-4"
-      role="navigation"
-    >
+    <nav aria-label="Pagination Navigation" class="mx-auto flex items-center justify-center gap-4" role="navigation">
       <span>
         @if ($paginator->onFirstPage())
           <span>
             <flux:icon.chevron-left class="text-primary-400 opacity-40" size="6" />
           </span>
         @else
-          <button
-            rel="prev"
-            wire:click="previousPage"
-            wire:loading.attr="disabled"
-          >
+          <button rel="prev" wire:click="previousPage" wire:loading.attr="disabled">
             <flux:icon.chevron-left class="text-primary-400" size="6" />
           </button>
         @endif
@@ -44,11 +36,7 @@
             <flux:icon.chevron-right class="text-primary-400" size="6" />
           </span>
         @else
-          <button
-            rel="next"
-            wire:click="nextPage"
-            wire:loading.attr="disabled"
-          >
+          <button rel="next" wire:click="nextPage" wire:loading.attr="disabled">
             <flux:icon.chevron-right class="text-primary-400 opacity-40" size="6" />
           </button>
         @endif

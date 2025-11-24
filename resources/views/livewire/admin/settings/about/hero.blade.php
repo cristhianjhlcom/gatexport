@@ -14,18 +14,10 @@
 
     @foreach ($locales as $locale => $name)
       <flux:tab.panel class="space-y-4" name="{{ $locale }}">
-        <flux:editor
-          badge="Requerido"
-          label="Historia"
-          wire:model="about.{{ $locale }}.mainHistory"
-        />
+        <flux:editor badge="Requerido" label="Historia" wire:model="about.{{ $locale }}.mainHistory" />
 
         <flux:file-upload label="Imagen del banner" wire:model="newHeroImage">
-          <flux:file-upload.dropzone
-            inline
-            text="900x700 - JPG, PNG, SVG hasta 2MB"
-            with-progress
-          />
+          <flux:file-upload.dropzone inline text="900x700 - JPG, PNG, SVG hasta 2MB" with-progress />
         </flux:file-upload>
 
       </flux:tab.panel>

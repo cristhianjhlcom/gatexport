@@ -16,12 +16,7 @@
       <flux:tab.panel class="space-y-4" name="{{ $locale }}">
         <div class="space-y-4">
           <div>
-            <flux:button
-              icon:trailing="plus"
-              size="sm"
-              variant="outline"
-              wire:click="addValue('{{ $locale }}')"
-            >
+            <flux:button icon:trailing="plus" size="sm" variant="outline" wire:click="addValue('{{ $locale }}')">
               Agregar banner
             </flux:button>
 
@@ -36,27 +31,14 @@
             <div class="grid grid-cols-1 gap-4 space-y-4 md:grid-cols-2">
               @foreach ($about[$locale]['values']['items'] as $index => $value)
                 <flux:card class="space-y-2">
-                  <flux:input
-                    badge="Requerido"
-                    label="Icono"
-                    wire:model="about.{{ $locale }}.values.items.{{ $index }}.icon"
-                  />
+                  <flux:input badge="Requerido" label="Icono" wire:model="about.{{ $locale }}.values.items.{{ $index }}.icon" />
 
-                  <flux:editor
-                    badge="Requerido"
-                    label="Descripción"
-                    wire:model="about.{{ $locale }}.values.items.{{ $index }}.description"
-                  />
+                  <flux:editor badge="Requerido" label="Descripción"
+                    wire:model="about.{{ $locale }}.values.items.{{ $index }}.description" />
 
                   <div class="flex justify-end">
-                    <flux:button
-                      class="absolute right-0 top-0 z-10"
-                      icon:trailing="x-mark"
-                      size="sm"
-                      variant="danger"
-                      wire:click="removeValue({{ $index }})"
-                      wire:confirm="Estas seguro de querer eliminar este elemento?"
-                    />
+                    <flux:button class="absolute right-0 top-0 z-10" icon:trailing="x-mark" size="sm" variant="danger"
+                      wire:click="removeValue({{ $index }})" wire:confirm="Estas seguro de querer eliminar este elemento?" />
                   </div>
                 </flux:card>
               @endforeach
@@ -72,29 +54,13 @@
 
         <flux:separator />
 
-        <flux:input
-          badge="Requerido"
-          label="Misión Titulo"
-          wire:model="about.{{ $locale }}.values.mission.title"
-        />
+        <flux:input badge="Requerido" label="Misión Titulo" wire:model="about.{{ $locale }}.values.mission.title" />
 
-        <flux:editor
-          badge="Requerido"
-          label="Misión Descripción"
-          wire:model="about.{{ $locale }}.values.mission.description"
-        />
+        <flux:editor badge="Requerido" label="Misión Descripción" wire:model="about.{{ $locale }}.values.mission.description" />
 
-        <flux:input
-          badge="Requerido"
-          label="Visión Titulo"
-          wire:model="about.{{ $locale }}.values.vision.title"
-        />
+        <flux:input badge="Requerido" label="Visión Titulo" wire:model="about.{{ $locale }}.values.vision.title" />
 
-        <flux:editor
-          badge="Requerido"
-          label="Visión Descripción"
-          wire:model="about.{{ $locale }}.values.vision.description"
-        />
+        <flux:editor badge="Requerido" label="Visión Descripción" wire:model="about.{{ $locale }}.values.vision.description" />
       </flux:tab.panel>
     @endforeach
   </flux:tab.group>

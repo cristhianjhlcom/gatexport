@@ -22,11 +22,7 @@
           <flux:table.row key="{{ $subcategory->id }}">
             <flux:table.cell class="flex items-center gap-3 text-wrap">
               @if ($subcategory->iconPrimaryUrl)
-                <img
-                  alt="{{ $subcategory->localizedName }}"
-                  class="h-10 w-10 rounded-lg object-contain"
-                  src="{{ $subcategory->iconPrimaryUrl }}"
-                />
+                <img alt="{{ $subcategory->localizedName }}" class="h-10 w-10 rounded-lg object-contain" src="{{ $subcategory->iconPrimaryUrl }}" />
               @else
                 <flux:avatar name="{{ $subcategory->localizedName }}" />
               @endif

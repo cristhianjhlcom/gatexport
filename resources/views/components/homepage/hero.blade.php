@@ -10,19 +10,13 @@
         @foreach ($promotional_banners as $banner)
           <a class="swiper-slide relative h-full w-full" href="{{ $banner['link_url'] }}">
             @if (isset($banner['image_desktop']))
-              <img
-                alt="{{ $banner['title'] }}"
-                class="absolute inset-0 hidden h-full w-full object-cover md:block"
-                src="{{ Storage::disk('public')->url($banner['image_desktop']) }}"
-              />
+              <img alt="{{ $banner['title'] }}" class="absolute inset-0 hidden h-full w-full object-cover md:block"
+                src="{{ Storage::disk('public')->url($banner['image_desktop']) }}" />
             @endif
 
             @if (isset($banner['image_mobile']))
-              <img
-                alt="{{ $banner['title'] }}"
-                class="absolute inset-0 block h-full w-full object-cover md:hidden"
-                src="{{ Storage::disk('public')->url($banner['image_mobile']) }}"
-              />
+              <img alt="{{ $banner['title'] }}" class="absolute inset-0 block h-full w-full object-cover md:hidden"
+                src="{{ Storage::disk('public')->url($banner['image_mobile']) }}" />
             @endif
           </a>
         @endforeach

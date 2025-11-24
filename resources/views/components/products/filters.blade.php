@@ -2,11 +2,8 @@
   <ul>
     @if ($category->subcategories)
       <li x-data="{ open: 'true' }">
-        <button
-          @click="open = !open"
-          class="hover:bg-primary-600 items-between flex w-full cursor-pointer items-center justify-between gap-4 p-2 font-extrabold"
-          type="button"
-        >
+        <button @click="open = !open"
+          class="hover:bg-primary-600 items-between flex w-full cursor-pointer items-center justify-between gap-4 p-2 font-extrabold" type="button">
           <div class="flex items-center justify-start gap-2">
             {{-- <img
                 alt="Icono"
@@ -21,11 +18,8 @@
         <ul class="text-primary-500 divide-y divide-gray-200 bg-white">
           @foreach ($category->subcategories as $subcategory)
             <li x-cloak x-show="open">
-              <button
-                class="hover:bg-primary-200 flex w-full cursor-pointer items-center justify-start gap-4 bg-white p-2"
-                type="button"
-                wire:click="filterBySubcategory({{ $subcategory->id }})"
-              >
+              <button class="hover:bg-primary-200 flex w-full cursor-pointer items-center justify-start gap-4 bg-white p-2" type="button"
+                wire:click="filterBySubcategory({{ $subcategory->id }})">
                 {{-- <img
                     alt="Icono"
                     class="aspect-square object-contain"
@@ -40,11 +34,8 @@
             </li>
           @endforeach
           <li x-cloak x-show="open">
-            <button
-              class="hover:bg-primary-200 flex w-full cursor-pointer items-center justify-start gap-4 bg-white p-2"
-              type="button"
-              wire:click="filterByCategory({{ $category->id }})"
-            >
+            <button class="hover:bg-primary-200 flex w-full cursor-pointer items-center justify-start gap-4 bg-white p-2" type="button"
+              wire:click="filterByCategory({{ $category->id }})">
               <flux:icon.plus size="6" />
               <span>Todos</span>
             </button>
@@ -53,11 +44,8 @@
       </li>
     @endif
     <li>
-      <button
-        class="hover:bg-primary-600 items-between flex w-full cursor-pointer items-center justify-start gap-4 p-2 font-extrabold"
-        type="button"
-        wire:click="clearFilters"
-      >
+      <button class="hover:bg-primary-600 items-between flex w-full cursor-pointer items-center justify-start gap-4 p-2 font-extrabold" type="button"
+        wire:click="clearFilters">
         <flux:icon.trash size="6" />
         <span>Limpiar Filtros</span>
       </button>

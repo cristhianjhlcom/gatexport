@@ -9,47 +9,23 @@
             <flux:heading>Crear Categoría</flux:heading>
           </header>
           <div class="grid grid-cols-1 gap-x-4 sm:grid-cols-2">
-            <flux:input
-              autocomplete="off"
-              badge="Requerido"
-              description:trailing="Versión en español del nombre"
-              label="Nombre de la Categoría"
-              placeholder="Lorem Ipsum"
-              wire:model.blur="form.name.es"
-            />
+            <flux:input autocomplete="off" badge="Requerido" description:trailing="Versión en español del nombre" label="Nombre de la Categoría"
+              placeholder="Lorem Ipsum" wire:model.blur="form.name.es" />
 
-            <flux:input
-              autocomplete="off"
-              badge="Requerido"
-              description:trailing="English version of the name"
-              label="Category Name"
-              placeholder="Lorem Ipsum"
-              wire:model.blur="form.name.en"
-            />
+            <flux:input autocomplete="off" badge="Requerido" description:trailing="English version of the name" label="Category Name"
+              placeholder="Lorem Ipsum" wire:model.blur="form.name.en" />
           </div>
 
           <flux:field>
             <flux:input.group>
               <flux:input.group.prefix>{{ env('APP_URL') }}/</flux:input.group.prefix>
-              <flux:input
-                disabled
-                id="slug"
-                placeholder="lorem-ipsum"
-                readonly
-                wire:model='form.slug'
-              />
+              <flux:input disabled id="slug" placeholder="lorem-ipsum" readonly wire:model='form.slug' />
             </flux:input.group>
             <flux:error name="form.slug" />
           </flux:field>
 
-          <flux:input
-            autocomplete="off"
-            badge="Requerido"
-            label="Color de fondo"
-            placeholder="Ej: color en hexadecimal de la empresa..."
-            size="sm"
-            wire:model.blur="form.backgroundColor"
-          />
+          <flux:input autocomplete="off" badge="Requerido" label="Color de fondo" placeholder="Ej: color en hexadecimal de la empresa..."
+            size="sm" wire:model.blur="form.backgroundColor" />
 
           <div class="space-y-2 overflow-hidden">
             @php
@@ -58,25 +34,12 @@
               $tmpImage = $form->image ??= null;
             @endphp
 
-            <flux:file-upload
-              label="Banner"
-              size="sm"
-              wire:model.live="form.image"
-            >
-              <flux:file-upload.dropzone
-                :heading="$image"
-                inline
-                text="1000x550 - JPG, PNG, Webp hasta 2MB"
-                with-progress
-              />
+            <flux:file-upload label="Banner" size="sm" wire:model.live="form.image">
+              <flux:file-upload.dropzone :heading="$image" inline text="1000x550 - JPG, PNG, Webp hasta 2MB" with-progress />
             </flux:file-upload>
 
             @if ($tmpImage && !is_string($tmpImage))
-              <flux:file-item
-                :heading="$tmpImage->getClientOriginalName()"
-                :image="$tmpImage->temporaryUrl()"
-                :size="$tmpImage->getSize()"
-              />
+              <flux:file-item :heading="$tmpImage->getClientOriginalName()" :image="$tmpImage->temporaryUrl()" :size="$tmpImage->getSize()" />
             @endif
           </div>
 
@@ -87,25 +50,13 @@
               $tmpWhiteIcon = $form->whiteIcon ??= null;
             @endphp
 
-            <flux:file-upload
-              label="Icono en color blanco"
-              size="sm"
-              wire:model.live="form.whiteIcon"
-            >
-              <flux:file-upload.dropzone
-                :heading="$whiteIcon"
-                inline
-                text="55x55 - JPG, PNG, Webp, SVG hasta 1MB"
-                with-progress
-              />
+            <flux:file-upload label="Icono en color blanco" size="sm" wire:model.live="form.whiteIcon">
+              <flux:file-upload.dropzone :heading="$whiteIcon" inline text="55x55 - JPG, PNG, Webp, SVG hasta 1MB" with-progress />
             </flux:file-upload>
 
             @if ($tmpWhiteIcon && !is_string($tmpWhiteIcon))
-              <flux:file-item
-                :heading="$tmpWhiteIcon->getClientOriginalName()"
-                :image="$tmpWhiteIcon->temporaryUrl()"
-                :size="$tmpWhiteIcon->getSize()"
-              />
+              <flux:file-item :heading="$tmpWhiteIcon->getClientOriginalName()" :image="$tmpWhiteIcon->temporaryUrl()"
+                :size="$tmpWhiteIcon->getSize()" />
             @endif
           </div>
 
@@ -116,25 +67,13 @@
               $tmpPrimaryIcon = $form->primaryIcon ??= null;
             @endphp
 
-            <flux:file-upload
-              label="Icono en color primario"
-              size="sm"
-              wire:model.live="form.primaryIcon"
-            >
-              <flux:file-upload.dropzone
-                :heading="$primaryIcon"
-                inline
-                text="55x55 - JPG, PNG, Webp, SVG hasta 1MB"
-                with-progress
-              />
+            <flux:file-upload label="Icono en color primario" size="sm" wire:model.live="form.primaryIcon">
+              <flux:file-upload.dropzone :heading="$primaryIcon" inline text="55x55 - JPG, PNG, Webp, SVG hasta 1MB" with-progress />
             </flux:file-upload>
 
             @if ($tmpPrimaryIcon && !is_string($tmpPrimaryIcon))
-              <flux:file-item
-                :heading="$tmpPrimaryIcon->getClientOriginalName()"
-                :image="$tmpPrimaryIcon->temporaryUrl()"
-                :size="$tmpPrimaryIcon->getSize()"
-              />
+              <flux:file-item :heading="$tmpPrimaryIcon->getClientOriginalName()" :image="$tmpPrimaryIcon->temporaryUrl()"
+                :size="$tmpPrimaryIcon->getSize()" />
             @endif
           </div>
         </flux:card>

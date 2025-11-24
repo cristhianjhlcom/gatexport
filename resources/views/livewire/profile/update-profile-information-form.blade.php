@@ -59,40 +59,40 @@ new class extends Component {
 }; ?>
 
 <flux:card class="space-y-4">
-    <header>
-        <flux:heading size="xl" level="1">{{ __('Profile Information') }}</flux:heading>
-        <flux:subheading size="lg" class="mb-6">
-            {{ __("Update your account's profile information and email address.") }}
-        </flux:subheading>
-        <flux:separator variant="subtle" />
-    </header>
+  <header>
+    <flux:heading size="xl" level="1">{{ __('Profile Information') }}</flux:heading>
+    <flux:subheading size="lg" class="mb-6">
+      {{ __("Update your account's profile information and email address.") }}
+    </flux:subheading>
+    <flux:separator variant="subtle" />
+  </header>
 
-    <form wire:submit="updateProfileInformation" class="mt-6 space-y-6">
-        <flux:input wire:model="email" :label="__('Email')" type="email" />
-        @if (auth()->user() instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && !auth()->user()->hasVerifiedEmail())
-            <div>
-                <p class="text-sm mt-2 text-gray-800 dark:text-gray-200">
-                    {{ __('Your email address is unverified.') }}
+  <form wire:submit="updateProfileInformation" class="mt-6 space-y-6">
+    <flux:input wire:model="email" :label="__('Email')" type="email" />
+    @if (auth()->user() instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && !auth()->user()->hasVerifiedEmail())
+      <div>
+        <p class="mt-2 text-sm text-gray-800 dark:text-gray-200">
+          {{ __('Your email address is unverified.') }}
 
-                    <button wire:click.prevent="sendVerification"
-                        class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
-                        {{ __('Click here to re-send the verification email.') }}
-                    </button>
-                </p>
+          <button wire:click.prevent="sendVerification"
+            class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-100 dark:focus:ring-offset-gray-800">
+            {{ __('Click here to re-send the verification email.') }}
+          </button>
+        </p>
 
-                @if (session('status') === 'verification-link-sent')
-                    <p class="mt-2 font-medium text-sm text-green-600 dark:text-green-400">
-                        {{ __('A new verification link has been sent to your email address.') }}
-                    </p>
-                @endif
-            </div>
+        @if (session('status') === 'verification-link-sent')
+          <p class="mt-2 text-sm font-medium text-green-600 dark:text-green-400">
+            {{ __('A new verification link has been sent to your email address.') }}
+          </p>
         @endif
+      </div>
+    @endif
 
-        <div class="flex items-center gap-4">
-            <flux:button type="submit" variant="primary">{{ __('Save') }}</flux:button>
-            <x-common.action-message class="me-3" on="profile-updated">
-                {{ __('Saved.') }}
-            </x-common.action-message>
-        </div>
-    </form>
+    <div class="flex items-center gap-4">
+      <flux:button type="submit" variant="primary">{{ __('Save') }}</flux:button>
+      <x-common.action-message class="me-3" on="profile-updated">
+        {{ __('Saved.') }}
+      </x-common.action-message>
+    </div>
+  </form>
 </flux:card>

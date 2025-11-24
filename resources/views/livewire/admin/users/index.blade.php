@@ -65,12 +65,8 @@
                   <flux:menu.item href="{{ route('admin.users.edit', $user) }}" icon="pencil">
                     {{ __('Edit') }}
                   </flux:menu.item>
-                  <flux:menu.item
-                    icon="trash"
-                    variant="danger"
-                    wire:click="delete({{ $user }})"
-                    wire:confirm.prevent="{{ __('Are you sure you want to delete this user?') }}"
-                  >
+                  <flux:menu.item icon="trash" variant="danger" wire:click="delete({{ $user }})"
+                    wire:confirm.prevent="{{ __('Are you sure you want to delete this user?') }}">
                     {{ __('Archive') }}
                   </flux:menu.item>
                 </flux:menu>

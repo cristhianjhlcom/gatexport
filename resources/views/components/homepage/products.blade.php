@@ -5,12 +5,7 @@
 @if (count($categories) > 0)
   <section class="bg-primary-50 py-10 md:py-14 dark:bg-gray-800">
     <div class="container space-y-6 overflow-hidden">
-      <x-heading
-        class="text-center"
-        level="2"
-        size="xl"
-        weight="black"
-      >
+      <x-heading class="text-center" level="2" size="xl" weight="black">
         {{ __('pages.home.products.title') }}
       </x-heading>
 
@@ -39,12 +34,7 @@
                         'category' => $category,
                         'subcategory' => $subcategory,
                     ]) }}"
-                    icon:trailing="arrow-right"
-                    inset
-                    size="sm"
-                    variant="ghost"
-                    wire:navigate
-                  >
+                    icon:trailing="arrow-right" inset size="sm" variant="ghost" wire:navigate>
                     {{ __('pages.categories.view_all') }}
                   </flux:button>
                 </header>

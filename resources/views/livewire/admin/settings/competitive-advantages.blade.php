@@ -24,11 +24,7 @@
 
     @foreach ($locales as $locale => $name)
       <flux:tab.panel class="space-y-4" name="{{ $locale }}">
-        <flux:button
-          size="sm"
-          variant="outline"
-          wire:click="add('{{ $locale }}')"
-        >
+        <flux:button size="sm" variant="outline" wire:click="add('{{ $locale }}')">
           {{ __('Add Advantage') }}
         </flux:button>
         <span class="text-sm text-gray-500">
@@ -38,54 +34,35 @@
           <section class="grid grid-cols-1 gap-4 md:grid-cols-3">
             @foreach ($competitiveAdvantages[$locale] as $index => $advantage)
               <flux:card class="space-y-4">
-                <flux:input
-                  badge="{{ __('Required') }}"
-                  label="{{ __('Title') }}"
-                  placeholder="Lorem Ipsum.."
-                  wire:model="competitiveAdvantages.{{ $locale }}.{{ $index }}.title"
-                />
+                <flux:input badge="{{ __('Required') }}" label="{{ __('Title') }}" placeholder="Lorem Ipsum.."
+                  wire:model="competitiveAdvantages.{{ $locale }}.{{ $index }}.title" />
 
-                <flux:editor
-                  badge="{{ __('Required') }}"
-                  label="{{ __('Description') }}"
-                  wire:model="competitiveAdvantages.{{ $locale }}.{{ $index }}.description"
-                />
+                <flux:editor badge="{{ __('Required') }}" label="{{ __('Description') }}"
+                  wire:model="competitiveAdvantages.{{ $locale }}.{{ $index }}.description" />
 
                 <flux:field>
                   <div class="space-y-4">
                     <flux:label badge="{{ __('Required') }}">{{ __('Image') }}</flux:label>
 
                     @if (!empty($advantage['image']) && is_string($advantage['image']))
-                      <img
-                        alt="Current Image"
-                        class="aspect-square h-28 w-28 object-cover"
-                        src="{{ Storage::disk('public')->url($advantage['image']) }}"
-                      />
+                      <img alt="Current Image" class="aspect-square h-28 w-28 object-cover"
+                        src="{{ Storage::disk('public')->url($advantage['image']) }}" />
                     @endif
 
                     <flux:description size="xs">
                       Imagenes recomendadas: 400x400 / 1000x1000 pixels. Formatos: JPG, PNG, WebP. Máximo: 2MB.
                     </flux:description>
 
-                    <flux:input
-                      size="sm"
-                      type="file"
-                      wire:model="tmp_images.{{ $locale }}.{{ $index }}.image"
-                    />
+                    <flux:input size="sm" type="file" wire:model="tmp_images.{{ $locale }}.{{ $index }}.image" />
 
-                    <div wire:loading
-                      wire:target="competitiveAdvantages.{{ $locale }}.{{ $index }}.image"
-                    >
+                    <div wire:loading wire:target="competitiveAdvantages.{{ $locale }}.{{ $index }}.image">
                       <flux:icon.loading />
                     </div>
 
                     @if (isset($tmp_images[$locale][$index]) && method_exists($tmp_images[$locale][$index], 'temporaryUrl'))
                       <small>Preview</small>
-                      <img
-                        alt="Image Preview"
-                        class="aspect-square h-28 w-28 object-cover"
-                        src="{{ $tmp_images[$locale][$index]->temporaryUrl() }}"
-                      />
+                      <img alt="Image Preview" class="aspect-square h-28 w-28 object-cover"
+                        src="{{ $tmp_images[$locale][$index]->temporaryUrl() }}" />
                     @endif
 
                     <flux:error name="tmp_images.{{ $locale }}.{{ $index }}" />
@@ -94,14 +71,9 @@
                 </flux:field>
 
                 <div class="flex justify-end">
-                  <flux:button
-                    class="absolute right-0 top-0 z-10"
-                    icon:trailing="x-mark"
-                    size="sm"
-                    variant="danger"
+                  <flux:button class="absolute right-0 top-0 z-10" icon:trailing="x-mark" size="sm" variant="danger"
                     wire:click="remove('{{ $locale }}', {{ $index }})"
-                    wire:confirm="{{ __('Are you sure you want to delete this advantage?') }}"
-                  >
+                    wire:confirm="{{ __('Are you sure you want to delete this advantage?') }}">
                     Eliminar
                   </flux:button>
                 </div>

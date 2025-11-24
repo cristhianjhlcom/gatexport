@@ -10,16 +10,11 @@
       <header class="relative w-full space-y-10 md:w-1/2">
         @if ($data['title'])
           <div class="space-y-10">
-            <h2
-              class="text-primary-500 dark:text-primary-500 text-3xl font-extrabold italic leading-tight md:leading-relaxed"
-            >
+            <h2 class="text-primary-500 dark:text-primary-500 text-3xl font-extrabold italic leading-tight md:leading-relaxed">
               {{ $data['title'] }}
             </h2>
-            <x-common.separator-line
-              class="absolute hidden lg:left-[0%] lg:top-[16%] lg:flex lg:w-[700px]"
-              color="border-primary-500"
-              pointColor="bg-primary-500"
-            />
+            <x-common.separator-line class="absolute hidden lg:left-[0%] lg:top-[16%] lg:flex lg:w-[700px]" color="border-primary-500"
+              pointColor="bg-primary-500" />
           </div>
         @endif
 
@@ -32,19 +27,13 @@
 
       <div class="flex flex-1 justify-start gap-4 rounded-sm">
         @if ($mainImage)
-          <img
-            alt="{{ $data['title'] }}"
-            class="z-20 aspect-auto w-1/2 translate-y-6 transform rounded-sm md:w-full"
-            src="{{ Storage::disk('public')->url($mainImage) }}"
-          />
+          <img alt="{{ $data['title'] }}" class="z-20 aspect-auto w-1/2 translate-y-6 transform rounded-sm md:w-full"
+            src="{{ Storage::disk('public')->url($mainImage) }}" />
         @endif
 
         @if ($secondaryImage)
-          <img
-            alt="{{ $data['title'] }}"
-            class="z-20 aspect-auto w-1/2 rounded-sm md:w-full"
-            src="{{ Storage::disk('public')->url($secondaryImage) }}"
-          />
+          <img alt="{{ $data['title'] }}" class="z-20 aspect-auto w-1/2 rounded-sm md:w-full"
+            src="{{ Storage::disk('public')->url($secondaryImage) }}" />
         @endif
       </div>
     </div>

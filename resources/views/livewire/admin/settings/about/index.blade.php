@@ -43,11 +43,7 @@
           @foreach ($locales as $locale => $name)
             <flux:tab.panel class="space-y-4" name="{{ $locale }}">
 
-              <flux:editor
-                badge="Requerido"
-                label="Historia"
-                wire:model="about.{{ $locale }}.home.history"
-              />
+              <flux:editor badge="Requerido" label="Historia" wire:model="about.{{ $locale }}.home.history" />
             </flux:tab.panel>
           @endforeach
         </flux:tab.group>
@@ -64,15 +60,11 @@
             <flux:file-upload label="Primera Imagen" wire:model="newHomeFirstImage">
               <flux:file-upload.dropzone inline text="300x450 - PNG, JPG, WEBP - Máx 2MB" />
             </flux:file-upload>
-            @if (isset($about['home_first_image']) &&
-                    !empty($about['home_first_image']) &&
-                    Storage::disk('public')->exists($about['home_first_image']))
+            @if (isset($about['home_first_image']) && !empty($about['home_first_image']) && Storage::disk('public')->exists($about['home_first_image']))
               <div class="mt-4 flex flex-col gap-2">
-                <flux:file-item
-                  heading="{{ Storage::disk('public')->url($about['home_first_image']) }}"
+                <flux:file-item heading="{{ Storage::disk('public')->url($about['home_first_image']) }}"
                   image="{{ Storage::disk('public')->url($about['home_first_image']) }}"
-                  size="{{ Storage::disk('public')->size($about['home_first_image']) }}"
-                />
+                  size="{{ Storage::disk('public')->size($about['home_first_image']) }}" />
               </div>
             @endif
           </div>
@@ -81,27 +73,18 @@
             <flux:file-upload label="Segunda Imagen" wire:model="newHomeSecondImage">
               <flux:file-upload.dropzone inline text="300x450 - PNG, JPG, WEBP - Máx 2MB" />
             </flux:file-upload>
-            @if (isset($about['home_second_image']) &&
-                    !empty($about['home_second_image']) &&
-                    Storage::disk('public')->exists($about['home_second_image']))
+            @if (isset($about['home_second_image']) && !empty($about['home_second_image']) && Storage::disk('public')->exists($about['home_second_image']))
               <div class="mt-4 flex flex-col gap-2">
-                <flux:file-item
-                  heading="{{ Storage::disk('public')->url($about['home_second_image']) }}"
+                <flux:file-item heading="{{ Storage::disk('public')->url($about['home_second_image']) }}"
                   image="{{ Storage::disk('public')->url($about['home_second_image']) }}"
-                  size="{{ Storage::disk('public')->size($about['home_second_image']) }}"
-                />
+                  size="{{ Storage::disk('public')->size($about['home_second_image']) }}" />
               </div>
             @endif
           </div>
         </div>
 
-        <flux:input
-          description="Id del video sobre la historia de la empresa."
-          label="YouTube Video ID"
-          placeholder="guJLfqTFfIw"
-          size="sm"
-          wire:model="youtubeVideoId"
-        />
+        <flux:input description="Id del video sobre la historia de la empresa." label="YouTube Video ID" placeholder="guJLfqTFfIw" size="sm"
+          wire:model="youtubeVideoId" />
       </flux:card>
     </div>
     {{-- #End Home page settings --}}
