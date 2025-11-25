@@ -1,4 +1,4 @@
-<div>
+<div class="hidden md:block">
   <flux:dropdown align="start" position="top">
     @if (app()->getLocale() === 'es')
       <flux:profile avatar="{{ Storage::disk('public')->url('uploads/settings/flags/peru_flag.png') }}" />

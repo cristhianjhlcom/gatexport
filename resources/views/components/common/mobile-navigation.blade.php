@@ -3,7 +3,7 @@
     {{ __('layouts.navigation.home') }}
   </flux:navlist.item>
 
-  <flux:navlist.item href="{{ route('about-us.index') }}">
+  <flux:navlist.item href="{{ route('services.index') }}">
     {{ __('layouts.navigation.services') }}
   </flux:navlist.item>
 
@@ -12,7 +12,11 @@
   </flux:navlist.item>
 
   @foreach ($items as $item)
-    <flux:navlist.group :expanded="false" expandable heading="{{ $item['name'][app()->getLocale()] }}">
+    <flux:navlist.group
+      :expanded="false"
+      expandable
+      heading="{{ $item['name'][app()->getLocale()] }}"
+    >
       @foreach ($item['subcategories'] as $subitem)
         <flux:navlist.item href="{{ route('categories.show', $subitem['slug']) }}">
           {{ $subitem['name'][app()->getLocale()] }}

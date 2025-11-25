@@ -59,9 +59,6 @@
               <flux:dropdown align="end" position="bottom">
                 <flux:button icon="ellipsis-horizontal" variant="ghost"></flux:button>
                 <flux:menu>
-                  <flux:menu.item href="{{ route('admin.users.show', $user) }}" icon="eye">
-                    {{ __('View') }}
-                  </flux:menu.item>
                   <flux:menu.item href="{{ route('admin.users.edit', $user) }}" icon="pencil">
                     {{ __('Edit') }}
                   </flux:menu.item>

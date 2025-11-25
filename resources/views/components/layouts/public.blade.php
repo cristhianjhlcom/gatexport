@@ -9,14 +9,34 @@
   <title>{{ $title ?? config('app.name') }} | {{ config('app.name') }}</title>
 
   <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link
+    crossorigin
+    href="https://fonts.gstatic.com"
+    rel="preconnect"
+  >
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet"
+  >
   <!-- #End Headings Fonts -->
 
   @production
-    <link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
-    <link href="/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png">
-    <link href="/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png">
+    <link
+      href="/apple-touch-icon.png"
+      rel="apple-touch-icon"
+      sizes="180x180"
+    >
+    <link
+      href="/favicon-32x32.png"
+      rel="icon"
+      sizes="32x32"
+      type="image/png"
+    >
+    <link
+      href="/favicon-16x16.png"
+      rel="icon"
+      sizes="16x16"
+      type="image/png"
+    >
     <link href="/site.webmanifest" rel="manifest">
   @endproduction
 
@@ -53,18 +73,30 @@
 <body class="min-h-screen bg-white text-gray-900 antialiased dark:bg-white dark:text-gray-900">
   @production
     <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-5RWFMC2S" style="display:none;visibility:hidden"
-        width="0"></iframe></noscript>
+    <noscript><iframe
+        height="0"
+        src="https://www.googletagmanager.com/ns.html?id=GTM-5RWFMC2S"
+        style="display:none;visibility:hidden"
+        width="0"
+      ></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
   @endproduction
 
   <header class="relative h-16 bg-white">
     <div class="container flex items-center justify-between">
-      <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
+      <flux:sidebar.toggle
+        class="lg:hidden"
+        icon="bars-2"
+        inset="left"
+      />
 
       <div class="flex items-center gap-4">
         <a href="{{ route('home.index') }}">
-          <img alt="{{ config('app.name') }}" class="mr-4 aspect-square h-10 w-10" src="{{ $companyLogos['small_logo'] }}" />
+          <img
+            alt="{{ config('app.name') }}"
+            class="mr-4 aspect-square size-10"
+            src="{{ $companyLogos['small_logo'] }}"
+          />
         </a>
 
         <x-common.navigation />
@@ -77,12 +109,19 @@
     </div>
   </header>
 
-  <flux:sidebar class="border border-zinc-200 bg-zinc-50 lg:hidden rtl:border-l rtl:border-r-0 dark:border-zinc-700 dark:bg-zinc-900" stashable
-    sticky>
+  <flux:sidebar
+    class="border border-zinc-200 bg-zinc-50 lg:hidden rtl:border-l rtl:border-r-0 dark:border-zinc-700 dark:bg-zinc-900"
+    stashable
+    sticky
+  >
     <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
     <flux:brand href="{{ route('home.index') }}" name="Gate Export">
       <x-slot name="logo">
-        <img alt="Gate Export" class="h-9 w-auto" src="{{ $companyLogos['small_logo'] }}" />
+        <img
+          alt="Gate Export"
+          class="h-9 w-auto"
+          src="{{ $companyLogos['small_logo'] }}"
+        />
       </x-slot>
     </flux:brand>
 

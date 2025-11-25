@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+use App\Livewire\Admin\Articles\CreateArticle;
+use App\Livewire\Admin\Articles\ShowArticles;
+use App\Livewire\Admin\Articles\UpdateArticle;
 use App\Livewire\Admin\Categories\CategoryCreateManagement;
 use App\Livewire\Admin\Categories\CategoryEditManagement;
 use App\Livewire\Admin\Categories\CategoryIndexManagement;
@@ -63,6 +66,11 @@ Route::group(['middleware' => 'role:super_admin|manager'], function () {
     Route::get('policies', PolicyManagement::class)->name('policies.index');
     Route::get('policies/create', CreatePolicy::class)->name('policies.store');
     Route::get('policies/{policy}/update', UpdatePolicy::class)->name('policies.update');
+
+    // NOTE: Articles Management.
+    Route::get('articles', ShowArticles::class)->name('articles.index');
+    Route::get('articles/create', CreateArticle::class)->name('articles.store');
+    Route::get('articles/{article}/update', UpdateArticle::class)->name('articles.update');
 
     // NOTE: Settings Management.
     Route::get('settings/general', SettingGeneralManagement::class)->name('settings.general');
