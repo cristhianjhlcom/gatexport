@@ -66,7 +66,23 @@ return [
         'notes' => 'Notas',
         'observation' => 'Si tienes alguna observación, por favor házmelo saber.',
         'required' => 'Requerido',
-
         'no_products' => 'No Hay Productos',
+        'clear_filter' => 'Limpiar Filtros',
+        'all' => 'Todos',
+        'grid_view' => 'Vista en Cuadricula',
+        'list_view' => 'Vista en Lista',
+        'order_by' => 'Ordenar por',
+        'default_qualification' => 'Clasificación por defecto',
+        'last_added' => 'Último agregado',
+        'qualification' => 'Clasificación',
+        'keep_watching' => 'Seguir viendo',
+    ],
+    'faqs' => [
+        'title' => 'Preguntas Frecuentes',
+    ],
+    'policies' => [
+        'privacy' => [
+            'title' => 'Política de Privacidad',
+        ],
     ],
 ];

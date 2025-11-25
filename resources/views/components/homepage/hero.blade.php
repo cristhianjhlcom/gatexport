@@ -10,20 +10,26 @@
         @foreach ($promotional_banners as $banner)
           <a class="swiper-slide relative h-full w-full" href="{{ $banner['link_url'] }}">
             @if (isset($banner['image_desktop']))
-              <img alt="{{ $banner['title'] }}" class="absolute inset-0 hidden h-full w-full object-cover md:block"
-                src="{{ Storage::disk('public')->url($banner['image_desktop']) }}" />
+              <img
+                alt="{{ $banner['title'] }}"
+                class="absolute inset-0 hidden h-full w-full object-cover md:block"
+                src="{{ Storage::disk('public')->url($banner['image_desktop']) }}"
+              />
             @endif
 
             @if (isset($banner['image_mobile']))
-              <img alt="{{ $banner['title'] }}" class="absolute inset-0 block h-full w-full object-cover md:hidden"
-                src="{{ Storage::disk('public')->url($banner['image_mobile']) }}" />
+              <img
+                alt="{{ $banner['title'] }}"
+                class="absolute inset-0 block h-full w-full object-cover md:hidden"
+                src="{{ Storage::disk('public')->url($banner['image_mobile']) }}"
+              />
             @endif
           </a>
         @endforeach
       </div>
       <div class="swiper-pagination swiper-pagination__hero"></div>
     </div>
-    <div class="swiper-navigation__hero absolute">
+    <div class="swiper-navigation__hero absolute hidden md:block">
       <div class="swiper-button-prev__hero"></div>
       <div class="swiper-button-next__hero"></div>
     </div>

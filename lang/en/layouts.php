@@ -7,6 +7,7 @@ return [
         'home' => 'Home',
         'about_us' => 'About Us',
         'products' => 'Products',
+        'all' => 'All',
         'categories' => 'Categories',
         'services' => 'Services',
         'contact_us' => 'Contact Us',

@@ -1,10 +1,14 @@
   @php
     $isActive = request()->routeIs('products.index');
+    $isHomePage = request()->routeIs('home.index');
   @endphp
 
   <div @class([
+      'border-b-4 border-white text-white font-bold' => $isHomePage && $isActive,
       'border-b-4 border-primary-400' => $isActive,
-      'box-border inline-flex h-full items-center gap-2 px-3 text-sm uppercase transition',
+      'text-white font-semibold' => $isHomePage,
+      'text-zinc-900 font-semibold' => !$isHomePage,
+      'box-border inline-flex h-full items-center gap-2 font-semibold px-3 text-md uppercase transition',
   ]) x-data="{ open: false, active: 0 }">
     <button
       :aria-expanded="open"
@@ -63,7 +67,7 @@
               <div class="flex items-center gap-3">
                 <flux:icon.plus size="8" />
 
-                <span class="text-sm font-extrabold">Todos</span>
+                <span class="text-sm font-extrabold">{{ __('layouts.navigation.all') }}</span>
               </div>
 
               <flux:icon.chevron-right size="4" />
@@ -93,7 +97,7 @@
                   'col-span-3  row-span-1' => count($item['subcategories']) >= 3,
                   'relative w-full overflow-hidden rounded-sm bg-transparent capitalize',
               ])
-              href="{{ route('categories.show', $item['slug']) }}"
+              href="{{ $item['url'] }}"
               title="{{ $item['name'] }}"
             >
               <div class="flex h-full items-center justify-center gap-6 p-4 text-left">

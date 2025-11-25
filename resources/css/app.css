@@ -1,6 +1,6 @@
-@import "tailwindcss";
-@import "swiper/css/bundle";
-@import "../../vendor/livewire/flux/dist/flux.css";
+@import 'tailwindcss';
+@import 'swiper/css/bundle';
+@import '../../vendor/livewire/flux/dist/flux.css';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -9,48 +9,48 @@
 
 /* Re-assign Flux's gray of choice... */
 @theme {
-    --font-sans: "Montserrat", sans-serif;
-    --default-font-family: "Montserrat", sans-serif;
-    /*--font-display: Playfair Display, serif; */
+  --font-sans: 'Montserrat', sans-serif;
+  --default-font-family: 'Montserrat', sans-serif;
+  /*--font-display: Playfair Display, serif; */
 
-    /* Color principal (medio) */
-    --color-primary-50: #dedad6; /* background color #dedad6 - old #fdf4ef */
-    --color-primary-100: #fce8de;
-    --color-primary-200: #f9d0bc;
-    --color-primary-300: #f5b191;
-    --color-primary-400: #dc801e; /* highlight color #dc801e - old color #f9a582 */
-    --color-primary-500: #923d10; /* primary color #923d10 -old color #ed7d31 */
-    --color-primary-600: #4a2613; /* secondary color #4a2613 -  Tu color #ca5d2a */
-    --color-primary-700: #a64a22;
-    --color-primary-800: #833a1b;
-    --color-primary-900: #4a250e; /* Tu color #4a250e */
-    --color-primary-950: #2a1508;
+  /* Color principal (medio) */
+  --color-primary-50: #dedad6; /* background color #dedad6 - old #fdf4ef */
+  --color-primary-100: #fce8de;
+  --color-primary-200: #f9d0bc;
+  --color-primary-300: #f5b191;
+  --color-primary-400: #dc801e; /* highlight color #dc801e - old color #f9a582 */
+  --color-primary-500: #923d10; /* primary color #923d10 -old color #ed7d31 */
+  --color-primary-600: #4a2613; /* secondary color #4a2613 -  Tu color #ca5d2a */
+  --color-primary-700: #a64a22;
+  --color-primary-800: #833a1b;
+  --color-primary-900: #4a250e; /* Tu color #4a250e */
+  --color-primary-950: #2a1508;
 
-    /* Escala de grises cálidos */
-    --color-neutral-50: #faf9f8;
-    --color-neutral-100: #f5f3f2;
-    --color-neutral-200: #e9e5e3;
-    --color-neutral-300: #dad4d1;
-    --color-neutral-400: #b8afa9;
-    --color-neutral-500: #968c85;
-    --color-neutral-600: #776f69;
-    --color-neutral-700: #5d5652;
-    --color-neutral-800: #403b38;
-    --color-neutral-900: #2b2724;
-    --color-neutral-950: #1a1614;
+  /* Escala de grises cálidos */
+  --color-neutral-50: #faf9f8;
+  --color-neutral-100: #f5f3f2;
+  --color-neutral-200: #e9e5e3;
+  --color-neutral-300: #dad4d1;
+  --color-neutral-400: #b8afa9;
+  --color-neutral-500: #968c85;
+  --color-neutral-600: #776f69;
+  --color-neutral-700: #5d5652;
+  --color-neutral-800: #403b38;
+  --color-neutral-900: #2b2724;
+  --color-neutral-950: #1a1614;
 
-    --color-gray-50: var(--color-neutral-50);
-    --color-gray-100: var(--color-neutral-100);
-    --color-gray-200: var(--color-neutral-200);
-    --color-gray-300: var(--color-neutral-300);
-    --color-gray-400: var(--color-neutral-400);
-    --color-gray-500: var(--color-neutral-500);
-    --color-gray-600: var(--color-neutral-600);
-    --color-gray-700: var(--color-neutral-700);
-    --color-gray-800: var(--color-neutral-800);
-    --color-gray-900: var(--color-neutral-900);
-    --color-gray-950: var(--color-neutral-950);
-    /*
+  --color-gray-50: var(--color-neutral-50);
+  --color-gray-100: var(--color-neutral-100);
+  --color-gray-200: var(--color-neutral-200);
+  --color-gray-300: var(--color-neutral-300);
+  --color-gray-400: var(--color-neutral-400);
+  --color-gray-500: var(--color-neutral-500);
+  --color-gray-600: var(--color-neutral-600);
+  --color-gray-700: var(--color-neutral-700);
+  --color-gray-800: var(--color-neutral-800);
+  --color-gray-900: var(--color-neutral-900);
+  --color-gray-950: var(--color-neutral-950);
+  /*
     --color-zinc-50: var(--color-stone-50);
     --color-zinc-100: var(--color-stone-100);
     --color-zinc-200: var(--color-stone-200);
@@ -66,47 +66,58 @@
 }
 
 @theme {
-    /* Variables de uso común */
-    --color-accent: var(--color-primary-900);
-    --color-accent-content: var(--color-primary-600);
-    --color-accent-foreground: var(--color-white);
+  /* Variables de uso común */
+  --color-accent: var(--color-primary-900);
+  --color-accent-content: var(--color-primary-600);
+  --color-accent-foreground: var(--color-white);
 
-    /* Colores de texto */
-    --color-text-primary: var(--color-primary-900);
-    --color-text-secondary: var(--color-primary-700);
-    --color-text-muted: var(--color-primary-500);
+  /* Colores de texto */
+  --color-text-primary: var(--color-primary-900);
+  --color-text-secondary: var(--color-primary-700);
+  --color-text-muted: var(--color-primary-500);
 }
 
 .container {
-    @apply mx-auto w-full max-w-[1280px] px-8 md:px-8;
+  @apply mx-auto w-full max-w-[1280px] px-8 md:px-8;
 }
 
-.special-content h1 {
-    @apply text-2xl md:text-4xl text-center font-extrabold text-primary-500;
+.special-content h1,
+.special-content h2,
+.special-content h3,
+.special-content h4,
+.special-content h5,
+.special-content h6 {
+  @apply text-2xl md:text-4xl font-semibold text-primary-400;
 }
 
-.special-content h2 {
-    @apply text-xl md:text-2xl text-center italic text-primary-500;
+.special-content h1 strong,
+.special-content h2 strong,
+.special-content h3 strong,
+.special-content h4 strong,
+.special-content h5 strong,
+.special-content h6 strong {
+  @apply text-2xl md:text-4xl font-semibold text-primary-400;
 }
 
-.special-content p {
-    @apply leading-relaxed;
+.special-content p,
+.special-content strong {
+  @apply leading-relaxed font-medium;
 }
 
 .special-content ul {
-    @apply list-disc pl-5 marker:text-[#a45200];
+  @apply list-disc pl-5 marker:text-[#a45200];
 }
 
 .special-content ul li p {
-    @apply font-normal leading-relaxed text-gray-900;
+  @apply font-normal leading-relaxed text-gray-900;
 }
 
 .special-content ul li p strong {
-    @apply font-extrabold leading-relaxed text-gray-900;
+  @apply font-extrabold leading-relaxed text-gray-900;
 }
 
 .special-content strong {
-    @apply text-primary-500 font-extrabold;
+  @apply text-primary-500 font-extrabold;
 }
 
 .policies__content h1,
@@ -115,7 +126,7 @@
 .policies__content h4,
 .policies__content h5,
 .policies__content h6 {
-    @apply text-2xl md:text-4xl font-semibold text-primary-400;
+  @apply text-2xl md:text-4xl font-semibold text-primary-400;
 }
 
 .policies__content h1 strong,
@@ -124,29 +135,29 @@
 .policies__content h4 strong,
 .policies__content h5 strong,
 .policies__content h6 strong {
-    @apply text-2xl md:text-4xl font-semibold text-primary-400;
+  @apply text-2xl md:text-4xl font-semibold text-primary-400;
 }
 
 .policies__content p {
-    @apply leading-relaxed text-lg;
+  @apply leading-relaxed text-lg;
 }
 
 .policies__content a strong {
-    @apply leading-relaxed font-normal text-blue-500 underline;
+  @apply leading-relaxed font-normal text-blue-500 underline;
 }
 
 .policies__content ul {
-    @apply list-disc pl-20 marker:text-[#a45200];
+  @apply list-disc pl-20 marker:text-[#a45200];
 }
 
 .policies__content ul li p {
-    @apply font-normal leading-relaxed text-gray-900;
+  @apply font-normal leading-relaxed text-gray-900;
 }
 
 .policies__content ul li p strong {
-    @apply font-extrabold leading-relaxed text-gray-900;
+  @apply font-extrabold leading-relaxed text-gray-900;
 }
 
 .policies__content strong {
-    @apply text-primary-500 font-extrabold;
+  @apply text-primary-500 font-extrabold;
 }

@@ -8,7 +8,7 @@
           size="super-title"
           weight="font-extrabold"
         >
-          Preguntas Frecuentes
+          {{ __('pages.faqs.title') }}
         </x-common.title>
         <x-common.separator-line class="mx-auto w-full max-w-[1000px]" />
       </header>

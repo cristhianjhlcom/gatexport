@@ -8,6 +8,7 @@ use App\Actions\Setting\GetCompanyLogos;
 use App\Models\Category;
 use Closure;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\Component;
 
 final class MobileNavigation extends Component
@@ -22,16 +23,21 @@ final class MobileNavigation extends Component
     public function __construct()
     {
         $this->items = Category::with('subcategories')
-            ->orderBy('name')
+            ->orderBy('position', 'asc')
             ->get()
             ->map(fn($category) => [
-                'name' => $category->name,
+                'name' => $category->name[app()->getLocale()],
                 'slug' => $category->slug,
-                'image' => $category->imageUrl,
+                'icon_primary' => Storage::disk('public')->url($category->icon_primary),
+                'url' => route('categories.show', $category->slug),
                 'subcategories' => $category->subcategories->map(fn($subcategory) => [
-                    'name' => $subcategory->name,
+                    'name' => $subcategory->name[app()->getLocale()],
                     'slug' => $subcategory->slug,
-                    'image' => $subcategory->imageUrl,
+                    'url' => route('subcategories.index', [
+                        'category' => $category->slug,
+                        'subcategory' => $subcategory->slug,
+                    ]),
+                    'icon_primary' => Storage::disk('public')->url($subcategory->icon_primary),
                 ]),
             ]);
 

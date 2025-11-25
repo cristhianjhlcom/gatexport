@@ -1,8 +1,11 @@
 <main>
   @if (isset($details['altText']))
     <header>
-      <img alt="{{ $details['altText'] }}" class="aspect-auto h-80 w-full object-cover object-center"
-        src="{{ asset("storage/{$details['backgroundImage']}") }}" />
+      <img
+        alt="{{ $details['altText'] }}"
+        class="aspect-auto h-80 w-full object-cover object-center"
+        src="{{ asset("storage/{$details['backgroundImage']}") }}"
+      />
     </header>
   @endif
 
@@ -14,13 +17,18 @@
             @foreach ($categories as $category)
               @if ($category->subcategories)
                 <li x-data="{ open: {{ $loop->first ? 'true' : 'false' }} }">
-                  <button @click="open = !open"
+                  <button
+                    @click="open = !open"
                     class="hover:bg-primary-600 items-between flex w-full cursor-pointer items-center justify-between gap-4 p-4 font-extrabold"
-                    type="button">
+                    type="button"
+                  >
                     <div class="flex items-center justify-start gap-2">
                       @if (isset($category->icon_white))
-                        <img alt="Icono" class="aspect-auto h-8 w-8 object-contain object-left"
-                          src="{{ Storage::disk('public')->url($category->icon_white) }}" />
+                        <img
+                          alt="Icono"
+                          class="aspect-auto h-8 w-8 object-contain object-left"
+                          src="{{ Storage::disk('public')->url($category->icon_white) }}"
+                        />
                       @endif
                       <span>{{ $category->localizedName }}</span>
                     </div>
@@ -30,21 +38,30 @@
                   <ul class="text-primary-500 divide-y divide-gray-200 bg-white">
                     @foreach ($category->subcategories as $subcategory)
                       <li x-cloak x-show="open">
-                        <button class="hover:bg-primary-200 flex w-full cursor-pointer items-center justify-start gap-4 bg-white p-4" type="button"
-                          wire:click="filterBySubcategory({{ $subcategory->id }})">
+                        <button
+                          class="hover:bg-primary-200 flex w-full cursor-pointer items-center justify-start gap-4 bg-white p-4"
+                          type="button"
+                          wire:click="filterBySubcategory({{ $subcategory->id }})"
+                        >
                           @if (isset($subcategory->icon_primary))
-                            <img alt="Icono" class="aspect-auto h-8 w-8 object-contain object-left"
-                              src="{{ Storage::disk('public')->url($subcategory->icon_primary) }}" />
+                            <img
+                              alt="Icono"
+                              class="aspect-auto h-8 w-8 object-contain object-left"
+                              src="{{ Storage::disk('public')->url($subcategory->icon_primary) }}"
+                            />
                           @endif
                           <span>{{ $subcategory->localizedName }}</span>
                         </button>
                       </li>
                     @endforeach
                     <li x-cloak x-show="open">
-                      <button class="hover:bg-primary-200 flex w-full cursor-pointer items-center justify-start gap-4 bg-white p-4" type="button"
-                        wire:click="filterByCategory({{ $category->id }})">
+                      <button
+                        class="hover:bg-primary-200 flex w-full cursor-pointer items-center justify-start gap-4 bg-white p-4"
+                        type="button"
+                        wire:click="filterByCategory({{ $category->id }})"
+                      >
                         <flux:icon.plus size="6" />
-                        <span>Todos</span>
+                        <span>{{ __('pages.product.all') }}</span>
                       </button>
                     </li>
                   </ul>
@@ -52,10 +69,13 @@
               @endif
             @endforeach
             <li>
-              <button class="hover:bg-primary-600 items-between flex w-full cursor-pointer items-center justify-start gap-4 p-2 font-extrabold"
-                type="button" wire:click="clearFilters">
+              <button
+                class="hover:bg-primary-600 items-between flex w-full cursor-pointer items-center justify-start gap-4 p-2 font-extrabold"
+                type="button"
+                wire:click="clearFilters"
+              >
                 <flux:icon.trash size="6" />
-                <span>Limpiar Filtros</span>
+                <span>{{ __('pages.product.clear_filter') }}</span>
               </button>
             </li>
           </ul>
@@ -64,41 +84,72 @@
 
       <div class="flex-1 space-y-6" x-data="{ view: 'grid' }">
         <header class="hidden items-center justify-between pb-4 md:flex">
-          <div aria-label="Vista de productos" class="flex items-center gap-2" role="tablist">
-            <button class="rounded p-2" title="Vista en cuadrícula" type="button" x-bind:aria-pressed="view === 'grid' ? 'true' : 'false'"
-              x-bind:class="view === 'grid' ? 'text-primary-600 bg-primary-50' : 'text-gray-500'" x-on:click="view = 'grid'">
+          <div
+            aria-label="Vista de productos"
+            class="flex items-center gap-2"
+            role="tablist"
+          >
+            <button
+              class="rounded p-2"
+              title="{{ __('pages.product.grid_view') }}"
+              type="button"
+              x-bind:aria-pressed="view === 'grid' ? 'true' : 'false'"
+              x-bind:class="view === 'grid' ? 'text-primary-600 bg-primary-50' : 'text-gray-500'"
+              x-on:click="view = 'grid'"
+            >
               <flux:icon.view-columns class="" variant="solid" />
-              <span class="sr-only">Cuadrícula</span>
+              <span class="sr-only">{{ __('pages.product.grid_view') }}</span>
             </button>
 
-            <button class="rounded p-2" title="Vista en lista" type="button" x-bind:aria-pressed="view === 'list' ? 'true' : 'false'"
-              x-bind:class="view === 'list' ? 'text-primary-600 bg-primary-50' : 'text-gray-500'" x-on:click="view = 'list'">
+            <button
+              class="rounded p-2"
+              title="{{ __('pages.product.list_view') }}"
+              type="button"
+              x-bind:aria-pressed="view === 'list' ? 'true' : 'false'"
+              x-bind:class="view === 'list' ? 'text-primary-600 bg-primary-50' : 'text-gray-500'"
+              x-on:click="view = 'list'"
+            >
               <flux:icon.view-columns class="rotate-90" variant="solid" />
-              <span class="sr-only">Lista</span>
+              <span class="sr-only">{{ __('pages.product.list_view') }}</span>
             </button>
           </div>
           <div class="flex w-1/2 items-center justify-end gap-2">
-            <span class="flex-1 text-right">Ordenar por</span>
-            <flux:select class="flex-1/4" placeholder="Clasificación..." size="sm" wire:model="sort">
-              <flux:select.option value="">Clasificación por defecto</flux:select.option>
-              <flux:select.option value="latest">Último agregado</flux:select.option>
+            <span class="flex-1 text-right">{{ __('pages.product.order_by') }}</span>
+            <flux:select
+              class="flex-1/4"
+              placeholder="{{ __('pages.product.qualification') }}..."
+              size="sm"
+              wire:model="sort"
+            >
+              <flux:select.option value="">{{ __('pages.product.default_qualification') }}</flux:select.option>
+              <flux:select.option value="latest">{{ __('pages.product.last_added') }}</flux:select.option>
             </flux:select>
           </div>
         </header>
 
-        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3" x-cloak x-show="view === 'grid'" x-transition>
+        <div
+          class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3"
+          x-cloak
+          x-show="view === 'grid'"
+          x-transition
+        >
           @forelse ($products as $product)
             <x-common.product-card :$product />
           @empty
-            <h2 class="text-primary-400 text-3xl font-extrabold">No hay productos</h2>
+            <h2 class="text-primary-400 text-3xl font-extrabold">{{ __('pages.product.no_products') }}</h2>
           @endforelse
         </div>
 
-        <div class="grid grid-cols-1 gap-6 divide-y divide-gray-200" x-cloak x-show="view === 'list'" x-transition>
+        <div
+          class="grid grid-cols-1 gap-6 divide-y divide-gray-200"
+          x-cloak
+          x-show="view === 'list'"
+          x-transition
+        >
           @forelse ($products as $product)
             <x-common.product-card :$product :largeLayout="true" />
           @empty
-            <h2 class="text-primary-400 text-3xl font-extrabold">No hay productos</h2>
+            <h2 class="text-primary-400 text-3xl font-extrabold">{{ __('pages.product.no_products') }}</h2>
           @endforelse
         </div>
 
@@ -110,7 +161,7 @@
   @if (isset($details['description']))
     <div class="bg-primary-50 py-10">
       <div class="container space-y-4">
-        <section class="special-content space-y-4 rounded-3xl bg-white p-4 md:p-10">
+        <section class="prose-sm special-content space-y-4 rounded-3xl bg-white p-4 md:p-10">
           {!! $details['description'] !!}
         </section>
       </div>

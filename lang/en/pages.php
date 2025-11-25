@@ -67,7 +67,24 @@ return [
         'notes' => 'Notes',
         'observation' => 'If you have any observations, please let us know.',
         'required' => 'Required',
-
         'no_products' => 'No Products',
+        'clear_filter' => 'Clear Filters',
+        'all' => 'All',
+        'grid_view' => 'Grid View',
+        'list_view' => 'List View',
+        'order_by' => 'Order by',
+        'default_qualification' => 'Default qualification',
+        'last_added' => 'Last added',
+        'qualification' => 'Qualification',
+        'keep_watching' => 'Keep watching',
+
+    ],
+    'faqs' => [
+        'title' => 'Frequently Asked Questions',
+    ],
+    'policies' => [
+        'privacy' => [
+            'title' => 'Privacy Policy',
+        ],
     ],
 ];

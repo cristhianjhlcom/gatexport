@@ -70,7 +70,10 @@
   @endproduction
 </head>
 
-<body class="min-h-screen bg-white text-gray-900 antialiased dark:bg-white dark:text-gray-900">
+<body @class([
+    'md:pt-16' => !request()->routeIs('home.index'),
+    'min-h-screen bg-white text-gray-900 antialiased dark:bg-white dark:text-gray-900',
+])>
   @production
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe
@@ -82,56 +85,17 @@
     <!-- End Google Tag Manager (noscript) -->
   @endproduction
 
-  <header class="relative h-16 bg-white">
-    <div class="container flex items-center justify-between">
-      <flux:sidebar.toggle
-        class="lg:hidden"
-        icon="bars-2"
-        inset="left"
-      />
+  <x-common.navigation />
+  <x-common.mobile-navigation />
 
-      <div class="flex items-center gap-4">
-        <a href="{{ route('home.index') }}">
-          <img
-            alt="{{ config('app.name') }}"
-            class="mr-4 aspect-square size-10"
-            src="{{ $companyLogos['small_logo'] }}"
-          />
-        </a>
+  <main @class([
+      'bg-white',
+      'pt-16 md:pt-0' => !request()->routeIs('home.index'),
+  ])>
+    {{ $slot }}
+  </main>
 
-        <x-common.navigation />
-      </div>
-
-      <div class="flex items-center gap-4">
-        <x-common.locale-switch />
-        <livewire:shared.search />
-      </div>
-    </div>
-  </header>
-
-  <flux:sidebar
-    class="border border-zinc-200 bg-zinc-50 lg:hidden rtl:border-l rtl:border-r-0 dark:border-zinc-700 dark:bg-zinc-900"
-    stashable
-    sticky
-  >
-    <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
-    <flux:brand href="{{ route('home.index') }}" name="Gate Export">
-      <x-slot name="logo">
-        <img
-          alt="Gate Export"
-          class="h-9 w-auto"
-          src="{{ $companyLogos['small_logo'] }}"
-        />
-      </x-slot>
-    </flux:brand>
-
-    <x-common.mobile-navigation />
-
-  </flux:sidebar>
-
-  {{ $slot }}
-
-  <x-footer />
+  <x-footer.footer />
 
   <flux:toast />
 

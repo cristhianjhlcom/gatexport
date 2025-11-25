@@ -7,6 +7,7 @@ return [
         'home' => 'Inicio',
         'categories' => 'Categorías',
         'about_us' => 'Sobre Nosotros',
+        'all' => 'Todos',
         'products' => 'Productos',
         'services' => 'Servicios',
         'contact_us' => 'Contacto',
