@@ -20,6 +20,7 @@ final class Subcategory extends Model
         'name',
         'slug',
         'image',
+        'position',
         'category_id',
         'background_color',
         'background_image',
@@ -94,7 +95,7 @@ final class Subcategory extends Model
         $locale = $locale ?? app()->getLocale();
 
         return Attribute::make(
-            get: fn () => $this->name[$locale],
+            get: fn() => $this->name[$locale],
         );
     }
 
@@ -103,7 +104,7 @@ final class Subcategory extends Model
         $locale = $locale ?? app()->getLocale();
 
         return Attribute::make(
-            get: fn () => $this->description[$locale],
+            get: fn() => $this->description[$locale],
         );
     }
 

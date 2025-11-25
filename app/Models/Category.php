@@ -19,6 +19,7 @@ final class Category extends Model
         'name',
         'slug',
         'image',
+        'position',
         'background_image',
         'background_color',
         'icon_white',

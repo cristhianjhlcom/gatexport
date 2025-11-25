@@ -23,7 +23,7 @@ final class Navigation extends Component
     public function __construct()
     {
         $this->items = Category::with('subcategories')
-            ->orderBy('name')
+            ->orderBy('position', 'asc')
             ->get()
             ->map(fn($category) => [
                 'name' => $category->localizedName,
