@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Admin\Articles;
 
 use App\Enums\RolesEnum;
@@ -9,9 +11,9 @@ use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-class CreateArticle extends Component
+final class CreateArticle extends Component
 {
-    use WithFileUploads, ImageUploads;
+    use ImageUploads, WithFileUploads;
 
     public array $locales = [
         'es' => 'Español',
@@ -36,7 +38,7 @@ class CreateArticle extends Component
         'en' => '',
     ];
 
-    public $thumbnail = NULL;
+    public $thumbnail = null;
 
     public array $seo = [
         'title' => [
@@ -47,7 +49,7 @@ class CreateArticle extends Component
             'es' => '',
             'en' => '',
         ],
-        'thumbnail' => NULL,
+        'thumbnail' => null,
     ];
 
     public bool $is_published = true;
@@ -69,14 +71,14 @@ class CreateArticle extends Component
             'summary' => $this->summary,
             'is_published' => $this->is_published,
             'thumbnail' => $this->upload([
-                'currentPath' => NULL,
+                'currentPath' => null,
                 'newFile' => $this->thumbnail,
                 'directory' => 'uploads/articles',
             ]),
             'seo_title' => $this->seo['title'],
             'seo_description' => $this->seo['description'],
             'seo_thumbnail' => $this->upload([
-                'currentPath' => NULL,
+                'currentPath' => null,
                 'newFile' => $this->seo['thumbnail'],
                 'directory' => 'uploads/articles',
             ]),

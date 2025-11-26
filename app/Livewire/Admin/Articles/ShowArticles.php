@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Admin\Articles;
 
 use App\Models\Article;
 use Livewire\Component;
 
-class ShowArticles extends Component
+final class ShowArticles extends Component
 {
     public function render()
     {

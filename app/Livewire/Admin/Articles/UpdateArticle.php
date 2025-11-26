@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Admin\Articles;
 
 use Livewire\Component;
 
-class UpdateArticle extends Component
+final class UpdateArticle extends Component
 {
     public function render()
     {

@@ -25,12 +25,12 @@ final class MobileNavigation extends Component
         $this->items = Category::with('subcategories')
             ->orderBy('position', 'asc')
             ->get()
-            ->map(fn($category) => [
+            ->map(fn ($category) => [
                 'name' => $category->name[app()->getLocale()],
                 'slug' => $category->slug,
                 'icon_primary' => Storage::disk('public')->url($category->icon_primary),
                 'url' => route('categories.show', $category->slug),
-                'subcategories' => $category->subcategories->map(fn($subcategory) => [
+                'subcategories' => $category->subcategories->map(fn ($subcategory) => [
                     'name' => $subcategory->name[app()->getLocale()],
                     'slug' => $subcategory->slug,
                     'url' => route('subcategories.index', [
