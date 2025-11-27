@@ -25,14 +25,14 @@ final class Navigation extends Component
         $this->items = Category::with('subcategories')
             ->orderBy('position', 'asc')
             ->get()
-            ->map(fn ($category) => [
+            ->map(fn($category) => [
                 'name' => $category->localizedName,
                 'slug' => $category->slug,
                 'secondary_icon' => isset($category->icon_white) ? Storage::disk('public')->url($category->icon_white) : null,
                 'url' => route('categories.show', $category->slug),
                 'primary_icon' => isset($category->icon_primary) ? Storage::disk('public')->url($category->icon_primary) : null,
                 'background_color' => $category->background_color,
-                'subcategories' => $category->subcategories->map(fn ($subcategory) => [
+                'subcategories' => $category->subcategories->map(fn($subcategory) => [
                     'name' => $subcategory->localizedName,
                     'slug' => $subcategory->slug,
                     'url' => route('subcategories.index', [

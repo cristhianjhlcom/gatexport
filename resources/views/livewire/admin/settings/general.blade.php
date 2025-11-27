@@ -83,7 +83,7 @@
                   Agregar categoría
                 </flux:button>
                 <span class="text-sm text-gray-500">
-                  {{ count($highlighted_categories[$locale]) }} Categoria(s) agregada(s)
+                  {{ count($highlighted_categories[$locale]) }} Categoría(s) agregada(s)
                 </span>
               </header>
 
@@ -209,45 +209,6 @@
 
       </flux:card>
       {{-- #End Company Logos --}}
-
-      {{-- Catalog Document --}}
-      <flux:card class="space-y-4">
-        <header class="space-y-2">
-          <flux:heading level="3" size="lg">
-            Upload Document
-          </flux:heading>
-          <flux:description size="xs">
-            Carga un documento PDF.
-          </flux:description>
-          <flux:separator />
-        </header>
-
-        <div class="space-y-4">
-          <flux:label>Document</flux:label>
-          <flux:input
-            size="sm"
-            type="file"
-            wire:model="new_catalog_document"
-          />
-          <div wire:loading wire:target="new_catalog_document">
-            <flux:icon.loading />
-          </div>
-          <flux:error name="new_catalog_document" />
-
-          @if (isset($settings['catalog_document']))
-            <div>
-              <a
-                class="text-blue-500"
-                download
-                href="{{ Storage::url($settings['catalog_document']) }}"
-              >
-                Download Current Document
-              </a>
-            </div>
-          @endif
-        </div>
-      </flux:card>
-      {{-- #End Catalog Document --}}
 
       {{-- Social Media Updates --}}
       <flux:card class="space-y-4">

@@ -44,7 +44,11 @@
         </nav>
       </div>
 
-      <div class="flex items-center gap-4 transition-all duration-300">
+      <div class="flex h-16 items-center gap-4 transition-all duration-300">
+        {{-- @include('partials.nav-link', [
+            'path' => 'catalogs.index',
+            'text' => __('layouts.navigation.catalogs'),
+        ]) --}}
         <x-common.locale-switch />
         <livewire:shared.search />
       </div>

@@ -10,6 +10,7 @@ return [
         'all' => 'All',
         'categories' => 'Categories',
         'subcategories' => 'Sub Categories',
+        'catalogs' => 'Catalogs',
         'services' => 'Services',
         'contact_us' => 'Contact Us',
         'search' => 'Search',

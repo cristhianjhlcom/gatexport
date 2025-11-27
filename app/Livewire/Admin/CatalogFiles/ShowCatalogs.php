@@ -13,6 +13,8 @@ class ShowCatalogs extends Component
 {
     use ImageUploads, WithFileUploads;
 
+    public ?CatalogFile $catalog = NULL;
+
     public array $locales = [
         'es' => 'Español',
         'en' => 'Inglés',
@@ -25,13 +27,13 @@ class ShowCatalogs extends Component
 
     #[Validate]
     public array $title = [
-        'es' => '',
-        'en' => '',
+        'es' => NULL,
+        'en' => NULL,
     ];
 
     public array $short_description = [
-        'es' => '',
-        'en' => '',
+        'es' => NULL,
+        'en' => NULL,
     ];
 
     public array $file = [
@@ -39,36 +41,63 @@ class ShowCatalogs extends Component
         'en' => NULL,
     ];
 
+    public function edit(CatalogFile $catalog): void
+    {
+        abort_if(! auth()->user()->hasRole(RolesEnum::SUPER_ADMIN->value), 403);
+
+        $this->title = $catalog->title;
+        $this->short_description = $catalog->short_description;
+        $this->savedFile = $catalog->filepath;
+        $this->catalog = $catalog;
+
+        $this->modal('create-catalog')->show();
+    }
+
     public function save(): void
     {
         abort_if(! auth()->user()->hasRole(RolesEnum::SUPER_ADMIN->value), 403);
 
         $this->validate();
 
-        foreach ($this->locales as $locale => $_) {
-            $uploaded = $this->upload([
-                'currentPath' => $this->savedFile[$locale],
-                'newFile' => $this->file[$locale],
+        $uploaded = [
+            'es' => $this->upload([
+                'currentPath' => $this->savedFile['es'],
+                'newFile' => $this->file['es'],
                 'directory' => 'uploads/catalogs',
-            ]);
+            ]),
+            'en' => $this->upload([
+                'currentPath' => $this->savedFile['en'],
+                'newFile' => $this->file['en'],
+                'directory' => 'uploads/catalogs',
+            ]),
+        ];
 
-            CatalogFile::create([
-                'title' => [
-                    $locale => $this->title[$locale],
-                ],
-                'short_description' => [
-                    $locale => $this->short_description[$locale],
-                ],
+        CatalogFile::updateOrCreate(
+            [
+                'id' => $this->catalog?->id,
+            ],
+            [
+                'title' => $this->title,
+                'short_description' => $this->short_description,
                 'filepath' => $uploaded,
-            ]);
-        }
+            ]
+        );
 
-        $this->reset(['title', 'short_description', 'file']);
+        $this->modal('create-catalog')->close();
+
+        $this->reset([
+            'title',
+            'short_description',
+            'file',
+            'catalog',
+            'savedFile',
+        ]);
     }
 
     public function render()
     {
         $files = CatalogFile::query()
+            ->latest()
             ->paginate(8);
 
         return view('livewire.admin.catalog-files.show-catalogs', compact('files'))
@@ -78,12 +107,24 @@ class ShowCatalogs extends Component
 
     protected function rules(): array
     {
-        return [
-            'title.*' => 'optional|string|max:90',
-            'short_description.*' => 'optional|string|max:300',
-            'file.es' => 'required|mimes:pdf|max:5120',
-            'file.en' => 'required|mimes:pdf|max:5120'
+        $rules = [
+            'title.*' => 'nullable|string|max:90',
+            'short_description.*' => 'nullable|string|max:300',
         ];
+
+        if ($this->savedFile['es']) {
+            $rules['file.es'] = 'nullable|file|mimes:pdf|max:5120';
+        } else {
+            $rules['file.es'] = 'required|file|mimes:pdf|max:5120';
+        }
+
+        if ($this->savedFile['en']) {
+            $rules['file.en'] = 'nullable|file|mimes:pdf|max:5120';
+        } else {
+            $rules['file.en'] = 'required|file|mimes:pdf|max:5120';
+        }
+
+        return $rules;
     }
 
     protected function validationAttributes(): array

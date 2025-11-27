@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 return [
     'home' => [
+        'title' => 'Home',
+        'go_to_home' => 'Go to home',
         'about' => [
             'title' => '¿Who We Are?',
             'mission' => 'Our Mission',
@@ -86,6 +88,9 @@ return [
     ],
     'faqs' => [
         'title' => 'Frequently Asked Questions',
+    ],
+    'catalogs' => [
+        'title' => 'Catalogs',
     ],
     'policies' => [
         'privacy' => [

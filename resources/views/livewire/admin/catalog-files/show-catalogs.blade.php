@@ -43,9 +43,9 @@
                   @endif
 
                   <flux:file-upload
-                    accept="application/pdf"
                     label="Archivo de catalogo ({{ $name }})"
                     size="sm"
+                    type="file"
                     wire:model="file.{{ $locale }}"
                   >
                     <flux:file-upload.dropzone
@@ -84,24 +84,25 @@
       <flux:table.column>Título</flux:table.column>
       <flux:table.column>Contenido</flux:table.column>
       <flux:table.column>Ruta</flux:table.column>
+      <flux:table.column>Fecha</flux:table.column>
     </flux:table.columns>
 
     <flux:table.rows>
       @forelse($files as $item)
         <flux:table.row :key="$item->id">
-          <flux:table.cell class="text-wrap">{{ $item->title['es'] }}</flux:table.cell>
+          <flux:table.cell class="text-wrap">{{ $item->title['es'] ?? '-' }}</flux:table.cell>
           <flux:table.cell class="truncate text-wrap">{!! str()->words($item->short_description['es'], 15) !!}</flux:table.cell>
-          <flux:table.cell class="truncate">{{ $item->filepath }}</flux:table.cell>
+          <flux:table.cell class="truncate">{{ $item->filepath['es'] }}</flux:table.cell>
           <flux:table.cell>
-            {{-- <livewire:admin.policies.is-published :$item /> --}}
+            {{ $item->created_at->format('d, M Y h:m:s') }}
           </flux:table.cell>
           <flux:table.cell>
             <flux:dropdown align="end" position="bottom">
               <flux:button icon="ellipsis-horizontal" variant="ghost"></flux:button>
               <flux:menu>
-                {{-- <flux:menu.item href="{{ route('admin.articles.update', $item) }}" icon:trailing="pencil">
+                <flux:menu.item icon:trailing="pencil" wire:click="edit({{ $item }})">
                   Editar
-                </flux:menu.item> --}}
+                </flux:menu.item>
                 <flux:menu.item
                   icon:trailing="trash"
                   variant="danger"

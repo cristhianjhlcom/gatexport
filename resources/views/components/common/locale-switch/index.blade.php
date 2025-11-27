@@ -33,12 +33,7 @@
   >
     <!-- Opción Español -->
     @foreach (config('localization.locales') as $locale)
-      <a
-        :class="{
-            'bg-blue-50 text-blue-600': '{{ app()->getLocale() }}' ===
-                $locale
-        }"
-        class="flex items-center gap-3 px-4 py-2 text-sm transition-colors duration-200 hover:bg-gray-50"
+      <a class="flex items-center gap-3 px-4 py-2 text-sm transition-colors duration-200 hover:bg-gray-50"
         href="{{ route('localization.update', $locale) }}"
       >
         <img

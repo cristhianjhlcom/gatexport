@@ -106,6 +106,11 @@
         </div>
       </div>
     @endforeach
+    {{-- <a
+      class="text-zinc-90 border-b border-zinc-200 p-4 font-semibold"
+      href="{{ route('catalogs.index') }}"
+      title="{{ __('pages.catalogs.title') }}"
+    >{{ __('pages.catalogs.title') }}</a> --}}
     <a
       class="text-zinc-90 border-b border-zinc-200 p-4 font-semibold"
       href="{{ route('faqs.index') }}"

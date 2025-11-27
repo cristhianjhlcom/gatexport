@@ -46,13 +46,6 @@
                   wire:model="banners.{{ $locale }}.{{ $index }}.title"
                 />
 
-                {{-- <flux:input
-                  badge="Requerido"
-                  label="URL"
-                  placeholder="/catetories"
-                  wire:model="banners.{{ $locale }}.{{ $index }}.link_url"
-                /> --}}
-
                 <flux:select
                   badge="Requerido"
                   placeholder="Escoge una URL..."

@@ -11,6 +11,7 @@ return [
         'all' => 'Todos',
         'products' => 'Productos',
         'services' => 'Servicios',
+        'catalogs' => 'Catálogos',
         'contact_us' => 'Contacto',
         'search' => 'Buscar',
         'articles' => 'Blog',

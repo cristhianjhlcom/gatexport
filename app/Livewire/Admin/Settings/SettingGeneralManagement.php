@@ -26,9 +26,6 @@ final class SettingGeneralManagement extends Component
     public $new_small_logo;
 
     #[Validate]
-    public $new_catalog_document;
-
-    #[Validate]
     public $new_white_logo;
 
     #[Validate]
@@ -63,10 +60,8 @@ final class SettingGeneralManagement extends Component
         'small_logo' => '',
         'white_logo' => '',
         'special_logo' => '',
-        'catalog_document' => '',
     ];
 
-    // NOTE: Apartado para guardar categorias resaltantes en el home
     #[Validate]
     public $highlighted_categories = [
         'es' => [],
@@ -97,16 +92,8 @@ final class SettingGeneralManagement extends Component
         'general_info.contact_information.whatsapp_link' => 'required|url|max:255',
         'general_info.contact_information.email' => 'required|string|email|max:255',
 
-        'new_catalog_document' => [
-            'nullable',
-            'file',
-            'mimes:pdf',
-            'max:2048', // 1MB max
-        ],
-
         'new_large_logo' => [
             'nullable',
-            // 'image',
             'mimes:png,jpg,jpeg,svg',
             'max:1024', // 1MB max
             'dimensions:min_width=16,min_height=16,max_width=256,max_height=256',
@@ -114,7 +101,6 @@ final class SettingGeneralManagement extends Component
 
         'new_small_logo' => [
             'nullable',
-            // 'image',
             'mimes:png,jpg,jpeg,svg',
             'max:1024', // 1MB max
             'dimensions:min_width=32,min_height=32,max_width=200,max_height=200',
@@ -122,7 +108,6 @@ final class SettingGeneralManagement extends Component
 
         'new_white_logo' => [
             'nullable',
-            // 'image',
             'mimes:png,jpg,jpeg,svg',
             'max:1024', // 1MB max
             'dimensions:min_width=32,min_height=32,max_width=200,max_height=200',
@@ -130,45 +115,20 @@ final class SettingGeneralManagement extends Component
 
         'new_special_logo' => [
             'nullable',
-            // 'image',
             'mimes:png,jpg,jpeg,svg',
             'max:1024', // 1MB max
             'dimensions:min_width=32,min_height=32,max_width=200,max_height=200',
         ],
 
-        /*
-        'new_favicon' => [
-            'nullable',
-            'image',
-            'mimes:png,jpg,jpeg,svg',
-            'max:2048', // 2MB max
-            'dimensions:min_width=200,min_height=50,max_width=800,max_height=200',
-        ],
-        */
-
         'highlighted_categories.es.*.title' => 'required|string|max:255',
         'highlighted_categories.es.*.url' => 'required|url|max:255',
-        // 'highlighted_categories.es.*.image' => 'nullable|image|mimes:png,jpg,jpeg,svg,webp|max:1024|dimensions:min_width=100,min_height=100,max_width=500,min_height=500',
-        // 'highlighted_categories.es.*.image' => 'nullable|image|mimes:png,jpg,jpeg,svg,webp',
-
         'highlighted_categories.en.*.title' => 'required|string|max:255',
         'highlighted_categories.en.*.url' => 'required|url|max:255',
-        // 'highlighted_categories.en.*.image' => 'nullable|image|mimes:png,jpg,jpeg,svg,webp|max:1024|dimensions:min_width=100,min_height=100,max_width=500,min_height=500',
-        // 'highlighted_categories.en.*.image' => 'nullable|image|mimes:png,jpg,jpeg,svg,webp',
-
-        // 'tmp_highlighted_category_images.es.*' => 'nullable|mimes:png,jpg,jpeg,svg,webp|max:1024|dimensions:min_width=100,min_height=100,max_width=500,min_height=500',
         'tmp_highlighted_category_images.es.*' => 'nullable|mimes:png,jpg,jpeg,svg,webp',
-        // 'tmp_highlighted_category_images.en.*' => 'nullable|mimes:png,jpg,jpeg,svg,webp|max:1024|dimensions:min_width=100,min_height=100,max_width=500,min_height=500',
         'tmp_highlighted_category_images.en.*' => 'nullable|mimes:png,jpg,jpeg,svg,webp',
     ];
 
     protected $messages = [
-        /*
-        'new_favicon.dimensions' => 'El favicon debe ser entre 16x16px y 256x256px. Se recomienda 32x32px o 64x64px.',
-        'new_favicon.max' => 'El favicon no debe pesar más de 512KB.',
-        'new_favicon.mimes' => 'El favicon debe ser en formato ICO o PNG.',
-        */
-
         'new_small_logo.dimensions' => 'El logo pequeño debe ser entre 32x32px y 200x200px. Se recomienda 64x64px.',
         'new_small_logo.max' => 'El logo pequeño no debe pesar más de 1MB.',
         'new_small_logo.mimes' => 'El logo debe ser en formato PNG, JPG o SVG.',
@@ -199,7 +159,6 @@ final class SettingGeneralManagement extends Component
             'new_small_logo' => $this->new_small_logo,
             'new_white_logo' => $this->new_white_logo,
             'new_special_logo' => $this->new_special_logo,
-            'new_catalog_document' => $this->new_catalog_document,
             'highlighted_categories' => $this->highlighted_categories,
             'tmp_highlighted_category_images' => $this->tmp_highlighted_category_images,
         ]);
@@ -240,11 +199,10 @@ final class SettingGeneralManagement extends Component
 
     public function render()
     {
-        return view('livewire.admin.settings.general')
-            ->with([
-                'settings' => Setting::get('general_info'),
-                'urls' => (new GetStoreUrls())->execute(),
-            ])
+        $settings = Setting::get('general_info');
+        $urls = (new GetStoreUrls())->execute();
+
+        return view('livewire.admin.settings.general', compact('settings', 'urls'))
             ->title('General Information | Settings | Management');
     }
 }

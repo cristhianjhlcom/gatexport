@@ -30,7 +30,7 @@
       <x-slot name="logo">
         <img
           alt="Gate Export SAC"
-          class="h-9 w-auto"
+          class="size-10 w-auto"
           src="{{ $companyLogos['small_logo'] }}"
         />
       </x-slot>
