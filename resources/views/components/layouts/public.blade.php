@@ -6,7 +6,7 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="light" name="color-scheme">
 
-  <title>{{ $title ?? config('app.name') }} | {{ config('app.name') }}</title>
+  {{ $seo ?? null }}
 
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link

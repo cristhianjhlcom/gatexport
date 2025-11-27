@@ -40,6 +40,11 @@ return [
         'title' => 'Categorías',
         'view_all' => 'Ver Todos',
     ],
+    'articles' => [
+        'title' => 'Blog',
+        'read_more' => 'Leer Más',
+        'no_articles' => 'No Hay Artículos',
+    ],
     'contact' => [
         'name' => 'Nombre Completo',
         'email' => 'Correo electrónico',

@@ -1,4 +1,8 @@
-<x-layouts.public :title="$title ?? 'Preguntas Frecuentes'">
+<x-layouts.public>
+  <x-slot:seo>
+    <x-common.seo.tags :title="__('pages.faqs.title')" />
+  </x-slot>
+
   <div class="bg-primary-50">
     <div class="container space-y-10 py-10">
       <header class="flex flex-col space-y-4">

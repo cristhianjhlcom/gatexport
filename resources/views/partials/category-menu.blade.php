@@ -1,11 +1,12 @@
   @php
-    $isActive = request()->routeIs('products.index');
+    $isActive = request()->routeIs('products.*');
     $isHomePage = request()->routeIs('home.index');
   @endphp
 
   <div @class([
       'border-b-4 border-white text-white font-bold' => $isHomePage && $isActive,
       'border-b-4 border-primary-400' => $isActive,
+      'border-b-4 border-transparent' => !$isActive,
       'text-white font-semibold' => $isHomePage,
       'text-zinc-900 font-semibold' => !$isHomePage,
       'box-border inline-flex h-full items-center gap-2 font-semibold px-3 text-md uppercase transition',

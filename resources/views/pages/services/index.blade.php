@@ -1,4 +1,8 @@
-<x-layouts.public :title="$title ?? 'Servicios de la Compañia'">
+<x-layouts.public>
+  <x-slot:seo>
+    <x-common.seo.tags :title="__('pages.services.title')" />
+  </x-slot>
+
   <main class="bg-primary-50">
     @include('pages.services.hero')
     @include('pages.services.cycles')

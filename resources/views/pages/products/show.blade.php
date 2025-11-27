@@ -1,4 +1,14 @@
-<x-layouts.public :title="empty($product->localizedSeoTitle) ? $product->localizedName : $product->localizedSeoTitle">
+<x-layouts.public>
+  <x-slot:seo>
+    <x-common.seo.tags
+      :description="empty($product->localizedSeoDescription)
+          ? $product->localizedDescription
+          : $product->localizedSeoDescription"
+      :image="Storage::disk('public')->url($product->firstImage)"
+      :title="empty($product->localizedSeoTitle) ? $product->localizedName : $product->localizedSeoTitle"
+    />
+  </x-slot>
+
   <main class="space-y-10 pb-10">
     <section class="bg-primary-400 relative bg-cover bg-bottom py-10 text-white/95"
       style="background-image: url({{ $product->firstImage }});"

@@ -1,4 +1,8 @@
-<x-layouts.public :title="$title ?? 'Gate Export SAC'">
+<x-layouts.public>
+  <x-slot:seo>
+    <x-common.seo.tags :title="$title ?? 'Gate Export SAC'" />
+  </x-slot>
+
   <main class="bg-primary-50 space-y-10">
     <x-homepage.hero :$promotional_banners />
     <x-homepage.about :$about :$general_information />

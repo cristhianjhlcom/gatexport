@@ -1,4 +1,7 @@
 <x-layouts.public :title="$title">
+  <x-slot:seo>
+    <x-common.seo.tags :title="__('pages.about.title')" />
+  </x-slot>
   <main>
     @include('pages.about-us.hero')
     @include('pages.about-us.commitment')

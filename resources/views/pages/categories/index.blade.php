@@ -1,4 +1,8 @@
-<x-layouts.public :title="__('layouts.navigation.categories')">
+<x-layouts.public>
+  <x-slot:seo>
+    <x-common.seo.tags :title="__('layouts.navigation.categories')" />
+  </x-slot>
+
   <main class="container space-y-4 py-4">
 
     {{-- BREADCRUMBS --}}

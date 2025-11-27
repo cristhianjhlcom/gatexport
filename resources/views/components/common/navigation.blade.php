@@ -36,6 +36,11 @@
               'path' => 'services.index',
               'text' => __('layouts.navigation.services'),
           ])
+
+          @include('partials.nav-link', [
+              'path' => 'articles.index',
+              'text' => __('layouts.navigation.articles'),
+          ])
         </nav>
       </div>
 

@@ -3,6 +3,8 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\Public\AboutUsIndexController;
+use App\Http\Controllers\Public\ArticleIndexController;
+use App\Http\Controllers\Public\ArticleShowController;
 use App\Http\Controllers\Public\CategoryIndexController;
 use App\Http\Controllers\Public\CategoryShowController;
 use App\Http\Controllers\Public\FaqIndexController;
@@ -22,6 +24,8 @@ Route::get('/localization/{locale}', LocalizationUpdateController::class)->name(
 Route::get('/about-us', AboutUsIndexController::class)->name('about-us.index');
 Route::get('/services', ServicesIndexController::class)->name('services.index');
 Route::get('/products', ProductsPageView::class)->name('products.index');
+Route::get('/blog', ArticleIndexController::class)->name('articles.index');
+Route::get('/blog/{article}', ArticleShowController::class)->name('articles.show');
 Route::get('/categories', CategoryIndexController::class)->name('categories.index');
 Route::get('/{category:slug}', CategoryShowController::class)->name('categories.show');
 Route::get('/{category:slug}/{subcategory:slug}', SubcategoryIndexController::class)->scopeBindings()->name('subcategories.index');

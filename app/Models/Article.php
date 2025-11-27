@@ -77,4 +77,65 @@ final class Article extends Model
             },
         );
     }
+
+    public function scopePublished($query)
+    {
+        return $query->where('is_published', true);
+    }
+
+    public function localizedTitle(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->title[app()->getLocale()] ?? $this->title['es'] ?? null,
+        );
+    }
+
+    public function localizedSeoTitle(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->seo_title[app()->getLocale()] ?? $this->seo_title['es'] ?? null,
+        );
+    }
+
+    public function localizedSummary(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->summary[app()->getLocale()] ?? $this->summary['es'] ?? null,
+        );
+    }
+
+    public function localizedContent(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->content[app()->getLocale()] ?? $this->content['es'] ?? null,
+        );
+    }
+
+    public function localizedSeoDescription(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->seo_description[app()->getLocale()] ?? $this->seo_description['es'] ?? null,
+        );
+    }
+
+    public function dateForHumans(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->created_at->locale(app()->getLocale())->translatedFormat('d F, Y'),
+        );
+    }
+
+    public function showUrl(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => route('articles.show', $this),
+        );
+    }
+
+    public function indexUrl(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => route('articles.index'),
+        );
+    }
 }

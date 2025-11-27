@@ -37,6 +37,13 @@ final class ViewServiceProvider extends ServiceProvider
             ]);
         });
 
+        View::composer('components.common.seo.tags', function ($view) {
+            $view->with([
+                'company_logos' => (new GetCompanyLogos)->execute(),
+                'general_information' => (new GetGeneralInformation)->execute(),
+            ]);
+        });
+
         View::composer('components.common.whatsapp-link.index', function ($view) {
             $generalInformation = (new GetGeneralInformation)->execute();
             $view->with([

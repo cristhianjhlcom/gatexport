@@ -49,6 +49,11 @@ return [
         'contact_us' => 'Contact Us',
         'required' => 'Required',
     ],
+    'articles' => [
+        'title' => 'Blog',
+        'read_more' => 'Read More',
+        'no_articles' => 'No Articles',
+    ],
     'product' => [
         'title' => 'Product',
         'description' => 'Description',

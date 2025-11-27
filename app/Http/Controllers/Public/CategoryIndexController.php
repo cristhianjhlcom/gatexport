@@ -12,10 +12,6 @@ final class CategoryIndexController extends Controller
 {
     public function __invoke()
     {
-        // $categories = Category::with('subcategories')
-        //     ->withCount('subcategories')
-        //     ->latest()
-        //     ->get();
         $categories = Category::whereHas('subcategories.products', function ($query) {
             $query->where('status', ProductStatusEnum::PUBLISHED->value);
         })
