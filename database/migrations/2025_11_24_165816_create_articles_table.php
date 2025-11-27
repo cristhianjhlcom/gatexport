@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
             $table->json('title');
+            $table->string('slug')->unique();
             $table->json('content');
             $table->json('summary')->nullable();
             $table->boolean('is_published')->default(false);

@@ -67,6 +67,7 @@ final class CreateArticle extends Component
 
         Article::create([
             'title' => $this->title,
+            'slug' => $this->slug,
             'content' => $this->content,
             'summary' => $this->summary,
             'is_published' => $this->is_published,
@@ -100,11 +101,11 @@ final class CreateArticle extends Component
     {
         return [
             'title.*' => 'required|string|max:90',
-            'slug' => 'required|unique:policies,id',
-            'summary.*' => 'required|string|max:600',
-            'content.*' => 'required|string|max:2000',
-            'seo.title.*' => 'required|string|max:90',
-            'seo.description.*' => 'required|string|max:375',
+            'slug' => 'required|unique:articles,id',
+            'summary.*' => 'required|string|max:500',
+            'content.*' => 'required|string|max:6000',
+            'seo.title.*' => 'required|string|max:60',
+            'seo.description.*' => 'required|string|max:160',
             'is_published' => 'boolean',
         ];
     }
