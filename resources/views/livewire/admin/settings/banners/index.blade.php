@@ -21,7 +21,12 @@
 
     @foreach ($locales as $locale => $name)
       <flux:tab.panel class="space-y-4" name="{{ $locale }}">
-        <flux:button icon:trailing="plus" size="sm" variant="outline" wire:click="add('{{ $locale }}')">
+        <flux:button
+          icon:trailing="plus"
+          size="sm"
+          variant="outline"
+          wire:click="add('{{ $locale }}')"
+        >
           Agregar banner
         </flux:button>
 
@@ -33,14 +38,44 @@
           <section class="grid grid-cols-1 gap-4 md:grid-cols-2">
             @foreach ($banners[$locale] as $index => $banner)
               <flux:card class="space-y-4">
-                <flux:textarea badge="Requerido" description="Sera utilizado como el alt de la imagen" label="Título"
-                  placeholder="Ej: Sahumerios, Inciensos y Velas" wire:model="banners.{{ $locale }}.{{ $index }}.title" />
+                <flux:textarea
+                  badge="Requerido"
+                  description="Sera utilizado como el alt de la imagen"
+                  label="Título"
+                  placeholder="Ej: Sahumerios, Inciensos y Velas"
+                  wire:model="banners.{{ $locale }}.{{ $index }}.title"
+                />
 
-                <flux:input badge="Requerido" label="URL" placeholder="/catetories"
-                  wire:model="banners.{{ $locale }}.{{ $index }}.link_url" />
+                {{-- <flux:input
+                  badge="Requerido"
+                  label="URL"
+                  placeholder="/catetories"
+                  wire:model="banners.{{ $locale }}.{{ $index }}.link_url"
+                /> --}}
 
-                <flux:input badge="Requerido" label="Position del banner" placeholder="Ej: 1" type="number"
-                  wire:model="banners.{{ $locale }}.{{ $index }}.position" />
+                <flux:select
+                  badge="Requerido"
+                  placeholder="Escoge una URL..."
+                  searchable
+                  variant="listbox"
+                  wire:model="banners.{{ $locale }}.{{ $index }}.link_url"
+                >
+                  @forelse ($urls as $url)
+                    <flux:select.option value="{{ $url['path'] }}" wire:key="{{ $url['id'] }}">
+                      {{ $url['label'] }} ({{ $url['id'] }})
+                    </flux:select.option>
+                  @empty
+                    <flux:select.option disabled>No URLs Disponibles</flux:select.option>
+                  @endforelse
+                </flux:select>
+
+                <flux:input
+                  badge="Requerido"
+                  label="Position del banner"
+                  placeholder="Ej: 1"
+                  type="number"
+                  wire:model="banners.{{ $locale }}.{{ $index }}.position"
+                />
 
                 <div class="space-y-4">
                   <div class="space-y-2 overflow-hidden">
@@ -50,14 +85,25 @@
                       $tmpImageDesktop = $tmp_images_desktop[$locale][$index] ??= null;
                     @endphp
 
-                    <flux:file-upload label="Imagen Desktop" size="sm"
-                      wire:model.live="tmp_images_desktop.{{ $locale }}.{{ $index }}">
-                      <flux:file-upload.dropzone :heading="$imageDesktop" inline text="1200x600 - JPG, PNG, Webp hasta 2MB" with-progress />
+                    <flux:file-upload
+                      label="Imagen Desktop"
+                      size="sm"
+                      wire:model.live="tmp_images_desktop.{{ $locale }}.{{ $index }}"
+                    >
+                      <flux:file-upload.dropzone
+                        :heading="$imageDesktop"
+                        inline
+                        text="1200x600 - JPG, PNG, Webp hasta 2MB"
+                        with-progress
+                      />
                     </flux:file-upload>
 
                     @if ($tmpImageDesktop)
-                      <flux:file-item :heading="$tmpImageDesktop->getClientOriginalName()" :image="$tmpImageDesktop->temporaryUrl()"
-                        :size="$tmpImageDesktop->getSize()" />
+                      <flux:file-item
+                        :heading="$tmpImageDesktop->getClientOriginalName()"
+                        :image="$tmpImageDesktop->temporaryUrl()"
+                        :size="$tmpImageDesktop->getSize()"
+                      />
                     @endif
                   </div>
 
@@ -68,21 +114,37 @@
                       $tmpImageMobile = $tmp_images_mobile[$locale][$index] ??= null;
                     @endphp
 
-                    <flux:file-upload label="Imagen Mobile" size="sm"
-                      wire:model.live="tmp_images_mobile.{{ $locale }}.{{ $index }}">
-                      <flux:file-upload.dropzone :heading="$imageMobile" inline text="500x500 - JPG, PNG, Webp hasta 2MB" with-progress />
+                    <flux:file-upload
+                      label="Imagen Mobile"
+                      size="sm"
+                      wire:model.live="tmp_images_mobile.{{ $locale }}.{{ $index }}"
+                    >
+                      <flux:file-upload.dropzone
+                        :heading="$imageMobile"
+                        inline
+                        text="500x500 - JPG, PNG, Webp hasta 2MB"
+                        with-progress
+                      />
                     </flux:file-upload>
 
                     @if ($tmpImageMobile)
-                      <flux:file-item :heading="$tmpImageMobile->getClientOriginalName()" :image="$tmpImageMobile->temporaryUrl()"
-                        :size="$tmpImageMobile->getSize()" />
+                      <flux:file-item
+                        :heading="$tmpImageMobile->getClientOriginalName()"
+                        :image="$tmpImageMobile->temporaryUrl()"
+                        :size="$tmpImageMobile->getSize()"
+                      />
                     @endif
                   </div>
                 </div>
 
                 <div class="flex justify-end">
-                  <flux:button icon:trailing="trash" size="sm" variant="ghost" wire:click="remove('{{ $locale }}', {{ $index }})"
-                    wire:confirm.prevent="Estas seguro? Esta operación no se puede revertir.">
+                  <flux:button
+                    icon:trailing="trash"
+                    size="sm"
+                    variant="ghost"
+                    wire:click="remove('{{ $locale }}', {{ $index }})"
+                    wire:confirm.prevent="Estas seguro? Esta operación no se puede revertir."
+                  >
                     Eliminar
                   </flux:button>
                 </div>

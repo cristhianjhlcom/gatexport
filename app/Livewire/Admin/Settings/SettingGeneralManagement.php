@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Livewire\Admin\Settings;
 
+use App\Actions\Setting\GetStoreUrls;
 use App\Models\Setting;
 use App\Services\SettingManagementServices;
 use Flux\Flux;
@@ -242,6 +243,7 @@ final class SettingGeneralManagement extends Component
         return view('livewire.admin.settings.general')
             ->with([
                 'settings' => Setting::get('general_info'),
+                'urls' => (new GetStoreUrls())->execute(),
             ])
             ->title('General Information | Settings | Management');
     }

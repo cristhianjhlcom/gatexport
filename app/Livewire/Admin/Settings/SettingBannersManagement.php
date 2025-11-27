@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Livewire\Admin\Settings;
 
+use App\Actions\Setting\GetStoreUrls;
 use App\Services\Setting\BannerManagementService;
 use Flux\Flux;
 use Livewire\Attributes\Layout;
@@ -119,7 +120,9 @@ final class SettingBannersManagement extends Component
 
     public function render()
     {
-        return view('livewire.admin.settings.banners.index')
+        $urls = (new GetStoreUrls())->execute();
+
+        return view('livewire.admin.settings.banners.index', compact('urls'))
             ->title('Banners | Settings | Management');
     }
 
@@ -131,7 +134,7 @@ final class SettingBannersManagement extends Component
             'banners.*.*.image_desktop' => 'required',
             'banners.*.*.image_mobile' => 'required',
             'banners.*.*.link_text' => 'nullable|string|max:50',
-            'banners.*.*.link_url' => 'required|string|max:255',
+            'banners.*.*.link_url' => 'required|url|max:255',
             'tmp_images_desktop.*.*' => [
                 'nullable',
                 'image',

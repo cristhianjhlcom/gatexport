@@ -98,6 +98,8 @@ final class SettingManagementServices
                 $general_info['social_media'] = $settings['social_media'] ?? $general_info['social_media'];
                 $general_info['contact_information'] = $settings['contact_information'] ?? $general_info['contact_information'];
                 $general_info['catalog_document'] = $settings['catalog_document'] ?? '';
+                $general_info['white_logo'] = $settings['white_logo'] ?? '';
+                $general_info['special_logo'] = $settings['special_logo'] ?? '';
             }
         }
 

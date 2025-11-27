@@ -23,14 +23,26 @@
           @foreach ($locales as $locale => $name)
             <flux:tab.panel class="space-y-4" name="{{ $locale }}">
               <div class="space-y-4">
-                <flux:input badge="Required" label="Nombre de la Empresa" placeholder="Gate Export"
-                  wire:model="general_info.{{ $locale }}.company_name" />
+                <flux:input
+                  badge="Required"
+                  label="Nombre de la Empresa"
+                  placeholder="Gate Export"
+                  wire:model="general_info.{{ $locale }}.company_name"
+                />
 
-                <flux:textarea badge="Required" label="Descripción Corta" placeholder="Lorem Ipsum..."
-                  wire:model="general_info.{{ $locale }}.company_short_description" />
+                <flux:textarea
+                  badge="Required"
+                  label="Descripción Corta"
+                  placeholder="Lorem Ipsum..."
+                  wire:model="general_info.{{ $locale }}.company_short_description"
+                />
 
-                <flux:editor badge="Required" label="Descripción Completa" placeholder="Lorem Ipsum..."
-                  wire:model="general_info.{{ $locale }}.company_description" />
+                <flux:editor
+                  badge="Required"
+                  label="Descripción Completa"
+                  placeholder="Lorem Ipsum..."
+                  wire:model="general_info.{{ $locale }}.company_description"
+                />
               </div>
             </flux:tab.panel>
           @endforeach
@@ -61,7 +73,13 @@
           @foreach ($locales as $locale => $name)
             <flux:tab.panel class="space-y-4" name="{{ $locale }}">
               <header>
-                <flux:button icon:trailing="plus" size="sm" type="button" variant="outline" wire:click="addCategory('{{ $locale }}')">
+                <flux:button
+                  icon:trailing="plus"
+                  size="sm"
+                  type="button"
+                  variant="outline"
+                  wire:click="addCategory('{{ $locale }}')"
+                >
                   Agregar categoría
                 </flux:button>
                 <span class="text-sm text-gray-500">
@@ -75,16 +93,33 @@
                     <div class="flex flex-col space-y-4">
                       <h5 class="text-sm font-bold md:text-xl">Categoría {{ $index + 1 }}</h5>
                       <div class="space-y-4">
-                        <flux:textarea label="Title" placeholder="Category Title"
-                          wire:model="highlighted_categories.{{ $locale }}.{{ $index }}.title" />
+                        <flux:textarea
+                          label="Title"
+                          placeholder="Category Title"
+                          wire:model="highlighted_categories.{{ $locale }}.{{ $index }}.title"
+                        />
 
-                        <flux:input label="URL" placeholder="https://example.com"
-                          wire:model="highlighted_categories.{{ $locale }}.{{ $index }}.url" />
+                        <flux:select
+                          badge="Requerido"
+                          placeholder="Escoge una URL..."
+                          searchable
+                          variant="listbox"
+                          wire:model="highlighted_categories.{{ $locale }}.{{ $index }}.url"
+                        >
+                          @forelse ($urls as $url)
+                            <flux:select.option value="{{ $url['path'] }}" wire:key="{{ $url['id'] }}">
+                              {{ $url['label'] }} ({{ $url['id'] }})
+                            </flux:select.option>
+                          @empty
+                            <flux:select.option disabled>No URLs Disponibles</flux:select.option>
+                          @endforelse
+                        </flux:select>
                       </div>
 
                       <div>
                         <flux:file-upload label="Imagen de la categoría"
-                          wire:model="tmp_highlighted_category_images.{{ $locale }}.{{ $index }}">
+                          wire:model="tmp_highlighted_category_images.{{ $locale }}.{{ $index }}"
+                        >
                           <flux:file-upload.dropzone inline text="JPG, PNG, GIF o SVG up to 1MB" />
                         </flux:file-upload>
                         <div class="mt-3 flex flex-col gap-2">
@@ -95,8 +130,12 @@
                       </div>
 
                       <div class="flex justify-end">
-                        <flux:button icon:trailing="x-mark" type="button" variant="danger"
-                          wire:click="removeCategory('{{ $locale }}', {{ $index }})">
+                        <flux:button
+                          icon:trailing="x-mark"
+                          type="button"
+                          variant="danger"
+                          wire:click="removeCategory('{{ $locale }}', {{ $index }})"
+                        >
                           Eliminar
                         </flux:button>
                       </div>
@@ -185,7 +224,11 @@
 
         <div class="space-y-4">
           <flux:label>Document</flux:label>
-          <flux:input size="sm" type="file" wire:model="new_catalog_document" />
+          <flux:input
+            size="sm"
+            type="file"
+            wire:model="new_catalog_document"
+          />
           <div wire:loading wire:target="new_catalog_document">
             <flux:icon.loading />
           </div>
@@ -193,7 +236,11 @@
 
           @if (isset($settings['catalog_document']))
             <div>
-              <a class="text-blue-500" download href="{{ Storage::url($settings['catalog_document']) }}">
+              <a
+                class="text-blue-500"
+                download
+                href="{{ Storage::url($settings['catalog_document']) }}"
+              >
                 Download Current Document
               </a>
             </div>
@@ -213,14 +260,29 @@
           </flux:description>
           <flux:separator />
         </header>
-        <flux:input description="URL de la cuenta de Facebook" label="Facebook" placeholder="https://www.facebook.com/gateexport" size="sm"
-          wire:model="general_info.social_media.facebook" />
+        <flux:input
+          description="URL de la cuenta de Facebook"
+          label="Facebook"
+          placeholder="https://www.facebook.com/gateexport"
+          size="sm"
+          wire:model="general_info.social_media.facebook"
+        />
 
-        <flux:input description="URL de la cuenta de YouTube" label="YouTube" placeholder="https://www.youtube.com/channel/" size="sm"
-          wire:model="general_info.social_media.youtube" />
+        <flux:input
+          description="URL de la cuenta de YouTube"
+          label="YouTube"
+          placeholder="https://www.youtube.com/channel/"
+          size="sm"
+          wire:model="general_info.social_media.youtube"
+        />
 
-        <flux:input description="URL de la cuenta de LinkedIn" label="LinkedIn" placeholder="https://www.linkedin.com/company/gateexport"
-          size="sm" wire:model="general_info.social_media.linkedin" />
+        <flux:input
+          description="URL de la cuenta de LinkedIn"
+          label="LinkedIn"
+          placeholder="https://www.linkedin.com/company/gateexport"
+          size="sm"
+          wire:model="general_info.social_media.linkedin"
+        />
       </flux:card>
       {{-- #End Social Media Updates --}}
 
@@ -235,20 +297,42 @@
           </flux:description>
           <flux:separator />
         </header>
-        <flux:input label="Dirección" placeholder="Calle Principal #123" size="sm" wire:model="general_info.contact_information.address" />
+        <flux:input
+          label="Dirección"
+          placeholder="Calle Principal #123"
+          size="sm"
+          wire:model="general_info.contact_information.address"
+        />
 
         <div class="grid grid-cols-2 gap-4">
-          <flux:input label="Teléfono" placeholder="+52 (123) 456-7890" size="sm" wire:model="general_info.contact_information.phone" />
+          <flux:input
+            label="Teléfono"
+            placeholder="+52 (123) 456-7890"
+            size="sm"
+            wire:model="general_info.contact_information.phone"
+          />
 
-          <flux:input label="Teléfono secundario" placeholder="+52 (123) 456-7890" size="sm"
-            wire:model="general_info.contact_information.second_phone" />
+          <flux:input
+            label="Teléfono secundario"
+            placeholder="+52 (123) 456-7890"
+            size="sm"
+            wire:model="general_info.contact_information.second_phone"
+          />
         </div>
 
-        <flux:input label="Enlace WhatsApp" placeholder="https://wa.me/123456789" size="sm"
-          wire:model="general_info.contact_information.whatsapp_link" />
+        <flux:input
+          label="Enlace WhatsApp"
+          placeholder="https://wa.me/123456789"
+          size="sm"
+          wire:model="general_info.contact_information.whatsapp_link"
+        />
 
-        <flux:input label="Correo electrónico corporativo" placeholder="contacto@empresa.com" size="sm"
-          wire:model="general_info.contact_information.email" />
+        <flux:input
+          label="Correo electrónico corporativo"
+          placeholder="contacto@empresa.com"
+          size="sm"
+          wire:model="general_info.contact_information.email"
+        />
       </flux:card>
       {{-- #End Contact Information --}}
     </div>

@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Livewire\Admin\Articles\CreateArticle;
 use App\Livewire\Admin\Articles\ShowArticles;
 use App\Livewire\Admin\Articles\UpdateArticle;
+use App\Livewire\Admin\CatalogFiles\ShowCatalogs;
 use App\Livewire\Admin\Categories\CategoryCreateManagement;
 use App\Livewire\Admin\Categories\CategoryEditManagement;
 use App\Livewire\Admin\Categories\CategoryIndexManagement;
@@ -71,6 +72,9 @@ Route::group(['middleware' => 'role:super_admin|manager'], function () {
     Route::get('articles', ShowArticles::class)->name('articles.index');
     Route::get('articles/create', CreateArticle::class)->name('articles.store');
     Route::get('articles/{article}/update', UpdateArticle::class)->name('articles.update');
+
+    // NOTE: Catalog Files Management.
+    Route::get('catalogs', ShowCatalogs::class)->name('catalogs.index');
 
     // NOTE: Settings Management.
     Route::get('settings/general', SettingGeneralManagement::class)->name('settings.general');

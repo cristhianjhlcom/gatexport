@@ -85,6 +85,9 @@
       <flux:navlist.item href="{{ route('admin.policies.index') }}" icon="trophy">
         Políticas
       </flux:navlist.item>
+      <flux:navlist.item href="{{ route('admin.catalogs.index') }}" icon="folder">
+        Catálogos
+      </flux:navlist.item>
     </flux:navlist>
     <flux:spacer />
 

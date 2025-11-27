@@ -95,7 +95,7 @@ final class Subcategory extends Model
         $locale = $locale ?? app()->getLocale();
 
         return Attribute::make(
-            get: fn () => $this->name[$locale],
+            get: fn() => $this->name[$locale],
         );
     }
 
@@ -104,7 +104,7 @@ final class Subcategory extends Model
         $locale = $locale ?? app()->getLocale();
 
         return Attribute::make(
-            get: fn () => $this->description[$locale],
+            get: fn() => $this->description[$locale],
         );
     }
 
@@ -120,6 +120,16 @@ final class Subcategory extends Model
 
                 return $this->background_image[$locale] ?? null;
             },
+        );
+    }
+
+    public function indexUrl(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => route('admin.subcategories.index', [
+                'category' => $this->category->slug,
+                'subcategory' => $this->slug,
+            ]),
         );
     }
 
