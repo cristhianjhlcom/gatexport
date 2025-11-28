@@ -19,26 +19,41 @@
 
       <section class="space-y-4">
         @foreach ($articles as $article)
-          <div class="space-y-2 rounded-sm bg-white p-4">
-            <h2 class="text-md text-primary-400 font-extrabold capitalize leading-relaxed md:text-2xl">
-              {{ $article->localizedTitle }}
-            </h2>
-            <p class="md:text-md text-sm font-medium leading-relaxed text-zinc-500">{{ $article->localizedSummary }}</p>
-            <hr class="bg-primary-100 block h-0.5 w-full border-none" />
-            <div class="flex items-center justify-between">
-              <small class="flex items-center gap-4">
-                <flux:icon.calendar size="4" />
-                <span>{{ $article->dateForHumans }}</span>
-              </small>
+          <div class="flex flex-col items-center gap-8 rounded-md bg-white p-8 md:flex-row">
+            <img
+              alt="{{ $article->localizedTitle }}"
+              class="aspect-auto w-full rounded-sm object-cover md:w-1/2"
+              src="{{ $article->thumbnailUrl }}"
+            >
+            <div class="flex flex-1 flex-col">
+              <!-- Contenido superior: título y descripción -->
+              <div class="space-y-4">
+                <h2 class="text-md font-extrabold capitalize leading-relaxed text-zinc-900 md:text-3xl">
+                  {{ $article->localizedTitle }}
+                </h2>
+                <p class="md:text-md text-sm font-medium leading-relaxed text-zinc-500">
+                  {{ $article->localizedSummary }}
+                </p>
+              </div>
 
-              <a
-                class="text-primary-400 flex items-center gap-4"
-                href="{{ $article->showUrl }}"
-                title="{{ $article->localizedTitle }}"
-              >
-                <span>{{ __('pages.articles.read_more') }}</span>
-                <flux:icon.arrow-long-right size="4" />
-              </a>
+              <div class="mt-4 space-y-4">
+                <hr class="bg-primary-100 block h-0.5 w-full border-none" />
+                <div class="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between">
+                  <span class="flex items-center gap-4 text-sm text-zinc-500">
+                    <flux:icon.calendar size="4" />
+                    <span>{{ $article->dateForHumans }}</span>
+                  </span>
+
+                  <a
+                    class="text-primary-400 flex items-center gap-4 font-extrabold"
+                    href="{{ $article->showUrl }}"
+                    title="{{ $article->localizedTitle }}"
+                  >
+                    <span>{{ __('pages.articles.read_more') }}</span>
+                    <flux:icon.arrow-long-right size="4" />
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         @endforeach

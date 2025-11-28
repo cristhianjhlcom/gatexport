@@ -67,7 +67,7 @@
               <flux:file-upload.dropzone
                 :heading="$thumbnail"
                 inline
-                text="500x500 - JPG, PNG, Webp hasta 2MB"
+                text="1050x780 - JPG, PNG, Webp hasta 2MB"
                 with-progress
               />
             </flux:file-upload>
@@ -122,7 +122,7 @@
               <flux:file-upload.dropzone
                 :heading="$seo['thumbnail']"
                 inline
-                text="500x500 - JPG, PNG, Webp hasta 2MB"
+                text="1050x780 - JPG, PNG, Webp hasta 2MB"
                 with-progress
               />
             </flux:file-upload>

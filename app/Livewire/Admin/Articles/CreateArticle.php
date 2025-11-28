@@ -104,8 +104,10 @@ final class CreateArticle extends Component
             'slug' => 'required|unique:articles,id',
             'summary.*' => 'required|string|max:500',
             'content.*' => 'required|string|max:6000',
+            'thumbnail' => 'nullable|image|dimensions:width=1050,height=780|max:2048',
             'seo.title.*' => 'required|string|max:60',
             'seo.description.*' => 'required|string|max:160',
+            'seo.thumbnail' => 'nullable|image|dimensions:width=1050,height=780|max:2048',
             'is_published' => 'boolean',
         ];
     }
