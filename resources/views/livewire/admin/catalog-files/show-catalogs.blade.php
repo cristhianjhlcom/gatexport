@@ -51,7 +51,7 @@
                     <flux:file-upload.dropzone
                       heading="Arrastra los archivo o has clic para buscar"
                       inline
-                      text="PDF up to 5MB"
+                      text="1080x720 - JPG, PNG and Webp up to 1MB"
                       with-progress
                     />
                   </flux:file-upload>

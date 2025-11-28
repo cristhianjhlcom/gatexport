@@ -51,4 +51,16 @@ trait ImageUploads
 
         return $newFile->store($directory, $disk);
     }
+
+    function deleteUpload(?string $path, string $disk = 'public'): void
+    {
+        if ($path && Storage::disk($disk)->exists($path)) {
+            Log::info('Delete file', [
+                'path' => $path,
+                'disk' => $disk,
+            ]);
+
+            Storage::disk($disk)->delete($path);
+        }
+    }
 }

@@ -53,6 +53,16 @@ class ShowCatalogs extends Component
         $this->modal('create-catalog')->show();
     }
 
+    public function delete(CatalogFile $catalog): void
+    {
+        abort_if(! auth()->user()->hasRole(RolesEnum::SUPER_ADMIN->value), 403);
+
+        $this->deleteUpload($catalog->filepath['es']);
+        $this->deleteUpload($catalog->filepath['en']);
+
+        $catalog->delete();
+    }
+
     public function save(): void
     {
         abort_if(! auth()->user()->hasRole(RolesEnum::SUPER_ADMIN->value), 403);
@@ -113,15 +123,16 @@ class ShowCatalogs extends Component
         ];
 
         if ($this->savedFile['es']) {
-            $rules['file.es'] = 'nullable|file|mimes:pdf|max:5120';
+            // 'dimensions:min_width=300,min_height=450,max_width=300,max_height=450',
+            $rules['file.es'] = 'nullable|image|dimensions:min_width=980,min_height=620,max_width=1080,max_height=780|max:2048';
         } else {
-            $rules['file.es'] = 'required|file|mimes:pdf|max:5120';
+            $rules['file.es'] = 'required|image|dimensions:min_width=980,min_height=620,max_width=1080,max_height=780|max:2048';
         }
 
         if ($this->savedFile['en']) {
-            $rules['file.en'] = 'nullable|file|mimes:pdf|max:5120';
+            $rules['file.en'] = 'nullable|image|dimensions:min_width=980,min_height=620,max_width=1080,max_height=780|max:2048';
         } else {
-            $rules['file.en'] = 'required|file|mimes:pdf|max:5120';
+            $rules['file.en'] = 'required|image|dimensions:min_width=980,min_height=620,max_width=1080,max_height=780|max:2048';
         }
 
         return $rules;

@@ -24,6 +24,24 @@ class CatalogFile extends Model
         'filepath' => 'array',
     ];
 
+    public function localizedTitle(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return $this->title[app()->getLocale()] ?? null;
+            },
+        );
+    }
+
+    public function localizedShortDescription(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return $this->short_description[app()->getLocale()] ?? null;
+            },
+        );
+    }
+
     public function fileUrl(): Attribute
     {
         return Attribute::make(
