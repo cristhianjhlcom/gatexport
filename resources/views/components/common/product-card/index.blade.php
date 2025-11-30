@@ -97,7 +97,7 @@
         </div>
 
         <a
-          class="bg-primary-500 rounded-4xl hidden items-center justify-center gap-4 px-4 py-2 text-center text-white group-hover:flex"
+          class="bg-primary-500 rounded-4xl flex items-center justify-center gap-4 px-4 py-2 text-center text-white md:hidden group-hover:md:flex"
           data-button
           href="{{ $product->showUrl }}"
         >
