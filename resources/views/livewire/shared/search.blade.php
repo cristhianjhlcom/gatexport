@@ -3,7 +3,8 @@
     <button type="button">
       <x-icon.search @class([
           'size-6 text-white md:text-zinc-900',
-          'text-white!' => request()->routeIs('home.index'),
+          'text-white!' => $theme === 'dark',
+          'text-zinc-900!' => $theme === 'light',
       ]) />
     </button>
   </flux:modal.trigger>

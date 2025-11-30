@@ -85,6 +85,7 @@
     <!-- End Google Tag Manager (noscript) -->
   @endproduction
 
+  <x-common.sticky-header />
   <x-common.navigation />
   <x-common.mobile-navigation />
 

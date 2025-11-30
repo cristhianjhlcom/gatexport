@@ -11,11 +11,10 @@
       src="{{ app()->getLocale() === 'es' ? asset('storage/uploads/settings/flags/peru_flag.png') : asset('storage/uploads/settings/flags/united_states_flag.png') }}"
     >
     <span @class([
-        'text-white!' => request()->routeIs('home.index'),
-        'text-sm font-semibold leading-none text-white md:text-zinc-900',
+        'text-white!' => $theme === 'dark',
+        'text-zinc-900!' => $theme === 'light',
+        'text-sm font-semibold leading-none',
     ])>{{ app()->getLocale() }}</span>
-    {{-- <x-icon.chevron-down class="size-4 text-zinc-900" x-show="!localeOpen" />
-    <x-icon.chevron-up class="size-4 text-zinc-900" x-show="localeOpen" /> --}}
   </button>
 
   <!-- Dropdown menu -->

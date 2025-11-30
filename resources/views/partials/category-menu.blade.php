@@ -4,12 +4,11 @@
   @endphp
 
   <div @class([
-      'border-b-4 border-white text-white font-bold' => $isHomePage && $isActive,
       'border-b-4 border-primary-400' => $isActive,
       'border-b-4 border-transparent' => !$isActive,
-      'text-white font-semibold' => $isHomePage,
-      'text-zinc-900 font-semibold' => !$isHomePage,
-      'box-border inline-flex h-full items-center gap-2 font-semibold px-3 text-md uppercase transition',
+      'text-white font-semibold' => $theme === 'dark',
+      'text-zinc-900 font-semibold' => $theme === 'light',
+      'box-border inline-flex h-full items-center gap-2 font-semibold p-0 text-md uppercase transition',
   ]) x-data="{ open: false, active: 0 }">
     <button
       :aria-expanded="open"

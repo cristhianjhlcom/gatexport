@@ -6,13 +6,10 @@
 
 <a
   @class([
-      'border-b-4 border-white text-white font-bold' => $isHomePage && $isActive,
-      'border-b-4 border-primary-400 text-primary-400' =>
-          !$isHomePage && $isActive,
       'border-b-4 border-primary-400 text-primary-400 font-bold' => $isActive,
       'border-b-4 border-transparent' => !$isActive,
-      'text-white font-semibold' => $isHomePage,
-      'text-zinc-900 font-semibold' => !$isHomePage,
+      'text-white font-semibold' => $theme === 'dark',
+      'text-zinc-900 font-semibold' => $theme === 'light',
       'flex h-full items-center font-semibold text-md uppercase transition',
   ])
   href="{{ $url }}"

@@ -1,26 +1,55 @@
 @php
   $isHomePage = request()->routeIs('home.index');
-  $theme = $isHomePage ? 'dark' : 'light';
+  $theme = 'light';
 @endphp
 
-<header class="absolute left-0 right-0 top-0 z-10 h-16 transition-all duration-300">
+<header
+  :class="{
+      'opacity-0 -translate-y-full': hasScrolled,
+      'opacity-100 translate-y-0': !hasScrolled
+  }"
+  @scroll.window="handleScroll"
+  class="z-100 fixed left-0 top-0 hidden h-16 w-full bg-white/80 backdrop-blur-2xl transition-all md:block"
+  x-cloak
+  x-data="{
+      open: false,
+      hasScrolled: false,
+      threshold: 120,
+      handleScroll() {
+          this.hasScrolled = this.open || window.scrollY <= this.threshold;
+      },
+      toggleMenu() {
+          this.open = !this.open
+      },
+      scrollTo(id, contentType = null) {
+          window.location.hash = id
+
+          window.scrollTo({
+              top: document.querySelector(id).offsetTop - 120,
+              behavior: 'smooth',
+          })
+
+          if (contentType) {
+              this.$dispatch('set-content-type', {
+                  case: contentType,
+                  override: true,
+              })
+          }
+
+          this.open = false
+      },
+  }"
+  x-init="handleScroll()"
+  x-trap.noscroll="open"
+>
   <div class="container flex items-center justify-between">
     <div class="flex items-center gap-4">
-      @if ($isHomePage)
-        <x-common.small-logo
-          :src="$logos['white_logo']"
-          class="mr-4"
-          title="Gate Export SAC"
-          url="{{ route('home.index') }}"
-        />
-      @else
-        <x-common.small-logo
-          :src="$logos['small_logo']"
-          class="mr-4"
-          title="Gate Export SAC"
-          url="{{ route('home.index') }}"
-        />
-      @endif
+      <x-common.small-logo
+        :src="$logos['small_logo']"
+        class="mr-4"
+        title="Gate Export SAC"
+        url="{{ route('home.index') }}"
+      />
 
       <nav class="flex h-16 items-center gap-4 font-bold max-lg:hidden">
         @include('partials.nav-link', [
@@ -31,7 +60,6 @@
 
         @include('partials.category-menu', [
             'items' => $items,
-            'theme' => $theme,
         ])
 
         @include('partials.nav-link', [

@@ -14,6 +14,8 @@ use Livewire\Component;
 
 final class Search extends Component
 {
+    public string $theme = 'light';
+
     #[Url(except: '')]
     public string $search = '';
 
