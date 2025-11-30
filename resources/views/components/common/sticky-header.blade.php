@@ -9,7 +9,8 @@
       'opacity-100 translate-y-0': !hasScrolled
   }"
   @scroll.window="handleScroll"
-  class="z-100 fixed left-0 top-0 hidden h-16 w-full bg-white/80 backdrop-blur-2xl transition-all md:block"
+  {{-- class="z-100 fixed left-0 top-0 hidden h-16 w-full bg-white/80 backdrop-blur-2xl transition-all md:block" --}}
+  class="z-100 fixed left-0 top-0 hidden h-16 w-full border border-zinc-200 bg-white transition-all md:block"
   x-cloak
   x-data="{
       open: false,

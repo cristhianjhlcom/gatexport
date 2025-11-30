@@ -3,7 +3,7 @@
 ])
 
 @if (count($export_continents))
-  <article class="relative bg-white py-10 md:py-16 lg:py-20">
+  <section class="relative bg-white pt-10 md:pt-20">
     <div class="container space-y-6 overflow-hidden">
       <header class="flex flex-col space-y-4">
         <x-common.title
@@ -44,7 +44,7 @@
         <flux:icon.chevron-right size="6" />
       </div>
     </div>
-  </article>
+  </section>
 
   @push('scripts')
     <script defer>

@@ -4,7 +4,7 @@
 
 
 @if (count($promotional_banners) > 0)
-  <article class="relative overflow-hidden">
+  <section class="relative overflow-hidden">
     <div class="swiper__hero relative h-[500px] bg-gray-300 md:h-[700px]">
       <div class="swiper-wrapper h-full">
         @foreach ($promotional_banners as $banner)
@@ -33,7 +33,7 @@
       <div class="swiper-button-prev__hero"></div>
       <div class="swiper-button-next__hero"></div>
     </div>
-  </article>
+  </section>
 @endif
 
 @push('scripts')
