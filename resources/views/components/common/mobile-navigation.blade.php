@@ -1,3 +1,8 @@
+@php
+  $isHomePage = request()->routeIs('home.index');
+  $theme = $isHomePage ? 'dark' : 'light';
+@endphp
+
 <header
   :class="{
       'bg-primary-400/70 backdrop-blur-md': scrolled,
@@ -24,11 +29,11 @@
       title="Gate Export SAC"
       url="{{ route('home.index') }}"
     />
-    <livewire:shared.search />
+    <livewire:shared.search :$theme />
   </div>
   <nav
     @click.away="toggle = false"
-    class="fixed top-16 z-50 flex h-dvh w-full flex-col overflow-y-auto bg-white"
+    class="fixed bottom-0 top-0 z-50 flex h-dvh w-full flex-col overflow-y-auto bg-white"
     x-cloak
     x-show="toggle"
     x-transition:enter-end="transform translate-x-0"
@@ -38,6 +43,17 @@
     x-transition:leave-start="transform translate-x-0"
     x-transition:leave="transition ease-in duration-200"
   >
+    <div class="border-b border-zinc-200 p-4 font-semibold text-zinc-900">
+      <button
+        @click="toggle = !toggle"
+        class="flex items-center gap-4 rounded-sm hover:bg-zinc-100"
+        type="button"
+      >
+        <x-icon.burger class="size-8 text-zinc-900" fill="#000" />
+        <span>Cerrar</span>
+      </button>
+    </div>
+
     <a
       class="border-b border-zinc-200 p-4 font-semibold text-zinc-900"
       href="{{ route('home.index') }}"
@@ -106,11 +122,6 @@
         </div>
       </div>
     @endforeach
-    {{-- <a
-      class="text-zinc-90 border-b border-zinc-200 p-4 font-semibold"
-      href="{{ route('catalogs.index') }}"
-      title="{{ __('pages.catalogs.title') }}"
-    >{{ __('pages.catalogs.title') }}</a> --}}
     <a
       class="text-zinc-90 border-b border-zinc-200 p-4 font-semibold"
       href="{{ route('faqs.index') }}"
