@@ -161,3 +161,7 @@
 .policies__content strong {
   @apply text-primary-500 font-extrabold;
 }
+
+.dialog-backdrop::backdrop {
+  @apply bg-primary-600/60 backdrop-blur-xl;
+}

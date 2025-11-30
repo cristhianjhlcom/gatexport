@@ -62,22 +62,24 @@
     </section>
 
     <section class="container">
-      <div class="hidden items-center justify-center gap-5 text-white md:flex">
+      <div class="items-center justify-center gap-4 space-y-4 text-white md:flex md:space-y-0">
         <div
-          class="bg-primary-400 flex min-w-52 items-center justify-center gap-4 rounded-l-[40px] px-6 py-3 text-center"
+          class="bg-primary-400 flex min-w-52 items-center justify-start gap-4 rounded-l-[40px] rounded-r-[40px] px-6 py-3 text-center md:justify-center md:rounded-r-none"
         >
           <x-icon.light-weight class="size-8" />
-          <p><strong>Compact</strong> & Lightweight</p>
-        </div>
-        <div class="bg-primary-400 flex min-w-52 items-center justify-center gap-4 px-6 py-3 text-center">
-          <x-icon.hight-quality class="size-8" />
-          <p><strong>Hight Quality</strong> Peruvian Palo Santo</p>
+          <p>{!! __('pages.product.compact_lightweight') !!}</p>
         </div>
         <div
-          class="bg-primary-400 flex min-w-52 items-center justify-center gap-4 rounded-r-[40px] px-6 py-3 text-center"
+          class="bg-primary-400 flex min-w-52 items-center justify-start gap-4 rounded-[40px] px-6 py-3 text-center md:justify-center md:rounded-none"
+        >
+          <x-icon.hight-quality class="size-8" />
+          <p>{!! __('pages.product.high_quality') !!}</p>
+        </div>
+        <div
+          class="bg-primary-400 flex min-w-52 items-center justify-start gap-4 rounded-l-[40px] rounded-r-[40px] px-6 py-3 text-center md:justify-center md:rounded-l-none"
         >
           <x-icon.natural class="size-8" />
-          <p><strong>100%</strong> Natural</p>
+          <p>{!! __('pages.product.natural') !!}</p>
         </div>
       </div>
     </section>
@@ -85,7 +87,6 @@
     {{-- Related Products --}}
     @if (count($relatedProducts) > 0)
       <section class="container space-y-10">
-        {{-- TODO: AGREGAR TITULO --}}
         <header class="flex flex-col space-y-2">
           <x-common.title
             class="text-center"

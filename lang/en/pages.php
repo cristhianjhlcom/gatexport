@@ -66,7 +66,6 @@ return [
         'request_product' => 'Request Product',
         'request_title' => 'Request Product',
         'request_description' => 'We need your information to contact you.',
-
         'first_name' => 'First Name',
         'last_name' => 'Last Name',
         'email' => 'Email',
@@ -84,7 +83,9 @@ return [
         'last_added' => 'Last added',
         'qualification' => 'Qualification',
         'keep_watching' => 'Keep watching',
-
+        'compact_lightweight' => '<strong>Compact</strong> & Lightweight',
+        'high_quality' => '<strong>High Quality</strong> Peruvian Palo Santo',
+        'natural' => '<strong>100%</strong> Natural',
     ],
     'faqs' => [
         'title' => 'Frequently Asked Questions',

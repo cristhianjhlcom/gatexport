@@ -83,6 +83,9 @@ return [
         'last_added' => 'Último agregado',
         'qualification' => 'Clasificación',
         'keep_watching' => 'Seguir viendo',
+        'compact_lightweight' => '<strong>Compacto</strong> y Liviano',
+        'high_quality' => '<strong>Palo Santo Peruano</strong> de Alta Calidad',
+        'natural' => '<strong>100%</strong> Natural',
     ],
     'faqs' => [
         'title' => 'Preguntas Frecuentes',
