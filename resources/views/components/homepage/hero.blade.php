@@ -59,11 +59,17 @@
 
   <style>
     .swiper-pagination-bullet {
-      width: 150px !important;
+      width: 30px !important;
       height: 10px !important;
       margin: 0 6px !important;
       border-radius: 20px;
       background-color: #ffffff !important;
+    }
+
+    @media screen and (min-width: 768px) {
+      .swiper-pagination-bullet {
+        width: 150px !important;
+      }
     }
   </style>
 @endpush
