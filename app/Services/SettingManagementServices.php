@@ -79,7 +79,6 @@ final class SettingManagementServices
                 'whatsapp_link' => '',
                 'email' => '',
             ],
-            'catalog_document' => '',
         ];
 
         foreach ($this->available_locales as $locale) {
@@ -97,7 +96,6 @@ final class SettingManagementServices
                 $general_info['small_logo'] = $settings['small_logo'] ?? '';
                 $general_info['social_media'] = $settings['social_media'] ?? $general_info['social_media'];
                 $general_info['contact_information'] = $settings['contact_information'] ?? $general_info['contact_information'];
-                $general_info['catalog_document'] = $settings['catalog_document'] ?? '';
                 $general_info['white_logo'] = $settings['white_logo'] ?? '';
                 $general_info['special_logo'] = $settings['special_logo'] ?? '';
             }
@@ -214,10 +212,6 @@ final class SettingManagementServices
                 $data['general_info']['special_logo'] = $this->handleFileUpload($data['new_special_logo'], 'uploads/settings/logos');
             }
 
-            if ($data['new_catalog_document']) {
-                $data['general_info']['catalog_document'] = $this->handleFileUpload($data['new_catalog_document'], 'uploads/docs');
-            }
-
             foreach ($this->available_locales as $locale) {
                 if (isset($data['tmp_highlighted_category_images'][$locale])) {
                     foreach ($data['tmp_highlighted_category_images'][$locale] as $index => $image) {
@@ -249,7 +243,6 @@ final class SettingManagementServices
                             'small_logo' => $data['general_info']['small_logo'] ?? '',
                             'white_logo' => $data['general_info']['white_logo'] ?? '',
                             'special_logo' => $data['general_info']['special_logo'] ?? '',
-                            'catalog_document' => $data['general_info']['catalog_document'] ?? '',
                             'social_media' => $data['general_info']['social_media'] ?? '',
                             'contact_information' => $data['general_info']['contact_information'] ?? '',
                         ],
