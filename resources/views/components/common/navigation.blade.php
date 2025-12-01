@@ -3,7 +3,7 @@
   $theme = $isHomePage ? 'dark' : 'light';
 @endphp
 
-<header class="absolute left-0 right-0 top-0 z-10 h-16 transition-all duration-300">
+<header class="absolute left-0 right-0 top-0 z-10 hidden h-16 transition-all duration-300 md:block">
   <div class="container flex items-center justify-between">
     <div class="flex items-center gap-4">
       @if ($isHomePage)

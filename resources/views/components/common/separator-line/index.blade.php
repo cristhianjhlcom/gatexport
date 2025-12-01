@@ -13,11 +13,11 @@
 
 <div {{ $attributes->merge(['class' => $class]) }} role="separator">
   {{-- Punto Izquierdo --}}
-  <div class="{{ $pointSize }} {{ $pointColor }} flex-shrink-0 rounded-full"></div>
+  <div class="{{ $pointSize }} {{ $pointColor }} shrink-0 rounded-full"></div>
 
   {{-- Línea Separadora --}}
-  <div class="{{ $lineClasses }} {{ $color }} flex-grow"></div>
+  <div class="{{ $lineClasses }} {{ $color }} grow"></div>
 
   {{-- Punto Derecho --}}
-  <div class="{{ $pointSize }} {{ $pointColor }} flex-shrink-0 rounded-full"></div>
+  <div class="{{ $pointSize }} {{ $pointColor }} shrink-0 rounded-full"></div>
 </div>

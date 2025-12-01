@@ -28,7 +28,7 @@
                 {{ implode(' ', array_slice($headingParts, 0, 3)) }}
               </h2>
               <x-common.separator-line
-                class="absolute hidden lg:right-[10%] lg:top-[10%] lg:flex lg:w-[700px]"
+                class="lg:right-[25%]! absolute hidden lg:top-[10%] lg:flex lg:w-[700px]"
                 color="border-primary-500"
                 pointColor="bg-primary-500"
               />

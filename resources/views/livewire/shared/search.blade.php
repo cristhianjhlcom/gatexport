@@ -4,7 +4,7 @@
       <x-icon.search @class([
           'size-6 text-white md:text-zinc-900',
           'text-white!' => $theme === 'dark',
-          'text-zinc-900!' => $theme === 'light',
+          'text-white md:text-zinc-900!' => $theme === 'light',
       ]) />
     </button>
   </flux:modal.trigger>

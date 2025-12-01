@@ -3,7 +3,7 @@
 ])
 
 @if (count($export_continents))
-  <section class="relative bg-white pt-10 md:pt-20">
+  <section class="relative bg-white pb-20 pt-10">
     <div class="container space-y-6 overflow-hidden">
       <header class="flex flex-col space-y-4">
         <x-common.title
@@ -36,7 +36,9 @@
       </div>
 
     </div>
-    <div class="swiper-navigation__continents md:right-1/6 absolute bottom-0 right-0 z-30 flex space-x-4 p-4">
+    <div
+      class="swiper-navigation__continents md:right-1/6 absolute inset-x-0 z-30 flex items-center justify-center space-x-4 p-4 md:justify-end"
+    >
       <div class="swiper-button-prev__continents bg-primary-500 rounded-full p-2 text-white">
         <flux:icon.chevron-left size="6" />
       </div>

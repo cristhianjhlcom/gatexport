@@ -1,17 +1,16 @@
-<section class="relative overflow-hidden bg-white">
-  <div class="mx-auto grid grid-cols-1 items-center md:grid-cols-2">
-
+<section class="relative overflow-clip bg-white py-10 md:py-0">
+  <div class="mx-auto grid grid-cols-1 place-content-center items-center md:grid-cols-2">
     {{-- Imagen a la izquierda --}}
-    <div class="relative h-[500px] w-full md:h-[650px]">
+    <div class="relative w-full md:h-[650px]">
       <img
         alt="{{ __('pages.about.title') }}"
-        class="absolute inset-0 hidden h-full w-full object-contain object-left-bottom md:block md:object-cover"
+        class="object-bottom-left absolute inset-0 hidden h-full w-full object-contain md:block md:object-cover"
         src="{{ Storage::disk('public')->url($about['hero_image']) }}"
       >
     </div>
 
     {{-- Contenido a la derecha --}}
-    <div class="absolute left-0 top-3 space-y-4 px-10 md:left-[800px] md:top-[100px] md:px-0">
+    <div class="left-0 top-3 space-y-4 px-4 md:absolute md:left-[800px] md:top-[100px] md:px-0">
       <header>
         @php
           $headingParts = explode(' ', __('pages.about.title'));
