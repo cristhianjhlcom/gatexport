@@ -25,7 +25,11 @@ final class GetPromotionalBanners
                     return [];
                 }
 
-                return $setting->value;
+                $collection = collect($setting->value);
+                $sortedCollection = $collection->sortBy('position')->values();
+                $results = $sortedCollection->all();
+
+                return $results;
             });
         });
     }
