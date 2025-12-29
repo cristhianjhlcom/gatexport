@@ -21,18 +21,18 @@
         @foreach ($articles as $article)
           <div class="flex flex-col items-center gap-8 rounded-md bg-white p-8 md:flex-row">
             <img
-              alt="{{ $article->localizedTitle }}"
+              alt="{{ $article['title'] }}"
               class="aspect-auto w-full rounded-sm object-cover md:w-1/2"
-              src="{{ $article->thumbnailUrl }}"
+              src="{{ $article['thumbnail'] }}"
             >
             <div class="flex flex-1 flex-col">
               <!-- Contenido superior: título y descripción -->
               <div class="space-y-4">
                 <h2 class="text-md font-extrabold capitalize leading-relaxed text-zinc-900 md:text-3xl">
-                  {{ $article->localizedTitle }}
+                  {{ $article['title'] }}
                 </h2>
                 <p class="md:text-md text-sm font-medium leading-relaxed text-zinc-500">
-                  {{ $article->localizedSummary }}
+                  {!! $article['summary'] !!}
                 </p>
               </div>
 
@@ -41,13 +41,13 @@
                 <div class="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between">
                   <span class="flex items-center gap-4 text-sm text-zinc-500">
                     <flux:icon.calendar size="4" />
-                    <span>{{ $article->dateForHumans }}</span>
+                    <span>{{ $article['published_at'] }}</span>
                   </span>
 
                   <a
                     class="text-primary-400 flex items-center gap-4 font-extrabold"
-                    href="{{ $article->showUrl }}"
-                    title="{{ $article->localizedTitle }}"
+                    href="{{ $article['slug'] }}"
+                    title="{{ $article['title'] }}"
                   >
                     <span>{{ __('pages.articles.read_more') }}</span>
                     <flux:icon.arrow-long-right size="4" />
@@ -57,9 +57,9 @@
             </div>
           </div>
         @endforeach
-        <div>
+        {{-- <div>
           {{ $articles->links() }}
-        </div>
+        </div> --}}
       </section>
     </div>
   </div>

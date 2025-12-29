@@ -1,10 +1,10 @@
 <x-layouts.public>
   <x-slot:seo>
     <x-common.seo.tags
-      :canonical="$article->showUrl"
-      :description="$article->localizedSeoDescription"
-      :image="$article->seoThumbnailUrl"
-      :title="$article->localizedSeoTitle"
+      :canonical="$article['canonical_url']"
+      :description="$article['meta_description']"
+      :image="$article['thumbnail']"
+      :title="$article['title']"
     />
   </x-slot>
 
@@ -17,7 +17,7 @@
           size="super-title"
           weight="font-extrabold"
         >
-          {{ $article->localizedTitle }}
+          {{ $article['title'] }}
         </x-common.title>
         <x-common.separator-line class="w-full max-w-4xl" />
       </header>
@@ -26,25 +26,25 @@
         <div class="space-y-4">
           <div class="border-primary-400 bg-primary-500/10 space-y-4 rounded-sm border-l-8 px-4 py-8">
             <p class="text-md ml-4 font-medium leading-relaxed text-zinc-600">
-              {{ $article->localizedSummary }}
+              {!! $article['summary'] !!}
             </p>
 
             <small class="ml-4 flex items-center gap-4">
               <flux:icon.calendar size="4" />
-              <span>{{ $article->dateForHumans }}</span>
+              <span>{{ $article['published_at'] }}</span>
             </small>
           </div>
 
           <img
-            alt="{{ $article->localizedTitle }}"
+            alt="{{ $article['title'] }}"
             class="aspect-auto w-full rounded-sm object-cover"
-            src="{{ $article->thumbnailUrl }}"
+            src="{{ $article['thumbnail'] }}"
           >
         </div>
       </div>
 
       <section class="special-content space-y-6">
-        {!! $article->localizedContent !!}
+        {!! $article['content'] !!}
       </section>
     </div>
   </div>
