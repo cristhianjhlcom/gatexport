@@ -9,6 +9,7 @@ use App\Enums\RolesEnum;
 use App\Models\Product;
 use App\Models\User;
 use App\Notifications\ProductInquiryReceived;
+use Exception;
 use Flux\Flux;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Attributes\Validate;
@@ -74,7 +75,7 @@ final class BuyButton extends Component
             );
 
             Flux::modal('call-to-action')->close();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             report($e);
 
             Flux::toast(

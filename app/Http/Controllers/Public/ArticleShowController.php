@@ -1,14 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
-use App\Models\Article;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use SevenShores\Hubspot\Factory;
 
-class ArticleShowController extends Controller
+final class ArticleShowController extends Controller
 {
     /**
      * Handle the incoming request.
@@ -17,8 +18,8 @@ class ArticleShowController extends Controller
     {
         $hubspot = Factory::createWithAccessToken(config('hubspot.access'));
         $response = $hubspot->blogPosts()->all([
-            'slug'   => "blog/{$slug}",
-            'state'  => 'PUBLISHED'
+            'slug' => "blog/{$slug}",
+            'state' => 'PUBLISHED',
         ]);
 
         if (empty($response->data->objects)) {

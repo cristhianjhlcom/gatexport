@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\View\Components\Common;
 
 use App\Actions\Setting\GetCompanyLogos;
@@ -9,7 +11,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\Component;
 
-class StickyHeader extends Component
+final class StickyHeader extends Component
 {
     public $items = [];
 
@@ -23,14 +25,14 @@ class StickyHeader extends Component
         $this->items = Category::with('subcategories')
             ->orderBy('position', 'asc')
             ->get()
-            ->map(fn($category) => [
+            ->map(fn ($category) => [
                 'name' => $category->localizedName,
                 'slug' => $category->slug,
                 'secondary_icon' => isset($category->icon_white) ? Storage::disk('public')->url($category->icon_white) : null,
                 'url' => $category->showUrl,
                 'primary_icon' => isset($category->icon_primary) ? Storage::disk('public')->url($category->icon_primary) : null,
                 'background_color' => $category->background_color,
-                'subcategories' => $category->subcategories->map(fn($subcategory) => [
+                'subcategories' => $category->subcategories->map(fn ($subcategory) => [
                     'name' => $subcategory->localizedName,
                     'slug' => $subcategory->slug,
                     'url' => $subcategory->indexUrl,

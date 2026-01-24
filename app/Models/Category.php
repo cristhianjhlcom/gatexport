@@ -92,7 +92,7 @@ final class Category extends Model
         $locale = $locale ?? app()->getLocale();
 
         return Attribute::make(
-            get: fn() => $this->name[$locale],
+            get: fn () => $this->name[$locale],
         );
     }
 
@@ -101,7 +101,7 @@ final class Category extends Model
         $locale = $locale ?? app()->getLocale();
 
         return Attribute::make(
-            get: fn() => $this->description[$locale],
+            get: fn () => $this->description[$locale],
         );
     }
 
@@ -110,7 +110,7 @@ final class Category extends Model
         $locale = $locale ?? app()->getLocale();
 
         return Attribute::make(
-            get: fn() => $this->seo_title[$locale],
+            get: fn () => $this->seo_title[$locale],
         );
     }
 
@@ -119,7 +119,7 @@ final class Category extends Model
         $locale = $locale ?? app()->getLocale();
 
         return Attribute::make(
-            get: fn() => $this->seo_description[$locale],
+            get: fn () => $this->seo_description[$locale],
         );
     }
 
@@ -141,7 +141,7 @@ final class Category extends Model
     public function showUrl(): Attribute
     {
         return Attribute::make(
-            get: fn() => route('categories.show', ['category' => $this->slug]),
+            get: fn () => route('categories.show', ['category' => $this->slug]),
         );
     }
 

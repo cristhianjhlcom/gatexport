@@ -99,8 +99,6 @@ final class UpdateArticle extends Component
         return to_route('admin.articles.index');
     }
 
-
-
     public function render()
     {
         return view('livewire.admin.articles.update-article')

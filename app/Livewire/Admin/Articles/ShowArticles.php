@@ -15,10 +15,10 @@ final class ShowArticles extends Component
         $response = $hubspot->blogPosts()->all([
             // 'content_group_id' => 'TU_ID_DE_BLOG',
             'state' => 'PUBLISHED',
-            'limit' => 10
+            'limit' => 10,
         ]);
         $collection = collect($response->data->objects);
-        $articles = $collection->map(fn($item) => [
+        $articles = $collection->map(fn ($item) => [
             'id' => $item->id,
             'meta_description' => $item->meta_description,
             'title' => $item->page_title,

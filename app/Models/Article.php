@@ -38,9 +38,11 @@ final class Article extends Model
     {
         return Attribute::make(
             get: function () {
-                if ($this->thumbnail) return Storage::disk('public')->url($this->thumbnail);
+                if ($this->thumbnail) {
+                    return Storage::disk('public')->url($this->thumbnail);
+                }
 
-                return NULL;
+                return null;
             },
         );
     }
@@ -49,9 +51,11 @@ final class Article extends Model
     {
         return Attribute::make(
             get: function () {
-                if ($this->thumbnail) return Storage::disk('public')->size($this->thumbnail);
+                if ($this->thumbnail) {
+                    return Storage::disk('public')->size($this->thumbnail);
+                }
 
-                return NULL;
+                return null;
             },
         );
     }
@@ -60,9 +64,11 @@ final class Article extends Model
     {
         return Attribute::make(
             get: function () {
-                if ($this->seo_thumbnail) return Storage::disk('public')->url($this->seo_thumbnail);
+                if ($this->seo_thumbnail) {
+                    return Storage::disk('public')->url($this->seo_thumbnail);
+                }
 
-                return NULL;
+                return null;
             },
         );
     }
@@ -71,9 +77,11 @@ final class Article extends Model
     {
         return Attribute::make(
             get: function () {
-                if ($this->seo_thumbnail) return Storage::disk('public')->size($this->seo_thumbnail);
+                if ($this->seo_thumbnail) {
+                    return Storage::disk('public')->size($this->seo_thumbnail);
+                }
 
-                return NULL;
+                return null;
             },
         );
     }
@@ -86,56 +94,56 @@ final class Article extends Model
     public function localizedTitle(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->title[app()->getLocale()] ?? $this->title['es'] ?? null,
+            get: fn () => $this->title[app()->getLocale()] ?? $this->title['es'] ?? null,
         );
     }
 
     public function localizedSeoTitle(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->seo_title[app()->getLocale()] ?? $this->seo_title['es'] ?? null,
+            get: fn () => $this->seo_title[app()->getLocale()] ?? $this->seo_title['es'] ?? null,
         );
     }
 
     public function localizedSummary(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->summary[app()->getLocale()] ?? $this->summary['es'] ?? null,
+            get: fn () => $this->summary[app()->getLocale()] ?? $this->summary['es'] ?? null,
         );
     }
 
     public function localizedContent(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->content[app()->getLocale()] ?? $this->content['es'] ?? null,
+            get: fn () => $this->content[app()->getLocale()] ?? $this->content['es'] ?? null,
         );
     }
 
     public function localizedSeoDescription(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->seo_description[app()->getLocale()] ?? $this->seo_description['es'] ?? null,
+            get: fn () => $this->seo_description[app()->getLocale()] ?? $this->seo_description['es'] ?? null,
         );
     }
 
     public function dateForHumans(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->created_at->locale(app()->getLocale())->translatedFormat('d F, Y'),
+            get: fn () => $this->created_at->locale(app()->getLocale())->translatedFormat('d F, Y'),
         );
     }
 
     public function showUrl(): Attribute
     {
         return Attribute::make(
-            get: fn() => route('articles.show', $this),
+            get: fn () => route('articles.show', $this),
         );
     }
 
     public function indexUrl(): Attribute
     {
         return Attribute::make(
-            get: fn() => route('articles.index'),
+            get: fn () => route('articles.index'),
         );
     }
 }

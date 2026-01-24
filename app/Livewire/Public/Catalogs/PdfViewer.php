@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Public\Catalogs;
 
 use App\Models\CatalogFile;
 use Livewire\Component;
 
-class PdfViewer extends Component
+final class PdfViewer extends Component
 {
     public $selectedPdf = null;
 

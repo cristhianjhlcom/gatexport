@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions\Sales;
 
-use App\Models\Product;
+use Exception;
 use GuzzleHttp\Client;
 
 final class CreateHubspotDeal
@@ -34,7 +34,7 @@ final class CreateHubspotDeal
                 'contact' => $contact,
                 'deal' => $deal,
             ];
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // Log the error for debugging
             report($e);
 
@@ -63,7 +63,7 @@ final class CreateHubspotDeal
             ]);
 
             return json_decode($response->getBody()->getContents(), true);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $response = $this->client->get("/crm/v3/objects/contacts/{$data['email']}", [
                 'query' => ['idProperty' => 'email'],
             ]);
@@ -129,16 +129,16 @@ final class CreateHubspotDeal
     private function formatDetailedNote(array $data): string
     {
         return sprintf(
-            "<h3>Product Inquiry Details</h3>
+            '<h3>Product Inquiry Details</h3>
             <p><strong>Product:</strong> %s</p>
-            <p><strong>Product URL:</strong> <a href=\"%s\" target=\"_blank\">%s</a></p>
+            <p><strong>Product URL:</strong> <a href="%s" target="_blank">%s</a></p>
             <hr>
             <p><strong>Customer Name:</strong> %s %s</p>
-            <p><strong>Email:</strong> <a href=\"mailto:%s\">%s</a></p>
+            <p><strong>Email:</strong> <a href="mailto:%s">%s</a></p>
             <p><strong>Phone:</strong> %s</p>
             <hr>
             <p><strong>Inquiry Date:</strong> %s</p>
-            <p><em>This inquiry was automatically generated from the website product inquiry form.</em></p>",
+            <p><em>This inquiry was automatically generated from the website product inquiry form.</em></p>',
             $data['interest']['product_name'],
             $data['interest']['product_url'],
             $data['interest']['product_url'],
@@ -167,7 +167,7 @@ final class CreateHubspotDeal
 
             // Associate note with the object (deal)
             $this->client->put("/crm/v4/objects/notes/{$note['id']}/associations/default/{$objectType}s/{$objectId}");
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // Log but don't fail if note creation fails
             report($e);
         }

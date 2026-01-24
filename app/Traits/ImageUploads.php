@@ -10,6 +10,18 @@ use Illuminate\Support\Facades\Storage;
 
 trait ImageUploads
 {
+    public function deleteUpload(?string $path, string $disk = 'public'): void
+    {
+        if ($path && Storage::disk($disk)->exists($path)) {
+            Log::info('Delete file', [
+                'path' => $path,
+                'disk' => $disk,
+            ]);
+
+            Storage::disk($disk)->delete($path);
+        }
+    }
+
     /**
      * Maneja la carga o reemplazo de archivos.
      *
@@ -50,17 +62,5 @@ trait ImageUploads
         ]);
 
         return $newFile->store($directory, $disk);
-    }
-
-    function deleteUpload(?string $path, string $disk = 'public'): void
-    {
-        if ($path && Storage::disk($disk)->exists($path)) {
-            Log::info('Delete file', [
-                'path' => $path,
-                'disk' => $disk,
-            ]);
-
-            Storage::disk($disk)->delete($path);
-        }
     }
 }

@@ -16,19 +16,19 @@ final class GetStoreUrls
     {
         return Cache::remember('all_store_urls', now()->addWeek(), function () {
             return DB::transaction(function () {
-                $categories = Category::all()->map(fn(Category $category) => [
+                $categories = Category::all()->map(fn (Category $category) => [
                     'id' => $category->slug,
                     'label' => $category->localizedName,
                     'path' => $category->showUrl,
                 ]);
 
-                $subcategories = Subcategory::all()->map(fn(Subcategory $subcategory) => [
+                $subcategories = Subcategory::all()->map(fn (Subcategory $subcategory) => [
                     'id' => $subcategory->slug,
                     'label' => $subcategory->localizedName,
                     'path' => $subcategory->indexUrl,
                 ]);
 
-                $products = Product::all()->map(fn(Product $product) => [
+                $products = Product::all()->map(fn (Product $product) => [
                     'id' => $product->slug,
                     'label' => $product->localizedName,
                     'path' => $product->showUrl,

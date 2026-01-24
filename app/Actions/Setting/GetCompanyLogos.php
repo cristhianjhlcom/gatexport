@@ -28,7 +28,9 @@ final class GetCompanyLogos
 
     private function getValidUrl(?string $path): string
     {
-        if (!$path || $path === '') return '';
+        if (! $path || $path === '') {
+            return '';
+        }
 
         return Storage::disk('public')->url($path);
     }

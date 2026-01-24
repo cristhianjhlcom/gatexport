@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Admin\CatalogFiles;
 
 use App\Enums\RolesEnum;
@@ -9,11 +11,11 @@ use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-class ShowCatalogs extends Component
+final class ShowCatalogs extends Component
 {
     use ImageUploads, WithFileUploads;
 
-    public ?CatalogFile $catalog = NULL;
+    public ?CatalogFile $catalog = null;
 
     public array $locales = [
         'es' => 'Español',
@@ -21,24 +23,24 @@ class ShowCatalogs extends Component
     ];
 
     public array $savedFile = [
-        'es' => NULL,
-        'en' => NULL,
+        'es' => null,
+        'en' => null,
     ];
 
     #[Validate]
     public array $title = [
-        'es' => NULL,
-        'en' => NULL,
+        'es' => null,
+        'en' => null,
     ];
 
     public array $short_description = [
-        'es' => NULL,
-        'en' => NULL,
+        'es' => null,
+        'en' => null,
     ];
 
     public array $file = [
-        'es' => NULL,
-        'en' => NULL,
+        'es' => null,
+        'en' => null,
     ];
 
     public function edit(CatalogFile $catalog): void
