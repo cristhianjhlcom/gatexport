@@ -22,18 +22,28 @@ final class CreateHubspotDeal
         ]);
     }
 
-    public function __invoke(Product $product, array $data): array
+    public function __invoke(array $data): array
     {
         $contact = $this->createOrGetContact($data);
 
-        $deal = $this->createDeal($product, $data, $contact['id']);
+        try {
+            $deal = $this->createDeal($data, $contact['id']);
+            $this->associateContactWithDeal($contact['id'], $deal['id']);
 
-        $this->associateContactWithDeal($contact['id'], $deal['id']);
+            return [
+                'contact' => $contact,
+                'deal' => $deal,
+            ];
+        } catch (\Exception $e) {
+            // Log the error for debugging
+            report($e);
 
-        return [
-            'contact' => $contact,
-            'deal' => $deal,
-        ];
+            // If deal creation fails due to missing scopes, just return contact
+            return [
+                'contact' => $contact,
+                'deal' => null,
+            ];
+        }
     }
 
     private function createOrGetContact(array $data): array
@@ -62,45 +72,104 @@ final class CreateHubspotDeal
         }
     }
 
-    private function createDeal(Product $product, array $data, string $contactId): array
+    private function createDeal(array $data, string $contactId): array
     {
         $dealName = sprintf(
             '%s - %s %s',
-            $product->name,
+            $data['interest']['product_name'],
             $data['firstName'],
             $data['lastName']
         );
 
+        $properties = [
+            'dealname' => $dealName,
+            'dealstage' => 'qualifiedtobuy',
+            'pipeline' => 'default',
+            'closedate' => now()->addDays(30)->timestamp * 1000,
+            'hubspot_owner_id' => null,
+            'description' => $this->formatDealDescription($data),
+            'hs_priority' => 'medium',
+            'deal_currency_code' => 'USD',
+        ];
+
         $response = $this->client->post('/crm/v3/objects/deals', [
             'json' => [
-                'properties' => [
-                    'dealname' => $dealName,
-                    'dealstage' => 'qualifiedtobuy',
-                    'pipeline' => 'default',
-                    'amount' => $product->price * $data['quantity'],
-                    'closedate' => now()->addDays(30)->timestamp * 1000,
-                    'hubspot_owner_id' => null,
-                    'description' => $this->formatDealDescription($product, $data),
-                ],
+                'properties' => $properties,
             ],
         ]);
 
-        return json_decode($response->getBody()->getContents(), true);
+        $deal = json_decode($response->getBody()->getContents(), true);
+
+        // Add a note to the deal with additional details
+        $this->addNoteToObject('deal', $deal['id'], $this->formatDetailedNote($data));
+
+        return $deal;
     }
 
     private function associateContactWithDeal(string $contactId, string $dealId): void
     {
-        $this->client->put("/crm/v3/objects/contacts/{$contactId}/associations/deals/{$dealId}/deal_to_contact");
+        $this->client->put("/crm/v4/objects/contacts/{$contactId}/associations/default/deals/{$dealId}");
     }
 
-    private function formatDealDescription(Product $product, array $data): string
+    private function formatDealDescription(array $data): string
     {
         return sprintf(
-            "Product Inquiry Details:\n\nProduct: %s\nQuantity: %d\nCustomer Notes: %s\nPhone: %s",
-            $product->name,
-            $data['quantity'],
-            $data['notes'],
-            $data['phone']
+            "Product Inquiry - %s\n\nCustomer interested in: %s\n\nView Product: %s\n\nContact: %s %s\nEmail: %s\nPhone: %s\n\nInquiry Date: %s",
+            $data['interest']['product_name'],
+            $data['interest']['product_name'],
+            $data['interest']['product_url'],
+            $data['firstName'],
+            $data['lastName'],
+            $data['email'],
+            $data['phone'],
+            now()->format('Y-m-d H:i:s')
         );
+    }
+
+    private function formatDetailedNote(array $data): string
+    {
+        return sprintf(
+            "<h3>Product Inquiry Details</h3>
+            <p><strong>Product:</strong> %s</p>
+            <p><strong>Product URL:</strong> <a href=\"%s\" target=\"_blank\">%s</a></p>
+            <hr>
+            <p><strong>Customer Name:</strong> %s %s</p>
+            <p><strong>Email:</strong> <a href=\"mailto:%s\">%s</a></p>
+            <p><strong>Phone:</strong> %s</p>
+            <hr>
+            <p><strong>Inquiry Date:</strong> %s</p>
+            <p><em>This inquiry was automatically generated from the website product inquiry form.</em></p>",
+            $data['interest']['product_name'],
+            $data['interest']['product_url'],
+            $data['interest']['product_url'],
+            $data['firstName'],
+            $data['lastName'],
+            $data['email'],
+            $data['email'],
+            $data['phone'],
+            now()->format('F j, Y \a\t g:i A')
+        );
+    }
+
+    private function addNoteToObject(string $objectType, string $objectId, string $noteBody): void
+    {
+        try {
+            $noteResponse = $this->client->post('/crm/v3/objects/notes', [
+                'json' => [
+                    'properties' => [
+                        'hs_note_body' => $noteBody,
+                        'hs_timestamp' => now()->timestamp * 1000,
+                    ],
+                ],
+            ]);
+
+            $note = json_decode($noteResponse->getBody()->getContents(), true);
+
+            // Associate note with the object (deal)
+            $this->client->put("/crm/v4/objects/notes/{$note['id']}/associations/default/{$objectType}s/{$objectId}");
+        } catch (\Exception $e) {
+            // Log but don't fail if note creation fails
+            report($e);
+        }
     }
 }

@@ -19,8 +19,7 @@ final class ProductInquiryReceived extends Notification
         public string $lastName,
         public string $email,
         public string $phone,
-        public int $quantity,
-        public string $notes,
+        public array $interest,
     ) {}
 
     public function via(object $notifiable): array
@@ -37,8 +36,8 @@ final class ProductInquiryReceived extends Notification
             ->line("**Cliente:** {$this->firstName} {$this->lastName}")
             ->line("**Email:** {$this->email}")
             ->line("**Teléfono:** {$this->phone}")
-            ->line("**Cantidad:** {$this->quantity}")
-            ->line("**Notas:** {$this->notes}")
+            ->line("**Producto de Interés:** {$this->interest['product_name']}")
+            ->line("**URL del Producto:** {$this->interest['product_url']}")
             ->action('Ver en HubSpot', 'https://app.hubspot.com/contacts')
             ->line('Esta consulta ha sido registrada automáticamente en HubSpot CRM.');
     }
@@ -51,7 +50,7 @@ final class ProductInquiryReceived extends Notification
             'customer_name' => "{$this->firstName} {$this->lastName}",
             'customer_email' => $this->email,
             'customer_phone' => $this->phone,
-            'quantity' => $this->quantity,
+            'interest' => $this->interest,
         ];
     }
 }

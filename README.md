@@ -128,3 +128,7 @@ Categoría > Subcategoría > Producto
 1. Title
 2. Image
 3. Content
+
+### HubSpot URLs
+Contacts https://app.hubspot.com/contacts/<USER_ID>/objects/0-1/views/all/list
+Leads https://app.hubspot.com/contacts/<USER_ID>/objects/0-3/views/all/board
