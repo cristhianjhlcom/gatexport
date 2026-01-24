@@ -1,9 +1,9 @@
 {
   "mcpServers": {
     "laravel-boost": {
-      "command": "php",
+      "command": "/usr/bin/php8.4",
       "args": [
-        "artisan",
+        "/home/cristhianjhl/code/gatexport/artisan",
         "boost:mcp"
       ]
     }
