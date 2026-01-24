@@ -50,10 +50,12 @@ return [
     'contact' => [
         'name' => 'Nombre Completo',
         'email' => 'Correo electrónico',
+        'phone' => 'Número de teléfono',
         'message' => 'Mensaje',
         'send' => 'Enviar Solicitud',
         'contact_information' => 'Información de contacto',
         'contact_us' => 'Contáctenos',
+        'contact_description' => 'Déjanos tus datos y nos pondremos en contacto contigo a la brevedad.',
         'required' => 'Requerido',
     ],
     'product' => [

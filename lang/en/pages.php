@@ -45,10 +45,12 @@ return [
     'contact' => [
         'name' => 'Full Name',
         'email' => 'Email',
+        'phone' => 'Phone Number',
         'message' => 'Message',
         'send' => 'Send Request',
         'contact_information' => 'Contact Information',
         'contact_us' => 'Contact Us',
+        'contact_description' => 'Leave us your information and we will contact you shortly.',
         'required' => 'Required',
     ],
     'articles' => [

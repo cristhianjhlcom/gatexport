@@ -1,13 +1,24 @@
-<form class="space-y-4" wire:submit.prevent="submit">
-  <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-    <flux:input badge="{{ __('pages.contact.required') }}" label="{{ __('pages.contact.name') }}" placeholder="John Doe" wire:model="name" />
+<form class="space-y-6" wire:submit="submit">
+  <header>
+    <flux:heading>
+      {{ __('pages.contact.contact_us') }}
+    </flux:heading>
+    <flux:text class="mt-2">
+      {{ __('pages.contact.contact_description') }}
+    </flux:text>
+  </header>
+  <flux:separator />
+  <div class="space-y-4">
+    <flux:input badge="{{ __('pages.contact.required') }}" label="{{ __('pages.contact.name') }}" placeholder="John Doe"
+      wire:model="name" />
     <flux:input badge="{{ __('pages.contact.required') }}" label="{{ __('pages.contact.email') }}" placeholder="john.doe@example.com"
-      wire:model="email" />
+      type="email" wire:model="email" />
+    <flux:input badge="{{ __('pages.contact.required') }}" label="{{ __('pages.contact.phone') }}" mask="999-999-999"
+      placeholder="999-999-999" wire:model="phone" />
   </div>
-  <flux:textarea badge="{{ __('pages.contact.required') }}" label="{{ __('pages.contact.message') }}" placeholder="lorem ipsum..."
-    wire:model="message" />
-  <div>
-    <flux:button class="w-full" type="submit" variant="primary">
+  <div class="flex">
+    <flux:spacer />
+    <flux:button type="submit" variant="primary">
       {{ __('pages.contact.send') }}
     </flux:button>
   </div>

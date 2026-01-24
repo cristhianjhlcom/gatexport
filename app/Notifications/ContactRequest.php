@@ -18,7 +18,7 @@ final class ContactRequest extends Notification
     public function __construct(
         public string $name,
         public string $email,
-        public string $message
+        public string $phone,
     ) {}
 
     /**
@@ -37,12 +37,13 @@ final class ContactRequest extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject('Nueva solicitud de contacto')
-            ->markdown('mail.contact.request', [
-                'name' => $this->name,
-                'email' => $this->email,
-                'message' => $this->message,
-            ]);
+            ->subject('Nueva Solicitud de Contacto')
+            ->greeting('¡Nueva Solicitud de Contacto!')
+            ->line("**Nombre:** {$this->name}")
+            ->line("**Email:** {$this->email}")
+            ->line("**Teléfono:** {$this->phone}")
+            ->action('Ver en HubSpot', 'https://app.hubspot.com/contacts')
+            ->line('Este contacto ha sido registrado automáticamente en HubSpot CRM.');
     }
 
     /**
