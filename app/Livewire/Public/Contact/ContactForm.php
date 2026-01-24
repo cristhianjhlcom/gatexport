@@ -8,6 +8,7 @@ use App\Actions\HubSpot\CreateOrUpdateContact;
 use App\Enums\RolesEnum;
 use App\Models\User;
 use App\Notifications\ContactRequest;
+use Exception;
 use Flux\Flux;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Attributes\Validate;
@@ -53,7 +54,7 @@ final class ContactForm extends Component
             );
 
             Flux::modal('contact-form')->close();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             report($e);
 
             Flux::toast(

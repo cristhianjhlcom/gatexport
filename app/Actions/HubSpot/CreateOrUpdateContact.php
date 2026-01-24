@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions\HubSpot;
 
+use Exception;
 use GuzzleHttp\Client;
 
 final class CreateOrUpdateContact
@@ -37,7 +38,7 @@ final class CreateOrUpdateContact
             ]);
 
             return json_decode($response->getBody()->getContents(), true);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // If contact already exists, update it
             $response = $this->client->get("/crm/v3/objects/contacts/{$data['email']}", [
                 'query' => ['idProperty' => 'email'],
