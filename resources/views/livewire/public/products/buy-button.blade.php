@@ -28,14 +28,12 @@
         <flux:input badge="{{ __('pages.product.required') }}" label="{{ __('pages.product.phone') }}" mask="999-999-999" placeholder="999-999-999"
           wire:model="phone" />
       </div>
-      <flux:textarea badge="{{ __('pages.product.required') }}" description:trailing="{{ __('pages.product.observation') }}"
-        label="{{ __('pages.product.notes') }}" placeholder="Lorem ipsum..." wire:model="notes" />
       <div class="flex">
         <flux:spacer />
         <flux:button type="submit" variant="primary">
           {{ __('pages.product.request_product') }}
         </flux:button>
       </div>
-      </div>
+    </form>
   </flux:modal>
 </section>
