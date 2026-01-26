@@ -14,8 +14,8 @@ cd "$(dirname "$0")/.."
 echo "→ Enabling maintenance mode..."
 php artisan down --refresh=15
 
-echo "→ Installing/updating Composer dependencies..."
-composer install --optimize-autoloader --no-dev --no-interaction
+# echo "→ Installing/updating Composer dependencies..."
+# composer install --optimize-autoloader --no-dev --no-interaction
 
 echo "→ Running database migrations..."
 php artisan migrate --force
