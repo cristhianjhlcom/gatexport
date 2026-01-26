@@ -23,6 +23,7 @@ final class Product extends Model
         'seo_title',
         'seo_description',
         'status',
+        'position',
         'subcategory_id',
     ];
 
@@ -30,6 +31,7 @@ final class Product extends Model
     {
         return [
             'status' => ProductStatusEnum::class,
+            'position' => 'integer',
             'created_at' => 'datetime',
             'updated_at' => 'datetime',
             'name' => 'array',
@@ -152,6 +154,11 @@ final class Product extends Model
                     "%{$search}%"
                 )
             );
+    }
+
+    public function scopeOrdered(Builder $query): Builder
+    {
+        return $query->orderBy('position', 'desc')->orderBy('id', 'asc');
     }
 
     public function published(): Attribute

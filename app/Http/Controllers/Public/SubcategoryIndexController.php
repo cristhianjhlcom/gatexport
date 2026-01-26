@@ -31,7 +31,7 @@ final class SubcategoryIndexController extends Controller
         $products = $subcategory
             ->products()
             ->where('status', ProductStatusEnum::PUBLISHED)
-            ->orderBy('created_at', 'desc')
+            ->ordered()
             ->get();
 
         return view('pages.subcategories.index')->with([

@@ -21,6 +21,7 @@
       <flux:table.columns>
         <flux:table.column>Nombre</flux:table.column>
         <flux:table.column>Estado</flux:table.column>
+        <flux:table.column>Posición</flux:table.column>
         <flux:table.column>Categoría</flux:table.column>
         <flux:table.column>Sub Categoría</flux:table.column>
         <flux:table.column>Fecha</flux:table.column>
@@ -44,6 +45,9 @@
               <flux:badge color="{{ $product->status->color() }}">
                 {{ $product->status->label() }}
               </flux:badge>
+            </flux:table.cell>
+            <flux:table.cell>
+              {{ $product->position }}
             </flux:table.cell>
             <flux:table.cell>
               {{ $product->localizedCategoryName }}

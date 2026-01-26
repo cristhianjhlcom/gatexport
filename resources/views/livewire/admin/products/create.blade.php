@@ -26,6 +26,15 @@
               </flux:select.option>
             @endforeach
           </flux:select>
+
+          <flux:field>
+            <flux:label>Posición</flux:label>
+            <flux:input type="number" wire:model="form.position" min="0" placeholder="0" />
+            <flux:description>
+              Números mayores aparecen primero. 0 = posición por defecto (al final).
+            </flux:description>
+            <flux:error name="form.position" />
+          </flux:field>
         </flux:card>
 
         <flux:card class="space-y-4">

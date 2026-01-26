@@ -86,6 +86,8 @@ final class CategoriesCatalog extends Component
 
         if ($this->sort === 'latest') {
             $products->orderBy('created_at', 'desc');
+        } else {
+            $products->ordered();
         }
 
         $products = $products->paginate(9);

@@ -50,6 +50,9 @@ final class ProductManagementForm extends Form
     public ProductStatusEnum $status = ProductStatusEnum::DRAFT;
 
     #[Validate]
+    public ?int $position = 0;
+
+    #[Validate]
     public ?int $selectedCategoryId = null;
 
     #[Validate]
@@ -72,6 +75,7 @@ final class ProductManagementForm extends Form
             'seo.title.*' => 'nullable|string|max:60',
             'seo.description.*' => 'nullable|string|max:160',
             'status' => 'required',
+            'position' => 'nullable|integer|min:0',
             'selectedCategoryId' => 'required|exists:categories,id',
             'selectedSubcategoryId' => 'required|exists:subcategories,id',
         ];
@@ -99,6 +103,7 @@ final class ProductManagementForm extends Form
             'description' => $product->seo_title,
         ];
         $this->status = $product->status;
+        $this->position = $product->position;
         $this->selectedCategoryId = $product->subcategory->category->id;
         $this->selectedSubcategoryId = $product->subcategory_id;
         $this->product = $product;
@@ -127,6 +132,7 @@ final class ProductManagementForm extends Form
                 ],
                 'seo_description' => $this->seo['description'],
                 'status' => $this->status,
+                'position' => $this->position ?? 0,
                 'subcategory_id' => $this->selectedSubcategoryId,
             ]);
 
@@ -152,6 +158,7 @@ final class ProductManagementForm extends Form
                 ],
                 'seo_description' => $this->seo['description'],
                 'status' => $this->status,
+                'position' => $this->position ?? 0,
                 'subcategory_id' => $this->selectedSubcategoryId,
             ]);
 

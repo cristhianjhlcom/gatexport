@@ -15,7 +15,8 @@ final class CategoryShowController extends Controller
         $category = $category->load([
             'subcategories',
             'subcategories.products' => function ($query) {
-                $query->where('status', ProductStatusEnum::PUBLISHED);
+                $query->where('status', ProductStatusEnum::PUBLISHED)
+                    ->ordered();
             },
             'subcategories.products.images',
         ]);

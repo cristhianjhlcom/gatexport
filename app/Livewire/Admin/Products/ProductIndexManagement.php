@@ -19,7 +19,7 @@ final class ProductIndexManagement extends Component
     public function render()
     {
         $products = Product::with(['images', 'subcategory', 'subcategory.category', 'specifications'])
-            ->latest()
+            ->ordered()
             ->withCount('specifications')
             ->paginate(10);
 

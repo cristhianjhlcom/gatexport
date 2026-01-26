@@ -42,6 +42,8 @@ final class PageView extends Component
         // Apply sorting
         if ($this->sort === 'latest') {
             $productsQuery->orderBy('created_at', 'desc');
+        } else {
+            $productsQuery->ordered();
         }
 
         $products = $productsQuery->paginate(9);
