@@ -1,134 +1,180 @@
-# Catalogo de Productos 📦📦
+# Gatexport - Catalogo de Productos
 
 ![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=flat-square&logo=laravel&logoColor=white)
 ![Livewire](https://img.shields.io/badge/Livewire-FF69B4?style=flat-square&logo=livewire&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-00000F?style=flat-square&logo=mysql&logoColor=white)
 ![PHP](https://img.shields.io/badge/PHP-777BB4?style=flat-square&logo=php&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)
 
-## Public
+Sistema de catálogo de productos con panel de administración, integración con HubSpot para gestión de leads y blog.
 
-### Header
+## Requisitos
 
--   Logo de la empresa
--   Buscador de productos
--   Menú de navegación
--   Información de contacto
+- PHP 8.4+
+- MySQL 8.0+
+- Node.js 18+
+- Composer
+- pnpm
 
-1. Dirección
-2. Correo Electrónico
-3. Teléfonos
+## Instalación
 
--   Página de términos y condiciones
+```bash
+# Clonar el repositorio
+git clone <repository-url>
+cd gatexport
 
-1. Condiciones Generales
-2. Políticas de privacidad
+# Instalar dependencias de PHP
+composer install
 
-### Footer
+# Instalar dependencias de Node
+pnpm install
 
--   Descripción corta de la empresa
--   Botones de redes sociales
+# Configurar variables de entorno
+cp .env.example .env
+php artisan key:generate
 
-### Home Page
+# Ejecutar migraciones
+php artisan migrate
 
--   Carousel de Imagenes
--   Proveedores
--   Descripción de la empresa
--   Últimas 4 categorías
--   2 Bloques de productos según la subcategoría
--   Mapa Interactivo de los países donde se envía productos
+# Compilar assets
+pnpm run build
 
-### Product List Page (PLP) (Categoría/Subcategoría)
+# Iniciar servidor de desarrollo
+php artisan serve
+```
 
--   Cada card debe tener:
+## Scripts de Utilidad
 
-1. Imagen principal del producto
-2. Titulo del producto
-3. Un botón para ver la ficha del producto
+### Backup de Base de Datos
+```bash
+./backup.sh
+```
+Genera un backup de la base de datos MySQL con formato `DDMMYYYY_backup.sql` en la carpeta `backups/`.
 
-### Product Detail Page (PDP)
+### Despliegue en Producción
+```bash
+./bin/deploy.sh
+```
+Ejecuta las tareas de optimización para producción:
+- Migraciones de base de datos
+- Limpieza y regeneración de caché
+- Reinicio de workers de cola
 
--   Imagen Principal
--   Carousel Imagen
--   Botones para compartir en redes sociales
--   Breadcrumb (Categoría/Subcategoría)
--   Titulo
--   Una lista de productos relacionados por subcategorías
--   Formulario para cotizar
+### Despliegue via FTP
+```bash
+./bin/ftp-deploy.sh
+```
+Compila assets, instala dependencias y sube los archivos al servidor FTP. Requiere configurar en `.env`:
+```env
+FTP_HOST=ftp.example.com
+FTP_USER=usuario
+FTP_PASS=contraseña
+FTP_PORT=21
+FTP_REMOTE_PATH=/public_html
+```
 
-### Blog Page
+## Características
 
--   Titulo
--   Contenido
--   Imagen principal
+### Sitio Público
 
-## Admin Panel
+#### Header
+- Logo de la empresa
+- Buscador de productos
+- Menú de navegación con sticky header
+- Información de contacto (dirección, email, teléfonos)
 
-### Settings
+#### Home Page
+- Carousel de imágenes con banners ordenables por posición
+- Proveedores
+- Descripción de la empresa
+- Últimas categorías
+- Bloques de productos por subcategoría
+- Mapa interactivo de países de envío
 
--   Logo de la empresa
--   Nombre de la empresa
--   Lenguaje por defecto
--   Descripción corta de la empresa
--   Redes sociales
--   Información de contacto
+#### Catálogo de Productos (PLP)
+- Cards de productos con imagen, título y botón de detalle
+- Ordenamiento por posición
+- Filtrado por categoría/subcategoría
 
-1. Dirección
-2. Email
-3. Teléfono
+#### Ficha de Producto (PDP)
+- Galería de imágenes con carousel
+- Badges de promoción
+- Breadcrumb de navegación
+- Especificaciones técnicas (key-value)
+- Productos relacionados
+- Formulario de cotización con integración HubSpot
+- Botones para compartir en redes sociales
 
--   Proveedores
+#### Blog
+- Integración con HubSpot para obtener artículos
+- Vista de listado y artículo individual
 
-1. Nombre
-2. Logo
+#### Páginas Adicionales
+- Página de nosotros con catálogo descargable
+- FAQs y políticas de la empresa
+- Términos y condiciones
 
-### Administrar Categorías
+### Panel de Administración
 
--   Crear
--   Editar
--   Borrar
+#### Configuración General
+- Logo y nombre de la empresa
+- Descripción corta
+- Redes sociales
+- Información de contacto
+- Proveedores (nombre y logo)
+- Etiquetas SEO
 
-### Administrar Subcategorías
+#### Gestión de Contenido
+- **Categorías**: crear, editar, eliminar, ordenar por posición
+- **Subcategorías**: crear, editar, eliminar, ordenar por posición
+- **Productos**: crear, editar, eliminar, ordenar por posición, especificaciones
+- **Banners**: gestión con ordenamiento por posición
+- **Artículos**: gestión de contenido para blog
+- **FAQs y Políticas**: gestión de preguntas frecuentes y políticas
+- **Catálogos**: gestión de archivos PDF descargables
 
--   Crear
--   Editar
--   Borrar
+### Integraciones
 
-### Administrar productos
+#### HubSpot
+- Captura de leads desde formularios de cotización
+- Gestión de contactos
+- Obtención de artículos para blog
 
--   Crear
--   Borrar
--   Editar
+URLs de referencia:
+- Contacts: `https://app.hubspot.com/contacts/<USER_ID>/objects/0-1/views/all/list`
+- Leads: `https://app.hubspot.com/contacts/<USER_ID>/objects/0-3/views/all/board`
 
-Categoría > Subcategoría > Producto
+## Estructura de Datos
 
-### Estructuras de Datos
+| Entidad | Campos |
+|---------|--------|
+| Categoría | name, image, position |
+| Subcategoría | name, image, position, category_id |
+| Producto | name, description, images (hasta 4), specifications, position |
+| Blog | title, image, content |
+| Banner | image, position |
 
--   Categoría
+## Desarrollo
 
-1. Name
-2. Image
+```bash
+# Servidor de desarrollo con hot reload
+pnpm run dev
 
--   Subcategoría
+# Formatear código PHP
+vendor/bin/pint
 
-1. Name
-2. Image
+# Ejecutar tests
+php artisan test
+```
 
--   Producto
+## Changelog Reciente
 
-1. Name
-2. Description
-3. Images (Hasta 4)
-4. Specifications (Key, Value)
-
--   Blog
-
-1. Title
-2. Image
-3. Content
-
-### HubSpot URLs
-Contacts https://app.hubspot.com/contacts/<USER_ID>/objects/0-1/views/all/list
-Leads https://app.hubspot.com/contacts/<USER_ID>/objects/0-3/views/all/board
+- Ordenamiento de productos por posición en subcategorías
+- Integración con HubSpot para leads y contactos
+- Sticky header en navegación
+- Mejoras en galería de productos y badges de promoción
+- Gestión de banners con ordenamiento
+- Componente de etiquetas SEO
+- Gestión de artículos para blog
+- FAQs y políticas de empresa
+- Mejoras en versión mobile del menú de navegación
