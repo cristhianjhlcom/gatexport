@@ -20,7 +20,7 @@ final class CreateOrUpdateContact
 
         Log::debug('[HubSpot] CreateOrUpdateContact - Initializing client', [
             'has_token' => ! empty($accessToken),
-            'token_length' => $accessToken ? strlen($accessToken) : 0,
+            'token_length' => $accessToken ? mb_strlen($accessToken) : 0,
         ]);
 
         if (empty($accessToken)) {

@@ -21,7 +21,7 @@ final class ArticleIndexController extends Controller
 
         Log::debug('[HubSpot] ArticleIndexController - Token check', [
             'has_token' => ! empty($accessToken),
-            'token_length' => $accessToken ? strlen($accessToken) : 0,
+            'token_length' => $accessToken ? mb_strlen($accessToken) : 0,
         ]);
 
         if (empty($accessToken)) {
