@@ -19,14 +19,6 @@
           <flux:input autocomplete="off" badge="Requerido" label="Nombre ({{ $value }})" placeholder="Lorem Ipsum"
             wire:model.blur="form.name.{{ $locale }}" />
 
-          <flux:field>
-            <flux:input.group>
-              <flux:input.group.prefix>{{ env('APP_URL') }}</flux:input.group.prefix>
-              <flux:input id="slug" placeholder="product-slug" wire:model='form.slug' />
-            </flux:input.group>
-            <flux:error name="form.slug" />
-          </flux:field>
-
           <flux:editor badge="Opcional" label="Descripción ({{ $value }})" name="description"
             wire:model="form.description.{{ $locale }}" />
         </div>
@@ -42,4 +34,25 @@
       </flux:tab.panel>
     @endforeach
   </flux:tab.group>
+
+  <div class="mt-4 grid grid-cols-1 gap-x-4 sm:grid-cols-2">
+    <flux:field>
+      <flux:label>Slug (Español)</flux:label>
+      <flux:input.group>
+        <flux:input.group.prefix>/</flux:input.group.prefix>
+        <flux:input id="slug" placeholder="product-slug" wire:model='form.slug' />
+      </flux:input.group>
+      <flux:error name="form.slug" />
+    </flux:field>
+
+    <flux:field>
+      <flux:label badge="Opcional">Slug (English)</flux:label>
+      <flux:input.group>
+        <flux:input.group.prefix>/</flux:input.group.prefix>
+        <flux:input id="slug_en" placeholder="product-slug" wire:model.blur='form.slug_en' />
+      </flux:input.group>
+      <flux:description>Leave empty to use Spanish slug</flux:description>
+      <flux:error name="form.slug_en" />
+    </flux:field>
+  </div>
 </flux:card>

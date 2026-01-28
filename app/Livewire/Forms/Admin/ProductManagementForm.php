@@ -28,6 +28,8 @@ final class ProductManagementForm extends Form
     #[Validate]
     public $slug = '';
 
+    public ?string $slug_en = null;
+
     #[Validate]
     public $description = [
         'es' => null,
@@ -71,6 +73,11 @@ final class ProductManagementForm extends Form
                 'string',
                 Rule::unique('products', 'slug')->ignore($this->product?->id),
             ],
+            'slug_en' => [
+                'nullable',
+                'string',
+                Rule::unique('products', 'slug_en')->ignore($this->product?->id),
+            ],
             'description.*' => 'nullable|string|max:2000',
             'seo.title.*' => 'nullable|string|max:60',
             'seo.description.*' => 'nullable|string|max:160',
@@ -97,6 +104,7 @@ final class ProductManagementForm extends Form
     {
         $this->name = $product->name;
         $this->slug = $product->slug;
+        $this->slug_en = $product->slug_en;
         $this->description = $product->description;
         $this->seo = [
             'title' => $product->seo_title,
@@ -125,6 +133,7 @@ final class ProductManagementForm extends Form
                     'en' => str()->title($this->name['en']),
                 ],
                 'slug' => $this->slug,
+                'slug_en' => $this->slug_en ?: null,
                 'description' => $this->description,
                 'seo_title' => [
                     'es' => str()->title($this->seo['title']['es']),
@@ -151,6 +160,7 @@ final class ProductManagementForm extends Form
                     'en' => str()->title($this->name['en']),
                 ],
                 'slug' => $this->slug,
+                'slug_en' => $this->slug_en ?: null,
                 'description' => $this->description,
                 'seo_title' => [
                     'es' => str()->title($this->seo['title']['es']),

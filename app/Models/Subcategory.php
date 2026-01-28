@@ -20,6 +20,7 @@ final class Subcategory extends Model
     protected $fillable = [
         'name',
         'slug',
+        'slug_en',
         'image',
         'position',
         'category_id',
@@ -129,6 +130,21 @@ final class Subcategory extends Model
         );
     }
 
+    public function localizedSlug(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                $locale = app()->getLocale();
+
+                if ($locale === 'en' && ! empty($this->slug_en)) {
+                    return $this->slug_en;
+                }
+
+                return $this->slug;
+            },
+        );
+    }
+
     public function indexUrl(): Attribute
     {
         return Attribute::make(
@@ -137,6 +153,30 @@ final class Subcategory extends Model
                 'subcategory' => $this->slug,
             ]),
         );
+    }
+
+    public function showUrl(): Attribute
+    {
+        if (! $this->relationLoaded('category')) {
+            $this->load('category');
+        }
+
+        return Attribute::make(
+            get: fn () => route('subcategories.index', [
+                'category' => $this->category->localizedSlug,
+                'subcategory' => $this->localizedSlug,
+            ]),
+        );
+    }
+
+    /**
+     * Resolve the model for route model binding by slug or slug_en.
+     */
+    public function resolveRouteBinding($value, $field = null): ?self
+    {
+        return $this->where('slug', $value)
+            ->orWhere('slug_en', $value)
+            ->first();
     }
 
     public function createdAtHuman(): string

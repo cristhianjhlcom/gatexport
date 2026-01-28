@@ -16,13 +16,26 @@
               placeholder="Lorem Ipsum" wire:model.blur="form.name.en" />
           </div>
 
-          <flux:field>
-            <flux:input.group>
-              <flux:input.group.prefix>{{ env('APP_URL') }}/</flux:input.group.prefix>
-              <flux:input disabled id="slug" placeholder="lorem-ipsum" readonly wire:model='form.slug' />
-            </flux:input.group>
-            <flux:error name="form.slug" />
-          </flux:field>
+          <div class="grid grid-cols-1 gap-x-4 sm:grid-cols-2">
+            <flux:field>
+              <flux:label>Slug (Español)</flux:label>
+              <flux:input.group>
+                <flux:input.group.prefix>/</flux:input.group.prefix>
+                <flux:input disabled id="slug" placeholder="lorem-ipsum" readonly wire:model='form.slug' />
+              </flux:input.group>
+              <flux:error name="form.slug" />
+            </flux:field>
+
+            <flux:field>
+              <flux:label badge="Opcional">Slug (English)</flux:label>
+              <flux:input.group>
+                <flux:input.group.prefix>/</flux:input.group.prefix>
+                <flux:input id="slug_en" placeholder="lorem-ipsum" wire:model.blur='form.slug_en' />
+              </flux:input.group>
+              <flux:description>Leave empty to use Spanish slug</flux:description>
+              <flux:error name="form.slug_en" />
+            </flux:field>
+          </div>
 
           <flux:input autocomplete="off" badge="Requerido" label="Color de fondo" placeholder="Ej: color en hexadecimal de la empresa..."
             size="sm" wire:model.blur="form.backgroundColor" />

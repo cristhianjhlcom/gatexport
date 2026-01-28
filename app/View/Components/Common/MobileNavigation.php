@@ -26,16 +26,16 @@ final class MobileNavigation extends Component
             ->ordered()
             ->get()
             ->map(fn ($category) => [
-                'name' => $category->name[app()->getLocale()],
-                'slug' => $category->slug,
+                'name' => $category->localizedName,
+                'slug' => $category->localizedSlug,
                 'icon_primary' => Storage::disk('public')->url($category->icon_primary),
-                'url' => route('categories.show', $category->slug),
+                'url' => route('categories.show', $category->localizedSlug),
                 'subcategories' => $category->subcategories->map(fn ($subcategory) => [
-                    'name' => $subcategory->name[app()->getLocale()],
-                    'slug' => $subcategory->slug,
+                    'name' => $subcategory->localizedName,
+                    'slug' => $subcategory->localizedSlug,
                     'url' => route('subcategories.index', [
-                        'category' => $category->slug,
-                        'subcategory' => $subcategory->slug,
+                        'category' => $category->localizedSlug,
+                        'subcategory' => $subcategory->localizedSlug,
                     ]),
                     'icon_primary' => Storage::disk('public')->url($subcategory->icon_primary),
                 ]),

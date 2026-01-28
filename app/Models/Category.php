@@ -19,6 +19,7 @@ final class Category extends Model
     protected $fillable = [
         'name',
         'slug',
+        'slug_en',
         'image',
         'position',
         'background_image',
@@ -144,11 +145,36 @@ final class Category extends Model
         );
     }
 
+    public function localizedSlug(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                $locale = app()->getLocale();
+
+                if ($locale === 'en' && ! empty($this->slug_en)) {
+                    return $this->slug_en;
+                }
+
+                return $this->slug;
+            },
+        );
+    }
+
     public function showUrl(): Attribute
     {
         return Attribute::make(
-            get: fn () => route('categories.show', ['category' => $this->slug]),
+            get: fn () => route('categories.show', ['category' => $this->localizedSlug]),
         );
+    }
+
+    /**
+     * Resolve the model for route model binding by slug or slug_en.
+     */
+    public function resolveRouteBinding($value, $field = null): ?self
+    {
+        return $this->where('slug', $value)
+            ->orWhere('slug_en', $value)
+            ->first();
     }
 
     public function createdAtHuman(): string

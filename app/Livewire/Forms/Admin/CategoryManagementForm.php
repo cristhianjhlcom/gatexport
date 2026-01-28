@@ -26,6 +26,8 @@ final class CategoryManagementForm extends Form
     #[Validate]
     public string $slug = '';
 
+    public ?string $slug_en = null;
+
     public $description = [
         'en' => '',
         'es' => '',
@@ -57,6 +59,7 @@ final class CategoryManagementForm extends Form
     {
         $this->name = $category->name;
         $this->slug = $category->slug;
+        $this->slug_en = $category->slug_en;
         $this->position = $category->position;
         $this->backgroundColor = $category->background_color;
 
@@ -92,6 +95,7 @@ final class CategoryManagementForm extends Form
             $category = Category::create([
                 'name' => $name,
                 'slug' => $this->slug,
+                'slug_en' => $this->slug_en ?: null,
                 'background_color' => $this->backgroundColor,
                 'description' => $this->description,
                 'background_image' => [
@@ -143,6 +147,7 @@ final class CategoryManagementForm extends Form
             $this->category->update([
                 'name' => $name,
                 'slug' => $this->slug,
+                'slug_en' => $this->slug_en ?: null,
                 'background_color' => $this->backgroundColor,
                 'description' => $this->description,
                 'seo_title' => $this->seo['title'],
@@ -190,6 +195,11 @@ final class CategoryManagementForm extends Form
                 'required',
                 'string',
                 Rule::unique('categories', 'slug')->ignore($this->category?->id),
+            ],
+            'slug_en' => [
+                'nullable',
+                'string',
+                Rule::unique('categories', 'slug_en')->ignore($this->category?->id),
             ],
             'description.*' => 'nullable|string|max:1000',
             'seo.title.*' => 'nullable|string|max:70',

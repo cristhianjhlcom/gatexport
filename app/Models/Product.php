@@ -19,6 +19,7 @@ final class Product extends Model
     protected $fillable = [
         'name',
         'slug',
+        'slug_en',
         'description',
         'seo_title',
         'seo_description',
@@ -132,6 +133,21 @@ final class Product extends Model
         );
     }
 
+    public function localizedSlug(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                $locale = app()->getLocale();
+
+                if ($locale === 'en' && ! empty($this->slug_en)) {
+                    return $this->slug_en;
+                }
+
+                return $this->slug;
+            },
+        );
+    }
+
     public function showUrl(): Attribute
     {
         if (! $this->relationLoaded('subcategory')) {
@@ -140,11 +156,21 @@ final class Product extends Model
 
         return Attribute::make(
             fn () => route('products.show', [
-                'category' => $this->subcategory->category,
-                'subcategory' => $this->subcategory,
-                'product' => $this,
+                'category' => $this->subcategory->category->localizedSlug,
+                'subcategory' => $this->subcategory->localizedSlug,
+                'product' => $this->localizedSlug,
             ])
         );
+    }
+
+    /**
+     * Resolve the model for route model binding by slug or slug_en.
+     */
+    public function resolveRouteBinding($value, $field = null): ?self
+    {
+        return $this->where('slug', $value)
+            ->orWhere('slug_en', $value)
+            ->first();
     }
 
     public function scopeSearch(Builder $query, string $search): Builder

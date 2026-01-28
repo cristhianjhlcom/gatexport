@@ -26,6 +26,8 @@ final class SubcategoryManagementForm extends Form
     #[Validate]
     public string $slug = '';
 
+    public ?string $slug_en = null;
+
     #[Validate]
     public $description = [
         'en' => '',
@@ -65,6 +67,7 @@ final class SubcategoryManagementForm extends Form
     {
         $this->name = $subcategory->name;
         $this->slug = $subcategory->slug;
+        $this->slug_en = $subcategory->slug_en;
         $this->backgroundColor = $subcategory->background_color;
 
         $this->tmpImages['image'] = null;
@@ -111,6 +114,7 @@ final class SubcategoryManagementForm extends Form
             $subcategory = Subcategory::create([
                 'name' => $name,
                 'slug' => $this->slug,
+                'slug_en' => $this->slug_en ?: null,
                 'position' => $this->position,
                 'image' => $this->upload([
                     'currentPath' => $this->subcategory?->image ?? null,
@@ -168,6 +172,7 @@ final class SubcategoryManagementForm extends Form
             $this->subcategory->update([
                 'name' => $name,
                 'slug' => $this->slug,
+                'slug_en' => $this->slug_en ?: null,
                 'position' => $this->position,
                 'image' => $this->upload([
                     'currentPath' => $this->subcategory->image ?? null,
@@ -220,6 +225,11 @@ final class SubcategoryManagementForm extends Form
                 'required',
                 'string',
                 Rule::unique('subcategories', 'slug')->ignore($this->subcategory?->id),
+            ],
+            'slug_en' => [
+                'nullable',
+                'string',
+                Rule::unique('subcategories', 'slug_en')->ignore($this->subcategory?->id),
             ],
             'category_id' => 'required|exists:categories,id',
             'description.*' => 'nullable|string|max:1000',
