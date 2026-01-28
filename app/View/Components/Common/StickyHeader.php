@@ -35,7 +35,10 @@ final class StickyHeader extends Component
                 'subcategories' => $category->subcategories->map(fn ($subcategory) => [
                     'name' => $subcategory->localizedName,
                     'slug' => $subcategory->localizedSlug,
-                    'url' => $subcategory->showUrl,
+                    'url' => route('subcategories.index', [
+                        'category' => $category->localizedSlug,
+                        'subcategory' => $subcategory->localizedSlug,
+                    ]),
                     'secondary_icon' => isset($subcategory->icon_white) ? Storage::disk('public')->url($subcategory->icon_white) : null,
                     'primary_icon' => isset($subcategory->icon_primary) ? Storage::disk('public')->url($subcategory->icon_primary) : null,
                     'background_color' => $subcategory->background_color,
