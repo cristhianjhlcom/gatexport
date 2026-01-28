@@ -22,7 +22,7 @@ final class ImageUploadController extends Controller
         $manager = new ImageManager(new Driver());
 
         $file = $request->file('file');
-        $filename = str()->uuid()->toString() . '.' . $file->extension();
+        $filename = str()->uuid()->toString().'.'.$file->extension();
         $image = $manager->read($file->getPathname());
         $image->resize(1000, 1000, function ($constraint) {
             $constraint->aspectRatio();

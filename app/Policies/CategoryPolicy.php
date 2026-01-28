@@ -8,7 +8,6 @@ use App\Enums\PermissionsEnum;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Illuminate\Support\Facades\Log;
 
 final class CategoryPolicy
 {
