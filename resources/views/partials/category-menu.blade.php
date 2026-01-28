@@ -39,10 +39,10 @@
         <ul class="flex flex-col">
           @foreach ($items as $index => $item)
             <li class="border-b border-white/10 capitalize">
-              <button
-                @click="active === {{ $index }} ? active = null : active = {{ $index }}"
+              <a
                 @mouseenter="active = {{ $index }}"
                 class="flex h-[61.20px] w-full items-center justify-between px-4 py-3 text-left transition hover:bg-white/10"
+                href="{{ $item['url'] }}"
               >
                 <div class="flex items-center gap-3">
                   @if (isset($item['secondary_icon']))
@@ -57,7 +57,7 @@
                 </div>
 
                 <flux:icon.chevron-right size="4" />
-              </button>
+              </a>
             </li>
           @endforeach
           <li class="border-b border-white/10">
