@@ -28,7 +28,7 @@ final class ProductEditManagement extends Component
 
     public function save()
     {
-        $this->authorize('create', Product::class);
+        $this->authorize('update', $this->form->product);
 
         try {
             $this->form->update();
