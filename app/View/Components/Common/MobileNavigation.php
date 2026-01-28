@@ -23,7 +23,7 @@ final class MobileNavigation extends Component
     public function __construct()
     {
         $this->items = Category::with('subcategories')
-            ->orderBy('position', 'asc')
+            ->ordered()
             ->get()
             ->map(fn ($category) => [
                 'name' => $category->name[app()->getLocale()],
