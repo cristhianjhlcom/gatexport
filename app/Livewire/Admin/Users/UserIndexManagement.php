@@ -40,6 +40,7 @@ final class UserIndexManagement extends Component
                 text: __('You cannot delete users.'),
                 variant: 'error',
             );
+            return;
         }
 
         $user->delete();
@@ -54,7 +55,7 @@ final class UserIndexManagement extends Component
     public function users()
     {
         return User::with('profile')
-            ->tap(fn ($query) => $this->sortBy ? $query->orderBy($this->sortBy, $this->sortDirection) : $query)
+            ->tap(fn($query) => $this->sortBy ? $query->orderBy($this->sortBy, $this->sortDirection) : $query)
             ->latest()
             ->paginate(10);
     }
