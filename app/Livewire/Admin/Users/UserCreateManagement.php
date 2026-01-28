@@ -73,6 +73,8 @@ final class UserCreateManagement extends Component
 
         $this->validate();
 
+        DB::beginTransaction();
+
         try {
             $user = User::create([
                 'email' => $this->email,
