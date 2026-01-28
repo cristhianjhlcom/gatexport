@@ -162,7 +162,7 @@ final class Product extends Model
 
     public function scopeOrdered(Builder $query): Builder
     {
-        return $query->orderBy('position', 'desc')->orderBy('id', 'asc');
+        return $query->orderBy('position', 'desc')->orderBy('created_at', 'desc');
     }
 
     public function published(): Attribute

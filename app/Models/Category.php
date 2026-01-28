@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -45,7 +46,12 @@ final class Category extends Model
 
     public function subcategories(): HasMany
     {
-        return $this->hasMany(Subcategory::class);
+        return $this->hasMany(Subcategory::class)->ordered();
+    }
+
+    public function scopeOrdered(Builder $query): Builder
+    {
+        return $query->orderBy('position', 'desc')->orderBy('created_at', 'desc');
     }
 
     public function imageUrl(): Attribute
