@@ -53,7 +53,7 @@ final class SubcategoriesCatalog extends Component
     public function render()
     {
         $products = Product::query()
-            ->with(['subcategory', 'subcategory.category', 'images'])
+            ->with(['subcategory', 'subcategory.category', 'images', 'specifications'])
             ->where('status', ProductStatusEnum::PUBLISHED);
 
         if ($this->subcategoryId) {
