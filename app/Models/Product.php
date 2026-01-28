@@ -117,7 +117,9 @@ final class Product extends Model
 
     public function firstImage(): Attribute
     {
-        $this->load(['images']);
+        if (! $this->relationLoaded('images')) {
+            $this->load(['images']);
+        }
 
         return Attribute::make(
             get: function () {
@@ -132,7 +134,9 @@ final class Product extends Model
 
     public function showUrl(): Attribute
     {
-        $this->load(['subcategory', 'subcategory.category']);
+        if (! $this->relationLoaded('subcategory')) {
+            $this->load(['subcategory', 'subcategory.category']);
+        }
 
         return Attribute::make(
             fn () => route('products.show', [
