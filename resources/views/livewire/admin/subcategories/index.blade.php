@@ -41,6 +41,14 @@
                   <flux:menu.item href="{{ route('admin.subcategories.edit', $subcategory) }}" icon="pencil">
                     Actualizar
                   </flux:menu.item>
+                  <flux:menu.item
+                    icon="trash"
+                    variant="danger"
+                    wire:click="delete({{ $subcategory->id }})"
+                    wire:confirm.prevent="¿Estás seguro de eliminar esta sub-categoría?"
+                  >
+                    Eliminar
+                  </flux:menu.item>
                 </flux:menu>
               </flux:dropdown>
             </flux:table.cell>
