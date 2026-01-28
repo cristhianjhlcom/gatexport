@@ -110,7 +110,7 @@ final class UpdateArticle extends Component
     {
         return [
             'title.*' => 'required|string|max:90',
-            'slug' => 'required|unique:articles,id',
+            'slug' => 'required|unique:articles,slug',
             'summary.*' => 'required|string|max:500',
             'content.*' => 'required|string|max:6000',
             'thumbnail' => 'nullable|image|dimensions:width=1050,height=780|max:2048',
