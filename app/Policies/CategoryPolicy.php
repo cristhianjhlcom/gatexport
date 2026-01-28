@@ -19,10 +19,7 @@ final class CategoryPolicy
      */
     public function viewAny(User $user): bool
     {
-        // return $user->can('view_category');
-        Log::info('viewAny called', ['user' => $user]);
-
-        return false;
+        return $user->can(PermissionsEnum::VIEW_CATEGORY->value);
     }
 
     /**
