@@ -14,6 +14,7 @@
       <flux:table.columns>
         <flux:table.column>Nombre</flux:table.column>
         <flux:table.column>Categoría</flux:table.column>
+        <flux:table.column>Productos</flux:table.column>
         <flux:table.column>Posición</flux:table.column>
         <flux:table.column>Fecha</flux:table.column>
       </flux:table.columns>
@@ -32,6 +33,7 @@
             <flux:table.cell>
               {{ $subcategory->category->localizedName }}
             </flux:table.cell>
+            <flux:table.cell>{{ $subcategory->products_count }}</flux:table.cell>
             <flux:table.cell>{{ $subcategory->position }}</flux:table.cell>
             <flux:table.cell>{{ $subcategory->formattedCreatedAt() }}</flux:table.cell>
             <flux:table.cell>
