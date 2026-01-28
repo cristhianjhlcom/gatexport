@@ -16,7 +16,13 @@ final class ImageDeleteController extends Controller
     public function __invoke(Request $request)
     {
         // NOTE: Eliminar imagen segun la URL.
-        $filename = $request->filename;
+        $filename = basename($request->filename);
+
+        // Validate filename contains only safe characters to prevent path traversal
+        if (! preg_match('/^[a-zA-Z0-9_\-\.]+$/', $filename)) {
+            abort(422, 'Invalid filename');
+        }
+
         $path = storage_path("app/public/uploads/tmp/{$filename}");
 
         if (file_exists($path)) {
