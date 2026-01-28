@@ -59,6 +59,8 @@ final class SubcategoryManagementForm extends Form
     #[Validate]
     public $category_id = null;
 
+    public int $position = 0;
+
     public function setSubcategory(Subcategory $subcategory): void
     {
         $this->name = $subcategory->name;
@@ -75,6 +77,7 @@ final class SubcategoryManagementForm extends Form
         ];
 
         $this->category_id = $subcategory->category_id;
+        $this->position = $subcategory->position ?? 0;
 
         // Populate multilingual fields safely
         $subcategoryDescription = $subcategory->description ?? [];
@@ -108,6 +111,7 @@ final class SubcategoryManagementForm extends Form
             $subcategory = Subcategory::create([
                 'name' => $name,
                 'slug' => $this->slug,
+                'position' => $this->position,
                 'image' => $this->upload([
                     'currentPath' => $this->subcategory?->image ?? null,
                     'newFile' => $this->tmpImages['image'] ?? null,
@@ -164,6 +168,7 @@ final class SubcategoryManagementForm extends Form
             $this->subcategory->update([
                 'name' => $name,
                 'slug' => $this->slug,
+                'position' => $this->position,
                 'image' => $this->upload([
                     'currentPath' => $this->subcategory->image ?? null,
                     'newFile' => $this->tmpImages['image'] ?? null,
