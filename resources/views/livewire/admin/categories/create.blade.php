@@ -18,11 +18,12 @@
 
           <div class="grid grid-cols-1 gap-x-4 sm:grid-cols-2">
             <flux:field>
-              <flux:label>Slug (Español)</flux:label>
+              <flux:label badge="Requerido">Slug (Español)</flux:label>
               <flux:input.group>
                 <flux:input.group.prefix>/</flux:input.group.prefix>
-                <flux:input disabled id="slug" placeholder="lorem-ipsum" readonly wire:model='form.slug' />
+                <flux:input id="slug" placeholder="lorem-ipsum" wire:model.blur='form.slug' />
               </flux:input.group>
+              <flux:description>Auto-generado del nombre, editable</flux:description>
               <flux:error name="form.slug" />
             </flux:field>
 

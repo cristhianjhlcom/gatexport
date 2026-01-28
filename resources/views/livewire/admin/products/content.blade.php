@@ -37,11 +37,12 @@
 
   <div class="mt-4 grid grid-cols-1 gap-x-4 sm:grid-cols-2">
     <flux:field>
-      <flux:label>Slug (Español)</flux:label>
+      <flux:label badge="Requerido">Slug (Español)</flux:label>
       <flux:input.group>
         <flux:input.group.prefix>/</flux:input.group.prefix>
-        <flux:input id="slug" placeholder="product-slug" wire:model='form.slug' />
+        <flux:input id="slug" placeholder="product-slug" wire:model.blur='form.slug' />
       </flux:input.group>
+      <flux:description>Auto-generado del nombre, editable</flux:description>
       <flux:error name="form.slug" />
     </flux:field>
 

@@ -79,16 +79,14 @@
 
         <div class="grid grid-cols-1 gap-x-4 sm:grid-cols-2">
           <flux:field>
-            <flux:label>Slug (Español)</flux:label>
+            <flux:label badge="Requerido">Slug (Español)</flux:label>
             <flux:input.group>
               <flux:input.group.prefix>/</flux:input.group.prefix>
               <flux:input
-                disabled
                 id="slug"
                 placeholder="lorem-ipsum"
-                readonly
                 size="sm"
-                wire:model='form.slug'
+                wire:model.blur='form.slug'
               />
             </flux:input.group>
             <flux:error name="form.slug" />
