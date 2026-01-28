@@ -23,6 +23,7 @@ final class CategoryManagementForm extends Form
         'es' => '',
     ];
 
+    #[Validate]
     public string $slug = '';
 
     public $description = [
