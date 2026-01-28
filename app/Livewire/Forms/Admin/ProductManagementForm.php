@@ -100,7 +100,7 @@ final class ProductManagementForm extends Form
         $this->description = $product->description;
         $this->seo = [
             'title' => $product->seo_title,
-            'description' => $product->seo_title,
+            'description' => $product->seo_description,
         ];
         $this->status = $product->status;
         $this->position = $product->position;
