@@ -164,11 +164,12 @@ final class Product extends Model
     }
 
     /**
-     * Resolve the model for route model binding by slug or slug_en.
+     * Resolve the model for route model binding by id, slug, or slug_en.
      */
     public function resolveRouteBinding($value, $field = null): ?self
     {
-        return $this->where('slug', $value)
+        return $this->where('id', $value)
+            ->orWhere('slug', $value)
             ->orWhere('slug_en', $value)
             ->first();
     }
