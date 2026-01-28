@@ -174,12 +174,12 @@ final class SubcategoryManagementForm extends Form
                 'background_image' => [
                     'es' => $this->upload([
                         'currentPath' => $this->subcategory?->background_image['es'] ?? null,
-                        'newFile' => $this->tmpImages['backgroundImage']['es'] ?? null,
+                        'newFile' => $this->tmpImages['background_image']['es'] ?? null,
                         'directory' => 'uploads/subcategories',
                     ]),
                     'en' => $this->upload([
                         'currentPath' => $this->subcategory?->background_image['en'] ?? null,
-                        'newFile' => $this->tmpImages['backgroundImage']['en'] ?? null,
+                        'newFile' => $this->tmpImages['background_image']['en'] ?? null,
                         'directory' => 'uploads/subcategories',
                     ]),
                 ],
