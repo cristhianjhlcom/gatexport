@@ -6,6 +6,7 @@ namespace App\Livewire\Admin\Subcategories;
 
 use App\Livewire\Forms\Admin\SubcategoryManagementForm;
 use App\Models\Category;
+use App\Models\Subcategory;
 use Exception;
 use Flux\Flux;
 use Livewire\Attributes\Layout;
@@ -21,6 +22,8 @@ final class SubcategoryCreateManagement extends Component
 
     public function save()
     {
+        $this->authorize('create', Subcategory::class);
+
         try {
             $this->form->store();
 
@@ -47,7 +50,7 @@ final class SubcategoryCreateManagement extends Component
 
     public function createAnother()
     {
-        $this->authorize('create', Category::class);
+        $this->authorize('create', Subcategory::class);
 
         try {
             $this->form->store();
