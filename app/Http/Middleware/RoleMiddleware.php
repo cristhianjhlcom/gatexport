@@ -18,11 +18,11 @@ final class RoleMiddleware
     public function handle(Request $request, Closure $next, $role, $permission = null): Response
     {
         if (! $request->user()->hasRole($role)) {
-            abort(404);
+            abort(403, 'Unauthorized action.');
         }
 
         if ($permission !== null && ! $request->user()->can($permission)) {
-            abort(404);
+            abort(403, 'Unauthorized action.');
         }
 
         return $next($request);
