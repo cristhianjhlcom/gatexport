@@ -49,7 +49,7 @@ final class CategoryEditManagement extends Component
 
     public function createAnother()
     {
-        $this->authorize('update', Category::class);
+        $this->authorize('create', Category::class);
 
         try {
             $this->form->update();
