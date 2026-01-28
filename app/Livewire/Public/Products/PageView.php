@@ -50,6 +50,7 @@ final class PageView extends Component
 
         $categories = Category::query()
             ->with('subcategories')
+            ->ordered()
             ->get();
 
         $details = Setting::getByLocale('product_page', app()->getLocale());
