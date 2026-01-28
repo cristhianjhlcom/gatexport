@@ -178,6 +178,18 @@ final class Category extends Model
             ->first();
     }
 
+    /**
+     * Resolve child route binding for scoped bindings (subcategories).
+     */
+    public function resolveChildRouteBinding($childType, $value, $field): ?Model
+    {
+        return $this->subcategories()
+            ->where('id', $value)
+            ->orWhere('slug', $value)
+            ->orWhere('slug_en', $value)
+            ->first();
+    }
+
     public function createdAtHuman(): string
     {
         return $this->created_at->locale('es')->diffForHumans();

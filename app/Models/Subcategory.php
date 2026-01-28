@@ -180,6 +180,18 @@ final class Subcategory extends Model
             ->first();
     }
 
+    /**
+     * Resolve child route binding for scoped bindings (products).
+     */
+    public function resolveChildRouteBinding($childType, $value, $field): ?Model
+    {
+        return $this->products()
+            ->where('id', $value)
+            ->orWhere('slug', $value)
+            ->orWhere('slug_en', $value)
+            ->first();
+    }
+
     public function createdAtHuman(): string
     {
         return $this->created_at->locale('es')->diffForHumans();
