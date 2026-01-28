@@ -24,7 +24,7 @@ final class CategoryIndexManagement extends Component
         try {
             $categories = Category::with(['subcategories'])
                 ->withCount(['subcategories'])
-                ->latest()
+                ->ordered()
                 ->paginate(10);
 
             return view('livewire.admin.categories.index')

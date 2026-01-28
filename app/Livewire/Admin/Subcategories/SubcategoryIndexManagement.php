@@ -20,7 +20,7 @@ final class SubcategoryIndexManagement extends Component
     {
         $subcategories = Subcategory::with('category')
             ->withCount('products')
-            ->latest()
+            ->ordered()
             ->paginate(10);
 
         return view('livewire.admin.subcategories.index')->with([
