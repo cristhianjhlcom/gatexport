@@ -60,17 +60,41 @@ Ejecuta las tareas de optimización para producción:
 - Limpieza y regeneración de caché
 - Reinicio de workers de cola
 
-### Despliegue via FTP
+## Deployment Steps
+
+### Step 1: Enable Maintenance Mode
+
 ```bash
-./bin/ftp-deploy.sh
+php artisan down --secret="your-secret-token"
 ```
-Compila assets, instala dependencias y sube los archivos al servidor FTP. Requiere configurar en `.env`:
-```env
-FTP_HOST=ftp.example.com
-FTP_USER=usuario
-FTP_PASS=contraseña
-FTP_PORT=21
-FTP_REMOTE_PATH=/public_html
+
+### Step 2: Run Database Migration
+
+```bash
+php artisan migrate --force
+```
+
+### Step 3: Clear Application Cache
+
+```bash
+php artisan config:clear
+php artisan cache:clear
+php artisan view:clear
+php artisan route:clear
+```
+
+### Step 4: Rebuild Cache (Production)
+
+```bash
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+```
+
+### Step 5: Disable Maintenance Mode
+
+```bash
+php artisan up
 ```
 
 ## Características
@@ -143,16 +167,6 @@ FTP_REMOTE_PATH=/public_html
 URLs de referencia:
 - Contacts: `https://app.hubspot.com/contacts/<USER_ID>/objects/0-1/views/all/list`
 - Leads: `https://app.hubspot.com/contacts/<USER_ID>/objects/0-3/views/all/board`
-
-## Estructura de Datos
-
-| Entidad | Campos |
-|---------|--------|
-| Categoría | name, image, position |
-| Subcategoría | name, image, position, category_id |
-| Producto | name, description, images (hasta 4), specifications, position |
-| Blog | title, image, content |
-| Banner | image, position |
 
 ## Desarrollo
 
