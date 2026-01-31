@@ -25,7 +25,7 @@ Route::get('/localization/{locale}', LocalizationUpdateController::class)->name(
 Route::get('/about-us', AboutUsIndexController::class)->name('about-us.index');
 Route::get('/services', ServicesIndexController::class)->name('services.index');
 Route::get('/blog', ArticleIndexController::class)->name('articles.index');
-Route::get('/blog/{slug}', ArticleShowController::class)->name('articles.show');
+Route::get('/blog/{id}', ArticleShowController::class)->name('articles.show');
 // Route::get('/catalogs', CatalogFileIndexController::class)->name('catalogs.index');
 Route::get('/products', ProductsPageView::class)->name('products.index');
 Route::get('/categories', CategoryIndexController::class)->name('categories.index');

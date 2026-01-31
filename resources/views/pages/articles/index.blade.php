@@ -46,7 +46,7 @@
 
                   <a
                     class="text-primary-400 flex items-center gap-4 font-extrabold"
-                    href="{{ $article['slug'] }}"
+                    href="{{ route('articles.show', $article['id']) }}"
                     title="{{ $article['title'] }}"
                   >
                     <span>{{ __('pages.articles.read_more') }}</span>

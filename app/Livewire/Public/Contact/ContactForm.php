@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Livewire\Public\Contact;
 
-use App\Actions\HubSpot\CreateOrUpdateContact;
 use App\Enums\RolesEnum;
 use App\Models\User;
 use App\Notifications\ContactRequest;
+use App\Services\HubSpot\HubSpotService;
 use Exception;
 use Flux\Flux;
 use Illuminate\Support\Facades\Notification;
@@ -30,12 +30,12 @@ final class ContactForm extends Component
         $this->name = str()->title($name);
     }
 
-    public function submit(CreateOrUpdateContact $createOrUpdateContact)
+    public function submit(HubSpotService $hubspot)
     {
         $validated = $this->validate();
 
         try {
-            $createOrUpdateContact($validated);
+            $hubspot->createOrGetContact($validated);
 
             $users = User::role([RolesEnum::SUPER_ADMIN->value])->get();
 

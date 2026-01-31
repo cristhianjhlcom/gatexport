@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Livewire\Public\Products;
 
-use App\Actions\Sales\CreateHubspotDeal;
 use App\Enums\RolesEnum;
 use App\Models\Product;
 use App\Models\User;
 use App\Notifications\ProductInquiryReceived;
+use App\Services\HubSpot\HubSpotService;
 use Exception;
 use Flux\Flux;
 use Illuminate\Support\Facades\Notification;
@@ -41,7 +41,7 @@ final class BuyButton extends Component
         $this->lastName = str()->title($this->lastName);
     }
 
-    public function createOrder(CreateHubspotDeal $createHubspotDeal)
+    public function createOrder(HubSpotService $hubspot)
     {
         $validated = $this->validate();
 
@@ -50,10 +50,11 @@ final class BuyButton extends Component
                 'product_name' => $this->product->localizedName,
                 'product_url' => $this->product->showUrl,
             ];
-
-            $data = array_merge($validated, ['interest' => $interest]);
-
-            $createHubspotDeal($data);
+            // $contactId = $hubspot->createOrGetContact($validated);
+            $hubspot->createDeals([
+                'payload' => $validated,
+                'interest' => $interest,
+            ]);
 
             $users = User::role([RolesEnum::SUPER_ADMIN->value])->get();
 
