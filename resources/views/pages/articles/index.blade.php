@@ -32,7 +32,7 @@
                   {{ $article['title'] }}
                 </h2>
                 <p class="md:text-md text-sm font-medium leading-relaxed text-zinc-500">
-                  {!! $article['summary'] !!}
+                  {!! $article['meta_description'] !!}
                 </p>
               </div>
 
