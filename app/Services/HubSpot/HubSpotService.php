@@ -65,14 +65,14 @@ final class HubSpotService
 
             return collect($results)->map(fn ($item) => [
                 'id' => $item['id'] ??= '',
-                'meta_description' => $item['meta_description'] ??= '',
+                'meta_description' => $item['metaDescription'] ??= '',
                 'title' => $item['name'] ??= '',
                 'content' => $item['postBody'] ??= '',
                 'summary' => $item['postSummary'] ??= '',
                 'thumbnail' => $item['featuredImage'] ??= '',
                 'is_published' => $item['publishImmediately'] ??= false,
                 'slug' => $item['slug'] ??= '',
-                'published_at' => Carbon::createFromTimestampMs($item['publishDate'])->diffForHumans(),
+                'published_at' => Carbon::parse($item['publishDate'])->locale('es')->diffForHumans(),
             ]);
         } catch (Exception $error) {
             Log::error('[HubSpotService] getListingArticles() Failed', [
@@ -118,7 +118,7 @@ final class HubSpotService
                 'is_published' => $item['publishImmediately'] ??= false,
                 'slug' => $item['slug'] ??= '',
                 'canonical_url' => route('articles.show', $item['id']),
-                'published_at' => Carbon::createFromTimestampMs($item['publishDate'])->diffForHumans(),
+                'published_at' => Carbon::parse($item['publishDate'])->locale('es')->diffForHumans(),
             ];
         } catch (Exception $error) {
             Log::error('[HubSpotService] getSingleArticle() Failed', [
