@@ -15,7 +15,7 @@
             src="{{ $product->firstImage }}"
           >
         @else
-          <div class="flex h-[230px] w-full items-center justify-center rounded-sm border border-gray-50 bg-gray-50">
+          <div class="flex aspect-square w-full items-center justify-center rounded-sm border border-gray-50 bg-gray-50">
             <h4 class="flex items-center gap-x-4 text-xl font-bold text-gray-300">
               <flux:icon class="size-8" name="photo" />
               No Image
@@ -74,7 +74,7 @@
           src="{{ $product->firstImage }}"
         >
       @else
-        <div class="flex h-[230px] w-full items-center justify-center rounded-sm border border-gray-50 bg-gray-50">
+        <div class="flex aspect-square w-full items-center justify-center rounded-sm border border-gray-50 bg-gray-50">
           <h4 class="flex items-center gap-x-4 text-xl font-bold text-gray-300">
             <flux:icon class="size-8" name="photo" />
             No Image

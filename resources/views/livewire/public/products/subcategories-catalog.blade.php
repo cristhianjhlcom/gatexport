@@ -54,7 +54,7 @@
           </div>
         </header>
 
-        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3" x-cloak x-show="view === 'grid'" x-transition>
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3" x-show="view === 'grid'" x-transition>
           @forelse ($products as $product)
             <x-common.product-card :$product />
           @empty
