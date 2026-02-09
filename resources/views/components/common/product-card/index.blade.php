@@ -65,7 +65,7 @@
 @else
   @if ($product)
     <article
-      class="group min-h-[480px] overflow-hidden rounded-2xl transition-all duration-300 hover:-translate-y-2 hover:rounded-none hover:shadow-lg"
+      class="group overflow-hidden rounded-2xl transition-all duration-300 hover:-translate-y-2 hover:rounded-none hover:shadow-lg"
     >
       @if ($product->firstImage)
         <img
@@ -97,7 +97,7 @@
         </div>
 
         <a
-          class="bg-primary-500 rounded-4xl flex items-center justify-center gap-4 px-4 py-2 text-center text-white md:hidden group-hover:md:flex"
+          class="bg-primary-500 rounded-4xl flex items-center justify-center gap-4 px-4 py-2 text-center text-white md:opacity-0 md:pointer-events-none group-hover:md:opacity-100 group-hover:md:pointer-events-auto transition-opacity duration-300"
           data-button
           href="{{ $product->showUrl }}"
         >
