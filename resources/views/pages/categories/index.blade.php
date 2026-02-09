@@ -45,11 +45,20 @@
                   wire:navigate
                 >
                   <article class="bg-primary-100 flex flex-col items-start justify-center overflow-hidden rounded-sm">
-                    <img
-                      alt="{{ $subcategory->localizedName }}"
-                      class="aspect-square h-auto w-full object-contain"
-                      src="{{ $subcategory->imageUrl }}"
-                    >
+                    @if ($subcategory->imageUrl)
+                      <img
+                        alt="{{ $subcategory->localizedName }}"
+                        class="aspect-square h-auto w-full object-contain"
+                        src="{{ $subcategory->imageUrl }}"
+                      >
+                    @else
+                      <div class="flex aspect-square w-full items-center justify-center">
+                        <h4 class="flex items-center gap-x-4 text-xl font-bold text-gray-300">
+                          <flux:icon class="size-8" name="photo" />
+                          No Image
+                        </h4>
+                      </div>
+                    @endif
                     <h2>
                       <flux:heading class="text-primary-700 p-2 text-center text-sm font-semibold">
                         {{ $subcategory->localizedName }}
